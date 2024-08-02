@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update</h1>
+<p class="date">2024 Aug 02</p>
+</header>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#new-test-suite">New Test Suite</a></li>
+<li><a href="#differentiating-through-odes">Differentiating Through
+ODEs</a></li>
+<li><a href="#other-thoughtsexplorations">Other
+Thoughts/Explorations</a></li>
+<li><a href="#looking-forward">Looking Forward</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<p><a href=".."><em>&lt;&lt; Back to Homepage</em></a></p>
+<h2 id="introduction">Introduction</h2>
+<p>The main action items from last meeting were:</p>
+<ol type="1">
+<li>Create new test suite</li>
+<li>V-PRISM presentation</li>
+<li>More research into differentiating through ODEs</li>
+</ol>
+<p>Below, 1 and 3 are covered. The V-PRISM presentation can be found <a
+href="https://herb-wright.github.io/presentations/vprism_iros/#/title-slide">here</a></p>
+<h2 id="new-test-suite">New Test Suite</h2>
+<h3 id="d-examples">2D Examples</h3>
+<p>Below are examples from the three 2D example datasets from last time.
+Optimization didn’t really change the ln prob very much, and
+improvements are minimal.</p>
+<p><strong>Hourglass</strong></p>
+<p><img src="./fake_2d_data_hourglass.png" /></p>
+<p>Before:</p>
+<p><img src="./physics_before_1.gif" /></p>
+<p>After:</p>
+<p><img src="./physics_after_1.gif" /></p>
+<p><strong>Square</strong></p>
+<p><img src="./fake_2d_data_square.png" /></p>
+<p>Before:</p>
+<p><img src="./physics_before_2.gif" /></p>
+<p>After:</p>
+<p><img src="./physics_after_2.gif" /></p>
+<p><strong>Circle</strong></p>
+<p><img src="./fake_2d_data_circle.png" /></p>
+<p>Before:</p>
+<p><img src="./physics_before_3.gif" /></p>
+<p>After:</p>
+<p><img src="./physics_after_3.gif" /></p>
+<p><strong>My Takeaway:</strong> The optimization is not well-behaved
+and results aren’t good. Perhaps possible solutions discussed in
+following sections could be used.</p>
+<h3 id="d-examples-1">3D Examples</h3>
+<p>In order for the 3D examples to work, I need to extend my code to
+handle contacts and dynamics in 3D. I have written some code for this,
+but it isn’t working yet. But I have been learning about stuff like
+this:</p>
+<ul>
+<li>spatial vectors (twist/wrench) - <a
+href="http://royfeatherstone.org/spatial/">cool resource</a></li>
+<li>storing rotations as quaternions</li>
+<li>how <a href="https://github.com/NVIDIA/warp">NVIDIA’s warp</a> does
+things</li>
+</ul>
+<p>I still need to fix it in order to visualize the 3D examples</p>
+<h2 id="differentiating-through-odes">Differentiating Through ODEs</h2>
+<h3 id="mathematical-formulation">Mathematical Formulation</h3>
+<p>Consider we have an ODE dynamic system conditioned on some parameter
+<span class="math inline">w</span>: <span class="math display">
+\frac{ds}{dt} = f(s; w) </span> And we define some loss function on a
+future state of <span class="math inline">x</span>: <span
+class="math display"> L(s_T) = L\left(s_0 + \int_0^T f(s_t; w) dt\right)
+</span> Then we would like to calculate the gradients of <span
+class="math inline">L</span> in a stable way: <span
+class="math inline">\nabla_w L</span>.</p>
+<h3 id="neural-odes">Neural ODEs</h3>
+<p>Neural ODEs <span class="citation"
+data-cites="chen2018neural">[1]</span> are a type of neural network,
+where the network defines the velocity of some state (ODE) (in above
+formulation, <span class="math inline">f</span> is a neural network) and
+the output is generated by starting at an input and running the ODE
+forward for a fixed time interval. In the original paper <span
+class="citation" data-cites="chen2018neural">[1]</span> gradients were
+calculated using the <em>adjoint sensitivity method</em>, which computes
+gradients by solving a second ODE.</p>
+<p><strong>Adjoint Sensitivity Method:</strong> The <em>Adjoint</em> of
+<span class="math inline">L</span> is defined as <span
+class="math inline">a(t) = \partial L / \partial s_t</span>, which is
+used to write the gradient <span class="math inline">\nabla_s L</span>
+as the following: <span class="math display"> \frac{dL}{dw} = \int_T^0
+a(t)^\top \frac{\partial f(s_t; w)}{\partial w} dt </span> Note that the
+integral operands are switched. In practice, an ODE solve during the
+backward pass was used to calculate this.</p>
+<p>The reasons given for using this method were as opposed to
+differentiating the integration operations directly were:</p>
+<ul>
+<li>Lower memory cost</li>
+<li>Less numerical error</li>
+</ul>
+<p><strong>Implementation:</strong> The code was implemented in the
+<code>torchdiffeq</code> package.</p>
+<ul>
+<li>You can pip install it: <code>pip install torchdiffeq</code></li>
+<li>Contains a PyTorch implementation of the adjoint sensitivity
+method</li>
+</ul>
+<p><strong>Other Stuff:</strong></p>
+<ul>
+<li><span class="citation" data-cites="kim2021stiff">[2]</span> examines
+stiffness in the Neural ODE setting</li>
+<li>This paper by William: <span class="citation"
+data-cites="zhi2022learning">[3]</span></li>
+</ul>
+<h3 id="with-respect-to-differentiable-physics">With Respect to
+Differentiable Physics</h3>
+<blockquote>
+<p>“Works that utilize the penalty method approximate contact behavior
+at each timestep with forces from stiff spring and dampers. While the
+method can approximate a wide range of contact behavior such as impact,
+the dynamics often results in a stiff ODE, which requires small
+timesteps to approximate well” (from <span class="citation"
+data-cites="suh2022bundled">[4]</span>)</p>
+</blockquote>
+<p>The soft/compliant contact model that I am using (which is similar to
+<span class="citation" data-cites="geilinger2020add xuaccelerated">[5],
+[6]</span>) can become a “stiff” ODE with the wrong parameters <span
+class="citation" data-cites="suh2022differentiable suh2022bundled">[4],
+[7]</span>. A stiff ODE means that integrating “naively” will only be
+stable for very small time steps. In our case, it is shown that with a
+damped spring, this is correlated to the actual stiffness of the spring
+<span class="citation" data-cites="suh2022differentiable">[7]</span>.
+Such stiffness results in high-variance gradients. Stiffness is clearly
+a problem if we encounter it, but it seems that if the physics
+parameters are set correctly, stiffness is less likely to occur.</p>
+<p><strong>My Takeaway:</strong> We should battle stiffness with
+hyperparameter tuning with respect to the physics before reaching for
+adjoint sensitivity method.</p>
+<p><em>Also Interesting:</em> Some non-compliant formulations of
+differentiable physics make use of the <em>adjoint method</em> (which I
+think is substantively different from adjoint sensitivity method) for
+calculating gradients, such as <span class="citation"
+data-cites="qiao2021efficient">[8]</span></p>
+<h2 id="other-thoughtsexplorations">Other Thoughts/Explorations</h2>
+<h3 id="contact-smoothing-for-differentiable-physics">Contact Smoothing
+for Differentiable Physics</h3>
+<p><strong>Why Smooth Contact Dynamics:</strong> Differentiable physics
+formulations (specifically the penalty method I am exploring) can run
+into various problems/issues when their gradients are used for
+optimization or other tasks. Here are a few:</p>
+<ul>
+<li><em>High variance of gradients:</em> the penalty method can result
+in a “stiff” ODE <span class="citation"
+data-cites="suh2022bundled suh2022differentiable">[4], [7]</span>, which
+can result in high variance of gradients when computed through an
+integrator</li>
+<li><em>High variance of gradients:</em> backpropogating through a
+chaotic dynamics system can cause high variance and explosion in
+gradients as argued in <span class="citation"
+data-cites="metz2021gradients">[9]</span>.</li>
+<li><em>Discontinuities from contact:</em> unless dealt with, most
+formulations of physics result in abrupt discontintuities from contact
+<span class="citation" data-cites="suh2022bundled pang2023global">[4],
+[10]</span>. Our formulation is no exception <span class="citation"
+data-cites="schwarke2024learning">[11]</span>.</li>
+</ul>
+<p>Adding smoothing, or stochasticity has been shown to deal with these
+problems <span class="citation"
+data-cites="pang2023global metz2021gradients">[9], [10]</span>. Contact
+smoothing, specifically, smooths over contact nodes, which can be
+interpreted as contacts exhibiting a slight force at distance. In <span
+class="citation" data-cites="pang2023global">[10]</span>, an equivalence
+is shown between randomized smoothing and analytic smooth
+surrogates.</p>
+<p><strong>How to Smooth Penalty Method:</strong> The penalty method
+that I am using has the following formulation for force: <span
+class="math display"> f_n = \begin{cases} -k_e \max(0, d) + k_d \dot d,
+&amp; d \leq 0 \\ 0, &amp; d &gt; 0 \end{cases} </span> <span
+class="math display"> f_t = \frac{v_t}{\|v_t\|} \min(k_t \| v_t \|, \mu
+\|f_n\|) </span> We can likely smooth just by replacing the <span
+class="math inline">\min, \max</span> functions with smooth surrogates.
+There is still a discontinuity from the <span class="math inline">k_d
+\dot d</span> term as pointed out in <span class="citation"
+data-cites="schwarke2024learning">[11]</span>. This can simply be
+replaced with a Sigmoid function.</p>
+<p><em>Note:</em> Smoothing will likely not solve everything. We still
+want to avoid “stiff” formulations <span class="citation"
+data-cites="suh2022differentiable">[7]</span>, and running for long time
+horizons can also create problems <span class="citation"
+data-cites="xuaccelerated">[6]</span>. <em>Hyperparameter tuning will be
+necessary.</em></p>
+<p><strong>My Takeaway:</strong> Contact smoothing could be an avenue
+worth exploring, but some hyperparameter tuning is required.</p>
+<h3 id="thinking-about-better-priors-for-hilbert-maps">Thinking About
+Better Priors for Hilbert Maps</h3>
+<p>I can think of a few ways to implement learned priors into Bayesian
+Hilbert Maps. Here are some:</p>
+<ol type="1">
+<li>Have a generative model that you can draw samples from
+(i.e. variational autoencoder; diffusion model, etc) into the weight
+space</li>
+<li>Have a model that, given an observation, outputs a Gaussian Mixture
+model, then we can do the Bayesian update with the GMM as a prior</li>
+<li>Take off the shelf deterministic reconstruction network and just
+center a Gaussian there</li>
+</ol>
+<p>Here is a visual about how different flows might go:</p>
+<p><img src="./learned_priors.png" /></p>
+<p>Alternatively, we could introduce the neural network by:</p>
+<ul>
+<li>Use learned feature transform and activation?
+<ul>
+<li>Instead of <span class="math inline">\sigma(w^\top \phi(x))</span>
+w/ hinge point <span class="math inline">\phi</span>, replace <span
+class="math inline">\phi, \sigma</span> with neural networks</li>
+</ul></li>
+</ul>
+<p>There also maybe there are other ways to get priors beyond just
+predicting into weight space?</p>
+<h3 id="thoughts-from-osu-meeting">Thoughts from OSU Meeting</h3>
+<p>link to slides: <a
+href="https://herb-wright.github.io/presentations/vprism_iros/">V-PRISM
+IROS slides</a></p>
+<ul>
+<li><strong>Hooking up the learned physics model might be
+promising</strong></li>
+<li>It might make sense to take a look at what Wesley has working
+<ul>
+<li>It seemed like he had a few tricks that might be directly applicable
+to our mapping task</li>
+</ul></li>
+</ul>
+<p><strong>Question:</strong> How was the presentation overall? Was
+timing OK? What should be added/removed?</p>
+<h2 id="looking-forward">Looking Forward</h2>
+<p>Looking forward I want to do the following next week:</p>
+<ul>
+<li>Finish up 3D test suite examples</li>
+<li>Implement Smoothing?</li>
+</ul>
+<p><strong>Other Questions:</strong></p>
+<ul>
+<li>What should I focus on?</li>
+</ul>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-chen2018neural" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">R.
+T. Chen, Y. Rubanova, J. Bettencourt, and D. K. Duvenaud, <span>“Neural
+ordinary differential equations,”</span> <em>Advances in neural
+information processing systems</em>, vol. 31, 2018.</div>
+</div>
+<div id="ref-kim2021stiff" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">S.
+Kim, W. Ji, S. Deng, Y. Ma, and C. Rackauckas, <span>“Stiff neural
+ordinary differential equations,”</span> <em>Chaos: An Interdisciplinary
+Journal of Nonlinear Science</em>, vol. 31, no. 9, 2021.</div>
+</div>
+<div id="ref-zhi2022learning" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">W.
+Zhi, T. Lai, L. Ott, E. V. Bonilla, and F. Ramos, <span>“Learning
+efficient and robust ordinary differential equations via invertible
+neural networks,”</span> in <em>International conference on machine
+learning</em>, 2022, pp. 27060–27074.</div>
+</div>
+<div id="ref-suh2022bundled" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">H.
+J. T. Suh, T. Pang, and R. Tedrake, <span>“Bundled gradients through
+contact via randomized smoothing,”</span> <em>IEEE Robotics and
+Automation Letters</em>, vol. 7, no. 2, pp. 4000–4007, 2022.</div>
+</div>
+<div id="ref-geilinger2020add" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">M.
+Geilinger, D. Hahn, J. Zehnder, M. Bächer, B. Thomaszewski, and S.
+Coros, <span>“Add: Analytically differentiable dynamics for multi-body
+systems with frictional contact,”</span> <em>ACM Transactions on
+Graphics (TOG)</em>, vol. 39, no. 6, pp. 1–15, 2020.</div>
+</div>
+<div id="ref-xuaccelerated" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">J.
+Xu, V. Makoviychuk, Y. Narang, F. Ramos, W. Matusik, A. Garg, and M.
+Macklin, <span>“Accelerated policy learning with parallel differentiable
+simulation,”</span> in <em>International conference on learning
+representations</em>.</div>
+</div>
+<div id="ref-suh2022differentiable" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">H.
+J. Suh, M. Simchowitz, K. Zhang, and R. Tedrake, <span>“Do
+differentiable simulators give better policy gradients?”</span> in
+<em>International conference on machine learning</em>, 2022, pp.
+20668–20696.</div>
+</div>
+<div id="ref-qiao2021efficient" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div
+class="csl-right-inline">Y.-L. Qiao, J. Liang, V. Koltun, and M. C. Lin,
+<span>“Efficient differentiable simulation of articulated
+bodies,”</span> in <em>International conference on machine
+learning</em>, 2021, pp. 8661–8671.</div>
+</div>
+<div id="ref-metz2021gradients" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">L.
+Metz, C. D. Freeman, S. S. Schoenholz, and T. Kachman, <span>“Gradients
+are not all you need,”</span> <em>arXiv preprint arXiv:2111.05803</em>,
+2021.</div>
+</div>
+<div id="ref-pang2023global" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">T.
+Pang, H. T. Suh, L. Yang, and R. Tedrake, <span>“Global planning for
+contact-rich manipulation via local smoothing of quasi-dynamic contact
+models,”</span> <em>IEEE Transactions on robotics</em>, 2023.</div>
+</div>
+<div id="ref-schwarke2024learning" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">C.
+Schwarke, V. Klemm, J. Tordesillas, J.-P. Sleiman, and M. Hutter,
+<span>“Learning quadrupedal locomotion via differentiable
+simulation,”</span> <em>arXiv preprint arXiv:2404.02887</em>,
+2024.</div>
+</div>
+</div>
+</body>
+</html>
