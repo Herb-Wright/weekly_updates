@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Aug 09</p>
+</header>
+<p><a href=".."><em>&lt;&lt; Back</em></a></p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#gmm-prior">GMM Prior</a></li>
+<li><a href="#recap-encorporating-a-learning-based-approach">Recap:
+Encorporating a Learning-Based Approach</a></li>
+<li><a href="#formulation-of-deepsdf-idea">Formulation of DeepSDF
+Idea</a></li>
+<li><a href="#looking-forward">Looking Forward</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>The plan from last week was to do the following:</p>
+<ol type="1">
+<li>Get a GMM prior working (basic example)</li>
+<li>Research more into ways to incorporate learned info/priors</li>
+<li>Look into a new kernel for Stein</li>
+<li>Figure out stuff for new semester</li>
+</ol>
+<p>The <a href="#gmm-prior">GMM Prior</a> section covers 1, the <a
+href="#recap-encorporating-a-learning-based-approach">Recap:
+Encorporating a Learning-Based Approach</a> section kind of covers 2,
+and the <a href="#shape-space-kernel">Shape-space Kernel</a> subsection
+covers 3.</p>
+<h2 id="gmm-prior">GMM Prior</h2>
+<h3 id="overview-of-the-method">Overview of the Method</h3>
+<p><img src="./gmm_fig.png" /></p>
+<p><strong>At a High Level:</strong> The basic idea (for this week’s
+simple example) is that a GMM prior will be computed offline from some
+primitive reconstructions of boxes, then incorporated into a similar EM
+algorithm as original BHM paper <span class="citation"
+data-cites="senanayake2017bayesian">[1]</span>. Then, the idea is to
+test on some simple scenes of a couple YCB objects.</p>
+<p><strong>BHM Updates with GMM Prior:</strong> The original BHM update
+does 2 things:</p>
+<ol type="1">
+<li>Variationally approximate the likelihood <span
+class="math inline">Q(D | w; \xi) \approx P(D | w)</span></li>
+<li>Update the posterior by Gaussian-Gaussian conjugate
+relationship</li>
+</ol>
+<p>In order to extend to GMM, we can keep step 1 the same, but step 2
+must be updated. We then have a problem of calculating: <span
+class="math display"> \hat P(w | D) \propto Q(D| w; \xi) P(w) </span>
+Where <span class="math inline">P(w)</span> is a GMM and <span
+class="math inline">Q(D|w;\xi)</span> is a Gaussian. Because a GMM is
+just a mixture of Gaussians, we can express: <span class="math display">
+P(w) = \sum_{i=1}^k \beta_i P_i(w) </span> For each Gaussian component
+<span class="math inline">P_i</span> with weight <span
+class="math inline">\beta_i</span>. Then, we can split up the
+computation of <span class="math inline">\hat P (w | D)</span>, to
+consider each component separately. Then, we would only need to figure
+out what the weights would need to be updated to. From Sec. 8.1.8 of
+<span class="citation" data-cites="petersen2008matrix">[2]</span>, we
+know that two normal distributions times together have a combined
+integral of <span class="math display"> \int_{\mathbb R^n}
+p_1(x)p_2(x)dx = \text{det}\left(2\pi(\Sigma_1  +\Sigma_2)\right)
+^{-1/2} \text{exp} \left(-\frac{1}{2} (\mu_1 - \mu_2)^\top
+\left(\Sigma_1  +\Sigma_2\right)^{-1} (\mu_1 - \mu_2) \right) </span>
+Thus, if we let the above be denoted <span
+class="math inline">C_i</span> for update <span
+class="math inline">i</span>, we would have the following weight updates
+during step 2: <span class="math display"> \beta_i \gets \beta_i \cdot
+C_i </span> And then normalize all <span
+class="math inline">\beta_i</span> such that <span
+class="math inline">\sum_i \beta_i = 1</span>. We would do the same
+<span class="math inline">\hat \Sigma, \hat \mu</span> updates as
+described by <span class="citation"
+data-cites="jaakkola1997variational">[3]</span>.</p>
+<p><strong>Question:</strong> is this math sound?</p>
+<h3 id="the-prior-data">The Prior + Data</h3>
+<p><img src="./boxes.png" /></p>
+<p><img src="./weights_for_gmm.png" /></p>
+<p><img src="./gmm_samples.png" /></p>
+<h3 id="qualitative-results">Qualitative Results</h3>
+<p><strong>Scene 1: Mustard Bottle</strong></p>
+<p><img src="./mustard_rgb.jpg" /></p>
+<p><img src="./mustard.png" /></p>
+<p><strong>Scene 2: Can</strong></p>
+<p><img src="./can_rgb.jpg" /></p>
+<p><img src="./can.png" /></p>
+<p><strong>Scene 3: Banana</strong></p>
+<p><img src="./banana_rgb.jpg" /></p>
+<p><img src="./banana.png" /></p>
+<h3 id="discussion">Discussion</h3>
+<p>The reconstructions weren’t great. I even tried with a box that was
+in the training data and it didn’t really work. I also noticed two
+things that may point to something weird going on:</p>
+<ul>
+<li>Rounding to float32 from float64 causes covariance matrices in GMM
+to be not positive definite</li>
+<li>Whenever updates are performed with the GMM, there is very little
+overlap between the likelihood Gaussian distribution and the Gaussian
+distributions in the GMM prior</li>
+</ul>
+<p>As such, it might take some brainstorming about what to do about
+this. It could be a totally fixable problem, or something ingrained in
+the problem (i.e. the EM algorithm just isn’t good enough). If we wanted
+to continue this route and we get things working, then the obvious ways
+to extend this would be:</p>
+<ul>
+<li>More/better data</li>
+<li>More complicated prior</li>
+<li>Multiple objects</li>
+<li>Better way of generating prior</li>
+</ul>
+<p><strong>Question:</strong> what do we think I should do about
+this?</p>
+<p><strong>Question:</strong> do we think there is a better approach to
+this other than what I have right now?</p>
+<h2 id="recap-encorporating-a-learning-based-approach">Recap:
+Encorporating a Learning-Based Approach</h2>
+<h3 id="with-bayesian-hilbert-maps">With Bayesian Hilbert Maps</h3>
+<p>The general HM approach uses a prediction of the form <span
+class="math inline">\sigma (w^\top \phi(x))</span> where <span
+class="math inline">\phi</span> is a transform from hinge points and
+<span class="math inline">w</span> is modeled probabilistically. We
+discussed a few ways to incorporate learning into this method. Some of
+them were:</p>
+<ul>
+<li>Learn a mapping from data to Gaussian or weights via NN, then use
+that as a prior</li>
+<li>GMM Prior fit to a bunch of optimized weights (see above)</li>
+<li>We could replace <span class="math inline">\phi</span> with a neural
+network; would have to think about perturbations</li>
+<li>Potentially <span class="math inline">\sigma</span> could also be
+replaced with a neural network; we would lose the ability to do the EM
+algorithm, but other methods would still be available to us.</li>
+</ul>
+<p>Other things to note:</p>
+<ul>
+<li>If doing a learned approach, we could utilize RGB data as well.</li>
+</ul>
+<p><strong>Question:</strong> If we really wanted to go the learning
+approach, why wouldn’t we make the whole thing learning-based? We could
+still do optimization-based reconstruction; but have every part be
+learned?</p>
+<h3 id="other-notes">Other Notes</h3>
+<p>There are some approaches to probabilistic reconstruction with a
+focus on diversity that I have seen, here are a two:</p>
+<ul>
+<li>PSSNet <span class="citation"
+data-cites="saund2021diverse">[4]</span>: VAE that uses bounding boxes
+to help encourage diversity</li>
+<li>Wesley’s GAN from OSU <span class="citation"
+data-cites="khademi2024diverse">[5]</span>: A point cloud to point cloud
+GAN that uses a bunch discriminator stuff</li>
+</ul>
+<h2 id="formulation-of-deepsdf-idea">Formulation of DeepSDF Idea</h2>
+<h3 id="overview">Overview</h3>
+<p><img src="./deepsdf_idea_fig.png" /></p>
+<p>Last time I had an idea of converting DeepSDF <span class="citation"
+data-cites="park2019deepsdf">[6]</span> method into a probabilistic one.
+The main idea is that you could do the optimization with SVGD that uses
+a crafted “shape-space kernel”.</p>
+<p><em>Interesting:</em> there exists a method for using DeepSDF-like
+optimization but also capturing uncertainty (specifically for combining
+multiple frames with pose estimation) <span class="citation"
+data-cites="liao2023uncertainty">[7]</span>.</p>
+<p><strong>Question:</strong> I think this approach could be cool, but
+what do you guys think?</p>
+<h3 id="shape-space-kernel">Shape-space Kernel</h3>
+<p>We could consider constructing a kernel in a variety of ways. RBF
+kernels, which are most commonly used in SVGD <span class="citation"
+data-cites="liu2016stein">[8]</span>, rely on euclidean distance as so:
+<span class="math display"> k(x, y) = \text{exp}\left(-\gamma\| x - y
+\|^2\right) </span> I wonder if there is a way that you could replace
+the euclidean distance with a different kind of distance in order to
+have a better kernel. For example, one could consider a kernel between
+two “shapes” <span class="math inline">A, B</span>: <span
+class="math display"> k(A, B) = \text{exp}\left( - \gamma d(A, B)
+\right) </span> Our kernel from latent vectors <span
+class="math inline">x, y</span> could be created from our shape kernel:
+<span class="math display"> k(x, y) = k(S(x), S(y)), </span> where <span
+class="math inline">S</span> maps a latent vector to a “shape”. If this
+shape is an occupancy probability map we could consider the following
+distance: <span class="math display"> d(m_1, m_2) = \int_\mathbb w(x)
+|m_1(x) - m_2(x)| dx, </span> where <span
+class="math inline">w(x)</span> is a weight in order to ensure our
+integral is bounded. This, however, might not be an amazing kernel for a
+couple reasons, so perhaps we could look at:</p>
+<p><strong>Chamfer Distance:</strong> consider a kernel where <span
+class="math inline">d</span> is the Chamfer distance between points on
+the isosurface of the two shapes. Then we could construct a kernel with
+this. Hausdorff could also be used. However, these also have their
+problems:</p>
+<p><strong>Another Idea:</strong> we could also go the metric learning
+route and use a learning based kernel. We could have some sort of
+function that takes either the latent vector or some other
+representation and predicts a similarity or distance. I think this could
+be promising, but would take some thought.</p>
+<p><strong>Problems:</strong> In order for SVGD to work, the kernel
+needs to satisfy a couple properties:</p>
+<ul>
+<li>Be positive definite</li>
+<li>Satisfy some boundary conditions, like <span
+class="math inline">k(x, y) \rightarrow 0</span> as <span
+class="math inline">\|x\| \rightarrow \infty</span>.</li>
+</ul>
+<p>Unfortunately, I think there are a few things that violate these
+assumptions:</p>
+<ul>
+<li>Using a shape mapping, <span class="math inline">S</span>, can cause
+problems if it is a bad mapping</li>
+<li>Chamfer distance is not a true distance, so it doesn’t necessarily
+mean everything works</li>
+</ul>
+<p><strong>Question:</strong> Is there some math I should look up / read
+in order to explore this more?</p>
+<p><em>Note:</em> just putting this here; I haven’t had time to read it
+really, but I found a paper that talks about extending SVGD to
+high-dimensional tasks that compares SVGD to GAN on CIFAR10 and MNIST.
+The paper is <span class="citation"
+data-cites="chang2020kernel">[9]</span></p>
+<h2 id="looking-forward">Looking Forward</h2>
+<p>Looking forward I would like to work on:</p>
+<ul>
+<li>Formulating a way to incorporate data that could be scaled and
+create better reconstructions</li>
+<li>Trying to get a working simple demo</li>
+</ul>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-senanayake2017bayesian" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">R.
+Senanayake and F. Ramos, <span>“Bayesian hilbert maps for dynamic
+continuous occupancy mapping,”</span> in <em>Conference on robot
+learning</em>, 2017, pp. 458–471.</div>
+</div>
+<div id="ref-petersen2008matrix" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">K.
+B. Petersen, M. S. Pedersen, and others, <span>“The matrix
+cookbook,”</span> <em>Technical University of Denmark</em>, vol. 7, no.
+15, p. 510, 2008.</div>
+</div>
+<div id="ref-jaakkola1997variational" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">T.
+S. Jaakkola and M. I. Jordan, <span>“A variational approach to bayesian
+logistic regression models and their extensions,”</span> in <em>Sixth
+international workshop on artificial intelligence and statistics</em>,
+1997, pp. 283–294.</div>
+</div>
+<div id="ref-saund2021diverse" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">B.
+Saund and D. Berenson, <span>“Diverse plausible shape completions from
+ambiguous depth images,”</span> in <em>Conference on robot
+learning</em>, 2021, pp. 1802–1813.</div>
+</div>
+<div id="ref-khademi2024diverse" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">W.
+Khademi and F. Li, <span>“Diverse shape completion via style modulated
+generative adversarial networks,”</span> <em>Advances in Neural
+Information Processing Systems</em>, vol. 36, 2024.</div>
+</div>
+<div id="ref-park2019deepsdf" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">J.
+J. Park, P. Florence, J. Straub, R. Newcombe, and S. Lovegrove,
+<span>“Deepsdf: Learning continuous signed distance functions for shape
+representation,”</span> in <em>Proceedings of the IEEE/CVF conference on
+computer vision and pattern recognition</em>, 2019, pp. 165–174.</div>
+</div>
+<div id="ref-liao2023uncertainty" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">Z.
+Liao, J. Yang, J. Qian, A. P. Schoellig, and S. L. Waslander,
+<span>“Uncertainty-aware 3D object-level mapping with deep shape
+priors,”</span> <em>arXiv preprint arXiv:2309.09118</em>, 2023.</div>
+</div>
+<div id="ref-liu2016stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">Q.
+Liu and D. Wang, <span>“Stein variational gradient descent: A general
+purpose bayesian inference algorithm,”</span> <em>Advances in neural
+information processing systems</em>, vol. 29, 2016.</div>
+</div>
+<div id="ref-chang2020kernel" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div
+class="csl-right-inline">W.-C. Chang, C.-L. Li, Y. Mroueh, and Y. Yang,
+<span>“Kernel stein generative modeling,”</span> <em>arXiv preprint
+arXiv:2007.03074</em>, 2020.</div>
+</div>
+</div>
+</body>
+</html>
