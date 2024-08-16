@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Aug 16</p>
+</header>
+<p><a href=".."><em>&lt;&lt; Back</em></a></p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#small-hyperparameter-tests">Small Hyperparameter
+Tests</a></li>
+<li><a href="#visualizing-the-gmm">Visualizing The GMM</a></li>
+<li><a href="#thoughts-on-learning-a-feature-representation">Thoughts on
+Learning a Feature Representation</a></li>
+<li><a href="#svgd-new-feature-representations">SVGD + New Feature
+Representations</a></li>
+<li><a href="#hacking-binary-into-multiclass">Hacking Binary into
+Multiclass</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>Last time, I had the following action items:</p>
+<ol type="1">
+<li>Visualize the GMM prior (eigenvectors, means, determinants)</li>
+<li>Use GMM prior + SVGD</li>
+<li>Look into different feature representations, etc.</li>
+</ol>
+<p>This write-up starts by doing a few hyperparameter adjustments to the
+stuff that I had set up from last time. Then, tackles each of the 3
+action items.</p>
+<h2 id="small-hyperparameter-tests">Small Hyperparameter Tests</h2>
+<h3 id="overview">Overview</h3>
+<p><img src="./gmm_fig.png" /></p>
+<p>Above is the method used last time; which is also used in these
+hyperparameter tests. There were a few suggestions from last time such
+as the kernel type, hinge point alignment, reconstructing a box instead
+of an object</p>
+<h3 id="test-1">Test 1</h3>
+<p><img src="./gaussian_hinge_points_aligned.png" /></p>
+<ul>
+<li>Gaussian Kernel</li>
+<li>More Hinge Points</li>
+<li>Gravity-Aligned Hinge Points</li>
+<li>More Data During GMM creation</li>
+</ul>
+<h3 id="test-2">Test 2</h3>
+<p><img src="./laplacian_widened.png" /></p>
+<ul>
+<li>Everything from Test 1, But:</li>
+<li>Laplacian Kernel</li>
+<li>Widened Prior Gaussians in GMM (added identity matrix to covariance
+matrices)</li>
+</ul>
+<p>Because this one went better, I figured I’d try to reconstruct the
+YCB objects from last time. Here is a figure with the results from
+that:</p>
+<p><img src="./reconstruct_random_objects.png" /></p>
+<h3 id="thoughts">Thoughts</h3>
+<ul>
+<li>I think Widening the covariances worked</li>
+<li>I Think that the actual hinge point space could be more expressive,
+however.
+<ul>
+<li>In Theory you can have arbitrary accuracy, but in practice it takes
+a lot of hinge points (especially if regularizing weight norm)</li>
+<li><em>Perhaps a new feature representation?</em></li>
+</ul></li>
+<li>Another thing I noticed is that you can go too far when widening the
+covariance matrices; such that you get weird shapes that don’t make
+sense</li>
+</ul>
+<h2 id="visualizing-the-gmm">Visualizing The GMM</h2>
+<p>One of the action items was calculating some visuals or stats about
+the GMM that was used as a prior.</p>
+<p><img src="./vary_weight_along_dim.png" /></p>
+<ul>
+<li>The determinant of each GMM component was basically 0 (near machine
+precision)</li>
+<li>Max eigenvalues were (per component):
+<ul>
+<li>[3153.7102, 734.3250, 1593.3590, 1254.8436, 1152.2594, 3005.7234,
+1322.9877, 1915.3854]</li>
+</ul></li>
+<li>Min eigenvalues were (per component):
+<ul>
+<li>[0.0009, 0.0009, 0.0009, 0.0009, 0.0009, 0.0009, 0.0009,
+0.0009]</li>
+</ul></li>
+</ul>
+<p>Here are the hyperparameters for this:</p>
+<table>
+<thead>
+<tr>
+<th>hyperparameter</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kernel</td>
+<td>gaussian</td>
+</tr>
+<tr>
+<td>widened?</td>
+<td>no</td>
+</tr>
+<tr>
+<td>number of GMM components</td>
+<td>8</td>
+</tr>
+<tr>
+<td>dimension of weight</td>
+<td>513</td>
+</tr>
+</tbody>
+</table>
+<p>Obviously, if the GMM covariances are widened like in <a
+href="#test-2">Test 2</a>, then the determinants would be bigger.</p>
+<p><strong>Main Takeaway:</strong> There exists more than one direction
+(not pictured) where varying the weight in that direction results in
+pretty much the exact same shape.</p>
+<p><strong>Note:</strong> I kind of made a stupid mistake in not having
+enough data, so I regenerated the dataset and ran stuff again, but it
+was the same sort of results as far as eigenvectors, determinants, etc.
+However, here are a couple reconstructions of boxes from that approach
+(which look much better than before):</p>
+<p><img src="./new_reconstructions.png" /></p>
+<p>Here are the YCB objects:</p>
+<p><img src="./ycb_recon.png" /></p>
+<p><em>Note:</em> These reconstructions are without artificially
+widening the covariances of each GMM component!</p>
+<h2 id="thoughts-on-learning-a-feature-representation">Thoughts on
+Learning a Feature Representation</h2>
+<h3 id="periodic-representation">Periodic Representation</h3>
+<p>In the SIREN paper <span class="citation"
+data-cites="sitzmann2020implicit">[1]</span>, they argue for periodic
+activation functions to learn the high frequency details. With a
+learnable <span class="math inline">W, b</span>, their embedding is:
+<span class="math display"> \phi(x) = \sin(Wx + b) </span> A similar
+reason is cited in the NeRF paper <span class="citation"
+data-cites="mildenhall2021nerf">[2]</span> for using their own
+hand-crafted periodic embedding: <span class="math display"> \phi(x) =
+[\sin(2^0 \pi x), \cos(2^0 \pi x), ..., \sin(2^{L - 1} \pi x),
+\cos(2^{L-1} \pi x)]^\top </span> Specifically, the NeRF paper cites
+<span class="citation" data-cites="rahaman2019spectral">[3]</span>,
+which argues that neural networks have a bias towards low frequency
+information and Fourier representations could help overcome this. The
+original Hilbert maps paper <span class="citation"
+data-cites="ramos2016hilbert">[4]</span> also explored Fourier
+embeddings. Here is a screenshot from the paper with a comparison:</p>
+<p><img src="./screenshot_of_paper.png" /></p>
+<p>As shown in the screenshot; one potential problem is unwanted
+artifacts from the periodic nature of the embedding.</p>
+<p>Another paper, <span class="citation"
+data-cites="tancik2020fourier">[5]</span> argues for using Random
+Fourier Features to learn high frequency functions. They also claim that
+tuning the weights and biases of this representation provides minimal
+improvement.</p>
+<h3 id="unifying-hinge-points-and-siren">Unifying Hinge Points and
+SIREN</h3>
+<p>Random Fourier features, introduced in <span class="citation"
+data-cites="rahimi2007random">[6]</span> showed that a positive-definite
+kernel could be approximated for learning purposes via cosines and sines
+of random weights. Consider a SIREN network with one hidden layer: <span
+class="math display"> f(x) = w_2^\top \sin(W_1 x + b_1) + b_2. </span>
+Now consider if we could find an underlying input <span
+class="math inline">z</span> such that: <span class="math display"> w_2
+= \sin(W_1z + b_1). </span> Then, we could view <span
+class="math inline">f(x)</span> as the following approximation: <span
+class="math display"> f(x) \approx \phi(x)^\top \phi(z) + b_2 = k(x - z)
++ b_2. </span> Thus, we can view as the network “learning” a kernel
+<span class="math inline">k</span> defined by the distribution of
+weights and corresponding hinge point <span
+class="math inline">z</span>.</p>
+<p><strong>Idea:</strong> This hints at the idea of learning the kernel
++ hinge points offline</p>
+<h3 id="feature-representation-via-dimensionality-reduction">Feature
+Representation via Dimensionality Reduction</h3>
+<p>We could also construct a better feature representation via
+dimensionality reduction attached to our hinge point transform. There
+are a few options.</p>
+<p><strong>PCA/Linear:</strong> We could learn a linear dimensionality
+reduction, <span class="math inline">A</span>, over the weight space.
+Because this would be linear; we could transform features via: <span
+class="math display"> \phi&#39;(x) = A^\top \phi(x), </span> creating a
+lower dimensional weight space.</p>
+<ul>
+<li>This might be difficult because some dimensions are uninformative
+(see the <a href="#visualizing-the-gmm">Visualizing The GMM</a>
+section)</li>
+</ul>
+<p><strong>Autoencoder/Non-linear:</strong> We could also do a similar
+thing by training an autoencoder. We wouldn’t be able to do the exact
+same trick as last time, but we could run SVGD <span class="citation"
+data-cites="liu2016stein">[7]</span> through it easily</p>
+<p><strong>VAE:</strong> There is also a possibility that we could train
+a VAE, then use the latent distribution as a prior of some sort.</p>
+<h3 id="training">Training</h3>
+<p>I think the best way to train a feature representation would be to
+train it on the <span class="citation"
+data-cites="chang2015shapenet">[8]</span> dataset objects (not scenes,
+just objects), and do one of the following:</p>
+<ul>
+<li>Train it similar to DeepSDF <span class="citation"
+data-cites="park2019deepsdf">[9]</span> where a latent vector is stored
+for each object during training. This would allow training parameters of
+the feature representation.
+<ul>
+<li>This might cause a hiccup if you want to have pose randomization,
+but I have an idea.</li>
+</ul></li>
+<li>For each object, first fit an implicit shape, then do learning with
+those found weights (what I am doing right now)</li>
+<li>Do a little bit of optimization-based reconstruction with parameters
+frozen in weight space, then optimize the shape w.r.t. parameters of
+feature transform</li>
+</ul>
+<p><strong>Idea:</strong> during optimization-based reconstruction, also
+optimize the pose. This would alleviate the need to randomize pose
+during training (especially if SVGD is used). Could also do this with
+scale.</p>
+<p><strong>Idea:</strong> Train in a similar way to DeepSDF, allow
+optimization of pose and scale during reconstruction. Add regularization
+to the weights that are learned so that they follow a standard Gaussian
+distribution. Then the standard Gaussian distribution could be the
+prior. Here is a sketch of my idea:</p>
+<p><img src="./deepsdf_plan.png" /></p>
+<h2 id="svgd-new-feature-representations">SVGD + New Feature
+Representations</h2>
+<h3 id="svgd-gmm">SVGD + GMM</h3>
+<p><img src="./stein.png" /></p>
+<ul>
+<li>Gaussian kernel</li>
+<li>GMM Prior with 8 components</li>
+<li>32 particles</li>
+<li>Used median kernel suggested in original paper: <span
+class="citation" data-cites="liu2016stein">[7]</span>.</li>
+<li>1k iterations with Adam as the optimizer</li>
+<li>(like above, weight/feature space is 513-dim)</li>
+</ul>
+<h3 id="sinusoidal-feature-representation">Sinusoidal Feature
+Representation</h3>
+<p><img src="fourier.png" /></p>
+<ul>
+<li>Uses BHM EM algorithm</li>
+<li>Following advice from <span class="citation"
+data-cites="tancik2020fourier">[5]</span>, variance of RFF is tuned</li>
+<li>Is better able to capture high-frequency information</li>
+<li>Struggles more to reconstruct the backside of the object</li>
+<li>2048 features</li>
+</ul>
+<p><strong>Idea:</strong> maybe combine hinge points and fourier?</p>
+<p>Here is an example of RFF trained with GD, not EM algorithm:</p>
+<p><img src="rff_gd.png" /></p>
+<ul>
+<li>Artifacts are present, but still picks up the important signal</li>
+<li>I think having the distribution removes these artifacts</li>
+</ul>
+<p><strong>Question:</strong> is there any way to ensure these artifacts
+don’t appear?</p>
+<p><img src="./rff_mustard.png" /></p>
+<ul>
+<li>Fails to construct backside</li>
+<li>Does a very good job with the surface</li>
+</ul>
+<h3 id="random-hinge-points">Random Hinge Points</h3>
+<p><img src="./random_hinge_points.png" /></p>
+<ul>
+<li>Added a small amount of random noise to hinge points</li>
+<li>512 hinge points</li>
+<li>For some reason, EM algorith is <em>slower</em> with hinge point
+representation compared to fourier with the same number of features</li>
+</ul>
+<h2 id="hacking-binary-into-multiclass">Hacking Binary into
+Multiclass</h2>
+<ul>
+<li><strong>Problem:</strong> We have <span class="math inline">K</span>
+binary maps of the form: <span class="math inline">\sigma(f_k(w_k,
+x))</span>. We want to construct a multiclass map with these
+components.</li>
+<li>The reason why we have to consider these separately is that they
+probably don’t share the same hinge points (as that would be
+inefficient).</li>
+<li>The idea: instead of the sigmoid function, what if we threw all the
+<span class="math inline">f_k</span> together and did a softmax: <span
+class="math display"> \text{softmax} ([ 0,  f_1(w_1, x), ...,  f_K (w_K,
+x)]^\top) </span></li>
+<li>This would create a multiclass map, but it likely loses theoretical
+significance.</li>
+</ul>
+<p><strong>Question:</strong> What are y’alls thoughts about this?</p>
+<ul>
+<li>There is also work <span class="citation"
+data-cites="rifkin2004defense">[10]</span> that argues for a one-vs-all
+approach to multiclass regression</li>
+<li>In order to be true to this, we could also create a classifier for
+empty space; but this would remove any benefit our prior gives us.</li>
+</ul>
+<h2 id="looking-forward">Looking Forward</h2>
+<p>I think I want to do the following looking forward:</p>
+<ul>
+<li>Add GMM Prior for RFF features</li>
+<li>Think more about making a better feature representation
+<ul>
+<li>Floating artifacts</li>
+<li>Capture detail + reconstruct backside</li>
+</ul></li>
+<li>I want to try some more stuff out with stein; sine embeddings,
+stochastic, etc.</li>
+</ul>
+<p>Looking even further forward:</p>
+<ul>
+<li>Is constructing a GMM from Shapenet a possibility?</li>
+</ul>
+<p><strong>Question:</strong> What do y’all think about the RFF
+embedding?</p>
+<p><strong>Question:</strong> What should be the target looking
+forward?</p>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-sitzmann2020implicit" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">V.
+Sitzmann, J. Martel, A. Bergman, D. Lindell, and G. Wetzstein,
+<span>“Implicit neural representations with periodic activation
+functions,”</span> <em>Advances in neural information processing
+systems</em>, vol. 33, pp. 7462–7473, 2020.</div>
+</div>
+<div id="ref-mildenhall2021nerf" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">B.
+Mildenhall, P. P. Srinivasan, M. Tancik, J. T. Barron, R. Ramamoorthi,
+and R. Ng, <span>“Nerf: Representing scenes as neural radiance fields
+for view synthesis,”</span> <em>Communications of the ACM</em>, vol. 65,
+no. 1, pp. 99–106, 2021.</div>
+</div>
+<div id="ref-rahaman2019spectral" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">N.
+Rahaman, A. Baratin, D. Arpit, F. Draxler, M. Lin, F. Hamprecht, Y.
+Bengio, and A. Courville, <span>“On the spectral bias of neural
+networks,”</span> in <em>International conference on machine
+learning</em>, 2019, pp. 5301–5310.</div>
+</div>
+<div id="ref-ramos2016hilbert" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">F.
+Ramos and L. Ott, <span>“Hilbert maps: Scalable continuous occupancy
+mapping with stochastic gradient descent,”</span> <em>The International
+Journal of Robotics Research</em>, vol. 35, no. 14, pp. 1717–1730,
+2016.</div>
+</div>
+<div id="ref-tancik2020fourier" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">M.
+Tancik, P. Srinivasan, B. Mildenhall, S. Fridovich-Keil, N. Raghavan, U.
+Singhal, R. Ramamoorthi, J. Barron, and R. Ng, <span>“Fourier features
+let networks learn high frequency functions in low dimensional
+domains,”</span> <em>Advances in neural information processing
+systems</em>, vol. 33, pp. 7537–7547, 2020.</div>
+</div>
+<div id="ref-rahimi2007random" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">A.
+Rahimi and B. Recht, <span>“Random features for large-scale kernel
+machines,”</span> <em>Advances in neural information processing
+systems</em>, vol. 20, 2007.</div>
+</div>
+<div id="ref-liu2016stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">Q.
+Liu and D. Wang, <span>“Stein variational gradient descent: A general
+purpose bayesian inference algorithm,”</span> <em>Advances in neural
+information processing systems</em>, vol. 29, 2016.</div>
+</div>
+<div id="ref-chang2015shapenet" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">A.
+X. Chang, T. Funkhouser, L. Guibas, P. Hanrahan, Q. Huang, Z. Li, S.
+Savarese, M. Savva, S. Song, H. Su, and others, <span>“Shapenet: An
+information-rich 3d model repository,”</span> <em>arXiv preprint
+arXiv:1512.03012</em>, 2015.</div>
+</div>
+<div id="ref-park2019deepsdf" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">J.
+J. Park, P. Florence, J. Straub, R. Newcombe, and S. Lovegrove,
+<span>“Deepsdf: Learning continuous signed distance functions for shape
+representation,”</span> in <em>Proceedings of the IEEE/CVF conference on
+computer vision and pattern recognition</em>, 2019, pp. 165–174.</div>
+</div>
+<div id="ref-rifkin2004defense" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">R.
+Rifkin and A. Klautau, <span>“In defense of one-vs-all
+classification,”</span> <em>The Journal of Machine Learning
+Research</em>, vol. 5, pp. 101–141, 2004.</div>
+</div>
+</div>
+</body>
+</html>
