@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Aug 23</p>
+</header>
+<p><a href=".."><em>&lt;&lt; Back</em></a></p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#visualizing-rff-bhm">Visualizing RFF BHM</a></li>
+<li><a href="#gmm-prior">GMM Prior</a></li>
+<li><a href="#svgd-vs-em-algorithm">SVGD vs EM Algorithm</a></li>
+<li><a
+href="#thinking-about-learning-features-and-generating-priors">Thinking
+About Learning, Features, and Generating Priors</a></li>
+<li><a href="#other">Other</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p><strong>Previous action items:</strong></p>
+<ul>
+<li>Create GMM Prior for RFF</li>
+<li>Analyze SVGD vs EM Algorithm</li>
+<li>Visualizations for:
+<ul>
+<li>Weights used to train GMM</li>
+<li>Multiple eigenvectors</li>
+<li>Uncertainty for RFF</li>
+</ul></li>
+<li>Formulate learning a feature representation</li>
+</ul>
+<p><strong>Main takeaways from this week:</strong></p>
+<ul>
+<li>Hinge points and RFF have similar quality of reconstructions; there
+is no obvious benefit from switching from one to the other</li>
+<li>Dimension of the feature representation (at least for hinge points
+and RFF) is a limiting factor in reconstruction quality (bigger is
+better)</li>
+<li>SVGD is promising, but I think it can still be improved (i.e. poorly
+conditioned prior information)</li>
+<li>There are a few decisions to be made about the direction of this
+work</li>
+</ul>
+<h2 id="visualizing-rff-bhm">Visualizing RFF BHM</h2>
+<h3 id="feature-dimension">Feature Dimension</h3>
+<p><strong>Random Fourier Features:</strong></p>
+<p><img src="./fourier_change_features.png" /></p>
+<ul>
+<li>EM Algorithm</li>
+<li>Trained on partial view</li>
+<li><span class="math inline">\sigma</span> denotes the variance of the
+RFF sampled weights</li>
+</ul>
+<p><strong>Hinge Points:</strong></p>
+<p><img src="num_hinge_points.png" /></p>
+<ul>
+<li>Didn’t spend much time tuning this, just wanted to generate a figure
+real quick</li>
+</ul>
+<h3 id="uncertainty-plots">Uncertainty Plots</h3>
+<p><img src="./uncertainty_plot.png" /></p>
+<ul>
+<li>EM algorithm</li>
+<li>Uncertainty is not captured in a good way; I wonder if SVGD will
+provide better measurements/figures</li>
+<li>Uncertainty is measured by entropy.</li>
+<li>Not much hyperparameter tuning performed</li>
+</ul>
+<h3 id="reconstructing-box-with-privileged-information">Reconstructing
+Box with Privileged Information</h3>
+<p><img src="./recon_box_privilege.png" /></p>
+<ul>
+<li>Hilbert maps trained with SGD</li>
+<li>Weight dims were 2049 for RFF and 2198 for Hinged</li>
+<li>Training weights for RFF took ~17.3 seconds and Hinged took ~23.9
+seconds on CPU (will be faster if done on GPU)</li>
+<li>used sigma=50.0 for RFF and gamma=1000 for Hinged (Gaussian)</li>
+<li>used a sampling method biased towards surface of box</li>
+<li>corners/edges are smoothed</li>
+</ul>
+<p><strong>Idea:</strong> Halfway through, find mesh difference and
+sample directly/more from those places</p>
+<p><strong>Note:</strong> If the sampled RFF weights are too big, there
+are weird artifacts:</p>
+<p><img src="artifacts.png" /></p>
+<p>Here is an example of a smaller dimension:</p>
+<p><img src="rff_hinge_512.png" /></p>
+<ul>
+<li>512 dimensional weight space</li>
+</ul>
+<p><strong>Takeaway:</strong> the hinge point and RFF representations
+both reconstruct with a similar fidelity, perhaps related to what <span
+class="citation" data-cites="zheng2022trading">[1]</span> proposes.</p>
+<p><strong>Takeaway:</strong> The most important factor in
+reconstruction quality; besides bandwidth/scale of kernel, is the amount
+of features that there are to grasp onto. Higher dimensional feature
+space ==&gt; better quality reconstruction. It also means longer
+optimization time.</p>
+<h2 id="gmm-prior">GMM Prior</h2>
+<h3 id="the-prior-generation">The Prior Generation</h3>
+<p><strong>Reconstruction of Boxes:</strong></p>
+<p><img src="recon_boxes.png" /></p>
+<ul>
+<li>513-dim weight space</li>
+<li>EM algorithm</li>
+<li>GMM box prior</li>
+</ul>
+<h3 id="the-eigenvector-visualization">The Eigenvector
+Visualization</h3>
+<p><img src="eig.png" /></p>
+<ul>
+<li>Turns out I just need to scale the eigenvectors up a little bit</li>
+</ul>
+<h2 id="svgd-vs-em-algorithm">SVGD vs EM Algorithm</h2>
+<h3 id="overview">Overview</h3>
+<p><strong>Stein Variational Gradient Descent:</strong> Method described
+in <span class="citation" data-cites="liu2016stein">[2]</span>.</p>
+<p><strong>EM Algorithm with GMM Prior:</strong> Breaks the original EM
+algorithm into components as explained in a previous write-up</p>
+<h3 id="svgd-w-gmm-prior-revisited">SVGD w/ GMM Prior Revisited</h3>
+<p><img src="SVGD.png" /></p>
+<ul>
+<li>Did some tuning of hyperparameters</li>
+<li><em>Used GMM with 512 dim space</em></li>
+<li><strong>Potential Problem:</strong> if Covariance matrices of GMM
+components are ill-conditioned (which they are), then wouldn’t the
+objective be ill-conditioned and bad for gradient descent?</li>
+<li>In the above figure, there is still a difference in shape in the
+two, meaning that SVGD is able to encode some diversity.</li>
+</ul>
+<p><em>Note:</em> GMM able to use 512-dim feature space suggests it may
+be possible to use w/ DeepSDF type model with 512 object code
+embedding.</p>
+<h2 id="thinking-about-learning-features-and-generating-priors">Thinking
+About Learning, Features, and Generating Priors</h2>
+<!-- ### A Perspective on Fourier Features and Hinge Points
+
+In the original Random Fourier Features paper [@rahimi2007random], they make use of the following understanding of the Bochner's theorem:
+
+> **Random Fourier Features.** Let $k$ be a translation-invariant, positive definite kernel. Then there exists a probability distribution, $p$ such that:
+> $$ k(x, y) \approx z(x)^\top z(y), $$
+> where the feature transform $z$ is given by:
+> $$ z(x) = [\sin(w_1^\top x), \cos(w_1^\top x) ..., \sin(w_k^\top x), \cos(w_k^\top x)]^\top $$ -->
+<h3 id="training-a-feature-representation">Training a Feature
+Representation</h3>
+<p><strong>Setup:</strong> The current Hilbert Maps model uses a map of
+the form: <span class="math display"> m(x) = \sigma(w^\top \phi(x)),
+</span> where <span class="math inline">\phi</span> is a predetermined
+feature transform. We would like to figure out a way to <em>learn</em>
+such a <span class="math inline">\phi</span>. This would constitute
+parameterizing <span class="math inline">\phi</span> by some parameters,
+<span class="math inline">\theta</span> such that we define a set of
+potential <span class="math inline">\phi_\theta</span> transforms, then
+have some training procedure to learn <span
+class="math inline">\theta^*</span>. We will assume we have some dataset
+such as Shapenet <span class="citation"
+data-cites="chang2015shapenet">[3]</span> and we can draw query samples
+around each mesh.</p>
+<p><strong>Potential Training Procedure 1:</strong> We can train a
+weight encoder and a point feature transform simultaneously, then throw
+away the encoder during inference (I am envisioning something similar to
+the style modulator in <span class="citation"
+data-cites="khademi2024diverse">[4]</span>). Thus, we would have a point
+cloud to weight encoder, <span class="math inline">\tilde{w}(o)</span>,
+and a feature tranform <span
+class="math inline">\phi_\theta(x)</span>.</p>
+<p><em>Training:</em> Consider we have an object mesh, the procedure
+would be as follows: (1) sample random points on the surface of the
+mesh, denoted <span class="math inline">o</span> and query points and
+labels, <span class="math inline">X, y</span>; (2) predict the weights
+for the object with weight encoder; (3) feature transform the query
+points; (4) predict the occupancy at query points; (5) apply loss (and
+regularization): <span class="math display"> w \gets \tilde w(o) </span>
+<span class="math display"> \hat y \gets \sigma(w^\top \phi_\theta(X))
+</span> <span class="math display"> \text{loss} \gets \text{NLL}(\hat y,
+y) + \lambda R </span></p>
+<p>Then, we would perform SGD updates to <em>both</em> the feature
+transform parameters, <span class="math inline">\theta</span>, and the
+weight encoder, <span class="math inline">\tilde w</span>.</p>
+<p><em>Idea:</em> The regularization term <span
+class="math inline">R</span> could be used to ensure that weights follow
+a standard normal</p>
+<p><em>Inference:</em> During inference, we would perform
+optimization-based reconstruction for <span
+class="math inline">w</span>. This means we would “throw out” our weight
+encoder <span class="math inline">\tilde w</span></p>
+<p><strong>Potential Training Procedure 2:</strong> We could also train
+a feature transform in such a way that you don’t need a weight encoder.
+This would be done in a similar way to DeepSDF <span class="citation"
+data-cites="park2019deepsdf">[5]</span>. In this setup, we would only
+learn the feature transform <span
+class="math inline">\phi_\theta</span>.</p>
+<p><em>Training:</em> Consider we have an object mesh, we would do the
+following: (1) sample query points and labels, <span
+class="math inline">X, y</span>; (2) <em>load</em> the previous weight
+(stored on disk), <span class="math inline">w</span> for the mesh (or
+initialize) (3) feature transform query points; (4) predict the
+occupancy; (5) apply loss; (6) <em>after sgd step</em>, save the updated
+weight back to disk: <span class="math display"> w \gets \text{Load} (i)
+</span> <span class="math display"> \hat y \gets \sigma(w^\top
+\phi_\theta(X)) </span> <span class="math display"> \text{loss} \gets
+\text{NLL}(\hat y, y) + \lambda R </span> <span class="math display">
+\text{Save} (w, i) </span></p>
+<p><em>Regularization:</em> If we regularize to the standard normal
+distribution for a batch of weights, then during inference, that could
+be our prior: <span class="math display"> R = \mathbb{KL}(\{w_1, ...,
+w_b\} \| \mathcal N(0, \sigma I)) </span> (This could follow stein or
+any other way to approximate or compute this)</p>
+<p><em>Inference:</em> The inference procedure would be the same as
+above; there is no weight encoder.</p>
+<p><strong>Prior Generation:</strong> In order to do Bayesian inference
+to recover <span class="math inline">w</span> we may still want some way
+to construct a prior; In the first proposed training procedure we could
+do this two ways:</p>
+<ol type="1">
+<li>For a bunch of shapes, calculate <span class="math inline">\tilde w
+(o)</span>, then fit a GMM to it (Potentially, this could be done along
+side the training.)</li>
+<li>Use a regularization term <span class="math inline">R</span> such
+that it forces <span class="math inline">w</span>’s to follow a certain
+distribution and use that as a prior (probably standard normal).</li>
+</ol>
+<h3 id="other-thoughts">Other Thoughts</h3>
+<p><strong>Fit GMM to Shapenet:</strong> Potentially, we could fit a GMM
+like the one with boxes above to Shapenet meshes</p>
+<p><strong>SVGD + DeepSDF:</strong> What if we take DeepSDF, then run
+SVGD through it to do inference in the latent space?</p>
+<p><strong>Hinge Points as input to NN:</strong> What if we do the hinge
+point transformation, then feed it into a neural network?</p>
+<p><strong>Question:</strong> Is just “fine-tuning” the last layer
+enough? i.e. does having the final combination of query point and object
+weight/embedding be linear give the model enough expressivity? What
+should the final layer dimensions be?</p>
+<h3 id="potential-paper-pitch">Potential Paper Pitch</h3>
+<p><strong>Motivation:</strong></p>
+<ul>
+<li>Accurate 3D reconstructions are necessary for many manipulation
+tasks such as motion planning in clutter</li>
+<li>The problem of 3D reconstruction from a partial view is ill-posed,
+meaning for a given observation, there are multiple possible/valid
+reconstructions.</li>
+<li>Because robots need to interact with the real world, with often
+noisy sensors, robustness is also necessary for such 3D reconstruction
+methods</li>
+</ul>
+<p><strong>Method:</strong></p>
+<ul>
+<li>Learn a feature transform from the ShapeNet dataset
+<ul>
+<li>Use hinge point as positional encoding?</li>
+<li>Try to project to a relatively small dimensional embedding: 512?
+256? 128?</li>
+</ul></li>
+<li>Use “Potential Training Procedure 1”
+<ul>
+<li>Use regularization to enforce weights are normally distributed?</li>
+</ul></li>
+<li>Encourage diversity in reconstructions using SVGD during inference
+<ul>
+<li>What kernel?</li>
+</ul></li>
+</ul>
+<p><strong>Experiments:</strong></p>
+<ul>
+<li>Real world reconstructions from Kinect or RealSense camera</li>
+<li>Simulated/Procedural scenes</li>
+<li>Maybe: connect to motion planner? grasp in clutter?</li>
+<li>Ablations</li>
+<li>Compare with: PointSDF, V-PRISM
+<ul>
+<li>one more recent?</li>
+</ul></li>
+</ul>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>How to separate from other deep learning techniques?
+<ul>
+<li>Probably with: diversity, robustness, etc. (Note: DeepSDF was shown
+in an example to be fairly robust to noisy pointclouds due to
+optimization-based reconstruction)</li>
+</ul></li>
+</ul>
+<h3 id="is-scale-the-answer">Is Scale the Answer?</h3>
+<ul>
+<li>Even with the smallest neural implicit representations, like in
+<span class="citation" data-cites="kundu2022panoptic">[6]</span>,
+networks are still like 4x128 hidden layers, meaning there are
+&gt;&gt;10k weights being trained. Even with the max feature transform
+shown above for a box, it is still only ~4k weights.</li>
+<li>Could it be possible to just “scale” up the feature space to like
+~10k, then project down into a smaller number of dimensions?</li>
+<li>It would make sense if the reconstruction quality could get better
+with more weights</li>
+<li>The only problem with a high dimensional weight space is that it
+makes optimization-based reconstruction harder (slower + kernel for SVGD
+suffers from curse of dimensionality)</li>
+<li><em>Idea:</em> PCA once you have fit a bunch of high dimensional
+weights, then compute a GMM Prior.</li>
+</ul>
+<h2 id="other">Other</h2>
+<h3 id="v-prism-feedback-document">V-PRISM Feedback Document</h3>
+<ul>
+<li><a
+href="https://docs.google.com/document/d/1AmtTwiuWFR8v5bV-REmgzHQep0_g785CUBgIawaiaBo/edit?usp=sharing">Link</a></li>
+</ul>
+<h3 id="martins-project-figure">Martin’s Project Figure</h3>
+<p><img src="./martin_bounding_boxes.png" /></p>
+<h3 id="looking-forward">Looking Forward</h3>
+<p>Next week I want to pick one approach and go with it:</p>
+<ul>
+<li>Learning a feature transform</li>
+<li>Scaling up GMM to have lots of dimensions</li>
+<li>SVGD through DeepSDF</li>
+</ul>
+<p>I would like to move things to use ShapeNet with whichever we decide
+to do.</p>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-zheng2022trading" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">J.
+Zheng, S. Ramasinghe, X. Li, and S. Lucey, <span>“Trading positional
+complexity vs. Deepness in coordinate networks,”</span> <em>Proceedings
+of the European Conference on Computer Vision (ECCV)</em>, 2022.</div>
+</div>
+<div id="ref-liu2016stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Q.
+Liu and D. Wang, <span>“Stein variational gradient descent: A general
+purpose bayesian inference algorithm,”</span> <em>Advances in neural
+information processing systems</em>, vol. 29, 2016.</div>
+</div>
+<div id="ref-chang2015shapenet" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">A.
+X. Chang, T. Funkhouser, L. Guibas, P. Hanrahan, Q. Huang, Z. Li, S.
+Savarese, M. Savva, S. Song, H. Su, and others, <span>“Shapenet: An
+information-rich 3d model repository,”</span> <em>arXiv preprint
+arXiv:1512.03012</em>, 2015.</div>
+</div>
+<div id="ref-khademi2024diverse" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">W.
+Khademi and F. Li, <span>“Diverse shape completion via style modulated
+generative adversarial networks,”</span> <em>Advances in Neural
+Information Processing Systems</em>, vol. 36, 2024.</div>
+</div>
+<div id="ref-park2019deepsdf" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">J.
+J. Park, P. Florence, J. Straub, R. Newcombe, and S. Lovegrove,
+<span>“Deepsdf: Learning continuous signed distance functions for shape
+representation,”</span> in <em>Proceedings of the IEEE/CVF conference on
+computer vision and pattern recognition</em>, 2019, pp. 165–174.</div>
+</div>
+<div id="ref-kundu2022panoptic" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">A.
+Kundu, K. Genova, X. Yin, A. Fathi, C. Pantofaru, L. J. Guibas, A.
+Tagliasacchi, F. Dellaert, and T. Funkhouser, <span>“Panoptic neural
+fields: A semantic object-aware neural scene representation,”</span> in
+<em>Proceedings of the IEEE/CVF conference on computer vision and
+pattern recognition</em>, 2022, pp. 12871–12881.</div>
+</div>
+</div>
+</body>
+</html>
