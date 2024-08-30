@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Aug 30</p>
+</header>
+<p><a href=".."><em>&lt;&lt; Back</em></a></p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#simple-experiment">Simple Experiment</a></li>
+<li><a href="#variational-autoencoder-approach">Variational Autoencoder
+Approach</a></li>
+<li><a href="#paper-pitch-idea">Paper Pitch / Idea</a></li>
+<li><a href="#looking-forward">Looking Forward</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>Last time, the idea was for me to reconstruct objects from 3
+different classes by throwing a Gaussian on top of their weights. I did
+this, but the Gaussian didn’t have the best results. Eventually, I
+trained a VAE per class and was able to (kind of) get what I was looking
+for.</p>
+<h2 id="simple-experiment">Simple Experiment</h2>
+<h3 id="the-data">The Data</h3>
+<p><strong>Training:</strong></p>
+<p><img src="./ycb_data_simple.png" /></p>
+<ul>
+<li>3 YCB meshes (Cracker box, Power drill, and Soccer ball)</li>
+<li>Random rotation</li>
+<li>Mesh is centered + small random translation</li>
+<li>1M query points (biased towards surface, only subset pictured)</li>
+</ul>
+<p><img src="./gt_recon_weights.png" /></p>
+<ul>
+<li>512 hinge points (513 weight dim)</li>
+<li>Gaussian kernel</li>
+<li>A collection of green surface points are pictured for better
+understanding of shape</li>
+</ul>
+<p><strong>Testing:</strong></p>
+<p><img src="test_rgb_imgs.png" /></p>
+<h3 id="results-i-gaussian">Results I: Gaussian</h3>
+<p><img src="gaussians_each.png" /></p>
+<ul>
+<li>4k example weights per each</li>
+<li>random rotation around z-axis and small offsets to center of
+reconstruction</li>
+<li>There was a slight bug in random rotations</li>
+</ul>
+<p><img src="gaussians_each_fixed.png" /></p>
+<ul>
+<li>5k examples for box and drill</li>
+<li>fixed random rotation bug</li>
+<li>still not great</li>
+</ul>
+<p><strong>My Guess:</strong> The Gaussian per object is probably too
+wide / not expressive enough</p>
+<h3 id="results-ii-gmm">Results II: GMM</h3>
+<p><img src="gmm_samples.png" /></p>
+<ul>
+<li>Same 5k weight examples</li>
+<li>GMM has 8 components</li>
+<li>Also 513-dim weight space</li>
+<li>Samples aren’t very good</li>
+<li>Covariance matrices are poorly conditioned</li>
+<li>Because the prior would be non-convex with GMM, I only show samples,
+not reconstruction.</li>
+</ul>
+<h2 id="variational-autoencoder-approach">Variational Autoencoder
+Approach</h2>
+<h3 id="overview">Overview</h3>
+<p><strong>Training:</strong> train a VAE <span class="citation"
+data-cites="Kingma2014">[1]</span> in the standard way on the
+already-fit weights. We will have <span
+class="math inline">p(z)=\mathcal N(0, I)</span>.</p>
+<p><strong>Inference:</strong> do optimization-based inference in a
+Bayesian manner similar to V-PRISM <span class="citation"
+data-cites="wright2024v">[2]</span>. Instead of an EM algorithm, employ
+Stein Variational Gradient Descent <span class="citation"
+data-cites="liu2016stein">[3]</span> all the way through to the <span
+class="math inline">z</span> embedding:</p>
+<p><img src="./vae_inference.png" /></p>
+<p>We would be optimizing for <span class="math inline">z_j</span>
+particles instead of <span class="math inline">w_j</span>. We could use
+a Gaussian kernel with the standard normal as the prior (<span
+class="math inline">p(z)</span>).</p>
+<p><strong>Related Work:</strong> There have been some work using VAEs
+during 3D reconstruction tasks</p>
+<ul>
+<li>PSS-Net <span class="citation"
+data-cites="saund2021diverse">[4]</span> extends the VAE to include
+bounding box info to encourage diverse reconstructions for
+robotics.</li>
+<li>VAEs have been used in the context of NeRFs <span class="citation"
+data-cites="kosiorek2021nerf">[5]</span></li>
+<li>3D-VAE <span class="citation"
+data-cites="brock2016generative">[6]</span> was trained as a
+voxel-to-voxel network on ModelNet</li>
+</ul>
+<h3 id="results-i-2-dim-latent-space">Results I: 2-dim Latent Space</h3>
+<p><img src="vae_3dim_latent.png" /></p>
+<ul>
+<li>2 dimensional latent space</li>
+<li>Separate VAEs for each “class”</li>
+<li>Reconstruction on novel view was not very good, but this might be
+due to the overcompression of the data example weights.</li>
+</ul>
+<h3 id="results-ii-32-dim-latent-space">Results II: 32-dim Latent
+Space</h3>
+<p><img src="vae_32dim_latent.png" /></p>
+<ul>
+<li>3 VAEs each trained on different class</li>
+<li>Reconstructions are from partial view of novel scene (object
+orientation)</li>
+<li>VAE had 3 layers of 512 neurons with ReLU activations</li>
+<li>Same 5k weights each</li>
+</ul>
+<p><strong>Note:</strong> I did not do this, but it might make sense to
+scale down the weight vectors that I train on, because the 0.5
+isosurface should be the same if you do that by nature of <span
+class="math inline">\sigma(0) = 0.5</span> staying the same.</p>
+<h2 id="paper-pitch-idea">Paper Pitch / Idea</h2>
+<h3 id="motivation">Motivation</h3>
+<ul>
+<li><em>Accurate</em> 3D reconstructions are useful for motion planning
+in grasping and manipulation
+<ul>
+<li>PRM, RRT</li>
+</ul></li>
+<li><em>Uncertainty</em> in shape reconstruction has been leveraged to
+enable better grasps <span class="citation"
+data-cites="de2024task chen2024springgrasp">[7], [8]</span></li>
+<li>Uncertainty and robustness in our 3D reconstructions can ensure safe
+motion plans with entirely unseen objects</li>
+<li>Continuous representations are also required for many algorithms and
+can be more expressive than voxel counterparts</li>
+<li>Most work in this space is either:
+<ul>
+<li>Has no uncertainty</li>
+<li>Only deals with single, unoccluded objects</li>
+<li>Doesn’t accurately reconstruct the backside or frontside of the
+object</li>
+</ul></li>
+</ul>
+<h3 id="method">Method</h3>
+<p><strong>Accurate Reconstructions</strong></p>
+<ul>
+<li>We can learn a VAE over trained weights on ShapeNet <span
+class="citation" data-cites="chang2015shapenet">[9]</span> to use as a
+prior to ensure that reconstructions not only conform to surface points
+from observation, but that the backside of the objects can be coherently
+reconstructed.</li>
+</ul>
+<p><strong>Uncertainty / Diversity in Reconstructions</strong></p>
+<ul>
+<li>We can use SVGD as part of the optimization process to encourage
+diversity of reconstructions</li>
+<li>We would be optimizing w.r.t the latent variables in our VAE and
+backpropping through the decoder</li>
+<li>We would use the standard normal, <span class="math inline">\mathcal
+N(0, I)</span> as our prior as this is what the VAE regularizes to</li>
+</ul>
+<p><strong>Handling Multiple Objects</strong></p>
+<ul>
+<li>We can handle multiple objects by introducing a “collision loss”
+during optimization-based reconstruction; inspired by <span
+class="citation" data-cites="engelmann2021points">[10]</span></li>
+<li>We could sample points around objects and penalize points where
+multiple objects have the point marked as occluded</li>
+<li>If we want to use SVGD while we do this objects within a particle
+would be grouped together, we can think of this as running SVGD in the
+joint distribution of the objects</li>
+</ul>
+<h3 id="proposed-experiments">Proposed Experiments</h3>
+<ul>
+<li>Show <em>Accuracy</em> by quantitively comparing reconstructions in
+simulation to competing methods (PointSDF, V-PRISM, <em>should there be
+one more?</em>)</li>
+<li>Show <em>Robustness</em> by qualitatively comparing reconstructions
+on real world scenes of <em>multiple</em> objects</li>
+<li>Show <em>Diversity</em> by visualizing different particles vs
+different samples from V-PRISM</li>
+<li><em>Possibly:</em> show that it helps with something downstream like
+grasp success. See the following image from PSS-Net paper <span
+class="citation" data-cites="saund2021diverse">[4]</span>:</li>
+</ul>
+<p><img src="pssnet_grasp.png" /></p>
+<h2 id="looking-forward">Looking Forward</h2>
+<p>I want to do the following next week:</p>
+<ul>
+<li>Train a VAE on ShapeNet weights
+<ul>
+<li>Perhaps I could train a VAE on YCB objects first, then move onto
+shapenet</li>
+<li>Could also look into the OmniObject3D dataset <span class="citation"
+data-cites="wu2023omniobject3d">[11]</span></li>
+</ul></li>
+<li>Generate some reconstructions with the new, bigger VAE</li>
+<li>Start getting baselines ready</li>
+</ul>
+<p><em>Also:</em> Should I be worried about IROS?</p>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-Kingma2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">D.
+P. Kingma and M. Welling, <span>“<span>Auto-Encoding Variational
+Bayes</span>,”</span> in <em>2nd international conference on learning
+representations, <span>ICLR</span> 2014, banff, AB, canada, april 14-16,
+2014, conference track proceedings</em>, 2014.</div>
+</div>
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-prism:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+<div id="ref-liu2016stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Q.
+Liu and D. Wang, <span>“Stein variational gradient descent: A general
+purpose bayesian inference algorithm,”</span> <em>Advances in neural
+information processing systems</em>, vol. 29, 2016.</div>
+</div>
+<div id="ref-saund2021diverse" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">B.
+Saund and D. Berenson, <span>“Diverse plausible shape completions from
+ambiguous depth images,”</span> in <em>Conference on robot
+learning</em>, 2021, pp. 1802–1813.</div>
+</div>
+<div id="ref-kosiorek2021nerf" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">A.
+R. Kosiorek, H. Strathmann, D. Zoran, P. Moreno, R. Schneider, S. Mokrá,
+and D. J. Rezende, <span>“Nerf-vae: A geometry aware 3d scene generative
+model,”</span> in <em>International conference on machine learning</em>,
+2021, pp. 5742–5752.</div>
+</div>
+<div id="ref-brock2016generative" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">A.
+Brock, T. Lim, J. M. Ritchie, and N. Weston, <span>“Generative and
+discriminative voxel modeling with convolutional neural
+networks,”</span> <em>arXiv preprint arXiv:1608.04236</em>, 2016.</div>
+</div>
+<div id="ref-de2024task" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">C.
+de Farias, B. Tamadazte, M. Adjigble, R. Stolkin, and N. Marturi,
+<span>“Task-informed grasping of partially observed objects,”</span>
+<em>IEEE Robotics and Automation Letters</em>, 2024.</div>
+</div>
+<div id="ref-chen2024springgrasp" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">S.
+Chen, J. Bohg, and K. Liu, <span>“SpringGrasp: Synthesizing compliant,
+dexterous grasps under shape uncertainty,”</span> in <em>2nd workshop on
+dexterous manipulation: Design, perception and control (RSS)</em>,
+2024.</div>
+</div>
+<div id="ref-chang2015shapenet" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">A.
+X. Chang, T. Funkhouser, L. Guibas, P. Hanrahan, Q. Huang, Z. Li, S.
+Savarese, M. Savva, S. Song, H. Su, and others, <span>“Shapenet: An
+information-rich 3d model repository,”</span> <em>arXiv preprint
+arXiv:1512.03012</em>, 2015.</div>
+</div>
+<div id="ref-engelmann2021points" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">F.
+Engelmann, K. Rematas, B. Leibe, and V. Ferrari, <span>“From points to
+multi-object 3D reconstruction,”</span> in <em>Proceedings of the
+IEEE/CVF conference on computer vision and pattern recognition</em>,
+2021, pp. 4588–4597.</div>
+</div>
+<div id="ref-wu2023omniobject3d" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">T.
+Wu, J. Zhang, X. Fu, Y. Wang, J. Ren, L. Pan, W. Wu, L. Yang, J. Wang,
+C. Qian, and others, <span>“Omniobject3d: Large-vocabulary 3d object
+dataset for realistic perception, reconstruction and generation,”</span>
+in <em>Proceedings of the IEEE/CVF conference on computer vision and
+pattern recognition</em>, 2023, pp. 803–814.</div>
+</div>
+</div>
+</body>
+</html>
