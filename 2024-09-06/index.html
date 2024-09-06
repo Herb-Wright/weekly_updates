@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Sep 06</p>
+</header>
+<p><a href=".."><em>&lt;&lt; Back</em></a></p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#the-ycb-weights-dataset">The YCB Weights Dataset</a></li>
+<li><a href="#vae---it-didnt-work-as-well-as-i-wanted">VAE - It Didn’t
+Work as Well as I Wanted</a></li>
+<li><a href="#dataset-query-idea">Dataset Query Idea</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>Last time we thought maybe the VAE looked interesting. Instead,
+because I was having issues with it, me and William decided to try to
+test an alternate idea</p>
+<h2 id="the-ycb-weights-dataset">The YCB Weights Dataset</h2>
+<ul>
+<li>I generated a dataset of Hilbert Map weights fit to YCB objects</li>
+<li><em>Scale, position, rotation were all randomized</em></li>
+<li>1729 feature dimension (12x12x12 + 1 bias)</li>
+<li>~44.2k weights as of right now (I have been generating throughout
+the week)</li>
+</ul>
+<p>Here is an example of a screw driver reconstruction (weight) in the
+dataset:</p>
+<p><img src="weight_screwdriver.png" /></p>
+<h2 id="vae---it-didnt-work-as-well-as-i-wanted">VAE - It Didn’t Work as
+Well as I Wanted</h2>
+<p>I trained a VAE to go from weight vector to weight vector using the
+dataset above. I found that as you gave it more data, the quality would
+degredate. Here is using 11k examples:</p>
+<p><img src="vae1.png" /></p>
+<p>This is not great compared to a VAE trained on only 200:</p>
+<p><img src="vae2.png" /></p>
+<p>I tried to train up the VAE for a while and take a stab at doing
+reconstructions with it. This is what those looked like:</p>
+<p><img src="vae3.png" /></p>
+<p>Here I optimized the latent code and so gradients went through the
+decoder of the VAE (regularization on z was included in the loss).</p>
+<p><strong>Note:</strong> the reconstruction above is with <em>Gradient
+Descent</em>, not SVGD. Perhaps that would help escape local minima</p>
+<h2 id="dataset-query-idea">Dataset Query Idea</h2>
+<h3 id="the-theoretical-justification">The Theoretical
+Justification</h3>
+<p>Consider we have a dataset of <span class="math inline">N</span>
+ground truth Hilbert Map weights for objects, <span
+class="math inline">\{\tilde w_1, ... \tilde w_N\}</span>. Then, we
+could imagine defining a prior as the KDE of this dataset: <span
+class="math display"> P(w) =  \frac{1}{N} \sum_{i \in [N]} k(\tilde w_i,
+w), </span> where <span class="math inline">k</span> is likely a
+Gaussian kernel that is normalized (integrates to 1). Now, if <span
+class="math inline">N</span> is really large, it could be
+computationally intractable to fully compute the Posterior. The insight
+is that we can develop a good <em>approximate</em> Posterior by
+selecting a subset of <span class="math inline">\{\tilde w_i\}</span> to
+do a KDE prior with: <span class="math display"> \{\tilde w^*_1, ...,
+w^*_K\} \subset \{\tilde w_1, ..., \tilde w_N \} </span> In order to
+ensure that This approximate Posterior is close to the full Posterior
+(with full KDE prior), we select <span class="math inline">\tilde
+w^*_i</span> that we think have a higher likelihood, because the
+exclusion of these data points will have the biggest effect on the
+approximate prior (data points with low likelihood being include or
+excluded will have little effect on the overall distribution). Once we
+have selected a subset, we have an approximate KDE prior: <span
+class="math display"> P(w) \approx \bar P(w) = \frac{1}{K} \sum_{i \in
+[K]} k(\tilde w_i^*, w), </span> where <span class="math inline">K
+&lt;&lt; N</span> makes computation of this much faster. We select this
+subset by taking a small sample of negative points (as a surrogate to
+the likelihood), and do a linear scan through the dataset to see which
+<span class="math inline">K</span> dataset weights score the best (which
+can take &lt;1 sec for 50k weights of 2k hinge points on the GPU). The
+below figure is a graphical representation:</p>
+<p><img src="query_pipeline.png" /></p>
+<p>After we have an approximate prior, we can run SVGD to recover a
+Posterior distribution of particles: <span class="math display"> \ln P(w
+| D) \approx \ln P(D | w) + \ln \bar P(w) + C. </span> We can initialize
+our particles with the approximate prior, <span class="math inline">\hat
+P(w)</span>, <em>which has dataset points with high likelihood
+already</em>. Thus, we initialize nearer to the Posterior than if we
+used the full prior, <span class="math inline">P(w)</span>.</p>
+<h3 id="querying-the-dataset">Querying the Dataset</h3>
+<p>In this section, I query the dataset by first selecting a subset of
+negative sampled points and use these points to compare with the weights
+in the dataset. I transform these negatively sampled points and find the
+weights in the dataset that have the best BCE scores on them. Here is an
+example query point cloud (red is occupied and blue is unoccupied):</p>
+<p><img src="query.png" /></p>
+<p>We can visualize the “top hits” from the dataset. The following is an
+image of the best dataset weights according to a not-seen-before view of
+an object:</p>
+<p><img src="dataset_queries1.png" /></p>
+<p>Here is 3 more one object scenes of the same object:</p>
+<p><img src="dataset_queries2.png" /></p>
+<p>For some reason, it seems like the chain reconstructions in the
+dataset do well with the drill pointcloud. I am not sure why this
+is.</p>
+<h3 id="reconstruction-example">Reconstruction Example</h3>
+<p>I run SVGD to reconstruct the 3 objects above. I did a bit of
+hyperparameter tuning to get it to work. Here are the results:</p>
+<p><img src="reconstructions.png" /></p>
+<p>It seems like the method can <em>kind of</em> reconstruct stuff okay,
+but there is noise. It does capture diversity. Perhaps if viewed as a
+distribution, it would look nicer. The best particle for the drill and
+ball looks good, but the best particle for the box does not.</p>
+<p>Here is a table with some of the hyperparameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>optimizer</td>
+<td>Adam</td>
+</tr>
+<tr>
+<td>lr</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td># hinge points</td>
+<td>1729</td>
+</tr>
+<tr>
+<td># of weights in prior</td>
+<td>200</td>
+</tr>
+<tr>
+<td># of particles</td>
+<td>32</td>
+</tr>
+<tr>
+<td>dataset # of weights</td>
+<td>41.6k</td>
+</tr>
+</tbody>
+</table>
+<h2 id="other-stuff">Other Stuff</h2>
+<h3 id="looking-forward">Looking Forward</h3>
+<p>I can see some possible ways to go forward:</p>
+<ul>
+<li>Try to tune up the dataset query method
+<ul>
+<li>Better ways to query?</li>
+<li>Better ways to initialize?</li>
+</ul></li>
+<li>Try to scale up the VAE / Learning method to see if that would
+work.</li>
+<li>Scale up the dataset and see what happens.</li>
+</ul>
+<h3 id="v-prism-final-paper">V-PRISM Final Paper</h3>
+<ul>
+<li>Deadline on Sep 9</li>
+</ul>
+<h3 id="cool-papers-on-reconstruction">Cool Papers on
+Reconstruction</h3>
+<p>I have read a line of work that I thought was interesting:</p>
+<ul>
+<li>“Neural Splines: Fitting 3D Surfaces with Infintely-wide Neural
+Networks” <span class="citation"
+data-cites="williams2021neural">[1]</span>.</li>
+<li>“Neural Fields as Learnable Kernels for 3D Reconstruction” <span
+class="citation" data-cites="williams2022neural">[2]</span>
+<ul>
+<li>Learns a kernel, then fits an SDF using kernel regression (with
+ridge regularization)</li>
+</ul></li>
+<li>“Neural Kernel Surface Reconstruction” <span class="citation"
+data-cites="huang2023neural">[3]</span>
+<ul>
+<li>Is a follow up to above paper where they throw in a few tricks</li>
+</ul></li>
+<li>“Convolutional Occupancy Networks” <span class="citation"
+data-cites="peng2020convolutional">[4]</span>
+<ul>
+<li>I’ve seen a few reconstruction papers mention this one, so I skimmed
+it</li>
+</ul></li>
+</ul>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-williams2021neural" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">F.
+Williams, M. Trager, J. Bruna, and D. Zorin, <span>“Neural splines:
+Fitting 3d surfaces with infinitely-wide neural networks,”</span> in
+<em>Proceedings of the IEEE/CVF conference on computer vision and
+pattern recognition</em>, 2021, pp. 9949–9958.</div>
+</div>
+<div id="ref-williams2022neural" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">F.
+Williams, Z. Gojcic, S. Khamis, D. Zorin, J. Bruna, S. Fidler, and O.
+Litany, <span>“Neural fields as learnable kernels for 3d
+reconstruction,”</span> in <em>Proceedings of the IEEE/CVF conference on
+computer vision and pattern recognition</em>, 2022, pp.
+18500–18510.</div>
+</div>
+<div id="ref-huang2023neural" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">J.
+Huang, Z. Gojcic, M. Atzmon, O. Litany, S. Fidler, and F. Williams,
+<span>“Neural kernel surface reconstruction,”</span> in <em>Proceedings
+of the IEEE/CVF conference on computer vision and pattern
+recognition</em>, 2023, pp. 4369–4379.</div>
+</div>
+<div id="ref-peng2020convolutional" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">S.
+Peng, M. Niemeyer, L. Mescheder, M. Pollefeys, and A. Geiger,
+<span>“Convolutional occupancy networks,”</span> in <em>Computer
+vision–ECCV 2020: 16th european conference, glasgow, UK, august 23–28,
+2020, proceedings, part III 16</em>, 2020, pp. 523–540.</div>
+</div>
+</div>
+</body>
+</html>
