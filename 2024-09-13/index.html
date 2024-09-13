@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Sep 13</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#mug-proof-of-concept" id="toc-mug-proof-of-concept"><span
+class="toc-section-number">2</span> Mug Proof of Concept</a></li>
+<li><a href="#partial-hm-query-on-ycb"
+id="toc-partial-hm-query-on-ycb"><span
+class="toc-section-number">3</span> Partial HM Query on YCB</a></li>
+<li><a href="#brainstorming-ways-to-query-dataset"
+id="toc-brainstorming-ways-to-query-dataset"><span
+class="toc-section-number">4</span> Brainstorming Ways to Query
+Dataset</a></li>
+<li><a href="#level-set-query" id="toc-level-set-query"><span
+class="toc-section-number">5</span> Level Set Query</a></li>
+<li><a href="#registration" id="toc-registration"><span
+class="toc-section-number">6</span> Registration</a></li>
+<li><a href="#towards-a-method" id="toc-towards-a-method"><span
+class="toc-section-number">7</span> Towards a Method</a></li>
+<li><a href="#looking-forward" id="toc-looking-forward"><span
+class="toc-section-number">8</span> Looking Forward</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".."><em>&lt;&lt; Back to Home</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>We are trying to do 3D reconstruction for a similar setup as V-PRISM
+<span class="citation" data-cites="wright2024v">[1]</span>, but to
+enforce some sort of prior to ensure accurate reconstructions of the
+backside of objects. In order to do this, we want to leverage the hinge
+point representation from the Hilbert Map literature. The image below
+shows that hinge points are expressive enough for our needs:</p>
+<p><img src="teapot.png" /></p>
+<p>We also need to come up with a method to do the reconstruction. Last
+time, we were exploring using the weights corresponding to hinge points
+to query a precomputed dataset of weights. Some of the things that were
+suggested to try this week were:</p>
+<ol type="1">
+<li>MVP with mugs</li>
+<li>Try out different distance / query strategies</li>
+<li>Get something working</li>
+</ol>
+<p>I think I was able to do all of these. I didn’t have time to dig into
+doing reconstructions, so the majority of this write-up is focused on
+querying the dataset effectively and HM to sampled point cloud
+registration. There is also a section near the end on what we need to
+figure out next.</p>
+<h2 data-number="2" id="mug-proof-of-concept"><span
+class="header-section-number">2</span> Mug Proof of Concept</h2>
+<h3 data-number="2.1" id="computing-the-dataset"><span
+class="header-section-number">2.1</span> Computing The Dataset</h3>
+<p><img src="mug1.png" /></p>
+<p>I generate a dataset of 5k mug weights, the same mesh, but with
+random rotations, offset, and scale. Rotations were only around the
+z-axis.</p>
+<h3 data-number="2.2" id="querying-the-dataset"><span
+class="header-section-number">2.2</span> Querying the Dataset</h3>
+<p>Here are two queries on novel views of that mesh. In the first one,
+the handle is occluded, in the second, the handle is visible:</p>
+<p><img src="mug2.png" /></p>
+<p><img src="mug3.png" /></p>
+<p>For the partial HM query, a Hilbert Map is trained from zeros and
+then the dot product is used to score with weights in the dataset. While
+the partial HM query struggled with scale, the BCE query would sometimes
+place the handle where we know it isn’t. When the handle was visible,
+the BCE query did a much better job. Obviously, if we do registration,
+things would snap to the point cloud. I think we should try out the
+different queries on a larger dataset to see how well they actually
+do.</p>
+<h2 data-number="3" id="partial-hm-query-on-ycb"><span
+class="header-section-number">3</span> Partial HM Query on YCB</h2>
+<p>I tried to do the same partial HM query on the YCB dataset from last
+time:</p>
+<p><img src="ycb1.png" /></p>
+<p>This didn’t exactly work as I’d like, so I guess it is back to the
+drawing board.</p>
+<p><em>Note:</em> In the YCB example, I normalized the weights (cosine
+similarity) instead of unnormalized.</p>
+<h2 data-number="4" id="brainstorming-ways-to-query-dataset"><span
+class="header-section-number">4</span> Brainstorming Ways to Query
+Dataset</h2>
+<p><img src="third_best.png" /></p>
+<p>Above, I tried the following:</p>
+<ul>
+<li><strong>BCE Query:</strong> Make a subset of the sampled points and
+Calculate the BCE on those</li>
+<li><strong>Partial HM Query:</strong> Train a partial Hilbert map and
+use a dot product (normalized) to match</li>
+</ul>
+<p>Last meeting we also discussed:</p>
+<ul>
+<li><strong>Chamfer Distance Query:</strong> In order to get this to
+work, I may need to maintain a point cloud for each weight.</li>
+<li><strong>Level Set 0.5 Query:</strong> This one would consist of
+calculating the value of the surface points of the observation at each
+dataset weight and finding ones with level set close to 0.5.</li>
+</ul>
+<p>We could also do:</p>
+<ul>
+<li><strong>Multistep Query:</strong> discussed in a following section,
+we could leverage registration and do a 2 part query.</li>
+</ul>
+<h2 data-number="5" id="level-set-query"><span
+class="header-section-number">5</span> Level Set Query</h2>
+<h3 data-number="5.1" id="mugs-dataset"><span
+class="header-section-number">5.1</span> Mugs Dataset</h3>
+<p><img src="level1.png" /></p>
+<h3 data-number="5.2" id="ycb-drill"><span
+class="header-section-number">5.2</span> YCB Drill</h3>
+<p><img src="level2.png" /></p>
+<p>It seems like the level set query is not as good as BCE.</p>
+<h2 data-number="6" id="registration"><span
+class="header-section-number">6</span> Registration</h2>
+<h3 data-number="6.1" id="intro-explanation"><span
+class="header-section-number">6.1</span> Intro / Explanation</h3>
+<p>If we assume we already have a nearby object from the dataset, we
+might want to align the observation pose to the found weight. While
+there exists a lot of literature about how to perform such registration,
+I believe this might not exactly be what we want (See <span
+class="citation" data-cites="huang2021comprehensive">[2]</span> for a
+survey; we talked about <span class="citation"
+data-cites="lin2024se3et">[3]</span> last time and <span
+class="citation" data-cites="ghaffari2022progress">[4]</span> is a more
+learning-based survey). Our specific problem is different for a couple
+of reasons:</p>
+<ul>
+<li>We are doing point cloud to HM registration, not point cloud to
+point cloud</li>
+<li>We are assuming we are already pretty close, so we don’t need to be
+concerned about local minimums during optimization.</li>
+</ul>
+<p>As such, my idea is to simply parameterize an SE(3) pose and backprop
+from the BCE loss of our negative sampled points to the pose. We could
+either parameterize the hinge points with the transform, or
+alternatively, the data, then whenever we feed a new data point into the
+hinge points, we use the same transform beforehand. Here is graph of
+what that would look like:</p>
+<p><img src="registration2.png" /></p>
+<p>The blue dashed line signifies the parameter being optimized. In the
+case above, the transform is put on the sample points instead of the
+hinge points.</p>
+<h3 data-number="6.2" id="example-and-discussion"><span
+class="header-section-number">6.2</span> Example and Discussion</h3>
+<p>For this example, I perform registration on YCB dataset and
+observation. Here is a graphic of this approach:</p>
+<p><img src="registration1.png" /></p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>I didn’t try to optimize the registration at all, it took about 1
+second with my toy example on CPU (again no optimizations, this could be
+done lightning fast).</li>
+<li>Scale was not optimized for in the above example, but that could be
+a promising thing to optimize for.</li>
+</ul>
+<p><strong>Idea:</strong> This hints at a possible query that happens in
+multiple steps:</p>
+<ol type="1">
+<li>Do a preliminary query of the dataset to grab a thousand or so
+closest weights</li>
+<li>Perform registration to find the <em>best</em> matches of the first
+bit</li>
+<li>Do our reconstruction using the best examples as the prior</li>
+</ol>
+<h3 data-number="6.3" id="multi-step-query-proof-of-concept"><span
+class="header-section-number">6.3</span> Multi-Step Query Proof of
+Concept</h3>
+<p>I decided to throw the whole multi-step query idea above together and
+try it out. For efficiency reasons, I grabbed 200 best matches on first
+query, run the pose opt, then grab the top 5 visualized below:</p>
+<p><img src="multistep1.png" /></p>
+<p>The drill was queried basically perfectly. The cheeze-it box matched
+with these big block looking things, so perhaps there could be a
+discussion on what to do about that or if it is okay. I do think scale
+could potentially be useful to optimize for during registration, but we
+got pretty good results here.</p>
+<h2 data-number="7" id="towards-a-method"><span
+class="header-section-number">7</span> Towards a Method</h2>
+<p>We want a reconstruction method that can do 3 things:</p>
+<ol type="1">
+<li>Leverage prior information to create reasonable backside
+reconstructions of objects</li>
+<li>Be able to produce different reconstructions for a given observation
+(diversity/uncertainty)</li>
+<li>Be able to reasonably handle objects outside of the prior
+distribution (robust)</li>
+</ol>
+<p>If the query above is working efficiently and effectively, we can use
+it to design a framework for creating reconstructions. Ideally, we want
+something that both works and can be justified to potential reviewers. I
+mentioned in previous weekly meetings that we could do something like
+approximate the prior distribution by the nearest samples from the
+dataset (retrieved by querying). I’m not sure exactly how to justify
+this theoretically, but maybe we could come up with a way of putting
+things together that we fit into a story about the theory? I have
+created a figure below about the rough outline of what a potential
+method could be.</p>
+<p><img src="method.png" /></p>
+<p>Some other pieces that are key that we need to figure out:</p>
+<ul>
+<li><strong>Reconstruction Procedure:</strong> I’m not convinced SVGD
+<span class="citation" data-cites="liu2016stein">[5]</span> is the way
+to go with this as the diversity may cause artifacts to show up in the
+reconstructed map. Maybe Langevin dynamics would be better? It would be
+nice to still get diversity.</li>
+<li><strong>Multiple Objects:</strong> I want to try to implement a
+“collision loss” during reconstruction in order to handle multiple
+objects inspired by <span class="citation"
+data-cites="engelmann2021points">[6]</span>. I think if we can come up
+with a probabilistic story about our other pieces, we can phrase this as
+a prior on the joint distribution of objects.</li>
+<li><strong>Dataset:</strong> We should also figure out what the final
+dataset we want to use should be. Obviously, we want to generalize
+beyond YCB, and so it might makes sense to discuss whether we want to
+use ShapeNet <span class="citation"
+data-cites="chang2015shapenet">[7]</span> or something else and how
+many/what kinds of meshes we want.</li>
+</ul>
+<h2 data-number="8" id="looking-forward"><span
+class="header-section-number">8</span> Looking Forward</h2>
+<p>I want to take a crack at the reconstruction; obviously simply
+gradient descent would be a minimal version, but I also want to get a
+clearer picture on what feels like the best way to set things up. I also
+want to try to reconstruct objects both inside and outside of the
+dataset, as well as brainstorm the simplest way to get plausible
+diversity.</p>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-prism:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+<div id="ref-huang2021comprehensive" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">X.
+Huang, G. Mei, J. Zhang, and R. Abbas, <span>“A comprehensive survey on
+point cloud registration,”</span> <em>arXiv preprint
+arXiv:2103.02690</em>, 2021.</div>
+</div>
+<div id="ref-lin2024se3et" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">C.
+E. Lin, M. Zhu, and M. Ghaffari, <span>“SE3ET: SE (3)-equivariant
+transformer for low-overlap point cloud registration,”</span> <em>IEEE
+Robotics and Automation Letters</em>, 2024.</div>
+</div>
+<div id="ref-ghaffari2022progress" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">M.
+Ghaffari, R. Zhang, M. Zhu, C. E. Lin, T.-Y. Lin, S. Teng, T. Li, T.
+Liu, and J. Song, <span>“Progress in symmetry preserving robot
+perception and control through geometry and learning,”</span>
+<em>Frontiers in Robotics and AI</em>, vol. 9, p. 969380, 2022.</div>
+</div>
+<div id="ref-liu2016stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Q.
+Liu and D. Wang, <span>“Stein variational gradient descent: A general
+purpose bayesian inference algorithm,”</span> <em>Advances in neural
+information processing systems</em>, vol. 29, 2016.</div>
+</div>
+<div id="ref-engelmann2021points" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">F.
+Engelmann, K. Rematas, B. Leibe, and V. Ferrari, <span>“From points to
+multi-object 3D reconstruction,”</span> in <em>Proceedings of the
+IEEE/CVF conference on computer vision and pattern recognition</em>,
+2021, pp. 4588–4597.</div>
+</div>
+<div id="ref-chang2015shapenet" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">A.
+X. Chang, T. Funkhouser, L. Guibas, P. Hanrahan, Q. Huang, Z. Li, S.
+Savarese, M. Savva, S. Song, H. Su, and others, <span>“Shapenet: An
+information-rich 3d model repository,”</span> <em>arXiv preprint
+arXiv:1512.03012</em>, 2015.</div>
+</div>
+</div>
+</body>
+</html>
