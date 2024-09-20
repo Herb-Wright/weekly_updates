@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Sep 20</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#sampling-and-registration"
+id="toc-sampling-and-registration"><span
+class="toc-section-number">2</span> Sampling and Registration</a></li>
+<li><a href="#performing-reconstructionrefinement"
+id="toc-performing-reconstructionrefinement"><span
+class="toc-section-number">3</span> Performing
+Reconstruction/Refinement</a></li>
+<li><a href="#towards-a-paper-putting-it-together"
+id="toc-towards-a-paper-putting-it-together"><span
+class="toc-section-number">4</span> Towards a Paper: Putting it
+Together</a></li>
+<li><a href="#next-week-beyond" id="toc-next-week-beyond"><span
+class="toc-section-number">5</span> Next Week &amp; Beyond</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".." class="printIgnore"><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>We want to improve on methods like V-PRISM <span class="citation"
+data-cites="wright2024v">[1]</span> by enforcing priors during
+reconstruction to better reconstruct the backside of given objects. The
+current approach we are trying to develop right now uses a precomputed
+dataset of Hilbert map weights.</p>
+<p>Last week, I was able to come up with a multi-step query method for
+finding relevant weights in the dataset. I also proposed a high-level
+overview of what our method might look like. The following is a figure
+of that overview (from last write-up):</p>
+<p><img src="./method.png" /></p>
+<p>The action items / things to work on this week that were identified
+in the meeting were:</p>
+<ol type="1">
+<li>Work on reconstruction/refinement on new scenes</li>
+<li>Try to tune hyperparameters / make the querying better</li>
+<li>Think about the next steps for developing the method</li>
+</ol>
+<p>These are the 3 main things that are explored in this write-up. Each
+has its own section respectively.</p>
+<h2 data-number="2" id="sampling-and-registration"><span
+class="header-section-number">2</span> Sampling and Registration</h2>
+<h3 data-number="2.1" id="se3-vs-sim3-for-registration"><span
+class="header-section-number">2.1</span> SE(3) vs SIM(3) For
+Registration</h3>
+<p>I tried out doing SIM(3) optimization instead of SE(3), but it didn’t
+seem to make much of a difference. Here is a comparison:</p>
+<p><img src="sim3.png" /></p>
+<h3 data-number="2.2" id="updates-to-samplingregistration-method"><span
+class="header-section-number">2.2</span> Updates to
+Sampling/Registration Method</h3>
+<p>I realized that what I was doing last time was suboptimal. I was
+trying to run regular old gradient descent instead of doing the obvious
+thing to do when you are up against RAM constraints during an
+optimization problem: use mini-batches. It would be easy to batch over
+the query point dimension.</p>
+<p><img src="registration1.png" /></p>
+<p>As seen in the figure, the box reconstruction was able to identify
+the correct dataset weights that we care about. The difference with the
+mug was less pronounced, but I still feel there is some improvement.
+Here were the hyperparameters for the pose optimization:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimizer</td>
+<td>Adam</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td>128</td>
+</tr>
+<tr>
+<td>Num. Epochs</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Learning rate</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>Feature dim</td>
+<td>1729</td>
+</tr>
+<tr>
+<td>Min dist. from surface</td>
+<td>10 (cm)</td>
+</tr>
+</tbody>
+</table>
+<p>For reference, here is an example of the query samples used for the
+box:</p>
+<p><img src="registration2.png" /></p>
+<p>In the above image there are ~1k points.</p>
+<h3 data-number="2.3" id="extra-out-of-distribution-observation"><span
+class="header-section-number">2.3</span> Extra: Out of Distribution
+Observation</h3>
+<p>I was curious what would happen if you tried to query for an
+out-of-distribution observation. I used a ShapeNet <span
+class="citation" data-cites="chang2015shapenet">[2]</span> airplane, and
+followed the procedure mentioned above:</p>
+<p><img src="registration3.png" /></p>
+<p>As you can see from the figure, the chain was the closest to the
+airplane and the pose optimization found multiple different
+orientations. I don’t know if there is much insight from the figure, but
+it does suggest that our refinement ought to be good enough to
+“overcome” such bad query results that aren’t that close to the true
+reconstruction.</p>
+<h2 data-number="3" id="performing-reconstructionrefinement"><span
+class="header-section-number">3</span> Performing
+Reconstruction/Refinement</h2>
+<h3 data-number="3.1" id="overview"><span
+class="header-section-number">3.1</span> Overview</h3>
+<p>We want to enforce priors during object reconstruction for a setup
+similar to V-PRISM. We already have a way to find a few Hilbert map
+weights for a given observation. We now need to devise a refinement step
+to complete the reconstruction pipeline. Ideally, we want this to be
+probabilistic for a couple of reasons: (1) it helps “sell” the paper or
+tells a better story; (2) We want to capture uncertainty/diversity in
+reconstructions. We want to do the reconstruction leveraging 1st order
+gradient information as we have this readily available for the Hilbert
+map representation. There are also other considerations, here is a
+list:</p>
+<ol type="1">
+<li>What optimization procedure to use</li>
+<li>How to define the prior w.r.t. queried weights</li>
+<li>How to incorporate different SE(3) poses during optimization</li>
+<li>How to initialize the optimization</li>
+</ol>
+<p>For initialization, we could either just randomly select some
+particles, or (smarter) sample from particles according to their <span
+class="math inline">\exp(-\text{BCE})</span> value. For the prior, we
+will do a kernel density estimation (KDE) over the queried weights using
+a Gaussian kernel. This basically means that our prior is a Gaussian
+mixture model over weights, where each queried weight is the mode of a
+Gaussian. The bandwidth of these Gaussian kernels will control certain
+aspects of the optimization and is a hyperparameter that must be tuned.
+We will have to also define the SE(3) pose as part of the optimization
+and prior. We can use logmap/expmap for distance, and put a Gaussian
+kernel around the SE(3) pose for each queried weight.</p>
+<p>Here is a figure of the proposed pipeline:</p>
+<p><img src="refine1.png" /></p>
+<h3 data-number="3.2" id="initialization"><span
+class="header-section-number">3.2</span> Initialization</h3>
+<p>In order to optimize a set of samples, we obviously need to sample
+them, as mentioned in the above section. Our plan is to use a weighted
+sampling scheme and sample from our dataset weights. The specific weight
+for each dataset weight (after registration) is given by: <span
+class="math display"> \text{Sampling Weight} = \exp(- BCE(\tilde w; X,
+y)). </span> Here is an example of what that would mean for our box
+example:</p>
+<p><img src="refine2.png" /></p>
+<p><em>Note:</em> the scores are not a normalized probability
+distribution over weights, they are a likelihood of the observed
+data.</p>
+<h3 data-number="3.3" id="svgd-vs-sgld"><span
+class="header-section-number">3.3</span> SVGD vs SGLD</h3>
+<p>SVGD <span class="citation" data-cites="liu2016stein">[3]</span> and
+SGLD are both ways to “fit” a distribution with samples by leveraging
+first order information. Generally, the optimization procedures use an
+update for a particle that takes the following form: <span
+class="math display"> x_{t+1}^{(i)} = x_t^{(i)} + \epsilon
+\phi(x_t^{(i)}), </span> where you can think of <span
+class="math inline">\phi</span> as a descent direction.</p>
+<p><strong>Stein Variational Gradient Descent:</strong> SVGD is a method
+for fitting particles to a distribution using first order gradients. It
+approximates the gradient of the KL-divergence with a set of particles.
+The descent direction from SVGD depends on the other particles: <span
+class="math display"> \phi_\text{SVGD}(x) = \frac{1}{N} \sum_j \left[
+k(x_j, x) \nabla \ln p(x_j) + \nabla_{x_j} k(x_j, x)\right] </span>
+Generally, SVGD is performed with mini-batches.</p>
+<p><strong>Stochastic Gradient Langevin Dynamics:</strong> SGLD is a
+method from sampling from an unnormalized distribution following a MCMC
+approach. The descent direction is: <span class="math display">
+\phi_\text{SGLD}(x) = \nabla \ln p(x) + \eta_t, </span> where <span
+class="math inline">\eta_t \sim \mathcal N(0, I)</span> is Gaussian
+noise. In SGLD, the step size is often annealed so that it follows a
+<span class="math inline">1/t</span> type curve. As suggested by the
+term “stochastic”, it is often performed with mini-batches. Langevin
+dynamics is also a common theoretical explanation of diffusion models,
+such as in the diffusion policy paper.</p>
+<h3 data-number="3.4" id="reconstruction-examples"><span
+class="header-section-number">3.4</span> Reconstruction Examples</h3>
+<p>I decided to use SGLD instead of SVGD because it was easier to
+implement. I had to spend a little bit of time tuning the
+hyperparameters. In order to get things to work, I had to multiply the
+BCE likelihood score by like 100, which feels hacky.</p>
+<p><strong>Reconstruction with Box:</strong> I reconstruct the Cheeze-it
+box from YCB <span class="citation" data-cites="calli2015ycb">[4]</span>
+dataset</p>
+<p><img src="refine3.png" /></p>
+<p><strong>Reconstruction with Mug:</strong> I reconstruct a ShapeNet
+mug</p>
+<p><img src="refine5.png" /></p>
+<p>Here are some GIFs of refinement with the mug:</p>
+<p><img src="./mug.gif" /> <img src="./mug2.gif" /></p>
+<p><strong>Reconstruction with Airplane:</strong> I reconstruct an
+airplane from the ShapeNet dataset</p>
+<p><img src="refine4.png" /></p>
+<p>Here are some GIFs of refinement with the airplane:</p>
+<p><img src="airplane.gif" /> <img src="airplane2.gif" /></p>
+<p><em>Note:</em> for the GIFs, I ran refinement for 30 epochs, while
+for the static images above I only ran refinement for 20 epochs</p>
+<p><strong>Takeaways:</strong> I think that it is promising, however
+there are a few things to figure out: (1) the reconstructions are not
+amazing when the initial sample is far from the observed point cloud;
+(2) there are a lot of hyperparameters to tune, and I’m not confident I
+have found the best ones; (3) efficiency should be a consideration,
+having to run multiple optimization procedures can be somewhat slow. I
+do have a couple questions:</p>
+<ul>
+<li>What part of the method needs to be improved (sampling, SGLD,
+etc.)?</li>
+<li>How good do we need these reconstructions to look?</li>
+</ul>
+<p>I have the feeling that we need to have better reconstructions for
+out of distribution objects. I think this is important in ensuring our
+method is <em>robust</em>. Another worry I have is that uncertainty is
+not being captured reasonably, which I think is necessary for
+<em>diverse</em> reconstructions. It feels like there is a balancing
+game between how strictly the prior is enforced and how well it is
+robust and diverse.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>What other reconstruction experiments should I try?</li>
+<li>Any insights on the hyperparameters/trade-off with prior
+strength?</li>
+</ul>
+<h2 data-number="4" id="towards-a-paper-putting-it-together"><span
+class="header-section-number">4</span> Towards a Paper: Putting it
+Together</h2>
+<h3 data-number="4.1" id="method-justification"><span
+class="header-section-number">4.1</span> Method Justification</h3>
+<p>As described above and in previous write-ups, we would first negative
+sample to do a multi-step query of the dataset to retrieve ground truth
+weights and optimized poses in SE(3). Then, we would perform refinement
+as explained in the <a
+href="#performing-reconstructionrefinement">Performing
+Reconstruction/Refinement</a> section. The full proposed method here can
+be summarized in the following picture:</p>
+<p><img src="method2.png" /></p>
+<p>We would want to come up with a justification for this approach. I
+can think of “hacking” something together and give it a probabilistic
+argument. I think the argument could go something like this:</p>
+<ol type="1">
+<li>We want to take a Bayesian approach and approximate <span
+class="math inline">P(w | D) \propto P(D | w) P(w)</span></li>
+<li>We approximate <span class="math inline">P(w)</span> as the KDE of
+“most relevant” weights (weights that we query from the dataset) -
+<em>motivation for dataset query</em></li>
+<li>We approximate <span class="math inline">P(w | D)</span> by drawing
+samples via SGLD of the posterior - <em>motivation for
+refinement</em></li>
+<li>In order to ensure efficiency, we “smartly” initialize our particles
+for SGLD according to a rough approximate posterior consisting of
+weights that were queried for in the dataset weighted by their BCE on a
+subset of the sampled data - <em>motivation for initialization
+scheme</em></li>
+<li>In order to embue a bit of SE(3) invariance, we also optimize the
+pose during SGLD as well as for querying the dataset - <em>motivation
+for pose stuff</em></li>
+</ol>
+<h3 data-number="4.2" id="the-dataset"><span
+class="header-section-number">4.2</span> The Dataset</h3>
+<p>I think to make this method effective, we should leverage a dataset
+other than YCB. ShapeNet is an obvious contender, but also it might make
+sense to try to get a bunch of different categories that aren’t
+necessarily found in ShapeNet. OmniObject3D <span class="citation"
+data-cites="wu2023omniobject3d">[5]</span> has quite a few classes that
+could be relevant. One benefit of OmniObject3D is that it isn’t one of
+the ones used in the original V-PRISM paper, so we could compare on the
+same procedural scenes without having an unfair advantage. On that note,
+Objaverse <span class="citation"
+data-cites="deitke2023objaverse">[6]</span> also exists and could be
+used, however I found those meshes to take a little more effort to sift
+through and process. Here is a table of mesh datasets exist:</p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th># of classes</th>
+<th># of meshes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YCB <span class="citation" data-cites="calli2015ycb">[4]</span></td>
+<td>56</td>
+<td>78</td>
+</tr>
+<tr>
+<td>ShapeNet <span class="citation"
+data-cites="chang2015shapenet">[2]</span></td>
+<td>55</td>
+<td>51k</td>
+</tr>
+<tr>
+<td>OmniObject3D <span class="citation"
+data-cites="wu2023omniobject3d">[5]</span></td>
+<td>190</td>
+<td>6k</td>
+</tr>
+<tr>
+<td>Objaverse <span class="citation"
+data-cites="deitke2023objaverse">[6]</span></td>
+<td>?</td>
+<td>10M</td>
+</tr>
+</tbody>
+</table>
+<p>How big of a dataset I can produce is also something to consider.
+When I try to squeeze every bit of performance out of the lab computer,
+I can fit around ~1k weights per hour. It would take the whole weekend
+to create a dataset of ~50k weights. Perhaps we could aim for like 1k
+weights for a category, and try to do 100 categories (this would take
+about 4 days to compute). We could then take advantage of rotations and
+flips to turn this into x8 weights.</p>
+<h3 data-number="4.3" id="potential-experiments"><span
+class="header-section-number">4.3</span> Potential Experiments</h3>
+<p>A couple of the criticisms of V-PRISM from reviewers centered around
+the experiments. Mainly, they thought our baseline was slightly out of
+date, there was a lack of connecting it to a downstream task, and they
+wished there were more ablations and quantitative real world
+experimentation.</p>
+<p><strong>Baselines:</strong></p>
+<ul>
+<li>V-PRISM <span class="citation"
+data-cites="wright2024v">[1]</span></li>
+<li>GPIS <span class="citation"
+data-cites="dragiev2011gaussian">[7]</span></li>
+<li>PointSDF <span class="citation"
+data-cites="van2020learning">[8]</span></li>
+</ul>
+<p><strong>Experiments:</strong></p>
+<ul>
+<li>Procedurally generated scenes</li>
+<li>Real world scenes</li>
+<li>Downstream task? (Maybe similar to <span class="citation"
+data-cites="saund2021diverse">[9]</span>)</li>
+</ul>
+<h2 data-number="5" id="next-week-beyond"><span
+class="header-section-number">5</span> Next Week &amp; Beyond</h2>
+<p>I want to work on the following:</p>
+<ol type="1">
+<li>Hyperparameter tuning for refinement</li>
+<li>Efficiency of method: get everything onto the GPU</li>
+<li>Take a stab at multi-object scenes</li>
+</ol>
+<p>Beyond next week, I think we should start thinking about:</p>
+<ol type="1">
+<li>The final method (all the bells and whistles)</li>
+<li>Designing experiments</li>
+</ol>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-prism:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+<div id="ref-chang2015shapenet" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">A.
+X. Chang, T. Funkhouser, L. Guibas, P. Hanrahan, Q. Huang, Z. Li, S.
+Savarese, M. Savva, S. Song, H. Su, and others, <span>“Shapenet: An
+information-rich 3d model repository,”</span> <em>arXiv preprint
+arXiv:1512.03012</em>, 2015.</div>
+</div>
+<div id="ref-liu2016stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Q.
+Liu and D. Wang, <span>“Stein variational gradient descent: A general
+purpose bayesian inference algorithm,”</span> <em>Advances in neural
+information processing systems</em>, vol. 29, 2016.</div>
+</div>
+<div id="ref-calli2015ycb" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">B.
+Calli, A. Singh, A. Walsman, S. Srinivasa, P. Abbeel, and A. M. Dollar,
+<span>“The ycb object and model set: Towards common benchmarks for
+manipulation research,”</span> in <em>2015 international conference on
+advanced robotics (ICAR)</em>, 2015, pp. 510–517.</div>
+</div>
+<div id="ref-wu2023omniobject3d" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">T.
+Wu, J. Zhang, X. Fu, Y. Wang, J. Ren, L. Pan, W. Wu, L. Yang, J. Wang,
+C. Qian, and others, <span>“Omniobject3d: Large-vocabulary 3d object
+dataset for realistic perception, reconstruction and generation,”</span>
+in <em>Proceedings of the IEEE/CVF conference on computer vision and
+pattern recognition</em>, 2023, pp. 803–814.</div>
+</div>
+<div id="ref-deitke2023objaverse" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">M.
+Deitke, D. Schwenk, J. Salvador, L. Weihs, O. Michel, E. VanderBilt, L.
+Schmidt, K. Ehsani, A. Kembhavi, and A. Farhadi, <span>“Objaverse: A
+universe of annotated 3d objects,”</span> in <em>Proceedings of the
+IEEE/CVF conference on computer vision and pattern recognition</em>,
+2023, pp. 13142–13153.</div>
+</div>
+<div id="ref-dragiev2011gaussian" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">S.
+Dragiev, M. Toussaint, and M. Gienger, <span>“Gaussian process implicit
+surfaces for shape estimation and grasping,”</span> in <em>2011 IEEE
+international conference on robotics and automation</em>, 2011, pp.
+2845–2850.</div>
+</div>
+<div id="ref-van2020learning" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">M.
+Van der Merwe, Q. Lu, B. Sundaralingam, M. Matak, and T. Hermans,
+<span>“Learning continuous 3d reconstructions for geometrically aware
+grasping,”</span> in <em>2020 IEEE international conference on robotics
+and automation (ICRA)</em>, 2020, pp. 11516–11522.</div>
+</div>
+<div id="ref-saund2021diverse" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">B.
+Saund and D. Berenson, <span>“Diverse plausible shape completions from
+ambiguous depth images,”</span> in <em>Conference on robot
+learning</em>, 2021, pp. 1802–1813.</div>
+</div>
+</div>
+</body>
+</html>
