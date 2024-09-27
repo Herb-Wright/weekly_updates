@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Sep 27</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#prior-kde-with-laplacian-kernel"
+id="toc-prior-kde-with-laplacian-kernel"><span
+class="toc-section-number">2</span> Prior KDE With Laplacian
+Kernel</a></li>
+<li><a href="#mathematically-formalizing-the-optimization"
+id="toc-mathematically-formalizing-the-optimization"><span
+class="toc-section-number">3</span> Mathematically Formalizing the
+Optimization</a></li>
+<li><a href="#thinking-about-experiments"
+id="toc-thinking-about-experiments"><span
+class="toc-section-number">4</span> Thinking about Experiments</a></li>
+<li><a href="#other-stuff" id="toc-other-stuff"><span
+class="toc-section-number">5</span> Other Stuff</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".."><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>We are trying to create a method for object reconstruction inspired
+by V-PRISM <span class="citation" data-cites="wright2024v">[1]</span>.
+We want our method to (1) enforce an object-level prior; (2) capture
+diversity/uncertainty; (3) be robust to out-of-distribution objects. The
+downstream task we care the most about with these reconstructions is
+grasping in clutter. Previously, we discussed a method for querying the
+dataset to get relevant pre-trained Hilbert map weights back. We were
+able to hook this up to do reconstructions, but there were a few
+hiccups. On out-of-distribution observations, the method seemed to be
+“over-regularized”. Here is a GIF of that:</p>
+<p><img src="./airplane.gif" /></p>
+<p>The action items from last meeting were:</p>
+<ol type="1">
+<li>Figure out how to balance strong/weak prior during
+reconstruction</li>
+<li>Use a quantitative metric to compare reconstruction</li>
+<li>Mathematically formulate the approach with more detail</li>
+</ol>
+<p>I think I was able to do these 3 things this week, but I didn’t spend
+as much time as I could have. This was partly due to starting the
+NSF-GRFP fellowship application.</p>
+<h2 data-number="2" id="prior-kde-with-laplacian-kernel"><span
+class="header-section-number">2</span> Prior KDE With Laplacian
+Kernel</h2>
+<h3 data-number="2.1" id="motivation"><span
+class="header-section-number">2.1</span> Motivation</h3>
+<p>Because we want <em>robustness</em> from our reconstruction, we need
+to make sure that we can still reconstruct significantly out of
+distribution objects. Last time, we were using a KDE with Gaussian
+kernel for the prior. The problem with this is that the Gaussian
+function goes to 0 very fast. In practice, this means that the log
+prior, <span class="math inline">\ln P(w)</span> was <span
+class="math inline">\Theta (\|w\|^2)</span> as <span
+class="math inline">\|w\| \rightarrow \infty</span> (quadratic in the
+limit). This means that it will “overpower” our likelihood during
+optimization. In order to combat this, I propose using a Laplacian
+kernel, <span class="math display"> k(x, y) = \exp(-\gamma \|x - y\|),
+</span> for KDE so that the prior has a “longer tail”. In practice, this
+means that our log prior will be linear in the limit. Here is a graph
+that visually shows the difference:</p>
+<p><img src="laplacian1.png" /></p>
+<p>Using Laplacian kernels for our prior ensures that our likelihood can
+overpower our prior for out of distribution examples. This also requires
+retuning hyperparameters, which should be set to ensure that we both (1)
+enforce the prior for in distribution examples and (2) overcome the
+prior for out-of-distribution examples.</p>
+<p><em>Note:</em> Last meeting we also discussed other possible
+distributions like student-t, field of experts. I figured that the
+laplacian kernel worked and was probably good enough.</p>
+<h3 data-number="2.2" id="results"><span
+class="header-section-number">2.2</span> Results</h3>
+<p><strong>Does the new approach qualitatively look better on
+out-of-distribution airplane?</strong></p>
+<p><img src="laplacian2.png" /></p>
+<p><strong>Does the new approach still enforce the prior for known
+objects?</strong></p>
+<p><img src="laplacian3.png" /></p>
+<p><strong>How does the new approach stack up
+quantitatively?</strong></p>
+<!-- TODO: here -->
+<p>Here are the stats for the <strong>Box</strong> example:</p>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Chamfer ⬇️</th>
+<th>IoU ⬆️</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gaussian Prior (last time)</td>
+<td>0.0099</td>
+<td><strong>0.8045</strong></td>
+</tr>
+<tr>
+<td>No Prior</td>
+<td>0.0150</td>
+<td>0.7401</td>
+</tr>
+<tr>
+<td><strong>Laplacian Kernel (new)</strong></td>
+<td><strong>0.0096</strong></td>
+<td>0.8006</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note:</em> The Chamfer and IoU were averaged across 8
+particles.</p>
+<h2 data-number="3"
+id="mathematically-formalizing-the-optimization"><span
+class="header-section-number">3</span> Mathematically Formalizing the
+Optimization</h2>
+<p>At a high level, we consider a Bayesian formulation: <span
+class="math display"> P(H | D) \propto P(D | H) P(H). </span> In our
+specific case, we take a hypothesis to be a tuple <span
+class="math inline">(w, T) \in \mathbb R^H \times SE(3)</span>
+consisting of a Hilbert map weight and a 6-DoF pose. Our data <span
+class="math inline">\{(x_i, y_i)\}_{i \in [N]} \in \mathbb R^3 \times
+\{-1, 1\}</span> consists of points and labels obtained by negatively
+sampling similar to V-PRISM <span class="citation"
+data-cites="wright2024v">[1]</span>. Thus, we have the following
+formulations for our likelihood, assuming I.I.D. samples: <span
+class="math display"> P(D | H) = \prod_{i = 1}^N P(y = y_i | x = x_i, w,
+T) = \prod_{i=1}^N \sigma(y_i w^\top \phi(x_i; T)), </span> where <span
+class="math inline">\phi(x; T)</span> is the hinge point embedding used
+in Hilbert maps, with hinge points transformed by <span
+class="math inline">T</span>. We get into trouble when we try to find a
+clean justification for our prior. Right now, during construction of our
+prior:</p>
+<ol type="1">
+<li>We have a precomputed dataset</li>
+<li>We use a multi-step query to “grab” weights from our dataset</li>
+<li>We perform registration as part of this query</li>
+</ol>
+<p>After last meeting, I think it would be a good idea to discuss a how
+to theoretically justify this prior.</p>
+<p>Last meeting we talked about viewing the registration process as
+being data-conditioned in the probabilistic framing. I think this is a
+good way to think about it, but I had a hard time unifying the
+reconstruction after registration with the query and registration in a
+sound way. However, I think there are still a few ways we can view the
+querying.</p>
+<p><strong>Argument 1:</strong> <em>Optimization problems are easier
+&amp; faster to solve if initialized close to the solution.</em></p>
+<p>We could argue that the querying procedure as well as registration is
+to find points in our hypothesis space <span class="math inline">(w,
+T)</span> that (probably) have a high posterior, so we can initialize
+our SGLD close to the optimum to make the problem easier.</p>
+<p><strong>Argument 2:</strong> <em>Locally approximating the Prior with
+nearby points in dataset is OK, because that is where our particles are
+initialized near</em></p>
+<p>Because we know where we will be initializing our particles and we
+will being running optimization for local convergence, we can
+approximate our prior with a KDE over just nearby points. This will give
+use efficiency as well, as computing the KDE for the entire dataset at
+each iteration would be time consuming.</p>
+<p><strong>Argument 3:</strong> <em>Dataset samples with high likelihood
+impact the posterior the most</em></p>
+<p>The idea here is that we want to approximate our prior with only a
+subset of the dataset, while ensuring our posterior distribution isn’t
+changed too much from if the prior used the full dataset. The argument
+is that samples with high likelihood have the greatest impact on the
+posterior distribution. In other words, removing a sample with high
+likelihood <em>changes</em> the posterior distribution more than
+removing a sample with a low likelihood. We would then phrase our query
+as an approximate to finding high likelihood particles.</p>
+<p>A small mathematical justification for Argument 3 is as follows:
+Consider a KDE with tunable weighting: <span class="math display">
+P_\alpha (x) = \sum_i \alpha_i k(x_i, x), </span> We consider the “true”
+posterior is (omitting normalization): <span class="math display">
+P_\text{post} = P_\text{likelihood}(x) P_\text{prior}(x) =
+P_\text{likelihood}(x) \left[ \frac{1}{N}\sum_i k(x_i, x) \right].
+</span> We want to see how much the “distance” between the true
+posterior and <span class="math inline">P_{\alpha, \text{post}} =
+P_\text{likelihood}(x) P_\alpha (x)</span> changes w.r.t. <span
+class="math inline">\alpha</span>. Using the KL divergence, we can think
+about the gradient when <span class="math inline">\alpha = 1/N</span>:
+<span class="math display"> \nabla_\alpha KL(P_\text{post} \| P_{\alpha
+= 1/N, \text{post}}) = -\nabla_\alpha \mathbb E_{P_\text{post}} \left [
+\ln P_\alpha(x) \right]</span> After some math, <span
+class="math display"> \frac{\partial}{\partial \alpha_i} KL =
+-\int_{\mathbb R^N} P_\text{likelihood}(x) k(x_i, x) dx </span> This
+means that the weighting of a particle influences the posterior the most
+when its kernel density has high likelihood.</p>
+<h2 data-number="4" id="thinking-about-experiments"><span
+class="header-section-number">4</span> Thinking about Experiments</h2>
+<h3 data-number="4.1" id="downstreamrobotic-task"><span
+class="header-section-number">4.1</span> Downstream/Robotic Task</h3>
+<p>A robotic experiment should be:</p>
+<ol type="1">
+<li>Simple</li>
+<li>Highlight the method</li>
+<li>Relevant</li>
+</ol>
+<p>We discussed last time:</p>
+<ol type="1">
+<li>pushing object to other object (partially occluded)</li>
+<li>grasping in clutter</li>
+</ol>
+<h3 data-number="4.2" id="reconstruction-quality"><span
+class="header-section-number">4.2</span> Reconstruction Quality</h3>
+<p>We could do basically what we did last time for this.</p>
+<p><strong>Question:</strong> Is it possible to do quantitative
+experiments on the real world?</p>
+<h2 data-number="5" id="other-stuff"><span
+class="header-section-number">5</span> Other Stuff</h2>
+<h3 data-number="5.1" id="nsf-grfp-application"><span
+class="header-section-number">5.1</span> NSF-GRFP Application</h3>
+<p>I have started working on the NSF-GRFP application. My application is
+due <strong>Oct. 18</strong>. The reference letters are due
+<strong>Oct. 11</strong>. My plan is to have rough drafts done by the
+end of this weekend (I am halfway through the personal statement). I
+wanted to maybe get some feedback on the angle I am trying to take with
+the statements.</p>
+<p>Research statement angle:</p>
+<ul>
+<li>Intelligent robots can have massive impact to hospitals, caretakers,
+those with disabilities.</li>
+<li>Lean into probabilistic and uncertainty-aware methods provide
+safety</li>
+<li>Possible Projects:
+<ul>
+<li>Use classical motion planners in tandem with the probabilistic 3D
+representation of the scene to do manipulation tasks</li>
+<li>Refine scene geometry using tactile sensors and uncertainty
+maximizing trajectories</li>
+</ul></li>
+<li>Outcomes: Improve grasping in clutter</li>
+</ul>
+<h3 data-number="5.2" id="next-week"><span
+class="header-section-number">5.2</span> Next Week</h3>
+<p>I am planning on doing the following next week:</p>
+<ol type="1">
+<li>NSF-GRFP application statement drafts</li>
+<li>Take a stab at multi-object real world scenes</li>
+</ol>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-prism:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+</div>
+</body>
+</html>
