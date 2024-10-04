@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Oct 04</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#collision-loss" id="toc-collision-loss"><span
+class="toc-section-number">2</span> Collision Loss</a></li>
+<li><a href="#nsf-grfp" id="toc-nsf-grfp"><span
+class="toc-section-number">3</span> NSF-GRFP</a></li>
+<li><a href="#next-week" id="toc-next-week"><span
+class="toc-section-number">4</span> Next Week</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".."><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>Last time, the things I said I would work on this week were:</p>
+<ol type="1">
+<li>NSF-GRFP statements</li>
+<li>Multi-object real world scenes</li>
+</ol>
+<p>I worked on 1 and then as part of the way to 2 I tried out doing a
+“collision” loss. Stuff kind of got busy this week, I presented V-PRISM
+<span class="citation" data-cites="wright2024v">[1]</span> at the
+robotics seminar. The slides I used can be found <a
+href="https://herb-wright.github.io/presentations/vprism_iros/">here</a>.
+I also made drafts of GRFP statements (links in the corresponding
+section). Between all this, getting ready for IROS, and some other
+stuff, I didn’t have too much time to work on this project.</p>
+<h2 data-number="2" id="collision-loss"><span
+class="header-section-number">2</span> Collision Loss</h2>
+<h3 data-number="2.1" id="explanation"><span
+class="header-section-number">2.1</span> Explanation</h3>
+<p>Inspired by <span class="citation"
+data-cites="engelmann2021points">[2]</span>. I penalize collisions with
+a loss of the following form:</p>
+<p><span class="math display"> L_\text{collision} = \mathbb E \left[
+\max\left(0, \sum_i \sigma(w_i^\top \phi(x))  - 1\right) \right].
+</span></p>
+<p>In practice, to approximate the expected value, I sample some points
+in the area of the scene, in the example below, those sampled points
+might look something like this:</p>
+<p><img src="collision1.png" /></p>
+<p>Then, I sum over the occupancy probabilities of objects and penalize
+when the probabilities sum to more than 1.</p>
+<h3 data-number="2.2" id="proof-of-concept"><span
+class="header-section-number">2.2</span> Proof-of-Concept</h3>
+<p>Here I have an example of using collision loss vs not using it on a
+simple scene. The red in the graphics is the intersection of the two
+meshes:</p>
+<p><img src="./poc_collision_loss2.gif" /> <img
+src="./poc_collision_loss3.gif" /></p>
+<p>As you can see, the collision loss is not perfect, but it does help
+penalize the collision. Note that for this example, it uses gradient
+descent, and there is not a prior.</p>
+<h2 data-number="3" id="nsf-grfp"><span
+class="header-section-number">3</span> NSF-GRFP</h2>
+<p>I made drafts of both the statements for the NSF-GRFP. Here they
+are:</p>
+<ul>
+<li><a href="./personal_statement.pdf">Personal Statement</a></li>
+<li><a href="./research_statement.pdf">Research Statement</a></li>
+</ul>
+<p>I think the Personal Statement still needs more work (I mean both
+need more work, but the Personal Statement needs it more). I also will
+need to make a better picture for the research statement I think.</p>
+<p>The important due dates are:</p>
+<ul>
+<li>Reference letters are due <strong>Oct. 11</strong> at
+<strong>5pm</strong></li>
+<li>The application is due <strong>Oct. 18</strong> at
+<strong>5pm</strong></li>
+</ul>
+<h2 data-number="4" id="next-week"><span
+class="header-section-number">4</span> Next Week</h2>
+<p>Next week is spring break. We can decide whether or not we want to do
+a meeting then. As far as things I want to work on:</p>
+<ol type="1">
+<li><em>(Maybe)</em> Refine the collision loss</li>
+<li>Put everything together and reconstruct a real depth image</li>
+<li>Finish up GRFP, Getting ready for IROS!</li>
+</ol>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-prism:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+<div id="ref-engelmann2021points" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">F.
+Engelmann, K. Rematas, B. Leibe, and V. Ferrari, <span>“From points to
+multi-object 3D reconstruction,”</span> in <em>Proceedings of the
+IEEE/CVF conference on computer vision and pattern recognition</em>,
+2021, pp. 4588–4597.</div>
+</div>
+</div>
+</body>
+</html>
