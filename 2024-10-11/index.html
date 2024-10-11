@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Oct 11</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#collision-loss" id="toc-collision-loss"><span
+class="toc-section-number">2</span> Collision Loss</a></li>
+<li><a href="#real-world-scene" id="toc-real-world-scene"><span
+class="toc-section-number">3</span> Real World Scene</a></li>
+<li><a href="#looking-forward" id="toc-looking-forward"><span
+class="toc-section-number">4</span> Looking Forward</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".."><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>We are trying to build off of V-PRISM <span class="citation"
+data-cites="wright2024v">[1]</span> and create a method for 3D
+<em>reconstruction</em> that enforces some sort of object-level prior
+during probabilistic reconstruction over a <em>multi-object scene</em>.
+Last week, I experimented with a collision loss. This week I tried to
+hook things up to a real world scene. The results were not great, but
+hopefully we will get some ideas for improvement.</p>
+<h2 data-number="2" id="collision-loss"><span
+class="header-section-number">2</span> Collision Loss</h2>
+<p><em>(This section is copied from last week)</em></p>
+<h3 data-number="2.1" id="explanation"><span
+class="header-section-number">2.1</span> Explanation</h3>
+<p>Inspired by <span class="citation"
+data-cites="engelmann2021points">[2]</span>. I penalize collisions with
+a loss of the following form:</p>
+<p><span class="math display"> L_\text{collision} = \mathbb E \left[
+\max\left(0, \sum_i \sigma(w_i^\top \phi(x))  - 1\right) \right].
+</span></p>
+<p>In practice, to approximate the expected value, I sample some points
+in the area of the scene, in the example below, those sampled points
+might look something like this:</p>
+<p><img src="collision1.png" /></p>
+<p>Then, I sum over the occupancy probabilities of objects and penalize
+when the probabilities sum to more than 1.</p>
+<h3 data-number="2.2" id="proof-of-concept"><span
+class="header-section-number">2.2</span> Proof-of-Concept</h3>
+<p>Here I have an example of using collision loss vs not using it on a
+simple scene. The red in the graphics is the intersection of the two
+meshes:</p>
+<p><img src="./poc_collision_loss2.gif" /> <img
+src="./poc_collision_loss3.gif" /></p>
+<p>As you can see, the collision loss is not perfect, but it does help
+penalize the collision. Note that for this example, it uses gradient
+descent, and there is not a prior.</p>
+<h2 data-number="3" id="real-world-scene"><span
+class="header-section-number">3</span> Real World Scene</h2>
+<h3 data-number="3.1" id="the-method"><span
+class="header-section-number">3.1</span> The Method</h3>
+<p>The method used in this section is the same as we have been using. It
+can be visualized with this graphic:</p>
+<p>Basically, we first do a “query” that also does registration, then we
+perform reconstruction via optimization.</p>
+<h3 data-number="3.2" id="the-data"><span
+class="header-section-number">3.2</span> The Data</h3>
+<p>I collected a multi object 3D scene with the kinect camera setup in
+the lab. I used Grounded SAM <span class="citation"
+data-cites="ren2024grounded">[3]</span> with a a custom prompt to
+generate the segmentations. Here is what that multi-object scene looks
+like:</p>
+<p><img src="scene.png" /></p>
+<p>I think this is a good case study for our uses because it has a
+little bit of noise from segmentation, and in the point cloud. It also
+has “in-distribution” objects as well as one not in YCB (orange carton).
+Some objects are also interesting shapes beyond just boxes, such as the
+banana and drill. There is also a little bit of occlusion.</p>
+<h3 data-number="3.3" id="the-reconstruction"><span
+class="header-section-number">3.3</span> The Reconstruction</h3>
+<p><strong>Drill:</strong> The first reconstruction is the drill. For
+context, here is a view of the table, so you can see where the camera is
+and where the drill is in relation to it:</p>
+<p><img src="drill1.png" /></p>
+<p>Here is the result of the reconstruction:</p>
+<p><img src="drill2.png" /></p>
+<p>As you can see, it is not great. It seems like this is due to not
+finding a drill to use as a “prior”.</p>
+<p><strong>Clorox Bottle:</strong> I want to see if maybe we can get
+matches for the Clorox bottle. Here is the context for this one FYI:</p>
+<p><img src="clorox1.png" /></p>
+<p>Then, we vizualize <strong>registered samples</strong> from the
+dataset instead of the reconstructions. Here are some samples:</p>
+<p><img src="clorox2.png" /></p>
+<p>Obviously it doesn’t look great.</p>
+<p><strong>Orange Juice:</strong> While I’m here, even though things
+aren’t working great, I figured I would try to reconstruct the orange
+juice box. This had a noisy segmentation and is not an object in YCB
+dataset <span class="citation" data-cites="calli2015ycb">[4]</span>.
+Here is what that segmentation looked like for reference:</p>
+<p><img src="orange1.png" /></p>
+<p>Here are some reconstructions:</p>
+<p><img src="orange2.png" /></p>
+<p>Again, not great, but there it is.</p>
+<p><strong>EDIT:</strong> I have identified one area where the approach
+could be improved that I don’t quite have time to implement: I did not
+verify that the hinge point were aligned with the table.</p>
+<h2 data-number="4" id="looking-forward"><span
+class="header-section-number">4</span> Looking Forward</h2>
+<h3 data-number="4.1" id="towards-a-paper"><span
+class="header-section-number">4.1</span> Towards a Paper</h3>
+<p>I think we still have the following steps ahead to get a paper
+working:</p>
+<ol type="1">
+<li>Get method working on real world scenes</li>
+<li>Start putting everything together</li>
+<li>Design &amp; run experiments</li>
+</ol>
+<h3 data-number="4.2" id="iros-2024"><span
+class="header-section-number">4.2</span> IROS 2024</h3>
+<p>Next week is IROS in Abu Dhabi. V-PRISM will be presented on Tuesday,
+14:00-15:00. It will be part of the “Simultaneous Localization and
+Mapping (SLAM) I” session in room 10.</p>
+<h3 data-number="4.3" id="nsf-grfp"><span
+class="header-section-number">4.3</span> NSF-GRFP</h3>
+<p>My NSF-GRFP application will be due on Friday Oct. 18. I have
+continued to update my drafts. here are my current working drafts for
+the two required statements. I plan to edit these during my (long)
+travel to Abu Dhabi.</p>
+<ul>
+<li><a href="./personal_statement.pdf">Personal Statement</a></li>
+<li><a href="./research_statement.pdf">Research Statement</a></li>
+</ul>
+<p>I am maybe worrying about how well defined my research proposal needs
+to be. In the statement, I have the following:</p>
+<blockquote>
+<p><em>Aim 1:</em> One of the limitations of V-PRISM is that while
+uncertainty is captured, the backside of the objects are not
+<em>reconstructed</em> according to how one would expect everyday
+objects to look. This is because V-PRISM uses an <em>uninformative</em>
+prior over the map. In this proposed work, we would perform Bayesian
+inference while using a more informative prior constructed offline from
+widely available mesh datasets. We already have preliminary results of
+such a method being able to reconstruct simple, single-object scenes. We
+hope to extend this to be both robust to out of distribution objects and
+extend to multi-object scenes. This would allow methods for downstream
+tasks to be more robust and performant. In order to validate these
+claims, experiments similar to V-PRISM should be performed. An
+experiment also showing improvement in a downstream task such as
+grasping in clutter with our method would be very helpful to the
+argument.</p>
+<p><em>Aim 2:</em> Active learning has been studied in the context of
+robotics. The idea is to have the robot take specific actions with the
+goal of lowering uncertainty about the state of the outside world.
+Because V-PRISM, and potentially the method from Aim 1 provide
+principled uncertainty, we could leverage this to perform active
+learning. An example could be doing next best view guided movements with
+a wrist-mounted camera. One exciting direction is to leverage tactile
+sensors. Active learning with tactile sensors has been proposed before
+to determine individual new points of contact [4], but not for occupancy
+maps and trajectories. For this project, we would develop a method that
+continuously updates the map in a feedback loop by detecting whether the
+tactile sensor is in contact with the object. Our method would determine
+actions for the robot that move the tactile sensor towards the most
+uncertain areas of the scene. Experimentally, we would need to show that
+this method is both able to <em>refine</em> the original map and that
+the final map is <em>accurate</em>.</p>
+<p><em>Aim 3:</em> Studying dynamics of robotic systems is a large focus
+of robotics research. With regard to robotic manipulation, multiple
+different ways of modeling dynamics have been proposed. For example,
+analytical differerentiable simulators as well as learned object dynamic
+models such as [5] have been introduced. We can leverage these models to
+both inform reconstruction and propagate uncertainty from our
+reconstruction methods through time. Doing this can help enable robots
+to take actions during tasks that reduce uncertainty of outcomes.
+Experiments to verify this aim would focus on showing reconstruction
+improvement and uncertainty reduction through simple manipulation tasks
+like pushing objects in both real world and simulation.</p>
+</blockquote>
+<p>I’m not sure if I need to include more specifics.</p>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-prism:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+<div id="ref-engelmann2021points" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">F.
+Engelmann, K. Rematas, B. Leibe, and V. Ferrari, <span>“From points to
+multi-object 3D reconstruction,”</span> in <em>Proceedings of the
+IEEE/CVF conference on computer vision and pattern recognition</em>,
+2021, pp. 4588–4597.</div>
+</div>
+<div id="ref-ren2024grounded" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">T.
+Ren, S. Liu, A. Zeng, J. Lin, K. Li, H. Cao, J. Chen, X. Huang, Y. Chen,
+F. Yan, and others, <span>“Grounded sam: Assembling open-world models
+for diverse visual tasks,”</span> <em>arXiv preprint
+arXiv:2401.14159</em>, 2024.</div>
+</div>
+<div id="ref-calli2015ycb" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">B.
+Calli, A. Singh, A. Walsman, S. Srinivasa, P. Abbeel, and A. M. Dollar,
+<span>“The ycb object and model set: Towards common benchmarks for
+manipulation research,”</span> in <em>2015 international conference on
+advanced robotics (ICAR)</em>, 2015, pp. 510–517.</div>
+</div>
+</div>
+</body>
+</html>
