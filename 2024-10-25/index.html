@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Oct 24</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#mathematical-formulation"
+id="toc-mathematical-formulation"><span
+class="toc-section-number">2</span> Mathematical Formulation</a></li>
+<li><a href="#registration-on-kinect-scene"
+id="toc-registration-on-kinect-scene"><span
+class="toc-section-number">3</span> Registration on Kinect
+Scene</a></li>
+<li><a href="#new-proposed-method-pitch"
+id="toc-new-proposed-method-pitch"><span
+class="toc-section-number">4</span> New Proposed Method / Pitch</a></li>
+<li><a href="#phd-applications" id="toc-phd-applications"><span
+class="toc-section-number">5</span> PhD Applications</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".." class="printIgnore"><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>We have been working on extending a V-PRISM <span class="citation"
+data-cites="wright2024v">[1]</span> like approach to do
+<em>reconstruction</em> instead of just <em>mapping</em>. We want to
+leverage object-level priors during optimization-based reconstruction.
+We have explored using GMMs and VAEs, but have most recently been using
+a dataset-lookup approach to create an approximate prior. Here is a
+figure of an overview of the current working method we had:</p>
+<p><img src="intro_img.png" /></p>
+<p>Last meeting (2 weeks ago), I tried to throw our new method on a real
+world scene, but it didn’t have the greatest results. I also had a basic
+version of the “collision loss” I had mentioned in the past. The next
+steps we identified from that meeting were to try to register a clean
+point cloud to a noisy one and think about incorporating color or
+language into the reconstruction process. In the meantime, I have also
+submitted my NSF-GRFP application.</p>
+<p>This week, I want to discuss a couple of things, which I have broken
+into sections below.</p>
+<h2 data-number="2" id="mathematical-formulation"><span
+class="header-section-number">2</span> Mathematical Formulation</h2>
+<p>After our meeting a few weeks ago and inspired by <span
+class="citation" data-cites="hsiao2011bayesian">[2]</span>, I tried to
+throw together this justification for doing the dataset lookup.</p>
+<p>Consider we are trying to infer a distribution over Hilbert map
+weights, <span class="math inline">w</span>, which define a shape. We
+have collected a set of negative samples, <span
+class="math inline">S</span>, and detection results, <span
+class="math inline">D</span>, that tell us about how well the
+observation matches objects in a preexisting dataset. We define a space
+of such objects, <span class="math inline">c \in C</span> that in our
+case consists of both the collection of objects in our dataset and the
+space of <span class="math inline">SE(3)</span> or <span
+class="math inline">SIM(3)</span> transformations. Having such
+transformations means our space is no longer completely discrete. We
+have the following: <span class="math display"> P(w | S, D) = \int_C P(c
+| S, D) P(w | S, D, c) dc </span> Of course, following the logic of the
+aforementioned paper, we know that inferring <span
+class="math inline">c</span> only relies on <span
+class="math inline">D</span> and once we know <span
+class="math inline">c</span>, <span class="math inline">D</span> is
+irrelevant for inferring <span class="math inline">w</span>, so we can
+simplify: <span class="math display"> P(w | S, D) = \int_C P(c | D) P(w
+| S, c) dc </span> By Bayes rule: <span class="math display"> P(w | S,
+D) = \int_C P(c | D) \frac{P(S | w, c) P(w | c)}{P(S | c)} dc </span> We
+can simplify even further by (1) assuming <span
+class="math inline">S</span> is independent of <span
+class="math inline">c</span> and (2) realizing that once we know <span
+class="math inline">w</span>, that <span class="math inline">c</span> is
+irrelevant for the likelihood of <span class="math inline">S</span>.
+Thus, we get: <span class="math display"> P(w | S, D) = \frac{P(S |
+w)}{P(S)} \int_C P(c | D) P(w | c) dc </span> <span
+class="math display"> = \frac{P(S | w)}{P(S)} \cdot \mathbb E_{c \sim
+P(c | D)} \left[ P(w | c) \right] </span> The insight here is to realize
+that we can approximate the expectation by drawing samples from <span
+class="math inline">c_1, ..., c_K \sim P(c | D)</span>: <span
+class="math display"> \mathbb E_{c \sim P(c | D)} \left[ P(w | c)
+\right] \approx \frac{1}{K} \sum_k P(w | c_k) </span> If formulated
+correctly, we can view our dataset lookup as sampling these points in
+<span class="math inline">C</span>, which is defined by a mesh and a
+transform.</p>
+<p>In my opinion, there could be a couple problems with this
+formulation, but I like it better than the previous justification for
+the dataset lookup. The potential problems I think are: (1) the
+independence assumptions are clearly incorrect because they absolutely
+will be correlated. (2) The whole derivation seems convoluted, maybe you
+can skip all the way to the middle without too much formalities.</p>
+<p><strong>Note:</strong> <em>Importantly, the formulation of <span
+class="math inline">P(c | D)</span> is open-ended. We could easily
+incorporate color or language as part of this detection and it wouldn’t
+change the math at all.</em></p>
+<h2 data-number="3" id="registration-on-kinect-scene"><span
+class="header-section-number">3</span> Registration on Kinect Scene</h2>
+<p>For reference, here is the kinect scene I am using for this section
+(same scene as last write-up):</p>
+<p><img src="./scene.png" /></p>
+<p>Here are a couple registrations with ICP:</p>
+<p><img src="./registration_banana.gif" /> <img
+src="./registration_drill_fail.gif" /></p>
+<p><strong>Correction:</strong> <em>The word ‘Epoch’ in the GIFs above
+shoud really be ‘Iter’ as it is the ICP iteration.</em></p>
+<p>As you can see, the banana works fine (it is maybe flipped but it
+registers okay), but the drill really fails with ICP. I think this can
+be chalked up to noisy segmentation/depth; if you look at the kinect
+scene alternate view of the point cloud, you can see some of the surface
+of the table is in the segmentation. Here is another view to really show
+what I am talking about:</p>
+<p><img src="./drill1.png" /></p>
+<p>Okay, so the errant points mess up the registration, but what should
+we do? Well, we could either improve our segmentation, or, what I think
+would be best: have a way to do <em>robust</em> registration. I think it
+would help strengthen the paper down the line if we can demonstrate that
+we can still enforce a coherent prior when there is a noisy observation
+(like inaccurate segmentation) of a known object. An obvious choice for
+robust registration would be to use RANSAC. Another cool way to do
+registration that might solve our problem is involving SVGD <span
+class="citation" data-cites="liu2016stein">[3]</span>, similar to
+SVGD-ICP <span class="citation" data-cites="maken2021stein">[4]</span>.
+An added benefit of using SVGD, is that it is a naturally probabilistic
+framing, which would tie in nicely with the “<a
+href="#mathematical-formulation">Mathematical Formulation</a>”
+section.</p>
+<p>As a step towards SVGD, you can also just do an SGD version of ICP. I
+was able to get it to work on the banana, but I ran into issuies with
+the drill. Anyways, this is a figure of what the banana looked like with
+it:</p>
+<p><img src="sgdicp.png" /></p>
+<p><strong>Question:</strong> <em>What are your thoughts on SVGD or
+RANSAC for registration? we would need to do it in batch
+efficiently.</em></p>
+<h2 data-number="4" id="new-proposed-method-pitch"><span
+class="header-section-number">4</span> New Proposed Method / Pitch</h2>
+<h3 data-number="4.1" id="proposed-prior"><span
+class="header-section-number">4.1</span> Proposed Prior</h3>
+<p>I was reflecting on the method that we have so far and it struck me
+that it was interesting that we would perform 2 separate optimization
+problems; we would fit a weight offline with priveleged negative
+samples, then during the second online optimization, we would use a loss
+defined by the distance to the fit weight. What if the fit weight was
+suboptimal or not fit to convergence? My insight was that we could
+simply use the negative samples that would be used to fit the original
+weight as the prior for the online reconstruction.</p>
+<figure>
+<img src="prior.png"
+alt="We’d store point clouds, query samples, and labels offline, then register w/ point clouds and make prior w/ query samples" />
+<figcaption aria-hidden="true">We’d store point clouds, query samples,
+and labels offline, then register w/ point clouds and make prior w/
+query samples</figcaption>
+</figure>
+<h3 data-number="4.2" id="paper-pitch"><span
+class="header-section-number">4.2</span> Paper Pitch</h3>
+<p>I want to have something together before the end of the semester.</p>
+<p><strong>Motivation:</strong> Inferring the geometry of a 3D scene is
+important for many manipulation tasks. Such geometry is often inferred
+from camera observations that are often noisy and only contain partial
+information. Previous work is either fragile to lots of noise, such as
+many learned approaches, or cannot accurately reconstruct the backside
+of objects due to only having partial information.</p>
+<p><em>In this paper pitch, we proposed a method that leverages prior
+information to reconstruct a scene, while still being robust to both
+noise and out-of-distribution objects.</em></p>
+<p><strong>Proposed Contributions:</strong></p>
+<ol type="1">
+<li>A novel formulation for encorporating shape priors from mesh
+datasets during object reconstruction</li>
+<li>A new method for Bayesian <em>reconstruction</em> of tabletop
+scenes</li>
+<li>A new “collision loss” term for multi-object optimization-based
+occupany map reconstruction</li>
+</ol>
+<p><strong>Proposed Method:</strong></p>
+<p><img src="method.png" /></p>
+<p><strong>Proposed Experiments:</strong> In our proposed experiments,
+we would compare against V-PRISM <span class="citation"
+data-cites="wright2024v">[1]</span> and a modified PointSDF <span
+class="citation" data-cites="van2020learning">[5]</span> as
+baselines.</p>
+<ol type="1">
+<li><em>Accuracy:</em> Evaluate Chamfer and IoU on simulation scenes,
+similar to V-PRISM paper.</li>
+<li><em>Robustness:</em> Qualitatively evaluate reconstructions in real
+world for (a) known objects with a noisy observation and (b) unknown
+objects.</li>
+<li><em>Downstream Improvement:</em> Quantitatively evaluate ability to
+motion plan in clutter without causing a collision (in simulation). The
+idea would be to generate a scene in simulation, take an observation
+(maybe add noise) and fit a map to it, then have a robot arm motion plan
+to a point in clutter like reach behind an object, without
+collision.</li>
+</ol>
+<h2 data-number="5" id="phd-applications"><span
+class="header-section-number">5</span> PhD Applications</h2>
+<p>Since I have submitted the NSF-GRFP, I think it is about time to
+start on PhD applications. From what I have heard and seen, most
+universities have deadlines in early to mid December, so that gives me a
+month and a half. Because this is my first experience with PhD
+applications, I would appreciate any guidance or advice you have for
+me.</p>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-prism:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+<div id="ref-hsiao2011bayesian" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">K.
+Hsiao, M. Ciocarlie, P. Brook, and W. Garage, <span>“Bayesian grasp
+planning,”</span> in <em>ICRA 2011 workshop on mobile manipulation:
+Integrating perception and manipulation</em>, 2011.</div>
+</div>
+<div id="ref-liu2016stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Q.
+Liu and D. Wang, <span>“Stein variational gradient descent: A general
+purpose bayesian inference algorithm,”</span> <em>Advances in neural
+information processing systems</em>, vol. 29, 2016.</div>
+</div>
+<div id="ref-maken2021stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">F.
+A. Maken, F. Ramos, and L. Ott, <span>“Stein ICP for uncertainty
+estimation in point cloud matching,”</span> <em>IEEE robotics and
+automation letters</em>, vol. 7, no. 2, pp. 1063–1070, 2021.</div>
+</div>
+<div id="ref-van2020learning" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">M.
+Van der Merwe, Q. Lu, B. Sundaralingam, M. Matak, and T. Hermans,
+<span>“Learning continuous 3d reconstructions for geometrically aware
+grasping,”</span> in <em>2020 IEEE international conference on robotics
+and automation (ICRA)</em>, 2020, pp. 11516–11522.</div>
+</div>
+</div>
+</body>
+</html>
