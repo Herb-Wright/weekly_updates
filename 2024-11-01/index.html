@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Nov 01</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#negative-samples-as-a-prior"
+id="toc-negative-samples-as-a-prior"><span
+class="toc-section-number">2</span> Negative Samples as a Prior</a></li>
+<li><a href="#doing-registration-better"
+id="toc-doing-registration-better"><span
+class="toc-section-number">3</span> Doing Registration Better</a></li>
+<li><a href="#the-full-method-on-kinect-scene"
+id="toc-the-full-method-on-kinect-scene"><span
+class="toc-section-number">4</span> The Full Method on Kinect
+Scene</a></li>
+<li><a href="#towards-phd-applications"
+id="toc-towards-phd-applications"><span
+class="toc-section-number">5</span> Towards PhD Applications</a></li>
+<li><a href="#looking-forward" id="toc-looking-forward"><span
+class="toc-section-number">6</span> Looking Forward</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".." class="printIgnore"><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>We are trying to build off of V-PRISM <span class="citation"
+data-cites="wright2024v">[1]</span>, but enforce <em>informative
+priors</em> so that we can <em>reconstruct</em> the scene. Last time, I
+had a brief outline of the current working method. Here is the visual
+for the new method overview:</p>
+<p><img src="./method.png" /></p>
+<p>The things that I wrote down to do this week were the following:</p>
+<ol type="1">
+<li>Put together a list of 10-15 labs/schools that I would like to apply
+to for a PhD</li>
+<li>Do a simple experiment for the robustness of the prior with respect
+to pose noise of prior</li>
+<li>Try to figure out a way to do registration better than last
+time</li>
+</ol>
+<p>I tried to do all of these things in this write-up.</p>
+<h2 data-number="2" id="negative-samples-as-a-prior"><span
+class="header-section-number">2</span> Negative Samples as a Prior</h2>
+<h3 data-number="2.1" id="the-argument"><span
+class="header-section-number">2.1</span> The Argument</h3>
+<p>Last time, I gave <a
+href="https://herb-wright.github.io/weekly_updates/2024-10-25/#mathematical-formulation">a
+mathematical argument/justification</a> for the dataset-lookup approach
+we are doing. The general approximation I proposed was (where <span
+class="math inline">c</span> is object and transform, <span
+class="math inline">S</span> is negative samples, <span
+class="math inline">D</span> is “detection result”): <span
+class="math display"> P(w | S, D) = \frac{P(S | w)}{P(S)} \cdot \mathbb
+E_{c \sim P(c | D)} \left[ P(w | c) \right] </span> Where we
+approximate: <span class="math display"> \mathbb E_{c \sim P(c | D)}
+\left[ P(w | c) \right] \approx \frac{1}{K} \sum_k P(w | c_k) </span>
+There are two parts for how our dataset-lookup as a prior factors into
+this aproach. (1) Our “lookup” is viewed as sampling from <span
+class="math inline">P(c|D)</span>; (2) Our prior takes the form of a
+mixture of <span class="math inline">P(w | c_k)</span> for each sampled
+<span class="math inline">c_k</span>. In this section we focus on part
+2.</p>
+<p>Also last time, I proposed using stored negative samples to function
+as the prior. The idea is that we would first register a stored point
+cloud to the observation, then, we would retrieve the negative samples
+and transform them similarly and use them to construct our prior. Here
+is the image from last time:</p>
+<p><img src="./prior.png" /></p>
+<p>If we have retrieved negative samples for different objects, <span
+class="math inline">\{(x_{i,o_1}, y_{i, o_1})\}, ..., \{(x_{i,o_K},
+y_{i, o_K})\}</span> (<span class="math inline">o_k</span> is object
+<span class="math inline">k</span> retrieved from dataset), then we can
+define our prior as a mixture of the object samples: <span
+class="math display"> \sum_k P(w | c_k) = \sum_k \prod_i \sigma(y_{i,
+o_k} \phi(x_{i, o_k})^\top w) </span> Where <span
+class="math inline">y_{i, o_k} \in \{-1, 1\}</span>. During
+optimization, we would use the log of the above defined “prior”. Of
+course, because these are negative samples, we could also think of these
+in terms of a bunch of likelihoods, <span class="math inline">P(y_{i,
+o_k} | x_{i, o_k}, w) =: P(Q | w)</span>. Is there a way to unify these
+two phrasings of the prior?</p>
+<p>Consider <span class="math inline">Q</span> denotes a set of query
+points and labels retrieved: <span class="math display"> P(w | c) =
+\int_\mathcal{Q} P(Q | c) P(w | Q, c) dQ = \mathbb E_Q[P(w | Q, c)]
+</span> Then if knowing <span class="math inline">Q</span> removes
+dependence on <span class="math inline">c</span>, <span
+class="math display"> P(w | c) = \mathbb E_Q[P(w | Q)] = \mathbb
+E_Q\left[\frac{P(Q | w) P(w)}{P(Q)}\right] </span> However, I don’t know
+if this is a very clean way to get to our prior definition.</p>
+<p><strong>Question:</strong> <em>Should the prior definition be pitched
+as an approximation to a KDE or is there some sort of derivation that
+would make more sense?</em></p>
+<h3 data-number="2.2" id="robustness-to-pose-change"><span
+class="header-section-number">2.2</span> Robustness to Pose Change</h3>
+<p>Here is the approach for this experiment: I first register in batch
+starting with 32 random <span class="math inline">\text{SIM}(3)</span>
+poses. I take the best and use that pose as the ground truth one. Then I
+retrieve pre computed query negative samples that correspond to the
+transform. I build a Hilbert map <span class="citation"
+data-cites="ramos2016hilbert">[2]</span> by training a classifier using
+Adam over both query samples and observed negative samples. I only
+weight the query samples as 0.01 of the observed negative samples. Here
+is a graphic to help understand the different parts of the process
+visually:</p>
+<p><img src="./robustness0.png" /></p>
+<p>Next, I qualitatively show what happens to recontruction with a
+really bad prior. Here is the figure for that:</p>
+<p><img src="./robustness1.png" /></p>
+<p>Notice that the reconstruction is good when the prior is good, but
+struggles with the poor prior. While this harms the reconstruction, I
+believe that some observational negative sampling parameters make it
+worse than it needs to be. I beleive that reconstruction can be better
+with different hyperparameters even when the prior is poor.</p>
+<p>Next is an experiment of varying the pose and keeping track of the
+IoU with the ground truth mesh. Here is a line graph that shows how IoU
+deteriorates:</p>
+<p><img src="./robustness3.png" /></p>
+<p>As you can see, as the pose gets worse, the IoU metric also gets
+worse. It should be noted that there is a significant drop between the
+second and third value. A similar phenomena can be observed with chamfer
+distance, but it is not graphed. Here are the values (in the same order
+as above graph): [0.005152, 0.005946, 0.008029, 0.008816, 0.009553].
+These values are in meters and lower is better.</p>
+<p><strong>Note:</strong> <em>One thing that I realized with the new way
+we are doing the prior is that it is agnostic of hinge point placement;
+this means we can do a similar trick to V-PRISM where we place hinge
+points on the surface for increased accuracy there.</em></p>
+<h2 data-number="3" id="doing-registration-better"><span
+class="header-section-number">3</span> Doing Registration Better</h2>
+<p>Here is a GIF of doing SIM(3) registration with SGD ICP with 3
+different results: (<strong>first</strong>) failure;
+(<strong>middle</strong>) almost right; (<strong>last</strong>) best
+registration:</p>
+<p><img src="./registration10.gif" style="width:30.0%" /> <img
+src="./registration9.gif" style="width:30.0%" /> <img
+src="./registration12.gif" style="width:30.0%" /></p>
+<p>For this registration, I used L1 loss, started with an initial random
+pose in <span class="math inline">\text{SIM}(3)</span>, but optimized a
+perturbation to the pose in the Lie algebra <span
+class="math inline">\mathfrak{sim}(3)</span> using PyPose <span
+class="citation" data-cites="wang2023pypose">[3]</span>. In order to
+avoid the scale parameter from blowing up, I included a regularization
+term that penalizes the squared log of the scale. Batch size was 64
+points in the observed point cloud. The last GIF had a final loss of
+0.06143.</p>
+<p>Next, I try registering to the banana. I want to make sure that (1)
+the banana registers <em>poorly</em> to the drill observation and (2)
+the banana registers <em>well</em> to the banana observation. Here are
+the GIFs:</p>
+<p><img src="./registration_banana_to_drill.gif" /> <img
+src="./registration13.gif" /></p>
+<p>The banana-to-drill registration had a final loss of 0.1773,
+significantly higher than drill-to-drill best registration. It should be
+noted that in the banana-to-banana registration GIF, I increased the
+step size from 0.001 to 0.005. This suggests it could be increased more
+and have less epochs.</p>
+<p><strong>Question:</strong> <em>How does this look; do we still think
+that color is necessary?</em></p>
+<p>As far as robustness, if we want to do better, there is a paper I
+found, <span class="citation" data-cites="deng2021robust">[4]</span>,
+proposing a new robust loss for point cloud to point cloud registration.
+They showed improvement over chamfer distance as a loss metric in
+presence of outliers. I haven’t dug into it, but it might be something
+to keep in the back of our minds.</p>
+<h2 data-number="4" id="the-full-method-on-kinect-scene"><span
+class="header-section-number">4</span> The Full Method on Kinect
+Scene</h2>
+<p><img src="./scene.png" /></p>
+<p>I would like to try running the full method on this kinect scenes.
+The things that might still need work are:</p>
+<ol type="1">
+<li>Probabilistic optimization</li>
+<li>Collision loss and justification</li>
+<li>Efficiency</li>
+</ol>
+<h2 data-number="5" id="towards-phd-applications"><span
+class="header-section-number">5</span> Towards PhD Applications</h2>
+<p>I have compiled a list of potential PhD labs that I am considering
+applying to (in no particular order):</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 54%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr>
+<th>Faculty</th>
+<th>Lab</th>
+<th>University</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tucker Hermans</td>
+<td>LL4MA Lab</td>
+<td>U of U</td>
+</tr>
+<tr>
+<td>Deiter Fox</td>
+<td>Robotics and State Estimation Lab</td>
+<td>UW</td>
+</tr>
+<tr>
+<td>Byron Boots</td>
+<td>Robot Learning Lab</td>
+<td>UW</td>
+</tr>
+<tr>
+<td>Matthew Johnson-Roberson</td>
+<td>DROP Lab</td>
+<td>CMU</td>
+</tr>
+<tr>
+<td>Nadia Figueroa</td>
+<td></td>
+<td>U Penn</td>
+</tr>
+<tr>
+<td>Michael Posa</td>
+<td>DAIR Lab</td>
+<td>U Penn</td>
+</tr>
+<tr>
+<td>Roberto Martín-Martín</td>
+<td>RobIn Robot Interactive Intelligence Lab</td>
+<td>UT Austin</td>
+</tr>
+<tr>
+<td>Lerrel Pinto</td>
+<td>GRAIL</td>
+<td>NYU</td>
+</tr>
+<tr>
+<td>Nikolay Atanasov</td>
+<td>Existential Robotics Lab</td>
+<td>UCSD</td>
+</tr>
+</tbody>
+</table>
+<p>Here are the list of 7 universities represented in the above
+table:</p>
+<ul>
+<li>University of Utah</li>
+<li>University of Washington*</li>
+<li>Carnegie Mellon University*</li>
+<li>University of Pennsylvania</li>
+<li>University of Texas at Austin</li>
+<li>New York University</li>
+<li>University of California San Diego</li>
+</ul>
+<p>*: Preference school</p>
+<h2 data-number="6" id="looking-forward"><span
+class="header-section-number">6</span> Looking Forward</h2>
+<p>Next week, I have a few goals:</p>
+<ol type="1">
+<li>I am giving the lab meeting presentation (<strong>Nov
+4</strong>)</li>
+<li>I want to start to move this method and stuff closer to a paper</li>
+<li>I want to continue with PhD applications</li>
+</ol>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-prism:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+<div id="ref-ramos2016hilbert" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">F.
+Ramos and L. Ott, <span>“Hilbert maps: Scalable continuous occupancy
+mapping with stochastic gradient descent,”</span> <em>The International
+Journal of Robotics Research</em>, vol. 35, no. 14, pp. 1717–1730,
+2016.</div>
+</div>
+<div id="ref-wang2023pypose" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">C.
+Wang, D. Gao, K. Xu, J. Geng, Y. Hu, Y. Qiu, B. Li, F. Yang, B. Moon, A.
+Pandey, Aryan, J. Xu, T. Wu, H. He, D. Huang, Z. Ren, S. Zhao, T. Fu, P.
+Reddy, X. Lin, W. Wang, J. Shi, R. Talak, K. Cao, Y. Du, H. Wang, H. Yu,
+S. Wang, S. Chen, A. Kashyap, R. Bandaru, K. Dantu, J. Wu, L. Xie, L.
+Carlone, M. Hutter, and S. Scherer, <span>“<span>PyPose</span>: A
+library for robot learning with physics-based optimization,”</span> in
+<em>IEEE/CVF conference on computer vision and pattern recognition
+(CVPR)</em>, 2023.</div>
+</div>
+<div id="ref-deng2021robust" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Z.
+Deng, Y. Yao, B. Deng, and J. Zhang, <span>“A robust loss for point
+cloud registration,”</span> in <em>Proceedings of the IEEE/CVF
+international conference on computer vision</em>, 2021, pp.
+6138–6147.</div>
+</div>
+</div>
+</body>
+</html>
