@@ -166,9 +166,10 @@ poses. I take the best and use that pose as the ground truth one. Then I
 retrieve pre computed query negative samples that correspond to the
 transform. I build a Hilbert map <span class="citation"
 data-cites="ramos2016hilbert">[2]</span> by training a classifier using
-Adam over both query samples and observed negative samples. I only
-weight the query samples as 0.01 of the observed negative samples. Here
-is a graphic to help understand the different parts of the process
+Adam <span class="citation" data-cites="kingma2015adam">[3]</span> over
+both query samples and observed negative samples. I only weight the
+query samples as 0.01 of the observed negative samples. Here is a
+graphic to help understand the different parts of the process
 visually:</p>
 <p><img src="./robustness0.png" /></p>
 <p>Next, I qualitatively show what happens to recontruction with a
@@ -189,6 +190,55 @@ second and third value. A similar phenomena can be observed with chamfer
 distance, but it is not graphed. Here are the values (in the same order
 as above graph): [0.005152, 0.005946, 0.008029, 0.008816, 0.009553].
 These values are in meters and lower is better.</p>
+<p>I also wanted to make sure that I am not “overfitting” to the drill;
+so here is the IoU deterioration for the cracker box:</p>
+<p><img src="robustness4.png" /></p>
+<p>FYI, the chamfer distances again showed an upwards trend, similar to
+the drill. The specific values were (in meters): [0.007707, 0.008411,
+0.009738, 0.010934, 0.011691]</p>
+<p>Here are the hyperparameters for these experiments:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>registr. batch_size</td>
+<td>64</td>
+</tr>
+<tr>
+<td>registr. lr</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>registr. epochs</td>
+<td>8</td>
+</tr>
+<tr>
+<td><span class="math inline">\lambda_\text{prior}</span></td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>recon. batch size</td>
+<td>128</td>
+</tr>
+<tr>
+<td>recon. lr</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td>recon epochs</td>
+<td>20</td>
+</tr>
+<tr>
+<td># of hinge points</td>
+<td>1728</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Note:</strong> <em>One thing that I realized with the new way
 we are doing the prior is that it is agnostic of hinge point placement;
 this means we can do a similar trick to V-PRISM where we place hinge
@@ -206,7 +256,7 @@ src="./registration12.gif" style="width:30.0%" /></p>
 pose in <span class="math inline">\text{SIM}(3)</span>, but optimized a
 perturbation to the pose in the Lie algebra <span
 class="math inline">\mathfrak{sim}(3)</span> using PyPose <span
-class="citation" data-cites="wang2023pypose">[3]</span>. In order to
+class="citation" data-cites="wang2023pypose">[4]</span>. In order to
 avoid the scale parameter from blowing up, I included a regularization
 term that penalizes the squared log of the scale. Batch size was 64
 points in the observed point cloud. The last GIF had a final loss of
@@ -225,7 +275,7 @@ and have less epochs.</p>
 <p><strong>Question:</strong> <em>How does this look; do we still think
 that color is necessary?</em></p>
 <p>As far as robustness, if we want to do better, there is a paper I
-found, <span class="citation" data-cites="deng2021robust">[4]</span>,
+found, <span class="citation" data-cites="deng2021robust">[5]</span>,
 proposing a new robust loss for point cloud to point cloud registration.
 They showed improvement over chamfer distance as a loss metric in
 presence of outliers. I haven’t dug into it, but it might be something
@@ -234,13 +284,18 @@ to keep in the back of our minds.</p>
 class="header-section-number">4</span> The Full Method on Kinect
 Scene</h2>
 <p><img src="./scene.png" /></p>
-<p>I would like to try running the full method on this kinect scenes.
-The things that might still need work are:</p>
+<p>Over the weekend, I would like to try running the full method on this
+kinect scene. The things that might still need work are:</p>
 <ol type="1">
 <li>Probabilistic optimization</li>
 <li>Collision loss and justification</li>
 <li>Efficiency</li>
 </ol>
+<p>Right now my plan is to have the following steps</p>
+<pre><code>1. get_observation
+2. register_all_objects
+3. retrieve_best_transformed_query_samples
+4. run_opt_based_hm_reconstruction</code></pre>
 <h2 data-number="5" id="towards-phd-applications"><span
 class="header-section-number">5</span> Towards PhD Applications</h2>
 <p>I have compiled a list of potential PhD labs that I am considering
@@ -281,7 +336,7 @@ applying to (in no particular order):</p>
 </tr>
 <tr>
 <td>Nadia Figueroa</td>
-<td></td>
+<td>Figueroa Robotics Lab</td>
 <td>U Penn</td>
 </tr>
 <tr>
@@ -304,9 +359,19 @@ applying to (in no particular order):</p>
 <td>Existential Robotics Lab</td>
 <td>UCSD</td>
 </tr>
+<tr>
+<td>Kris Hauser</td>
+<td>Intelligent Motion Lab</td>
+<td>UIUC</td>
+</tr>
+<tr>
+<td>Russ Tedrake</td>
+<td>Robot Locomotion Group</td>
+<td>MIT</td>
+</tr>
 </tbody>
 </table>
-<p>Here are the list of 7 universities represented in the above
+<p>Here are the list of 8 universities represented in the above
 table:</p>
 <ul>
 <li>University of Utah</li>
@@ -316,8 +381,23 @@ table:</p>
 <li>University of Texas at Austin</li>
 <li>New York University</li>
 <li>University of California San Diego</li>
+<li>University of Illinois Urbana-Champaign</li>
+<li>Massachusetts Institute of Technology*</li>
 </ul>
 <p>*: Preference school</p>
+<p>This list is not final, and I’m definitely still researching other
+groups to see who is out there. If there is a place that you think I
+should look into, I’m all ears.</p>
+<p>As far as application materials, I know that I need to have
+statements similar to the NSF-GRFP application. Here are my final drafts
+that I submitted FYI:</p>
+<ul>
+<li><a href="./research_statement.pdf">Research statement</a></li>
+<li><a href="./personal_statement.pdf">Personal statement</a></li>
+</ul>
+<p><strong>Question:</strong> <em>Should my research statement for grad
+school take a different angle than my NSF-GRFP one?</em></p>
+<p><strong>Question:</strong> <em>Do I need to take the GRE?</em></p>
 <h2 data-number="6" id="looking-forward"><span
 class="header-section-number">6</span> Looking Forward</h2>
 <p>Next week, I have a few goals:</p>
@@ -343,8 +423,14 @@ mapping with stochastic gradient descent,”</span> <em>The International
 Journal of Robotics Research</em>, vol. 35, no. 14, pp. 1717–1730,
 2016.</div>
 </div>
+<div id="ref-kingma2015adam" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">D.
+Kingma and J. Ba, <span>“Adam: A method for stochastic
+optimization,”</span> in <em>International conference on learning
+representations (ICLR)</em>, 2015.</div>
+</div>
 <div id="ref-wang2023pypose" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">C.
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">C.
 Wang, D. Gao, K. Xu, J. Geng, Y. Hu, Y. Qiu, B. Li, F. Yang, B. Moon, A.
 Pandey, Aryan, J. Xu, T. Wu, H. He, D. Huang, Z. Ren, S. Zhao, T. Fu, P.
 Reddy, X. Lin, W. Wang, J. Shi, R. Talak, K. Cao, Y. Du, H. Wang, H. Yu,
@@ -355,7 +441,7 @@ library for robot learning with physics-based optimization,”</span> in
 (CVPR)</em>, 2023.</div>
 </div>
 <div id="ref-deng2021robust" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Z.
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Z.
 Deng, Y. Yao, B. Deng, and J. Zhang, <span>“A robust loss for point
 cloud registration,”</span> in <em>Proceedings of the IEEE/CVF
 international conference on computer vision</em>, 2021, pp.
