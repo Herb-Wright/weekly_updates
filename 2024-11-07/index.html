@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Nov 07</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#mathematical-argument-for-prior"
+id="toc-mathematical-argument-for-prior"><span
+class="toc-section-number">2</span> Mathematical Argument for
+Prior</a></li>
+<li><a href="#bad-object-identification"
+id="toc-bad-object-identification"><span
+class="toc-section-number">3</span> Bad Object Identification</a></li>
+<li><a href="#learning-idea" id="toc-learning-idea"><span
+class="toc-section-number">4</span> Learning Idea</a></li>
+<li><a href="#speeding-up-registration"
+id="toc-speeding-up-registration"><span
+class="toc-section-number">5</span> Speeding Up Registration</a></li>
+<li><a href="#other-stuff" id="toc-other-stuff"><span
+class="toc-section-number">6</span> Other Stuff</a></li>
+<li><a href="#looking-forward" id="toc-looking-forward"><span
+class="toc-section-number">7</span> Looking Forward</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".." class="printIgnore"><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>Robustly building a continuous 3D representation of a multi-object
+scene is useful for many robotic manipulation tasks. In IROS 2024, we
+proposed V-PRISM <span class="citation"
+data-cites="wright2024v">[1]</span> as a solution to this problem. One
+limitation of V-PRISM is that the scene is <em>mapped</em> and not
+<em>reconstructed</em> with use of an informative prior. In this future
+work, we are trying to construct a method for enforcing some sort of
+prior during reconstruction that provides more accurate reconstructions.
+Specifically, we want a method that (a) is more <em>accurate with
+in-distribution objects</em>; and (b) is <em>robust to
+out-of-distribution objects</em>.</p>
+<p>The current method that we are working with shifts the problem from
+having an informative prior to having a “detection-conditioned” prior.
+In order to have a bit of Sim(3) resiliency, registration is performed
+as part of the process. The “prior” is then represented with a set of
+precomputed samples. Here is a figure overviewing the method:</p>
+<p><img src="./method.png" /></p>
+<p>The action items I wrote down from our last meeting were:</p>
+<ol type="1">
+<li>Hook up method to Kinect scene</li>
+<li>Create Overleaf doc</li>
+<li>Make slides for lab meeting</li>
+<li>Start looking at application requirements</li>
+<li>Think about mathematical argument of prior</li>
+</ol>
+<p>I touch on most of these in the write-up, and I try a couple new
+things out. I am starting to think that incorporating some sort of
+language or classifier might be the right way to go. Here are some
+things I want to talk about in this meeting:</p>
+<ul>
+<li>Is the mathematical argument convincing/sound/good?</li>
+<li>What is the most natural way to implement the “detection” in
+practice?</li>
+</ul>
+<h2 data-number="2" id="mathematical-argument-for-prior"><span
+class="header-section-number">2</span> Mathematical Argument for
+Prior</h2>
+<h3 data-number="2.1" id="the-bigger-picture"><span
+class="header-section-number">2.1</span> The Bigger Picture</h3>
+<p>A couple weeks ago I had a general argument for a
+“detection-conditioned” prior based on an argument in <span
+class="citation" data-cites="hsiao2011bayesian">[2]</span>. In the
+paper, they have a simple Bayes net that explains their probabilistic
+model. I figured it might be helpful conceptually to do the same. Here
+is a graph of the “Bayes net” that I have in my mind for our problem:
+<img src="prior.png" /></p>
+<p>Perhaps this makes the derivation of the actual quantity we are after
+to a quantity that we can compute a little easier. Let <span
+class="math inline">S</span> be a shorthand for the negatively sampled
+data <span class="math inline">(\{x_i\}, \{y_i\})</span> and <span
+class="math inline">R</span> be the “detection result”. Here is an
+overview of the argument we currently have based on the Bayes net
+proposed: <span class="math display"> P(w | S, R) \propto P(S | w) P(w |
+R) </span> <span class="math display"> = P(S | w) \mathbb E_{c \sim P(c
+| R)} \left[ P(w | c) \right] </span> If we let <span
+class="math inline">Q_c</span> be a shorthand for our query samples,
+<span class="math inline">\{x_i^{q, c}\}, \{y_i^{q, c}\}</span>, we can
+write: <span class="math display"> P(w | S, R) \propto P(S | w) \mathbb
+E_{c \sim P(c | R), Q \sim P(Q | c)} \left[ P(w | Q)  \right] </span>
+However, we are saying that <span class="math inline">P(Q | c)</span> is
+“deterministic” such that <span class="math inline">P(Q | c) =
+\delta(Q_c)</span>, meaning that we only evaluate it at the exact
+sampled <span class="math inline">Q_c</span>. From there we have: <span
+class="math display"> P(w | S, R) \propto P(S | w) \mathbb E_{c \sim P(c
+| R)} \left[ P(w | Q_c) \right] </span> <span class="math display">
+\propto P(S | w) \mathbb E_{c \sim P(c | R)} \left[ P(Q_c | w) \right]
+P(w) </span> The insight from a few weeks ago is that we can approximate
+the expectation over <span class="math inline">P(c | R)</span> by
+sampling <span class="math inline">c_k \sim P(c | R)</span> and only
+using a finite number of samples.</p>
+<p><strong>Note:</strong> <em>In the above equations, when there are
+stuff like <span class="math inline">P(S | w)</span> it really
+translates to <span class="math inline">P(\{y_i\} | \{x_i\}, w)</span>.
+The “x” terms always belong on the right hand side of the conditional
+probability.</em></p>
+<p><strong>Question:</strong> <em>Does having a “detection result” even
+make sense? Should both the negative samples and classes be conditioned
+on the point cloud?</em></p>
+<h3 data-number="2.2" id="the-discount-factor"><span
+class="header-section-number">2.2</span> The Discount Factor</h3>
+<p>In practice, we use a NLL with a discount for the query samples:
+<span class="math display"> L(w) = BCE(w, \{x_i\}, \{y_i\}) +
+\frac{\lambda_\text{prior}}{2} \|w\|^2 +
+\frac{\lambda_\text{query}}{|C&#39;|} \sum_{c \in C&#39;} BCE(w,
+\{x_j^{(q, c)}\}, \{y_j^{(q, c)}\}) </span> It would help strengthen the
+argument if we had some way to justify having such a discount factor. As
+we know, the BCE is really the negative log likelihood of the data. We
+can consider how adding a discount factor affects what the corresponding
+likelihood is. We know BCE is defined as: <span class="math display">
+BCE(w, x_i, y_i) = - \ln \sigma(y_i w^\top x_i) </span> Where <span
+class="math inline">\sigma = (1 + e^{-z})^{-1}</span> is the sigmoid
+function. Let’s see what happens if we add in a multiplier: <span
+class="math display"> \lambda BCE(w, x_i, y_i) = - \lambda \ln
+\sigma(y_i w^\top x_i) = - \ln \left(\exp(\lambda)\sigma(y_i w^\top
+x_i)\right) </span> <span class="math display"> = - \ln
+\left(\frac{\exp(\lambda)}{1 + \exp(-y_i w^\top x_i)}\right) = - \ln
+\left(\frac{1}{1/\exp(\lambda) + \exp(-y_i w^\top x_i -
+\lambda)}\right). </span> As you can see this is kind of a messy term.
+If you squint, you can see that <span class="math inline">0 &lt; \lambda
+&lt; 1</span> means it is <em>less</em> confident of a prediction.
+Perhaps I just needed to spend more time thinking about this, but I
+think there probably just isn’t a great probabilistic reason to have a
+multiplier besides saying there are less samples or something.</p>
+<p><strong>Question:</strong> <em>Do you think this would ever be
+controversial with potential reviewers or can we just say we discount
+the query (prior) samples? </em></p>
+<p>I know one thing mentioned last time was using partial values of
+<span class="math inline">y_i</span>. While this may have the desired
+effect and be a little more justifiable, I feel that using a discount
+factor is overall much simpler and more desireable.</p>
+<h2 data-number="3" id="bad-object-identification"><span
+class="header-section-number">3</span> Bad Object Identification</h2>
+<p>A couple weeks ago, I took an observation of a point cloud with the
+Kinect camera in the lab. I segmented the image and corresponding point
+cloud using Grounded SAM <span class="citation"
+data-cites="ren2024grounded">[3]</span>. Here is a couple views of the
+segmented point cloud and image:</p>
+<p><img src="./scene.png" /></p>
+<p>The plan for this week was to try the method out on this image. Due
+to how long/expensive registration for all the objects was in PyTorch, I
+had to downsample and use fewer points. In order to make sure that the
+new hyperparameters would still be able to register okay, I tried to
+register the banana and drill. Here are some examples:</p>
+<p><img src="registration1.png" /></p>
+<p>Of course, sometimes registration failed:</p>
+<p><img src="registration2.png" /></p>
+<p>Unfortunately, registration wasn’t quite able to distinguish the
+right objects on the Kinect scene. Here is an image to see what I am
+talking about:</p>
+<p><img src="registration_ident.png" /></p>
+<p>Perhaps the solution here is a better “loss” function to evaluate the
+registration matches with. In fact, there has been some work on
+adjusting loss functions for registration to be more robust,
+specifically, <span class="citation"
+data-cites="deng2021robust">[4]</span> as well as <span class="citation"
+data-cites="zhou2016fast">[5]</span> to an extent.</p>
+<h2 data-number="4" id="learning-idea"><span
+class="header-section-number">4</span> Learning Idea</h2>
+<p>I had a bit of an out there idea. I wanted to maybe try
+<em>learning</em> the detection-conditioned prior. Martin mentioned
+something called <em>basis point sets</em> <span class="citation"
+data-cites="prokudin2019efficient">[6]</span> that encode a point cloud.
+I decided to make a simple neural net that takes in two point clouds and
+tries to regress the pose change as well as predict the probability that
+the source and target point clouds match. Here is a image depicting how
+the network works (it is kind of a dumb network):</p>
+<p><img src="learning1.png" /></p>
+<p>I tried to train for a while and used ground truth point clouds for
+both source and target. This approach didn’t work great. It seemed to
+only figure out how to center the object on the target point cloud. Here
+are some examples:</p>
+<p><img src="learning2.png" /></p>
+<p>I’m sure if I really wanted to play with it I bet I could get
+something working, but I don’t think it would be worth the effort. For
+reference, there has been some work with deep learning for point cloud
+registration <span class="citation"
+data-cites="mei2023unsupervised jiang2024se wang2019deep dang2021stops">[7]–[10]</span>.</p>
+<p><strong>Idea:</strong> <em>One thing we could do is simply train a
+classifier and use that as the <span class="math inline">P(c |
+R)</span>, which would tell us which the object is.</em></p>
+<p>We might also consider brainstorming using a computer vision
+foundation model like DINO <span class="citation"
+data-cites="oquab2023dinov2">[11]</span> or something similar.</p>
+<h2 data-number="5" id="speeding-up-registration"><span
+class="header-section-number">5</span> Speeding Up Registration</h2>
+<p>Perhaps this is going after the wrong problem, but I wanted to see if
+the method from <span class="citation"
+data-cites="zhou2016fast">[5]</span> would solve the efficiency issues I
+was having (even on the GPU it was taking ~1 minute to run the
+registration). Fortunately, <code>open3d</code> contains an
+implementation of the algorithm. Here is a speed comparison of
+registration with the banana:</p>
+<p><img src="registration3.png" /></p>
+<p>The registration was way faster than what I was getting using
+PyTorch. Even if this is just one object, a back of the envelope
+calculation suggests that if you do this for 4 objects <span
+class="math inline">\times</span> 100 potential point clouds <span
+class="math inline">\times</span> 0.1 second = 40 seconds, which is
+faster than what I was getting before. I still feel like this is kind of
+slow and unfortunately, RANSAC seems to be the only really successful
+registration algorithm.</p>
+<p>I was able to change up RANSAC hyperparameters to half the running
+time of it and still get comparable results. While this is good, ~20
+seconds still feels like a long time.</p>
+<p><strong>Idea:</strong> <em>What if we only pick a subset of YCB <span
+class="citation" data-cites="calli2015ycb">[12]</span> (or even ShapeNet
+<span class="citation" data-cites="chang2015shapenet">[13]</span>)
+objects to use as a prior (like only 20 or so)?</em></p>
+<h2 data-number="6" id="other-stuff"><span
+class="header-section-number">6</span> Other Stuff</h2>
+<h3 data-number="6.1" id="overleaf-doc"><span
+class="header-section-number">6.1</span> Overleaf Doc</h3>
+<p>I have created an overleaf document, but I have not had too much time
+to write a bunch. Here is the link to view the doc (I can also send the
+link to edit as well):</p>
+<ul>
+<li><a
+href="https://www.overleaf.com/read/xdzstgmpkhcf#0edb18">Overleaf</a></li>
+</ul>
+<h3 data-number="6.2" id="lab-meeting-slides"><span
+class="header-section-number">6.2</span> Lab Meeting Slides</h3>
+<p>I made a presentation and presented it in the lab meeting.</p>
+<ul>
+<li><a
+href="https://docs.google.com/presentation/d/1dkBtoeuxOxq2l7vG4RK02kXJrlfxSAaD5Oeoa5xecOU/edit?usp=sharing">Slides</a></li>
+</ul>
+<h2 data-number="7" id="looking-forward"><span
+class="header-section-number">7</span> Looking Forward</h2>
+<p>Looking towards the future, I want to:</p>
+<ol type="1">
+<li>Really nail down how I want to do registration and
+identification</li>
+<li>Actually run the whole method</li>
+<li>Continue along with the other administrative stuff</li>
+</ol>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024v" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-PRISM:
+Probabilistic mapping of unknown tabletop scenes,”</span> <em>arXiv
+preprint arXiv:2403.08106</em>, 2024.</div>
+</div>
+<div id="ref-hsiao2011bayesian" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">K.
+Hsiao, M. Ciocarlie, P. Brook, and W. Garage, <span>“Bayesian grasp
+planning,”</span> in <em>ICRA 2011 workshop on mobile manipulation:
+Integrating perception and manipulation</em>, 2011.</div>
+</div>
+<div id="ref-ren2024grounded" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">T.
+Ren, S. Liu, A. Zeng, J. Lin, K. Li, H. Cao, J. Chen, X. Huang, Y. Chen,
+F. Yan, and others, <span>“Grounded sam: Assembling open-world models
+for diverse visual tasks,”</span> <em>arXiv preprint
+arXiv:2401.14159</em>, 2024.</div>
+</div>
+<div id="ref-deng2021robust" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Z.
+Deng, Y. Yao, B. Deng, and J. Zhang, <span>“A robust loss for point
+cloud registration,”</span> in <em>Proceedings of the IEEE/CVF
+international conference on computer vision</em>, 2021, pp.
+6138–6147.</div>
+</div>
+<div id="ref-zhou2016fast" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div
+class="csl-right-inline">Q.-Y. Zhou, J. Park, and V. Koltun, <span>“Fast
+global registration,”</span> in <em>Computer vision–ECCV 2016: 14th
+european conference, amsterdam, the netherlands, october 11-14, 2016,
+proceedings, part II 14</em>, 2016, pp. 766–782.</div>
+</div>
+<div id="ref-prokudin2019efficient" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">S.
+Prokudin, C. Lassner, and J. Romero, <span>“Efficient learning on point
+clouds with basis point sets,”</span> in <em>Proceedings of the IEEE/CVF
+international conference on computer vision</em>, 2019, pp.
+4332–4341.</div>
+</div>
+<div id="ref-mei2023unsupervised" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">G.
+Mei, H. Tang, X. Huang, W. Wang, J. Liu, J. Zhang, L. Van Gool, and Q.
+Wu, <span>“Unsupervised deep probabilistic approach for partial point
+cloud registration,”</span> in <em>Proceedings of the IEEE/CVF
+conference on computer vision and pattern recognition</em>, 2023, pp.
+13611–13620.</div>
+</div>
+<div id="ref-jiang2024se" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">H.
+Jiang, M. Salzmann, Z. Dang, J. Xie, and J. Yang, <span>“Se (3)
+diffusion model-based point cloud registration for robust 6d object pose
+estimation,”</span> <em>Advances in Neural Information Processing
+Systems</em>, vol. 36, 2024.</div>
+</div>
+<div id="ref-wang2019deep" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Y.
+Wang and J. M. Solomon, <span>“Deep closest point: Learning
+representations for point cloud registration,”</span> in <em>Proceedings
+of the IEEE/CVF international conference on computer vision</em>, 2019,
+pp. 3523–3532.</div>
+</div>
+<div id="ref-dang2021stops" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">Z.
+Dang, L. Wang, J. Qiu, M. Lu, and M. Salzmann, <span>“What stops
+learning-based 3D registration from working in the real world?”</span>
+<em>arXiv preprint arXiv:2111.10399</em>, 2021.</div>
+</div>
+<div id="ref-oquab2023dinov2" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">M.
+Oquab, T. Darcet, T. Moutakanni, H. Vo, M. Szafraniec, V. Khalidov, P.
+Fernandez, D. Haziza, F. Massa, A. El-Nouby, and others, <span>“Dinov2:
+Learning robust visual features without supervision,”</span> <em>arXiv
+preprint arXiv:2304.07193</em>, 2023.</div>
+</div>
+<div id="ref-calli2015ycb" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">B.
+Calli, A. Singh, A. Walsman, S. Srinivasa, P. Abbeel, and A. M. Dollar,
+<span>“The ycb object and model set: Towards common benchmarks for
+manipulation research,”</span> in <em>2015 international conference on
+advanced robotics (ICAR)</em>, 2015, pp. 510–517.</div>
+</div>
+<div id="ref-chang2015shapenet" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">A.
+X. Chang, T. Funkhouser, L. Guibas, P. Hanrahan, Q. Huang, Z. Li, S.
+Savarese, M. Savva, S. Song, H. Su, and others, <span>“Shapenet: An
+information-rich 3d model repository,”</span> <em>arXiv preprint
+arXiv:1512.03012</em>, 2015.</div>
+</div>
+</div>
+</body>
+</html>
