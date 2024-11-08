@@ -64,7 +64,7 @@
 <body>
 <header id="title-block-header">
 <h1 class="title">Herbie’s Update Write-up</h1>
-<p class="date">2024 Nov 07</p>
+<p class="date">2024 Nov 08</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -136,8 +136,9 @@ class="header-section-number">2.1</span> The Bigger Picture</h3>
 class="citation" data-cites="hsiao2011bayesian">[2]</span>. In the
 paper, they have a simple Bayes net that explains their probabilistic
 model. I figured it might be helpful conceptually to do the same. Here
-is a graph of the “Bayes net” that I have in my mind for our problem:
-<img src="prior.png" /></p>
+is a graph of the “Bayes net” that I have in my mind for our
+problem:</p>
+<p><img src="prior.png" /></p>
 <p>Perhaps this makes the derivation of the actual quantity we are after
 to a quantity that we can compute a little easier. Let <span
 class="math inline">S</span> be a shorthand for the negatively sampled
@@ -202,12 +203,65 @@ the query (prior) samples? </em></p>
 <span class="math inline">y_i</span>. While this may have the desired
 effect and be a little more justifiable, I feel that using a discount
 factor is overall much simpler and more desireable.</p>
+<h3 data-number="2.3"
+id="edit-some-extra-thoughts-refining-the-argument"><span
+class="header-section-number">2.3</span> (EDIT) Some Extra Thoughts:
+Refining the Argument</h3>
+<p><em>I added this section Friday afternoon right before the
+meeting.</em></p>
+<p>I am/was concerned that the above was becoming a little too complex
+as far as the argument goes, so I am wondering if there is a much
+cleaner argument to make. I also was inspired by Retreival-Augmented
+Generation (RAG) <span class="citation"
+data-cites="lewis2020retrieval">[3]</span>. It is a few years old, but
+got some hype from the NLP community. Here are some screenshots from the
+paper:</p>
+<p><img src="rag.png" /></p>
+<p>The motivation for RAG was to remove “hallucinations” by basically
+doing a neural network based dataset lookup (document query). I think
+our approach has some philosophical similarities to this work.</p>
+<p>Let <span class="math inline">D</span> be the negatively sampled data
+(previously referred to as <span class="math inline">S</span> above),
+<span class="math inline">c</span> denote class like above, <span
+class="math inline">w</span> be Hilbert Map <span class="citation"
+data-cites="ramos2016hilbert">[4]</span> weights. The argument goes as
+follows:</p>
+<p><strong>Part 1:</strong> Usually we have <span class="math display">
+P(w | D) \propto P(D | w) P(w), </span> but our <span
+class="math inline">P(w)</span> has a lot of components, so we want to
+<em>identify</em> which component <span class="math inline">c</span> it
+comes from. We use an <em>identification result</em>, <span
+class="math inline">R</span>, like so (assuming independence): <span
+class="math display"> P(w | D, R) \propto P(D | w) P(w | R) = P(D | w)
+\cdot \mathbb E_{c \sim P(c | R)} \left[ P(w | c) \right], </span> The
+term <span class="math inline">\mathbb E_{c \sim P(c | R)} \left[ P(w |
+c) \right]</span> acts as a result-conditioned prior, replacing <span
+class="math inline">P(w)</span>.</p>
+<p><strong>Part 2:</strong> We use some predefined model to calculate
+<span class="math inline">P(c | R)</span>. We then approximate the
+expectation by drawing samples according to that distribution.</p>
+<p><strong>Part 3:</strong> We are basically going to handwave away our
+hard-to-justify decisions and say we define: <span class="math display">
+P(w | c) \propto P(D_c | w) P(w), </span> where <span
+class="math inline">D_c</span> is our stored query samples for class
+<span class="math inline">c</span>. Thus, we have <span
+class="math display"> P(w | D, R) \propto P(D | w) \cdot \mathbb E_{c
+\sim P(c | R)} \left[ P(D_c | w) \right] \cdot P(w). </span> We optimize
+the negative log of this and add multipliers: <span
+class="math display"> -\lambda_1 \ln P(D | w) - \lambda_2 \ln \mathbb
+E_{c \sim P(c | R)} \left[ P(D_c | w) \right] - \lambda_3 \ln P(w)
+</span></p>
+<p><strong>Question:</strong> <em>Would this argument be controversial?
+Is it convincing?</em></p>
+<p>I guess we can think of the simplified bayes net for this argument.
+Maybe it looks something like this:</p>
+<p><img src="bayesnet.png" /></p>
 <h2 data-number="3" id="bad-object-identification"><span
 class="header-section-number">3</span> Bad Object Identification</h2>
 <p>A couple weeks ago, I took an observation of a point cloud with the
 Kinect camera in the lab. I segmented the image and corresponding point
 cloud using Grounded SAM <span class="citation"
-data-cites="ren2024grounded">[3]</span>. Here is a couple views of the
+data-cites="ren2024grounded">[5]</span>. Here is a couple views of the
 segmented point cloud and image:</p>
 <p><img src="./scene.png" /></p>
 <p>The plan for this week was to try the method out on this image. Due
@@ -226,14 +280,14 @@ talking about:</p>
 registration matches with. In fact, there has been some work on
 adjusting loss functions for registration to be more robust,
 specifically, <span class="citation"
-data-cites="deng2021robust">[4]</span> as well as <span class="citation"
-data-cites="zhou2016fast">[5]</span> to an extent.</p>
+data-cites="deng2021robust">[6]</span> as well as <span class="citation"
+data-cites="zhou2016fast">[7]</span> to an extent.</p>
 <h2 data-number="4" id="learning-idea"><span
 class="header-section-number">4</span> Learning Idea</h2>
 <p>I had a bit of an out there idea. I wanted to maybe try
 <em>learning</em> the detection-conditioned prior. Martin mentioned
 something called <em>basis point sets</em> <span class="citation"
-data-cites="prokudin2019efficient">[6]</span> that encode a point cloud.
+data-cites="prokudin2019efficient">[8]</span> that encode a point cloud.
 I decided to make a simple neural net that takes in two point clouds and
 tries to regress the pose change as well as predict the probability that
 the source and target point clouds match. Here is a image depicting how
@@ -248,18 +302,18 @@ are some examples:</p>
 something working, but I don’t think it would be worth the effort. For
 reference, there has been some work with deep learning for point cloud
 registration <span class="citation"
-data-cites="mei2023unsupervised jiang2024se wang2019deep dang2021stops">[7]–[10]</span>.</p>
+data-cites="mei2023unsupervised jiang2024se wang2019deep dang2021stops">[9]–[12]</span>.</p>
 <p><strong>Idea:</strong> <em>One thing we could do is simply train a
 classifier and use that as the <span class="math inline">P(c |
 R)</span>, which would tell us which the object is.</em></p>
 <p>We might also consider brainstorming using a computer vision
 foundation model like DINO <span class="citation"
-data-cites="oquab2023dinov2">[11]</span> or something similar.</p>
+data-cites="oquab2023dinov2">[13]</span> or something similar.</p>
 <h2 data-number="5" id="speeding-up-registration"><span
 class="header-section-number">5</span> Speeding Up Registration</h2>
 <p>Perhaps this is going after the wrong problem, but I wanted to see if
 the method from <span class="citation"
-data-cites="zhou2016fast">[5]</span> would solve the efficiency issues I
+data-cites="zhou2016fast">[7]</span> would solve the efficiency issues I
 was having (even on the GPU it was taking ~1 minute to run the
 registration). Fortunately, <code>open3d</code> contains an
 implementation of the algorithm. Here is a speed comparison of
@@ -277,8 +331,8 @@ registration algorithm.</p>
 time of it and still get comparable results. While this is good, ~20
 seconds still feels like a long time.</p>
 <p><strong>Idea:</strong> <em>What if we only pick a subset of YCB <span
-class="citation" data-cites="calli2015ycb">[12]</span> (or even ShapeNet
-<span class="citation" data-cites="chang2015shapenet">[13]</span>)
+class="citation" data-cites="calli2015ycb">[14]</span> (or even ShapeNet
+<span class="citation" data-cites="chang2015shapenet">[15]</span>)
 objects to use as a prior (like only 20 or so)?</em></p>
 <h2 data-number="6" id="other-stuff"><span
 class="header-section-number">6</span> Other Stuff</h2>
@@ -322,36 +376,51 @@ Hsiao, M. Ciocarlie, P. Brook, and W. Garage, <span>“Bayesian grasp
 planning,”</span> in <em>ICRA 2011 workshop on mobile manipulation:
 Integrating perception and manipulation</em>, 2011.</div>
 </div>
+<div id="ref-lewis2020retrieval" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">P.
+Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H.
+Küttler, M. Lewis, W. Yih, T. Rocktäschel, and others,
+<span>“Retrieval-augmented generation for knowledge-intensive nlp
+tasks,”</span> <em>Advances in Neural Information Processing
+Systems</em>, vol. 33, pp. 9459–9474, 2020.</div>
+</div>
+<div id="ref-ramos2016hilbert" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">F.
+Ramos and L. Ott, <span>“Hilbert maps: Scalable continuous occupancy
+mapping with stochastic gradient descent,”</span> <em>The International
+Journal of Robotics Research</em>, vol. 35, no. 14, pp. 1717–1730,
+2016.</div>
+</div>
 <div id="ref-ren2024grounded" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">T.
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">T.
 Ren, S. Liu, A. Zeng, J. Lin, K. Li, H. Cao, J. Chen, X. Huang, Y. Chen,
 F. Yan, and others, <span>“Grounded sam: Assembling open-world models
 for diverse visual tasks,”</span> <em>arXiv preprint
 arXiv:2401.14159</em>, 2024.</div>
 </div>
 <div id="ref-deng2021robust" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Z.
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">Z.
 Deng, Y. Yao, B. Deng, and J. Zhang, <span>“A robust loss for point
 cloud registration,”</span> in <em>Proceedings of the IEEE/CVF
 international conference on computer vision</em>, 2021, pp.
 6138–6147.</div>
 </div>
 <div id="ref-zhou2016fast" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div
+<div class="csl-left-margin">[7] </div><div
 class="csl-right-inline">Q.-Y. Zhou, J. Park, and V. Koltun, <span>“Fast
 global registration,”</span> in <em>Computer vision–ECCV 2016: 14th
 european conference, amsterdam, the netherlands, october 11-14, 2016,
 proceedings, part II 14</em>, 2016, pp. 766–782.</div>
 </div>
 <div id="ref-prokudin2019efficient" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">S.
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">S.
 Prokudin, C. Lassner, and J. Romero, <span>“Efficient learning on point
 clouds with basis point sets,”</span> in <em>Proceedings of the IEEE/CVF
 international conference on computer vision</em>, 2019, pp.
 4332–4341.</div>
 </div>
 <div id="ref-mei2023unsupervised" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">G.
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">G.
 Mei, H. Tang, X. Huang, W. Wang, J. Liu, J. Zhang, L. Van Gool, and Q.
 Wu, <span>“Unsupervised deep probabilistic approach for partial point
 cloud registration,”</span> in <em>Proceedings of the IEEE/CVF
@@ -359,41 +428,41 @@ conference on computer vision and pattern recognition</em>, 2023, pp.
 13611–13620.</div>
 </div>
 <div id="ref-jiang2024se" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline">H.
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">H.
 Jiang, M. Salzmann, Z. Dang, J. Xie, and J. Yang, <span>“Se (3)
 diffusion model-based point cloud registration for robust 6d object pose
 estimation,”</span> <em>Advances in Neural Information Processing
 Systems</em>, vol. 36, 2024.</div>
 </div>
 <div id="ref-wang2019deep" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Y.
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">Y.
 Wang and J. M. Solomon, <span>“Deep closest point: Learning
 representations for point cloud registration,”</span> in <em>Proceedings
 of the IEEE/CVF international conference on computer vision</em>, 2019,
 pp. 3523–3532.</div>
 </div>
 <div id="ref-dang2021stops" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[10] </div><div class="csl-right-inline">Z.
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">Z.
 Dang, L. Wang, J. Qiu, M. Lu, and M. Salzmann, <span>“What stops
 learning-based 3D registration from working in the real world?”</span>
 <em>arXiv preprint arXiv:2111.10399</em>, 2021.</div>
 </div>
 <div id="ref-oquab2023dinov2" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[11] </div><div class="csl-right-inline">M.
+<div class="csl-left-margin">[13] </div><div class="csl-right-inline">M.
 Oquab, T. Darcet, T. Moutakanni, H. Vo, M. Szafraniec, V. Khalidov, P.
 Fernandez, D. Haziza, F. Massa, A. El-Nouby, and others, <span>“Dinov2:
 Learning robust visual features without supervision,”</span> <em>arXiv
 preprint arXiv:2304.07193</em>, 2023.</div>
 </div>
 <div id="ref-calli2015ycb" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[12] </div><div class="csl-right-inline">B.
+<div class="csl-left-margin">[14] </div><div class="csl-right-inline">B.
 Calli, A. Singh, A. Walsman, S. Srinivasa, P. Abbeel, and A. M. Dollar,
 <span>“The ycb object and model set: Towards common benchmarks for
 manipulation research,”</span> in <em>2015 international conference on
 advanced robotics (ICAR)</em>, 2015, pp. 510–517.</div>
 </div>
 <div id="ref-chang2015shapenet" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[13] </div><div class="csl-right-inline">A.
+<div class="csl-left-margin">[15] </div><div class="csl-right-inline">A.
 X. Chang, T. Funkhouser, L. Guibas, P. Hanrahan, Q. Huang, Z. Li, S.
 Savarese, M. Savva, S. Song, H. Su, and others, <span>“Shapenet: An
 information-rich 3d model repository,”</span> <em>arXiv preprint

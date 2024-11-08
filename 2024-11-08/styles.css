@@ -2,7 +2,7 @@
  * I add this to html files generated with pandoc.
  */
 
-html {
+ html {
     font-size: 100%;
     overflow-y: scroll;
     -webkit-text-size-adjust: 100%;
@@ -258,6 +258,12 @@ table td {
 .author {
     font-size: 1.2em;
     text-align: center;
+}
+
+span.display {
+    overflow: scroll;
+    max-width: 100%;
+    display: block;
 }
 
 #title-block-header {
