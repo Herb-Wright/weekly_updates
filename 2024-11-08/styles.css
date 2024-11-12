@@ -261,7 +261,7 @@ table td {
 }
 
 span.display {
-    overflow: scroll;
+    overflow: auto;
     max-width: 100%;
     display: block;
 }
