@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Nov 11</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#leveraging-foundation-models-for-querying"
+id="toc-leveraging-foundation-models-for-querying"><span
+class="toc-section-number">2</span> Leveraging Foundation Models for
+Querying</a></li>
+<li><a href="#registration-with-ransac"
+id="toc-registration-with-ransac"><span
+class="toc-section-number">3</span> Registration with RANSAC</a></li>
+<li><a href="#full-method-example" id="toc-full-method-example"><span
+class="toc-section-number">4</span> Full Method Example</a></li>
+<li><a href="#planning-out-the-paper"
+id="toc-planning-out-the-paper"><span
+class="toc-section-number">5</span> Planning Out the Paper</a></li>
+<li><a href="#other-stuff" id="toc-other-stuff"><span
+class="toc-section-number">6</span> Other Stuff</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".." class="printIgnore"><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>Robustly building a continuous 3D representation of a multi-object
+scene is useful for many robotic manipulation tasks. These scenes often
+contain noisy observations and varying amounts of occlusion, which
+learned methods can be fragile to. Previous work such as V-PRISM <span
+class="citation" data-cites="wright2024vprism">[1]</span> can robustly
+<em>map</em> the scene, but doesn’t use prior information to
+<em>reconstruct</em> known objects. In this future work, we are building
+a method to robustly reconstruct tabletop scenes by leveraging
+object-level priors. Specifically, we want a method that (a) is more
+<em>accurate with in-distribution objects</em>; and (b) is <em>robust to
+out-of-distribution objects</em> while still being able to handle
+occlusion. We framed the problem as a Bayesian inference over Hilbert
+map <span class="citation" data-cites="ramos2016hilbert">[2]</span>
+weights: <span class="math display"> P(w | D, R) \propto P(D | w) P(w |
+R) = P(D | w) \cdot \mathbb E_{c \sim P(c|R)} \left[P(w | c)\right]
+</span> We would then include “query” samples from sampled classes as
+the prior. We would add some hyperparameters and run optimization on the
+objective: <span class="math display"> -\lambda_1 \ln P(D | w) -
+\lambda_2 \ln \mathbb E_{c \sim P(c | R)} \left[ P(D_c | w) \right] -
+\lambda_3 \ln P(w) </span> Here is a visual of what the prior samples
+look like:</p>
+<p><img src="./prior.png" /></p>
+<p>After last meeting, I wrote down the following action items for this
+week:</p>
+<ol type="1">
+<li>Write some overleaf</li>
+<li>Continue with PhD applications</li>
+<li>Try out language idea w/ foundation models</li>
+<li>Implement full method + analyze</li>
+</ol>
+<p>This meeting, I tried to work towards each of these items.</p>
+<h2 data-number="2" id="leveraging-foundation-models-for-querying"><span
+class="header-section-number">2</span> Leveraging Foundation Models for
+Querying</h2>
+<p>We need some way to compute <span class="math inline">P(c |
+R)</span>, or the probabilities for each “class” conditioned on some
+identification results. Last time, it seemed like using chamfer distance
+had some flaws, so we discussed using language and foundation models.
+The foundation model we discussed was PointLLM <span class="citation"
+data-cites="xu2025pointllm">[3]</span>, but I found it hard to run on
+the lab computer, and the lab computers GPU (2070 with 8GB RAM) didn’t
+meet the RAM requirements for the smallest quantized version of the
+model. However, I realized that this task was perfect for the CLIP model
+<span class="citation" data-cites="radford2021learning">[4]</span>. I
+collected a couple more Kinect scenes in the lab, and here is the CLIP
+results for one of them:</p>
+<p><img src="clip.png" /></p>
+<p>I take the detections and crop each segmentation results into a
+512x512 image that is fed into CLIP. As you can see, CLIP is able to
+accurately classify each object. In the above image, I only ran CLIP
+with the classes of
+<code>["bowl", "banana", "orange", "box", "drill"]</code>. I wanted to
+make sure that this approach scaled to the level that we are going to be
+using for our prior. So, I made a list of 50 different strings for
+objects in the YCB object dataset <span class="citation"
+data-cites="calli2015ycb">[5]</span> and visualized the top results.
+Here those are:</p>
+<p><img src="clip2.png" /></p>
+<p>In the above image, we can see that the drill and banana are
+correctly identified. The Clorox bottle and orange juice are not
+actually meshes in the YCB mesh dataset. The CLIP model, however, is
+pretty confident in its predictions for the out-of-distribution
+objects.</p>
+<p>One thing that I considered was <em>masking out</em> the
+non-segmented parts of the image during classification. However, it had
+mixed results. Here is comparing all the labels and taking the best ones
+when running CLIP on the first scene. Here is the comparison:</p>
+<p><img src="clip3.png" /></p>
+<p>One thing to note is that in the masking case, the orange being
+classified as an apple really wouldn’t affect the reconstruction that
+much as both are fairly spherical.</p>
+<p><strong>Question:</strong> <em>For those who know CLIP more than me,
+is there any techniques for having a “null” class that to classify
+objects that don’t fit into the other classes?</em></p>
+<h2 data-number="3" id="registration-with-ransac"><span
+class="header-section-number">3</span> Registration with RANSAC</h2>
+<p>Last time, I tried out some of the built-in registration stuff in
+Open3D. It was way faster, but only the RANSAC option that used FPFH
+features <span class="citation" data-cites="rusu2009fast">[6]</span>
+really worked well on the banana. In this section, I explore a little
+more to make sure that this option can fit our use case.</p>
+<p><img src="registration1.png" /></p>
+<p><strong>Note:</strong> <em>The blue numbers at the bottom of each
+registration in the above image are the CLIP probabilities of that
+class.</em></p>
+<p>One thing that we discussed last meeting was scale. In the above
+image I hand picked a scale that I knew was pretty good. In order to add
+robustness to scale, I tried to use the scale option that is provided in
+Open3D, but it wasn’t very good. Because of this, I implemented a small
+sweep over scale. The idea is that we can simply take the “best fit”
+result based on the number of inliers. Here is a visual of what the
+sweep looks like for the drill:</p>
+<p><img src="registration2.png" /></p>
+<p>Here is a visual of the full pipeline for registrations on the
+example scene:</p>
+<p><img src="registration3.png" /></p>
+<p>I tuned some hyperparameters and here is a quick visual of
+registrations on a few kinect scenes:</p>
+<p><img src="registration4.png" /></p>
+<p><strong>Question:</strong> <em>Do you think this looks “good enough”
+or should we also do something more?</em></p>
+<h2 data-number="4" id="full-method-example"><span
+class="header-section-number">4</span> Full Method Example</h2>
+<h3 data-number="4.1" id="brief-overview-of-current-method"><span
+class="header-section-number">4.1</span> Brief Overview of Current
+Method</h3>
+<p>Our current working method draws inspiration from Retrieval-Augmented
+Generation <span class="citation"
+data-cites="lewis2020retrieval">[7]</span> (which inspired the CoRL
+paper, RAM <span class="citation" data-cites="kuang2024ram">[8]</span>).
+We take a segmented RGB+XYZ observation and create “detection results”
+<span class="math inline">R</span> along with negative samples <span
+class="math inline">D</span> similar to <span class="citation"
+data-cites="wright2024vprism">[1]</span>. Then, we have a Bayesian
+problem of finding the correct Hilbert map <span class="citation"
+data-cites="ramos2016hilbert">[2]</span> weights <span
+class="math inline">w</span> of the distribution. Assuming conditional
+independence, we have: <span class="math display"> P(w | D, R) \propto
+P(D | w) P(w | R) = P(D | w) \cdot \mathbb E_{c \sim P(c|R)} \left[P(w |
+c)\right]. </span> We sample from <span
+class="math inline">P(c|R)</span> and register each component using
+RANSAC and FPFH features from <span class="citation"
+data-cites="rusu2009fast">[6]</span>. We retrieve the stored samples for
+the sampled objects, denoted as <span class="math inline">D_c</span>.
+Then we solve the following optimization problem: <span
+class="math display"> -\ln P(w | D, R) \approx -\lambda_1 \ln P(D | w) -
+\lambda_2 \ln \mathbb E_{c \sim P(c | R)} \left[ P(D_c | w) \right] -
+\lambda_3 \ln P(w), </span> using something like Stochastic Gradient
+Langevin Dynamics or SVGD <span class="citation"
+data-cites="liu2016stein">[9]</span>. Here is a figure that outlines the
+whole process:</p>
+<p><img src="method2.png" /></p>
+<h3 data-number="4.2" id="example-reconstruction-fail"><span
+class="header-section-number">4.2</span> Example Reconstruction
+(Fail)</h3>
+<p>I tried to hook everything up. I used the above process for prior
+generation and used the same sort of negative sampling as V-PRISM. I
+threw SVGD at it for reconstruction and it didn’t do great. Here is an
+image of it:</p>
+<p><img src="recon.png" /></p>
+<p>There were no level sets at all. I think that this is because I must
+be doing something silly in my code, so I will try to debug and fix this
+over the weekend hopefully.</p>
+<h2 data-number="5" id="planning-out-the-paper"><span
+class="header-section-number">5</span> Planning Out the Paper</h2>
+<h3 data-number="5.1" id="experiments"><span
+class="header-section-number">5.1</span> Experiments</h3>
+<p>Here are the potential experiments I am thinking of doing:</p>
+<ol type="1">
+<li>Quantitative comparison on simulated scenes similar to V-PRISM</li>
+<li>Qualitative comparison of in-distribution objects,
+out-of-distribution objects, with noisy real-world observations</li>
+<li><em>Maybe:</em> some sort of simple downstream motion planning
+task?</li>
+</ol>
+<h3 data-number="5.2" id="pitch"><span
+class="header-section-number">5.2</span> Pitch</h3>
+<ol type="1">
+<li>3D representations are necessary for many algorithms and methods for
+robotic manipulation</li>
+<li>We want a 3D reconstruction method that can take a cluttered scene
+and <em>reconstruct</em> objects that are in-distribution while handling
+out-of-distribution objects robustly, similar to V-PRISM</li>
+<li>Using an explicit prior lets us <em>tune</em> the strength of the
+prior</li>
+<li>Using a lookup-based approach with registration adds
+efficiency.</li>
+</ol>
+<h2 data-number="6" id="other-stuff"><span
+class="header-section-number">6</span> Other Stuff</h2>
+<h3 data-number="6.1" id="phd-applications"><span
+class="header-section-number">6.1</span> PhD Applications</h3>
+<p>Here is the info that I have gathered; it should be correct as far as
+I know:</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 18%" />
+<col style="width: 33%" />
+<col style="width: 6%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th>School</th>
+<th style="text-align: right;">Due</th>
+<th>GRE</th>
+<th>Statements</th>
+<th>Refs</th>
+<th style="text-align: right;">Fee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U of U</td>
+<td style="text-align: right;">Dec. 15</td>
+<td>Optional</td>
+<td>1 (1-3 pages)</td>
+<td>3</td>
+<td style="text-align: right;">$0.00</td>
+</tr>
+<tr>
+<td>UW</td>
+<td style="text-align: right;">Dec. 16</td>
+<td>No</td>
+<td>1</td>
+<td>3</td>
+<td style="text-align: right;">$90.00</td>
+</tr>
+<tr>
+<td>CMU</td>
+<td style="text-align: right;">Dec. 11</td>
+<td>Optional</td>
+<td>1 (2 pages)</td>
+<td>3</td>
+<td style="text-align: right;">$100.00</td>
+</tr>
+<tr>
+<td>UT Austin</td>
+<td style="text-align: right;">Dec. 15</td>
+<td>Optional</td>
+<td>1 (2 pages)</td>
+<td>3</td>
+<td style="text-align: right;">$65.00</td>
+</tr>
+<tr>
+<td>U Penn</td>
+<td style="text-align: right;">Dec. 16</td>
+<td>Optional</td>
+<td>1 (2 pages)</td>
+<td>2</td>
+<td style="text-align: right;">$90.00</td>
+</tr>
+<tr>
+<td>MIT</td>
+<td style="text-align: right;"><em>Dec. 1</em></td>
+<td>No</td>
+<td>1</td>
+<td>3</td>
+<td style="text-align: right;">$90.00</td>
+</tr>
+<tr>
+<td>NYU</td>
+<td style="text-align: right;">Dec. 12</td>
+<td>Optional</td>
+<td>1 (2 pages <em>DS</em>)</td>
+<td>3</td>
+<td style="text-align: right;">$110.00</td>
+</tr>
+<tr>
+<td>UCSD</td>
+<td style="text-align: right;">Dec. 18</td>
+<td>Optional</td>
+<td>1</td>
+<td>3</td>
+<td style="text-align: right;">$135.00</td>
+</tr>
+<tr>
+<td>UIUC</td>
+<td style="text-align: right;">Dec. 15</td>
+<td>Recommended</td>
+<td>2 (1-2 pages, 250 w)</td>
+<td>3</td>
+<td style="text-align: right;">$70.00</td>
+</tr>
+<tr>
+<td>U Mich</td>
+<td style="text-align: right;">Dec. 1</td>
+<td>No</td>
+<td>2 (1-2 pages both)</td>
+<td>3</td>
+<td style="text-align: right;">$75.00</td>
+</tr>
+<tr>
+<td>U Toronto</td>
+<td style="text-align: right;">Jan. 9</td>
+<td>Maybe</td>
+<td>1 (1000 words)</td>
+<td>2</td>
+<td style="text-align: right;">$89.58</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Question:</strong> <em>It says CMU Robotics PhD application
+DOESN’T require GRE score, is this true?</em></p>
+<p><img src="gre.png" /></p>
+<p>Here is the source for that: <a
+href="https://www.cs.cmu.edu/academics/application_instructions">https://www.cs.cmu.edu/academics/application_instructions</a></p>
+<p>If this is all true and my information is accurate, I don’t think
+taking the GRE would really get me that much as far as PhD
+applications.</p>
+<h3 data-number="6.2" id="overleaf-draft"><span
+class="header-section-number">6.2</span> Overleaf Draft</h3>
+<p>I didn’t have that much time to work on the Overleaf draft that much,
+as I am still trying to get the method up and running. Anyways, here is
+the link to the view-only version of the overleaf document:</p>
+<ul>
+<li><a
+href="https://www.overleaf.com/read/xdzstgmpkhcf#0edb18">Overleaf</a></li>
+</ul>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024vprism" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-PRISM:
+Probabilistic mapping of unknown tabletop scenes,”</span> in <em>2024
+IEEE/RSJ international conference on intelligent robots and systems
+(IROS)</em>, 2024.</div>
+</div>
+<div id="ref-ramos2016hilbert" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">F.
+Ramos and L. Ott, <span>“Hilbert maps: Scalable continuous occupancy
+mapping with stochastic gradient descent,”</span> <em>The International
+Journal of Robotics Research</em>, vol. 35, no. 14, pp. 1717–1730,
+2016.</div>
+</div>
+<div id="ref-xu2025pointllm" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">R.
+Xu, X. Wang, T. Wang, Y. Chen, J. Pang, and D. Lin, <span>“Pointllm:
+Empowering large language models to understand point clouds,”</span> in
+<em>European conference on computer vision</em>, 2025, pp.
+131–147.</div>
+</div>
+<div id="ref-radford2021learning" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">A.
+Radford, J. W. Kim, C. Hallacy, A. Ramesh, G. Goh, S. Agarwal, G.
+Sastry, A. Askell, P. Mishkin, J. Clark, and others, <span>“Learning
+transferable visual models from natural language supervision,”</span> in
+<em>International conference on machine learning</em>, 2021, pp.
+8748–8763.</div>
+</div>
+<div id="ref-calli2015ycb" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">B.
+Calli, A. Singh, A. Walsman, S. Srinivasa, P. Abbeel, and A. M. Dollar,
+<span>“The ycb object and model set: Towards common benchmarks for
+manipulation research,”</span> in <em>2015 international conference on
+advanced robotics (ICAR)</em>, 2015, pp. 510–517.</div>
+</div>
+<div id="ref-rusu2009fast" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">R.
+B. Rusu, N. Blodow, and M. Beetz, <span>“Fast point feature histograms
+(FPFH) for 3D registration,”</span> in <em>2009 IEEE international
+conference on robotics and automation</em>, 2009, pp. 3212–3217.</div>
+</div>
+<div id="ref-lewis2020retrieval" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">P.
+Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H.
+Küttler, M. Lewis, W. Yih, T. Rocktäschel, and others,
+<span>“Retrieval-augmented generation for knowledge-intensive nlp
+tasks,”</span> <em>Advances in Neural Information Processing
+Systems</em>, vol. 33, pp. 9459–9474, 2020.</div>
+</div>
+<div id="ref-kuang2024ram" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">Y.
+Kuang, J. Ye, H. Geng, J. Mao, C. Deng, L. Guibas, H. Wang, and Y. Wang,
+<span>“Ram: Retrieval-based affordance transfer for generalizable
+zero-shot robotic manipulation,”</span> <em>arXiv preprint
+arXiv:2407.04689</em>, 2024.</div>
+</div>
+<div id="ref-liu2016stein" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">Q.
+Liu and D. Wang, <span>“Stein variational gradient descent: A general
+purpose bayesian inference algorithm,”</span> <em>Advances in neural
+information processing systems</em>, vol. 29, 2016.</div>
+</div>
+</div>
+</body>
+</html>
