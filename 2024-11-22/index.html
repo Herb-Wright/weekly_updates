@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Nov 22</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span
+class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#some-updates" id="toc-some-updates"><span
+class="toc-section-number">2</span> Some Updates</a></li>
+</ul>
+</nav>
+<p><a href=".." class="printIgnore"><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="introduction"><span
+class="header-section-number">1</span> Introduction</h2>
+<p>Last time, we talked about trying to move towards a paper. The method
+wasn’t quite working last time, but I was pretty sure I could get it
+working this week. I didn’t have too much time to write the weekly
+write-up because I was mostly focused on writing in the overleaf. Thus,
+this week’s write-up is pretty barebones</p>
+<h2 data-number="2" id="some-updates"><span
+class="header-section-number">2</span> Some Updates</h2>
+<p>So I got the method working earlier in the week, then I tried to
+install some code in my env and it messed the env up, which caused CLIP
+and other stuff to be weird, so hopefully I can get that fixed over the
+weekend. Here is an image of a reconstruction:</p>
+<p><img src="image.png" /></p>
+<p><strong>Overleaf:</strong> I worked quite a bit on the <a
+href="https://www.overleaf.com/read/xdzstgmpkhcf#0edb18">overleaf
+doc</a> for the potential paper. I still have some questions about it
+that I want guidance on:</p>
+<ol type="1">
+<li>What should Fig. 1 look like? I have some ideas but would like to
+get your thoughts.</li>
+<li>How is the overall argument up to this point?</li>
+<li>Is emphasizing “retrieval-augmented priors” dumb?</li>
+<li>How many figures would be too many?</li>
+<li>Should the method figure be different?</li>
+<li>Negative sampling subsection? Instance segmentation subsection?</li>
+<li>…and others questions</li>
+</ol>
+<p>I also had some ideas that I wanted to try out:</p>
+<ol type="1">
+<li>A figure that shows failure of other methods to poor segmentation,
+and our method doing a little better.</li>
+<li>Experiment where we take simulation scenes and <em>shift</em> the
+segmentation by a couple of pixels</li>
+<li>Try out <a href="https://github.com/nv-tlabs/NKSR">NKSR</a> in an
+example scene.</li>
+<li>MNIST experiment for retrieval-augmented prior</li>
+</ol>
+<p>Here is my plan for the experiments section this week:</p>
+<ol type="1">
+<li>simulated scenes: show improved accuracy vs V-PRISM and robustness
+vs PointSDF</li>
+<li>simulated scenes + segmentation shifts: show improved accuracy vs
+PointSDF</li>
+<li>robustness on real world scenes: qualitative images vs PointSDF and
+maybe V-PRISM</li>
+<li>uncertainty: show qualitative images of <em>surface</em> uncertainty
+vs V-PRISM maybe GPIS?</li>
+</ol>
+<p><strong>Speed of Method:</strong> I got the method running on the GPU
+(kind of, I lowkey messed up something in my conda env and CLIP was
+malfunctioning). I timed different parts of the method, here are a
+couple of those times:</p>
+<ul>
+<li>RANSAC registration: 3.5 (s)</li>
+<li>SVGD reconstruction: 3.2 (s)</li>
+</ul>
+<p><strong>Thesis:</strong> I have to turn in a senior thesis by the end
+of this semester. So, I trasferred some sections of the V-PRISM paper
+over to it and messed with formatting. Here is my current draft:</p>
+<ul>
+<li><a href="thesis.pdf">thesis.pdf</a></li>
+</ul>
+</body>
+</html>
