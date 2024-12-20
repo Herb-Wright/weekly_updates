@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Herbie’s Update Write-up</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Herbie’s Update Write-up</h1>
+<p class="date">2024 Dec 20</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#ra-l-response" id="toc-ra-l-response"><span
+class="toc-section-number">1</span> RA-L Response</a></li>
+<li><a href="#brainstorming-downstream-experiments"
+id="toc-brainstorming-downstream-experiments"><span
+class="toc-section-number">2</span> Brainstorming Downstream
+Experiments</a></li>
+<li><a href="#other-stuff" id="toc-other-stuff"><span
+class="toc-section-number">3</span> Other Stuff</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</nav>
+<p><a href=".." class="printIgnore"><em>&lt;&lt; Back</em></a></p>
+<h2 data-number="1" id="ra-l-response"><span
+class="header-section-number">1</span> RA-L Response</h2>
+<p>A few weeks ago, we submitted the BRRP paper <span class="citation"
+data-cites="wright2024robust">[1]</span> to RA-L. We received an
+“Unsuitable” back for the paper. Essentially, the response said that the
+paper was a computer vision paper and not a robotics paper. Here is
+probably the most relevant paragraph from the response:</p>
+<blockquote>
+<p>The paper seems to be relevant to computer vision. While the data, in
+particular, YCB objects are used in robotics, the paper focuses on the
+reconstruction. None of the mentioned downstream tasks of grasping or
+manipulating an object are shown. Furthermore, the paper does not
+explain why this method is relevant to robotics and automation and how
+it would improve operation of robots in this field. There are several
+references to RA-L or any other robotics/automation journal or
+conference, most of them include grasping or manipulation of
+objects.</p>
+</blockquote>
+<p>I think it is pretty clear from the response that if we simply had an
+experiment with a downstream task, it would be relevant enough to
+robotics and this decision wouldn’t have happened. The response as a
+whole though, seemed to recommend submitting to a computer vision
+conference. However, I would probably rather try to hook this up to a
+downstream task. I also don’t know what the process is to submit a paper
+that has already been rejected.</p>
+<h2 data-number="2" id="brainstorming-downstream-experiments"><span
+class="header-section-number">2</span> Brainstorming Downstream
+Experiments</h2>
+<h3 data-number="2.1" id="experiments-in-similar-literature"><span
+class="header-section-number">2.1</span> Experiments in Similar
+Literature</h3>
+<p>Here are two papers that focus on reconstruction for robotics (both
+are CoRL papers)</p>
+<p><strong>Diverse Plausible Shape Completions from Ambiguous Depth
+Images <span class="citation"
+data-cites="saund2021diverse">[2]</span></strong></p>
+<p><em>By B. Saund and D. Berenson</em></p>
+<p><img src="diverse_plausible.png" /></p>
+<ul>
+<li>Just does a couple of grasps with the real robot (qualitative) and
+shows them</li>
+<li>Generates a lot of grasps, but only executed one each time</li>
+</ul>
+<p><strong>Amodal 3D Reconstruction for Robotic Manipulation via
+Stability and Connectivity <span class="citation"
+data-cites="agnew2021amodal">[3]</span></strong></p>
+<p><em>By W. Agnew, C. Xie, A. Walsman, O. Murad, C. Wang, P. Domingos,
+S. Srinivasa</em></p>
+<p><img src="amodal_3d.png" /></p>
+<ul>
+<li>Did a bunch of experiments in simulation only: Pushing, Grasping,
+Rearranging</li>
+<li>Calculated success vs occlusion and other metrics</li>
+<li>Used MPPI to do all the tasks (I think)</li>
+</ul>
+<p><strong>Other:</strong> There are other robotics papers that focus on
+reconstruction that I didn’t list out here, such as <span
+class="citation" data-cites="humt2023shape">[4]</span> (IROS 2023),
+which showcases some grasps generated in simulation as well as reported
+some “grasping-related metrics” such as <em>Grasp Collision Risk</em>
+and <em>Grasp Miss Risk</em>. Of course there are also some robotics
+papers that don’t really do any downstream tasks such as V-PRISM <span
+class="citation" data-cites="wright2024vprism">[5]</span> (IROS 2024) or
+maybe <span class="citation"
+data-cites="martens2016geometric">[6]</span> (RA-L 2016).</p>
+<h3 data-number="2.2" id="previously-discussions"><span
+class="header-section-number">2.2</span> Previously Discussions</h3>
+<p><strong>Motion Planning in Simulation:</strong> It might not be too
+hard to simply set up a simulation experiment where we select a location
+in clutter to motion plan to and use the reconstructed geometries to
+compute a motion plan. We would want to keep track of two types of
+failure: (1) object collision during execution of motion plan and (2)
+failure to produce a motion plan that is not in collision with the
+reconstructions.</p>
+<p><strong>Simple Pushing:</strong> I know we have discussed different
+possible experiments to do. It would be nice, for a couple reasons, if
+we could keep the experiment as simple as possible. Perhaps some sort of
+pushing or motion planning. Grasping would also be great depending on
+how hard that is. After one of the weekly meetings I made this image,
+which is a sketch of a sort of pushing experiment we could do:</p>
+<p><img src="./sketch.png" /></p>
+<p>I think it helps showcase backside reconstruction to have the camera
+on the other side of the robot. I think we would push the first object
+until it hits the second maybe, but I can’t remember.</p>
+<p><strong>With Martin’s Pipeline (Collision Avoidance):</strong>
+Another hopefully straightforward thing we could do is use it during the
+motion planning with Martin’s pipeline. He is on vacation I guess, and I
+will be as well for the break, so this may require some coordination.
+Currently he is simply using the bounding box of objects as their
+collision geometry. We would replace that with our method here. One
+wrinkle is that he currently has the camera in a very specific position,
+which is more next to the arm than on the other side of the table. But
+that shouldn’t be too hard to change (hopefully).</p>
+<p><strong>Question:</strong> <em>What are your thoughts? Which
+experiment would be the best for our purposes?</em></p>
+<h2 data-number="3" id="other-stuff"><span
+class="header-section-number">3</span> Other Stuff</h2>
+<p>Here are some other notes:</p>
+<ul>
+<li>I have submitted my PhD applications (probably all the ones I am
+doing this cycle)</li>
+<li>I am gone for the Holidays, so probably no meeting next week</li>
+<li>I am going to be in Seattle for January and February, but I can come
+back for a week during this time to do real world experiments</li>
+</ul>
+<h2 class="unnumbered" id="references">References</h2>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0"
+role="list">
+<div id="ref-wright2024robust" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“Robust
+bayesian scene reconstruction by leveraging retrieval-augmented
+priors,”</span> <em>arXiv preprint arXiv:2411.19461</em>, 2024.</div>
+</div>
+<div id="ref-saund2021diverse" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">B.
+Saund and D. Berenson, <span>“Diverse plausible shape completions from
+ambiguous depth images,”</span> in <em>Conference on robot
+learning</em>, 2021, pp. 1802–1813.</div>
+</div>
+<div id="ref-agnew2021amodal" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">W.
+Agnew, C. Xie, A. Walsman, O. Murad, Y. Wang, P. Domingos, and S.
+Srinivasa, <span>“Amodal 3d reconstruction for robotic manipulation via
+stability and connectivity,”</span> in <em>Conference on robot
+learning</em>, 2021, pp. 1498–1508.</div>
+</div>
+<div id="ref-humt2023shape" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">M.
+Humt, D. Winkelbauer, and U. Hillenbrand, <span>“Shape completion with
+prediction of uncertain regions,”</span> in <em>2023 IEEE/RSJ
+international conference on intelligent robots and systems (IROS)</em>,
+2023, pp. 1215–1221.</div>
+</div>
+<div id="ref-wright2024vprism" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">H.
+Wright, W. Zhi, M. Johnson-Roberson, and T. Hermans, <span>“V-PRISM:
+Probabilistic mapping of unknown tabletop scenes,”</span> in <em>2024
+IEEE/RSJ international conference on intelligent robots and systems
+(IROS)</em>, 2024, pp. 1078–1085.</div>
+</div>
+<div id="ref-martens2016geometric" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">W.
+Martens, Y. Poffet, P. R. Soria, R. Fitch, and S. Sukkarieh,
+<span>“Geometric priors for gaussian process implicit surfaces,”</span>
+<em>IEEE Robotics and Automation Letters</em>, vol. 2, no. 2, pp.
+373–380, 2016.</div>
+</div>
+</div>
+</body>
+</html>
