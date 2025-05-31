@@ -1,0 +1,64 @@
+name: Convert Markdown to HTML for GitHub Pages
+
+permissions:
+  contents: write
+  pages: write 
+  id-token: write
+
+on:
+  push:
+    branches:
+      - main  # Or whichever branch you want to trigger from
+
+jobs:
+  convert-and-deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+      
+      - name: Find and convert markdown files
+        run: |
+          # Find all markdown files and convert them to HTML
+          find . -name "*.md" -type f -print0 | while IFS= read -r -d '' file; do
+            # Get the filename without extension
+            filename=$(basename -- "$file")
+            dirname=$(dirname -- "$file")
+            filename_noext="${filename%.*}"
+            
+            # Convert to HTML and maintain directory structure
+            echo "Converting $file to $dirname/$filename_noext.html"
+            pandoc -s "$file" -o "$dirname/$filename_noext.html"  --to=html5 --katex --citeproc -M document-css=false -d ./_template/defaults.yml
+          done
+      
+      - name: Remove markdown files
+        run: |
+          # Remove all markdown files except README.md
+          find . -name "*.md" -type f -not -name "README.md" -delete
+      - name: Remove bib files
+        run: |
+          find . -name "*.bib" -type f -delete
+      - name: Remove template files
+        run: |
+          rm -rf ./template
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

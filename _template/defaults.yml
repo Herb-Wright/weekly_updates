@@ -1,0 +1,7 @@
+csl: _template/ieee.csl
+highlight-style: kate
+css: _template/styles.css
+toc: true
+toc-depth: 2
+template: _template/template.html5
+# document-css: true
