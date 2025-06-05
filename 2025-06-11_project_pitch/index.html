@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Project Pitch</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #eee;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            color: black !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 8pt;
+            max-width: 100%;
+            padding-bottom: 0pt;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        a[href]:after {
+            content: " (" attr(href) ")";
+        }
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        @page :left {
+            margin: 15mm 20mm 15mm 10mm;
+        }
+
+        @page :right {
+            margin: 15mm 10mm 15mm 20mm;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            margin: 0.5em 0;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Project Pitch</h1>
+                <p class="date">2025 June 11</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#introductionmotivation"
+        id="toc-introductionmotivation">1
+        Introduction/Motivation</a></li>
+        <li><a href="#related-work" id="toc-related-work">2 Related
+        Work</a></li>
+        <li><a href="#proposed-method" id="toc-proposed-method">3
+        Proposed Method</a></li>
+        <li><a href="#potential-experiments"
+        id="toc-potential-experiments">4 Potential Experiments</a></li>
+        <li><a href="#my-thoughts" id="toc-my-thoughts">5 My
+        Thoughts</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        <li><a href="#appendix-other-stuff"
+        id="toc-appendix-other-stuff">Appendix: Other Stuff</a></li>
+        </ul>
+  </nav>
+    <h2 id="introductionmotivation">1 Introduction/Motivation</h2>
+    <p>The high level aspiration is to take observations of a scene,
+    then infer object models, which can then be combined with a physics
+    simulator to create a <em>dynamics model</em> that we can use for
+    planning, control, or policy learning. Here is a picture of the
+    idea:</p>
+    <p><img src="highlevel.png" /></p>
+    <p>In this proposed project, we will focus on how to do the
+    <em>reconstruction</em> part. In order for the above setup to work,
+    we need object models that are <em>physically</em> similar to the
+    real-world observed objects. We also will argue that, especially
+    with multi-object scenes, occlusion makes the reconstruction problem
+    <em>underdetermined</em>; there could be multiple valid
+    reconstructions for the same observation. Here is an example of what
+    I am talking about:</p>
+    <p><img src="kitchen.png" /></p>
+    <p>The insight proposed in this project is to reason
+    probabilistically about contact points in order to enforce a
+    stability prior that allows inferring a distribution over possible
+    reconstructionss. The claim is that this will make our
+    reconstructions more physically stable, along with having the
+    capability to generate multiple feasible (and stable)
+    reconstructions. We can use a stability prior (assuming a static
+    scene) because most scenes a robot will come across will be stable
+    at the outset.</p>
+    <p>To put it simply, the proposal is <strong>A method for
+    multi-object reconstruction of a static/stable scene that
+    probabilistically reasons about contact.</strong> We then want to
+    show that we can use this, in tandem with physics simulation, to
+    plan through dynamics for simple pushing tasks.</p>
+    <h2 id="related-work">2 Related Work</h2>
+    <h3 id="physical-priors">2.1 Physical Priors</h3>
+    <ul>
+    <li>“Vysics: Object Reconstruction Under Occlusion by Fusing Vision
+    and Contact-Rich Physics” <span class="citation"
+    data-cites="bianchini2025vysics">[1]</span></li>
+    <li>“PhyRecon: Physically Plausible Neural Scene Reconstruction”
+    <span class="citation" data-cites="ni2024phyrecon">[2]</span>
+    <ul>
+    <li>Takes <em>very long</em> (multiple hours)</li>
+    </ul></li>
+    <li>“Amodal 3D Reconstruction for Robotic Manipulation via Stability
+    and Connectivity” <span class="citation"
+    data-cites="agnew2021amodal">[3]</span></li>
+    <li>“Inferring 3D Shapes of Unknown Rigid Objects in Clutter Through
+    Inverse Physics Reasoning” <span class="citation"
+    data-cites="song2018inferring">[4]</span>
+    <ul>
+    <li>Strictly assumes shapes are <em>convex</em> as far as I can
+    tell</li>
+    </ul></li>
+    </ul>
+    <p><strong>Note:</strong> <em>none of these methods recover diverse
+    reconstructions of multi-object scenes</em></p>
+    <h3 id="diverse-reconstructions">2.2 Diverse Reconstructions</h3>
+    <p>Pretty much all reconstruction with diffusion fits into this
+    category. But the papers I have seen that really make
+    <em>diversity</em> the focus are the following:</p>
+    <ul>
+    <li>“Diverse Plausible Shape Completions from Ambiguous Depth
+    Images” <span class="citation"
+    data-cites="saund2021diverse">[5]</span></li>
+    <li>“Diverse Shape Completion via Style Modulated Generative
+    Adversarial Networks” <span class="citation"
+    data-cites="khademi2023diverse">[6]</span></li>
+    </ul>
+    <p>Of course, there are most likely a bunch of similar papers.
+    Probabilistic methods such as my undergraduate work (<span
+    class="citation" data-cites="wright2024vprism">[7]</span> and <span
+    class="citation" data-cites="wright2024robust">[8]</span>) are also
+    probably worth mentioning.</p>
+    <p><strong>Note:</strong> <em>these methods don’t reason about
+    contact.</em></p>
+    <h2 id="proposed-method">3 Proposed Method</h2>
+    <h3 id="dealing-with-contact-points-probabilistically">3.1 Dealing
+    with Contact Points Probabilistically</h3>
+    <p>We would phrase the problem as a Bayesian inference problem.
+    Letting <span class="math inline">m</span> be our objects model,
+    <span class="math inline">o</span> be the camera observation, <span
+    class="math inline">F_\text{net} = 0</span> denote a static scene,
+    and assuming independence:</p>
+    <p><span class="math display"> P(m | o, F_\text{net} = 0) \propto
+    P(o | m) P(F_\text{net} = 0 | m) P(m)</span></p>
+    <p>Here, the emphasis will be on <span
+    class="math inline">P(F_\text{net} = 0 | m)</span>. Specifically, we
+    would make the conceptual change to reason about potential contact
+    point sets <span class="math inline">c \in \mathcal C</span> with:
+    <span class="math display"> P(F_\text{net} = 0 | m) = \int_{c \in
+    \mathcal{C}} P(F_\text{net} = 0 | c) P(c | m) dcc </span> <span
+    class="math display"> = \mathbb E_{c \sim P(c | m)} \left[
+    P(F_\text{net} = 0 | c) \right] </span> In many probabilistic
+    methods, we need to be able to compute <span class="math inline">\ln
+    P(x)</span> for optimization/inference reasons. Our approach can be
+    to adopt the following procedure:</p>
+    <ol type="1">
+    <li>Sample <span class="math inline">c \sim P(c | m)</span>:
+    <em>probably use a heuristic</em></li>
+    <li>Evaluate <span class="math inline">\ln P(F_\text{net} |
+    c)</span>: <em>maybe borrow loss formulation from ContactNets <span
+    class="citation"
+    data-cites="pfrommer2021contactnets">[9]</span></em></li>
+    </ol>
+    <p>The next two subsections outline a way to do both of these
+    things</p>
+    <h3 id="sampling-potential-contact-points">3.2 Sampling Potential
+    Contact Points</h3>
+    <p>We need to think about two different contact relations: (1)
+    object to ground plane; (2) object to object. For both of these, it
+    is pretty easy to query that a surface point is in
+    collision/interpenetrating either a plane or object reconstruction.
+    Because we know that points in penetration will <em>necessarily</em>
+    be in contact, when sampling a potential contact set <span
+    class="math inline">c</span>, we can just automatically include
+    them. Then, we could simply randomly sample a few surface points on
+    the object and add them to <span class="math inline">c</span>. Here
+    is a picture that shows a simplified version of what I am talking
+    about:</p>
+    <p><img src="sample_contact_points.png" /></p>
+    <p>In order to do this, we would need to run marching cubes to
+    extract the surface mesh if we are using an implicit shape, but this
+    shouldn’t be too hard.</p>
+    <h3 id="contactnets-loss-under-static-scene">3.3 ContactNets Loss
+    Under Static Scene</h3>
+    <p>The proposed idea here is, in a hand-waving manner, simply say
+    <span class="math inline">\ln P(F_\text{net} | c)</span> is equal to
+    a version of the ContactNets loss. Because we are assuming a static
+    scene, we can make some slight simplifications to the original
+    formulation for the ContactNets loss to: <span class="math display">
+    l_1 = \|\sum_i \mathbf{J}_i^\top \lambda_i +
+    \mathbf{F}_\text{grav}\|^2 </span> <span class="math display"> l_2 =
+    \sum_i \phi_i^2 \| \lambda_i \|^2 </span> <span
+    class="math display"> l_3 = \sum_i \min (0, \phi_i)^2 </span> <span
+    class="math display"> L = \min_\lambda l_1 + l_2 + l_3</span> We can
+    also do the same trick, where we select <span
+    class="math inline">\lambda_i</span> by solving a quadratic program
+    subject to Coloumb friction.</p>
+    <p><strong>Note:</strong> <em>Making this differentiate back to an
+    implicit function would require differentiating through our marching
+    cubes from 3.2. We could adopt the math from <span class="citation"
+    data-cites="remelli2020meshsdf">[10]</span> to do that pretty
+    easily.</em></p>
+    <h3 id="the-object-model-training">3.4 The Object Model &amp;
+    Training</h3>
+    <p>There are multiple ways that we could do this, but let me sketch
+    out one potential way.</p>
+    <p>For the geometry, we would use a small neural network like
+    BundleSDF <span class="citation"
+    data-cites="wen2023bundlesdf">[11]</span>, but instead of an SDF, we
+    could do an <em>occupancy network</em>, taking after <span
+    class="citation" data-cites="mescheder2019occupancy">[12]</span>. In
+    order to make it probabilistic, we could, instead of a single
+    network, do a <em>Bayesian ensemble</em> of some sort. There are a
+    few techniques for this, but here is one: <span class="citation"
+    data-cites="d2021stein">[13]</span>. Each “particle” or member of
+    the ensemble would represent one <em>scene-wide</em> reconstruction
+    because we want to capture the joint distribution—we are
+    specifically not assuming independence between object
+    reconstructions. We could then simply borrow the negative sampling
+    from <span class="citation" data-cites="wright2024vprism">[7]</span>
+    and use negative log likelihood and regularization as the likelihood
+    and prior.</p>
+    <p>We would also need to worry about parameters such as center of
+    mass, friction, moment of inertia, etc. I think we could figure out
+    something pretty simple for that (i.e. hardcoding a friction value
+    and using a heuristic to calculate center of mass and moment of
+    inertia from the object mesh).</p>
+    <p><strong>Note:</strong> <em>We might want to consider adding in
+    some sort of learned prior from pre-existing mesh datasets or
+    something, but that would add to the complexity and would likely be
+    non-trivial.</em></p>
+    <h2 id="potential-experiments">4 Potential Experiments</h2>
+    <h3 id="pushing-i-reasoning-about-contact">4.1 Pushing I: Reasoning
+    about Contact</h3>
+    <p>We could do a pushing experiment, where we use the dynamics model
+    from our object models/reconstructions. Here is a diagram I made of
+    a potential setup:</p>
+    <p><img src="pushing.png" /></p>
+    <p>The idea is that the robot would need to push a certain object
+    into another object, and would use reasoning about contact to figure
+    out how. We would measure success by how close the final
+    configuration is to the goal or “task success”. The thing we would
+    be showing here is that <strong>reasoning about the contact/physics
+    allows better performance on a robotics task</strong>.</p>
+    <h3 id="pushing-ii-demonstrating-diversity">4.2 Pushing II:
+    Demonstrating Diversity</h3>
+    <p>We could</p>
+    <p><img src="pushing2.png" /></p>
+    <p>We would try to test that <strong>probabilisitic framing provides
+    diversity that has better “coverage” over dynamics</strong>. So we
+    could maybe try to measure the closest particle in the distribution
+    to the true behavior compared to a deterministic approach. We would
+    need to be measuring pose change probably.</p>
+    <h2 id="my-thoughts">5 My Thoughts</h2>
+    <p>Well, I don’t think the pitch is perfect, but hopefully there is
+    something promising here. I think if things work and we can have
+    results in the two experiments, it is definitely enough for a paper.
+    I definitely think there is diminishing returns for me to keep
+    fleshing it out without getting some external feedback, so I’ll
+    probably just leave things here.</p>
+    <h2 id="references">References</h2>
+    <div id="refs" class="references csl-bib-body"
+    data-entry-spacing="0" role="list">
+    <div id="ref-bianchini2025vysics" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">B. Bianchini, M. Zhu, M. Sun, B. Jiang, C.
+    J. Taylor, and M. Posa, <span>“Vysics: Object reconstruction under
+    occlusion by fusing vision and contact-rich physics,”</span> in
+    <em>Robotics: Science and systems (RSS)</em>, 2025.</div>
+    </div>
+    <div id="ref-ni2024phyrecon" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">J. Ni, Y. Chen, B. Jing, N. Jiang, B. Wang,
+    B. Dai, P. Li, Y. Zhu, S.-C. Zhu, and S. Huang, <span>“PhyRecon:
+    Physically plausible neural scene reconstruction,”</span> in
+    <em>Advances in Neural Information Processing Systems</em>,
+    2024.</div>
+    </div>
+    <div id="ref-agnew2021amodal" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">W. Agnew, C. Xie, A. Walsman, O. Murad, Y.
+    Wang, P. Domingos, and S. Srinivasa, <span>“Amodal 3d reconstruction
+    for robotic manipulation via stability and connectivity,”</span> in
+    <em>Conference on robot learning</em>, 2021, pp. 1498–1508.</div>
+    </div>
+    <div id="ref-song2018inferring" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">C. Song and A. Boularias, <span>“Inferring
+    3d shapes of unknown rigid objects in clutter through inverse
+    physics reasoning,”</span> <em>IEEE Robotics and Automation
+    Letters</em>, vol. 4, no. 2, pp. 201–208, 2018.</div>
+    </div>
+    <div id="ref-saund2021diverse" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">B. Saund and D. Berenson, <span>“Diverse
+    plausible shape completions from ambiguous depth images,”</span> in
+    <em>Conference on robot learning</em>, 2021, pp. 1802–1813.</div>
+    </div>
+    <div id="ref-khademi2023diverse" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">W. Khademi and F. Li, <span>“Diverse shape
+    completion via style modulated generative adversarial
+    networks,”</span> <em>Advances in Neural Information Processing
+    Systems</em>, vol. 36, pp. 79279–79292, 2023.</div>
+    </div>
+    <div id="ref-wright2024vprism" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[7] </div><div
+    class="csl-right-inline">H. Wright, W. Zhi, M. Johnson-Roberson, and
+    T. Hermans, <span>“V-PRISM: Probabilistic mapping of unknown
+    tabletop scenes,”</span> in <em>2024 IEEE/RSJ international
+    conference on intelligent robots and systems (IROS)</em>, 2024, pp.
+    1078–1085.</div>
+    </div>
+    <div id="ref-wright2024robust" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[8] </div><div
+    class="csl-right-inline">H. Wright, W. Zhi, M. Johnson-Roberson, and
+    T. Hermans, <span>“Robust bayesian scene reconstruction by
+    leveraging retrieval-augmented priors,”</span> <em>arXiv preprint
+    arXiv:2411.19461</em>, 2024.</div>
+    </div>
+    <div id="ref-pfrommer2021contactnets" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[9] </div><div
+    class="csl-right-inline">S. Pfrommer, M. Halm, and M. Posa,
+    <span>“Contactnets: Learning discontinuous contact dynamics with
+    smooth, implicit representations,”</span> in <em>Conference on robot
+    learning</em>, 2021, pp. 2279–2291.</div>
+    </div>
+    <div id="ref-remelli2020meshsdf" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[10] </div><div
+    class="csl-right-inline">E. Remelli, A. Lukoianov, S. Richter, B.
+    Guillard, T. Bagautdinov, P. Baque, and P. Fua, <span>“Meshsdf:
+    Differentiable iso-surface extraction,”</span> <em>Advances in
+    Neural Information Processing Systems</em>, vol. 33, pp.
+    22468–22478, 2020.</div>
+    </div>
+    <div id="ref-wen2023bundlesdf" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[11] </div><div
+    class="csl-right-inline">B. Wen, J. Tremblay, V. Blukis, S. Tyree,
+    T. Müller, A. Evans, D. Fox, J. Kautz, and S. Birchfield,
+    <span>“Bundlesdf: Neural 6-dof tracking and 3d reconstruction of
+    unknown objects,”</span> in <em>Proceedings of the IEEE/CVF
+    conference on computer vision and pattern recognition</em>, 2023,
+    pp. 606–617.</div>
+    </div>
+    <div id="ref-mescheder2019occupancy" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[12] </div><div
+    class="csl-right-inline">L. Mescheder, M. Oechsle, M. Niemeyer, S.
+    Nowozin, and A. Geiger, <span>“Occupancy networks: Learning 3d
+    reconstruction in function space,”</span> in <em>Proceedings of the
+    IEEE/CVF conference on computer vision and pattern recognition</em>,
+    2019, pp. 4460–4470.</div>
+    </div>
+    <div id="ref-d2021stein" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[13] </div><div
+    class="csl-right-inline">F. D’Angelo, V. Fortuin, and F. Wenzel,
+    <span>“On stein variational neural network ensembles,”</span>
+    <em>arXiv preprint arXiv:2106.10760</em>, 2021.</div>
+    </div>
+    <div id="ref-wu2025amodal3r" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[14] </div><div
+    class="csl-right-inline">T. Wu, C. Zheng, F. Guan, A. Vedaldi, and
+    T.-J. Cham, <span>“Amodal3R: Amodal 3D reconstruction from occluded
+    2D images,”</span> <em>arXiv preprint arXiv:2503.13439</em>,
+    2025.</div>
+    </div>
+    </div>
+    <h2 id="appendix-other-stuff">Appendix: Other Stuff</h2>
+    <p><strong>Foundation model (still) struggle with
+    occlusion:</strong> I took the method from <span class="citation"
+    data-cites="wu2025amodal3r">[14]</span> and ran it on the image I
+    took of my kitchen:</p>
+    <p><img src="foundation_models.png" /></p>
+  </body>
+
+</html>
