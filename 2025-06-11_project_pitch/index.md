@@ -108,7 +108,7 @@ This setup is slightly inspired by experiments from [@agnew2021amodal]. In their
 
 ### 4.2 Pushing II: Demonstrating Diversity
 
-We could 
+We could do another pushing experiment.
 
 ![](pushing2.png)
 
