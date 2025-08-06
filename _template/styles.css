@@ -305,15 +305,16 @@ div.csl-indent {
 @media print {
     * {
         background: transparent !important;
-        color: black !important;
         filter: none !important;
         -ms-filter: none !important;
     }
 
     body {
-        font-size: 8pt;
+        font-size: 10pt;
+        line-height: 1.5;
         max-width: 100%;
         padding-bottom: 0pt;
+        color: black;
     }
 
     /* a, a:visited {
@@ -326,9 +327,13 @@ div.csl-indent {
         border-bottom: 1px solid black;
     }
 
-    a[href]:after {
+    /* a[href]:after {
         content: " (" attr(href) ")";
-    }
+    } */
+/* 
+    a {
+        color: var(--sky-800);
+    } */
 
     abbr[title]:after {
         content: " (" attr(title) ")";
@@ -353,13 +358,13 @@ div.csl-indent {
         max-height: 150pt;
     }
 
-    @page :left {
+    /* @page :left {
         margin: 15mm 20mm 15mm 10mm;
     }
 
     @page :right {
         margin: 15mm 10mm 15mm 20mm;
-    }
+    } */
 
     p, h2, h3 {
         orphans: 3;
@@ -375,8 +380,9 @@ div.csl-indent {
         margin-bottom: 0.5em;
     }
 
-    p {
+    p, li, #refs {
         margin: 0.5em 0;
+        font-size: 12pt;
     }
 
     .printIgnore, #TOC  {
