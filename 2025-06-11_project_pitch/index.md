@@ -2,6 +2,7 @@
 title: Project Pitch
 date: 2025 June 11
 bibliography: 2025-06-11_project_pitch/refs.bib
+link-citations: true
 ---
 
 ## 1 Introduction/Motivation
@@ -9,6 +10,8 @@ bibliography: 2025-06-11_project_pitch/refs.bib
 The high level aspiration is to take observations of a scene, then infer object models, which can then be combined with a physics simulator to create a *dynamics model* that we can use for planning, control, or policy learning. Here is a picture of the idea:
 
 ![](highlevel.png)
+
+**Note:** *There is a 2025 RSS paper, [@ning2025prompting], that uses digital twins in an MPC-like manner by prompting a VLA, which is somewhat similar to the outlined pipeline above.*
 
 In this proposed project, we will focus on how to do the *reconstruction* part. In order for the above setup to work, we need object models that are *physically* similar to the real-world observed objects. We also will argue that, especially with multi-object scenes, occlusion makes the reconstruction problem *underdetermined*; there could be multiple valid reconstructions for the same observation. Here is an example of what I am talking about:
 
@@ -68,6 +71,8 @@ We need to think about two different contact relations: (1) object to ground pla
 
 In order to do this, we would need to run marching cubes to extract the surface mesh if we are using an implicit shape, but this shouldn't be too hard.
 
+*Disjoint objects:* One problem that I forsee running into is that objects will be disconnected; a single object will be reconstructed by a set of disjoint meshes. In this case, I wonder if we can simply label each disjoint mesh as a different object and try to "pull" them towards each other by penalizing a lack of contact/stability. This might not be optimal, so we could also try to regularize convexity, like [@bianchini2025vysics], as part of the prior. We also could try to enforce some other connectivity prior—such as penalizing the distance in between disconnected components or regularizing the function in some mathematical way.
+
 ### 3.3 ContactNets Loss Under Static Scene
 
 The proposed idea here is, in a hand-waving manner, simply say $\ln P(F_\text{net} | c)$ is equal to a version of the ContactNets loss. Because we are assuming a static scene, we can make some slight simplifications to the original formulation for the ContactNets loss to:
@@ -99,9 +104,11 @@ We could do a pushing experiment, where we use the dynamics model from our objec
 
 The idea is that the robot would need to push a certain object into another object, and would use reasoning about contact to figure out how. We would measure success by how close the final configuration is to the goal or "task success". The thing we would be showing here is that **reasoning about the contact/physics allows better performance on a robotics task**.
 
+This setup is slightly inspired by experiments from [@agnew2021amodal]. In their setup, they used MPPI through contact.
+
 ### 4.2 Pushing II: Demonstrating Diversity
 
-We could 
+We could do another pushing experiment.
 
 ![](pushing2.png)
 
