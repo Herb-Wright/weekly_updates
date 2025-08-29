@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Meeting Prep: Thoughts on the Future of Robotics</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #eee;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        /* @page :left {
+            margin: 15mm 20mm 15mm 10mm;
+        }
+
+        @page :right {
+            margin: 15mm 10mm 15mm 20mm;
+        } */
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 12pt;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Meeting Prep: Thoughts on the Future of
+Robotics</h1>
+                <p class="date">2025 August 29</p>
+          </header>
+      <h1 id="section"></h1>
+      <p><em>I have not (and will not) proofread this. This is mostly
+      just me rambling in order to get my thoughts somewhat in order on
+      the future of robotics.</em></p>
+      <h1 id="introduction">1 Introduction</h1>
+      <p>Excitement abounds in robotics at the current moment.
+      Piggy-backing on lessons from the related field of ML, data-driven
+      approaches to many manipulation problems have produced impressive
+      and promising demos. Approaches like VLAs (pi0 <span
+      class="citation" data-cites="black2410pi0"><a
+      href="#ref-black2410pi0" role="doc-biblioref">[1]</a></span> from
+      Physical Intelligence, LBMs from TRI <span class="citation"
+      data-cites="lbmtri2025"><a href="#ref-lbmtri2025"
+      role="doc-biblioref">[2]</a></span> come to mind), Reinforcement
+      Learning (<span class="citation" data-cites="lum2024dextrahg"><a
+      href="#ref-lum2024dextrahg" role="doc-biblioref">[3]</a></span> is
+      RL applied to dexterous grasping that Martin (postdoc at Utah)
+      worked on) are some examples. We have also seen large models
+      trained on internet-scale data from fields like NLP and CV become
+      commonplace as components in systems proposed to solve various
+      manipulation sub-problems. I have personally found Grounded SAM
+      <span class="citation" data-cites="ren2024grounded"><a
+      href="#ref-ren2024grounded" role="doc-biblioref">[4]</a></span>
+      and CLIP <span class="citation"
+      data-cites="radford2021learning"><a
+      href="#ref-radford2021learning"
+      role="doc-biblioref">[5]</a></span> to be helpful in my own
+      research. It is more and more common to hear sentiments such as <a
+      href="https://www.youtube.com/watch?si=UWme-89_Za054aeA&amp;t=196&amp;v=PfvctjoMPk8&amp;feature=youtu.be">“more
+      data solves robotics”</a>, pointing to things like the “bitter
+      lesson” <span class="citation" data-cites="sutton2019bitter"><a
+      href="#ref-sutton2019bitter" role="doc-biblioref">[6]</a></span>
+      or scaling laws <span class="citation"
+      data-cites="hestness2017deep kaplan2020scaling"><a
+      href="#ref-hestness2017deep" role="doc-biblioref">[7]</a>, <a
+      href="#ref-kaplan2020scaling" role="doc-biblioref">[8]</a></span>
+      in other domains. One might ask if, in 2025, there is any reason
+      to be studying <em>model-based</em> approaches to certain
+      manipulation problems when all you really need is a bigger GPU
+      (TPU?) and some more data.</p>
+      <p>In this essay/writeup, I want to make the case that in order
+      for robotic manipulation systems to be deployable, it will require
+      incorporating strong domain-knowledge priors about the structure
+      of robotics problems into learning-based systems. I mean this in a
+      broad sense—that what we need is a fusion of learning-based and
+      model-based approaches. I want to sketch out a few interesting
+      directions with this idea, and perhaps propose a longer-term
+      vision for what my PhD might be spent studying and attempting.</p>
+      <h1 id="why-we-still-need-models">2 Why We (Still) Need
+      Models</h1>
+      <p>In short, the word that best describes my view here is
+      <em>robustness</em>. The robustness of a robotic manipulation
+      system is critical to its deployability, and I believe model-based
+      approaches and priors are the most promising direction for imbuing
+      learned systems with adequate levels of robustness. There are two
+      ingredients in a successful learning method: good data and good
+      priors. Robotics could use a bit more of both. I wrote <a
+      href="https://thoughts.herbiewright.com/posts/free_lunch_in_robotics/">a
+      blog post</a> arguing that we already and should do more of
+      intelligently using the inherent structure of robotics problems in
+      our learning-based solutions (here I mean any system that has
+      learning-based components, not just end-to-end learned systems).
+      The structure I talk about in the post is 3D geometry and
+      physics/dynamics. By exploiting this structure we can make our
+      systems more robust and efficient. In the planning domain, a
+      interesting paper that perhaps showcases this is the pix2pred
+      <span class="citation" data-cites="athalye2024pixels"><a
+      href="#ref-athalye2024pixels" role="doc-biblioref">[9]</a></span>
+      work that leverages VLMs to extract predicates from observations,
+      allowing for much better robustness and efficiency compared to
+      simply using a VLM to do the planning.</p>
+      <h1 id="some-potential-ideas">3 Some Potential Ideas</h1>
+      <p><strong>Idea 1:</strong> Using model-based systems to “guide”
+      learned policies (perhaps similar to <span class="citation"
+      data-cites="li2024language"><a href="#ref-li2024language"
+      role="doc-biblioref">[10]</a></span>). Or the other way around:
+      using learned policies to “guide” model-based approaches to
+      planning/control (the dumbest version is to use a learned policy
+      to initialize MPC rollouts or something). Of course being able to
+      do this requires being able to infer accurate models of the
+      environment/task during inference-time, something that my first
+      proposed project is meant to help with—and also think about
+      uncertainty.</p>
+      <p><strong>Idea 2:</strong> Using model-based systems to give
+      useful information during the training of learned components. For
+      example, if you had an accurate dynamics model, you could maybe
+      infer contact points and use this information as input to a
+      learning-based system. Of course, relatedly, RL these days always
+      uses a model—the simulator! There are pretty mature simulation
+      techniques out there, but not everything is modeled perfectly.
+      Perhaps there are improvements to how the simulators work that
+      might make RL produce more robust policies? Perhaps those same
+      techniques could reduce the sim-to-real gap in real-world MPC
+      applications?</p>
+      <p><strong>Idea 3:</strong> Using model-based approaches to
+      generate large amounts of better simulation data for
+      learning-based approaches. This is related to the second idea. It
+      would be along similar lines as the popular digital twin work in
+      the field at the moment—again closely related to my first proposed
+      project. If we could have a technique that could take in a video
+      or something, and build a large amount of diverse environments,
+      this could really help with data diversity in learned methods. I
+      recently read <span class="citation" data-cites="li2025pin"><a
+      href="#ref-li2025pin" role="doc-biblioref">[11]</a></span>, which
+      uses differentiable simulation to construct physically accurate
+      single object models for a simple pushing task (digital twins),
+      then they show you can perturb the physics parameters to generate
+      digital cousins, which can act as domain randomization for
+      learning methods.</p>
+      <h1 id="the-future-of-the-field">4 The Future of the Field</h1>
+      <p>When I try to predict where the field will be in 5 years, I do
+      think that data will play a crucial part, however, I struggle to
+      see the current large robotic datasets getting us anywhere near
+      deployability with the current popular learning-based methods. I
+      think understanding the modeling and structure within robotic
+      manipulation problems (geometry, physics) is crucial to develop
+      systems that can be as efficient and effective as possible with
+      the data that they have. When I imagine what the state of the art
+      manipulation system is in 5 years, I think it is a system that
+      involves a lot of learning, but is closely integrated with either
+      the explicit or implicit structure of its manipulation
+      problems—maybe from physics/geometric constraints during
+      inference-time planning or using accurate, diverse, simulation
+      during training.</p>
+      <h1 class="unnumbered" id="references">References</h1>
+      <div id="refs" class="references csl-bib-body"
+      data-entry-spacing="0" role="list">
+      <div id="ref-black2410pi0" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[1] </div><div
+      class="csl-right-inline">K. Black, N. Brown, D. Driess, A. Esmail,
+      M. Equi, C. Finn, N. Fusai, L. Groom, K. Hausman, B. Ichter, and
+      others, <span>“<span class="math inline">\pi</span>0: A
+      vision-language-action flow model for general robot control. CoRR,
+      abs/2410.24164, 2024. Doi: 10.48550,”</span> <em>arXiv preprint
+      ARXIV.2410.24164</em>.</div>
+      </div>
+      <div id="ref-lbmtri2025" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[2] </div><div
+      class="csl-right-inline">T. L. Team, J. Barreiros, A. Beaulieu, A.
+      Bhat, R. Cory, E. Cousineau, H. Dai, C.-H. Fang, K. Hashimoto, M.
+      Z. Irshad, M. Itkina, N. Kuppuswamy, K.-H. Lee, K. Liu, D.
+      McConachie, I. McMahon, H. Nishimura, C. Phillips-Grafflin, C.
+      Richter, P. Shah, K. Srinivasan, B. Wulfe, C. Xu, M. Zhang, A.
+      Alspach, M. Angeles, K. Arora, V. C. Guizilini, A. Castro, D.
+      Chen, T.-S. Chu, S. Creasey, S. Curtis, R. Denitto, E. Dixon, E.
+      Dusel, M. Ferreira, A. Goncalves, G. Gould, D. Guoy, S. Gupta, X.
+      Han, K. Hatch, B. Hathaway, A. Henry, H. Hochsztein, P. Horgan, S.
+      Iwase, D. Jackson, S. Karamcheti, S. Keh, J. Masterjohn, J.
+      Mercat, P. Miller, P. Mitiguy, T. Nguyen, J. Nimmer, Y. Noguchi,
+      R. Ong, A. Onol, O. Pfannenstiehl, R. Poyner, L. P. M. Rocha, G.
+      Richardson, C. Rodriguez, D. Seale, M. Sherman, M. Smith-Jones, D.
+      Tago, P. Tokmakov, M. Tran, B. V. Hoorick, I. Vasiljevic, S.
+      Zakharov, M. Zolotas, R. Ambrus, K. Fetzer-Borelli, B. Burchfiel,
+      H. Kress-Gazit, S. Feng, S. Ford, and R. Tedrake, <span>“<a
+      href="https://arxiv.org/abs/2507.05331">A careful examination of
+      large behavior models for multitask dexterous
+      manipulation</a>,”</span> 2025.</div>
+      </div>
+      <div id="ref-lum2024dextrahg" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[3] </div><div
+      class="csl-right-inline">T. G. W. Lum, M. Matak, V. Makoviychuk,
+      A. Handa, A. Allshire, T. Hermans, N. D. Ratliff, and K. V. Wyk,
+      <span>“<a
+      href="https://openreview.net/forum?id=S2Jwb0i7HN">Dextr<span>AH</span>-g:
+      Pixels-to-action dexterous arm-hand grasping with geometric
+      fabrics</a>,”</span> in <em>8th annual conference on robot
+      learning</em>, 2024.</div>
+      </div>
+      <div id="ref-ren2024grounded" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[4] </div><div
+      class="csl-right-inline">T. Ren, S. Liu, A. Zeng, J. Lin, K. Li,
+      H. Cao, J. Chen, X. Huang, Y. Chen, F. Yan, and others,
+      <span>“Grounded sam: Assembling open-world models for diverse
+      visual tasks,”</span> <em>arXiv preprint arXiv:2401.14159</em>,
+      2024.</div>
+      </div>
+      <div id="ref-radford2021learning" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[5] </div><div
+      class="csl-right-inline">A. Radford, J. W. Kim, C. Hallacy, A.
+      Ramesh, G. Goh, S. Agarwal, G. Sastry, A. Askell, P. Mishkin, J.
+      Clark, and others, <span>“Learning transferable visual models from
+      natural language supervision,”</span> in <em>International
+      conference on machine learning</em>, 2021, pp. 8748–8763.</div>
+      </div>
+      <div id="ref-sutton2019bitter" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[6] </div><div
+      class="csl-right-inline">R. Sutton, <span>“The bitter
+      lesson,”</span> <em>Incomplete Ideas (blog)</em>, vol. 13, no. 1,
+      p. 38, 2019.</div>
+      </div>
+      <div id="ref-hestness2017deep" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[7] </div><div
+      class="csl-right-inline">J. Hestness, S. Narang, N. Ardalani, G.
+      Diamos, H. Jun, H. Kianinejad, M. M. A. Patwary, Y. Yang, and Y.
+      Zhou, <span>“Deep learning scaling is predictable,
+      empirically,”</span> <em>arXiv preprint arXiv:1712.00409</em>,
+      2017.</div>
+      </div>
+      <div id="ref-kaplan2020scaling" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[8] </div><div
+      class="csl-right-inline">J. Kaplan, S. McCandlish, T. Henighan, T.
+      B. Brown, B. Chess, R. Child, S. Gray, A. Radford, J. Wu, and D.
+      Amodei, <span>“Scaling laws for neural language models,”</span>
+      <em>arXiv preprint arXiv:2001.08361</em>, 2020.</div>
+      </div>
+      <div id="ref-athalye2024pixels" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[9] </div><div
+      class="csl-right-inline">A. Athalye, N. Kumar, T. Silver, Y.
+      Liang, J. Wang, T. Lozano-Pérez, and L. P. Kaelbling, <span>“From
+      pixels to predicates: Learning symbolic world models via
+      pretrained vision-language models,”</span> <em>arXiv preprint
+      arXiv:2501.00296</em>, 2024.</div>
+      </div>
+      <div id="ref-li2024language" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[10] </div><div
+      class="csl-right-inline">H. Li, Q. Feng, Z. Zheng, J. Feng, and A.
+      Knoll, <span>“Language-guided object-centric diffusion policy for
+      collision-aware robotic manipulation,”</span> <em>arXiv
+      e-prints</em>, pp. arXiv–2407, 2024.</div>
+      </div>
+      <div id="ref-li2025pin" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[11] </div><div
+      class="csl-right-inline">W. Li, H. Zhao, Z. Yu, Y. Du, Q. Zou, R.
+      Hu, and K. Xu, <span>“Pin-wm: Learning physics-informed world
+      models for non-prehensile manipulation,”</span> <em>arXiv preprint
+      arXiv:2504.16693</em>, 2025.</div>
+      </div>
+      </div>
+  </body>
+
+</html>
