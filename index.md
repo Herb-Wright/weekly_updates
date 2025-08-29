@@ -28,3 +28,6 @@ title: Herbie's Weekly Updates
 ## 2 Other Meeting Prep
 
 - [2025-06-11_project_pitch](2025-06-11_project_pitch)
+- [2025-08-29_posa_meeting](2025-08-29_posa_meeting)
+
+
