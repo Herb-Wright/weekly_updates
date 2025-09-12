@@ -70,7 +70,7 @@ If I think about what it might take to make this work I think the following may 
 
 **Safety constraints / cost function design:** We may want to think about what should be part of the cost function. Maybe we want some sort of term that says: *you can push objects, but don't tip them over*. Maybe there should also be some thought to the cost for the goal; do we select one grasp orientation and go to that, or have multiple and go to the one that is easiest to reach? I think these are solvable problems that might just be a "get there when we get there" sort of thing. If we wanted to really try to be trendy, we could prompt a VLM for what safety constraints should there be, which is what I believe ReKep [@huang2025rekep] kind of does. I don't completely know how I feel about that though.
 
-## 4 Paper Idea II: 
+## 4 Paper Idea II: Robust Imitation Learning with Dynamics-informed Basis Trajectories
 
 **Note:** *This one is much less thought out because I did not evenly distribute my time between the two ideas*
 
