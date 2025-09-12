@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>What I’ve Been Thinking About</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #eee;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        /* @page :left {
+            margin: 15mm 20mm 15mm 10mm;
+        }
+
+        @page :right {
+            margin: 15mm 10mm 15mm 20mm;
+        } */
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 12pt;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">What I’ve Been Thinking About</h1>
+                <p class="date">2025 Sep 9</p>
+          </header>
+      <h2 id="last-time">1 Last Time</h2>
+      <p>Last meeting, I wrote a little document with some
+      partially-formed ideas. There were a few things I wrote down in my
+      notes, with the main one being to think of <em>motivating
+      examples</em> for some of the things I was thinking about. Here, I
+      hope to introduce and analyze a motivating example problem in
+      order to guide my thinking. Of course, I may have gone down a
+      slight rabbit-hole instead of thinking about multiple things.</p>
+      <h2 id="motivating-example">2 Motivating Example</h2>
+      <h3 id="introduction-to-the-problem">2.1 Introduction to the
+      Problem</h3>
+      <p>I want to consider the following toy problem: the robot is
+      tasked with retrieving an object in a shelf, that is behind an
+      occluding object. Here is a low-quality figure I made of some
+      variations on this problem (I may revisit even more complicated
+      variations later on):</p>
+      <figure>
+      <img src="image.png"
+      alt="Variations on a simple retrieval task in a confined shelf. The task is to grasp/retrieve the green object, which may require pushing the red object in some way (first two examples) or may not (last example)." />
+      <figcaption aria-hidden="true">Variations on a simple retrieval
+      task in a confined shelf. The task is to grasp/retrieve the green
+      object, which may require pushing the red object in some way
+      (first two examples) or may not (last example).</figcaption>
+      </figure>
+      <p>I think this is a sufficiently complex problem that would be
+      directly relevant to tasks a home robot may need to perform.</p>
+      <p>The first thing to note is that in the first couple instances,
+      retrieving the green object may require interacting with the red
+      object first, whereas in the last instance that may not be
+      necessary. Secondly, while a simple push/sweep to the side may
+      work in the first scenario, that same push would not be available
+      in the middle scenario because it is snug with the shelf wall—a
+      more complicated push or pull action would be required, like maybe
+      an action that rotates the red object. Finally, the thing I want
+      to key in on is that figuring out what to do (if and how to push)
+      relies on understanding the particular geometry and dynamics of
+      the scene. While this is a planning problem, inferring the
+      dynamics from robot sensors—a perception problem—is critical for
+      that planning. Later, I will also talk about trying to use wrap
+      the pushing into an MPC method at a lower level than a high-level
+      planner.</p>
+      <h3 id="existing-work">2.2 Existing Work</h3>
+      <p>Pushing in order to grasp has been studied in the robotics
+      literature. In <span class="citation"
+      data-cites="dogar2011framework"><a href="#ref-dogar2011framework"
+      role="doc-biblioref">[1]</a></span>, a 2011 paper building off of
+      <span class="citation" data-cites="dogar2010push"><a
+      href="#ref-dogar2010push" role="doc-biblioref">[2]</a></span>, a
+      framework for <em>push-grasping</em> is introduced. The idea in
+      the paper is that you may need to perform some sort of
+      non-prehensile manipulation to make grasping easier. The framework
+      works by first planning a grasp of the target object, allowing for
+      penetration into occluding objects, then it determines which
+      objects are penetrated, and moves them out of the way. Thus, a
+      two-step process of (1) determining <em>if</em> you have to push
+      things and (2) determining <em>how</em> to push things. A similar
+      two-step process is seen in <span class="citation"
+      data-cites="li2024adapter"><a href="#ref-li2024adapter"
+      role="doc-biblioref">[3]</a></span>, where they study retrieving
+      an object from a shelf where the objects are perhaps touching and
+      arranged side-to-side (think of grabbing a book from a bookshelf).
+      If they realize the target object cannot be grasped in the current
+      configuration, they push the objects to the side of it in to make
+      room—a more simplified <em>if</em>-then-<em>how</em> pattern. It
+      should also be noted that reinforcement learning has been applied
+      to learn polices for push-grasp synergy (<span class="citation"
+      data-cites="zeng2018learning"><a href="#ref-zeng2018learning"
+      role="doc-biblioref">[4]</a></span> is the earliest work I could
+      find, but <span class="citation" data-cites="zhong2024dual"><a
+      href="#ref-zhong2024dual" role="doc-biblioref">[5]</a></span> and
+      <span class="citation" data-cites="wang2025learning"><a
+      href="#ref-wang2025learning" role="doc-biblioref">[6]</a></span>
+      are a more recent examples). A learning from demonstration
+      approach has also been applied to push-grasping in <span
+      class="citation" data-cites="kiatos2022learning"><a
+      href="#ref-kiatos2022learning"
+      role="doc-biblioref">[7]</a></span>.</p>
+      <p>A big focus in a few of the push grasping papers, starting from
+      the original work <span class="citation"
+      data-cites="dogar2010push"><a href="#ref-dogar2010push"
+      role="doc-biblioref">[2]</a></span>, is being robust to
+      uncertainty. A very recent work, <span class="citation"
+      data-cites="ren2025collision"><a href="#ref-ren2025collision"
+      role="doc-biblioref">[8]</a></span>, from RA-L September 2025 uses
+      compliant robot motions to add robustness to uncertainty, using
+      the idea of a <em>manipulation funnel</em>, all pertaining to
+      planning for grasping occluded objects.</p>
+      <p>More broadly, there is also work on rearranging clutter to make
+      picking a target object easier/possible beyond just push-grasping.
+      <span class="citation" data-cites="stilman2007manipulation"><a
+      href="#ref-stilman2007manipulation"
+      role="doc-biblioref">[9]</a></span> is a well-cited early example
+      of such work. More recently, <span class="citation"
+      data-cites="ren2024neural"><a href="#ref-ren2024neural"
+      role="doc-biblioref">[10]</a></span> leverages supervised deep
+      learning to predict which object to move and where such that the
+      target object is graspable (the <em>how</em> part). There is also
+      a whole <em>navigation among movable obstacles</em> (NAMO) <span
+      class="citation" data-cites="stilman2005navigation"><a
+      href="#ref-stilman2005navigation"
+      role="doc-biblioref">[11]</a></span> line of work which is
+      related. There are other works I could mention, but I think this
+      is a diverse-enough overview of the relevant literature.</p>
+      <p>There are a few threads I want to pull between all these
+      mentioned papers and the simplified example I am looking at:</p>
+      <ol type="1">
+      <li>Being able to intuit the specific dynamics of the scene are
+      necessary for solving the problem; either you use a classical
+      method, which directly reasons about the geometry and plans pushes
+      through some simplified dynamics that result in a better future
+      grasp, or you use a learning-based solution that implicitly
+      understands how to push.</li>
+      <li>There is this <em>if</em>-then-<em>how</em> structure to all
+      of these methods; for example, the RL approaches will determine
+      <em>if</em> a push should occur before a grasp evaluating
+      something like the <span class="math inline">Q</span> function for
+      both pushing and grasping and using that to determine which action
+      to take, then the learned policy executes the action based on its
+      RL training through simulation dynamics.</li>
+      <li>Occlusion creates uncertainty, which creates a need for
+      robustness during grasping.</li>
+      </ol>
+      <p>In the next section, I want to talk about what I think are some
+      interesting lines of though regarding my simplified problem, while
+      keeping in mind the existing literature surrounding it.</p>
+      <h2
+      id="paper-idea-i-sampling-based-mpc-for-non-prehensile-manipulation-discovery">3
+      Paper Idea I: Sampling-based MPC for Non-prehensile Manipulation
+      Discovery</h2>
+      <h3 id="the-idea">3.1 The Idea</h3>
+      <p>When grasping objects from clutter in confined spaces, humans
+      sometimes use non-prehensile actions to make the target object
+      accessible. Humans can do these actions “on-the-fly” and largely
+      without thinking. In robotics, it is usually the higher-level
+      planner’s responsibility to determine if an action like pushing
+      needs to be done before an object can be grasped, but I think it
+      would be cool if many of such actions could be handled by
+      lower-level planner/controller, similar to how humans can act
+      instinctively. In this idea, the goal would be to show that
+      sampling-based MPC can “discover” that it needs to push other
+      objects around in order to get the target object—without baking
+      pushing-then-grasping into the <em>planner</em> like the methods I
+      mentioned in the previous section. This would prevent replanning
+      and allow for reactive clutter rearrangement. Here is a simplified
+      image of something similar to what I am thinking, following along
+      my simplified example in the previous section.</p>
+      <p><img src="image-1.png" /></p>
+      <p>Another argument that might be worth making is something like
+      this: while imitation learning has seen recent successes, it
+      requires examples of certain behavior to execute it. It would be
+      awesome if, equipped with only a <em>dynamics model</em>, we could
+      have algorithms and controllers that could discover new ways of
+      reaching goals by simply reasoning or searching intelligently
+      through the dynamics and embracing contact.</p>
+      <p>Roughly, the idea would be to do the following procedure in the
+      setup from section 2 (shelf with clutter):</p>
+      <ol type="1">
+      <li>Infer dynamics (system identification)</li>
+      <li>Pick a grasp pose or goal</li>
+      <li>Use sampling-based MPC to take the arm to the goal (where it
+      realizes whether it should push the occluding object or not)</li>
+      </ol>
+      <p>The contributions could be (a) the use of sampling-based motion
+      planning to reason about pushing to grasp in a cluttered shelf;
+      (b) a novel way of sampling to make the MPC better; and/or any
+      number of other things. We could also do experiments doing
+      contact-rich stuff in the shelf, like grabbing a book on a
+      bookshelf.</p>
+      <h3 id="some-relevant-literature">3.2 Some Relevant
+      Literature</h3>
+      <p>Sampling-based MPC is pretty popular. Mujoco MPC’s predictive
+      sampling <span class="citation"
+      data-cites="howell2022predictive"><a
+      href="#ref-howell2022predictive"
+      role="doc-biblioref">[12]</a></span> falls into this category, as
+      well as MPPI <span class="citation"
+      data-cites="williams2018information"><a
+      href="#ref-williams2018information"
+      role="doc-biblioref">[13]</a></span>. It also seems to be pretty
+      fairly capable of many robotic manipulation subtasks.
+      Sampling-based MPC has been used to manipulate articulated objects
+      <span class="citation" data-cites="rizzi2023robust"><a
+      href="#ref-rizzi2023robust" role="doc-biblioref">[14]</a></span>,
+      as part of a method for pushing through clutter <span
+      class="citation" data-cites="weeda2025pushing"><a
+      href="#ref-weeda2025pushing" role="doc-biblioref">[15]</a></span>,
+      and is highly parallelizable <span class="citation"
+      data-cites="pezzato2025sampling"><a
+      href="#ref-pezzato2025sampling"
+      role="doc-biblioref">[16]</a></span>. One idea that comes up a lot
+      is that sampling-based MPC, such as MPPI are very sensitive to the
+      <em>sampling distribution</em> used to generate samples (you see a
+      similar argument in the DIAL-MPC paper <span class="citation"
+      data-cites="xue2025full"><a href="#ref-xue2025full"
+      role="doc-biblioref">[17]</a></span>). There are a few papers that
+      propose adjustments to the sampling distribution to improve MPPI,
+      Biased-MPPI <span class="citation"
+      data-cites="trevisan2024biased"><a href="#ref-trevisan2024biased"
+      role="doc-biblioref">[18]</a></span> is an example, in which they
+      show mathematically that by simply biasing an adjusted cost
+      towards a desired sampling distribution, you can allow arbitrary
+      non-Gaussian sampling distributions under the
+      information-theoretic framing of MPPI. In Biased-MPPI, they
+      specifically propose incorporating ancillary controllers into the
+      sampling. Honestly, there is a lot of work on MPPI in recent
+      years, too much for me to list. These methods are also related in
+      some ways to SV-MPC <span class="citation"
+      data-cites="lambert2021stein"><a href="#ref-lambert2021stein"
+      role="doc-biblioref">[19]</a></span>.</p>
+      <h3 id="thoughts">3.3 Thoughts</h3>
+      <p>If I think about what it might take to make this work I think
+      the following may come up:</p>
+      <p><strong>Better sampling:</strong> I actually think it is an
+      interesting problem to think about how to define a more diverse
+      sampling distribution if you have access to the dynamics function.
+      Ideally, you would want to have samples that are diverse in the
+      state space instead of just control space. One could imagine that
+      if the function was close-to-affine we could think about
+      information from the partial Jacobian of <span
+      class="math inline">x_{t+1} = f(x_t, u_t)</span>, which would be
+      <span class="math inline">\nabla_u f(x, u)</span>. However,
+      contact modes make this more difficult. Perhaps there is a smarter
+      way to sample <span class="math inline">u</span>’s so that we get
+      diverse states, even when contact may occur?</p>
+      <p><em>(I would like to actually take some time to think about
+      this maybe. There are a lot of papers that try to explore better,
+      such as <span class="citation"
+      data-cites="khandate2023sampling"><a
+      href="#ref-khandate2023sampling"
+      role="doc-biblioref">[20]</a></span> which draws inspiration from
+      RRT and explores along constraint manifolds for in-hand
+      manipulation. In the setting where contact is sometimes made and
+      sometimes not, the problem seems harder)</em></p>
+      <p><strong>Safety constraints / cost function design:</strong> We
+      may want to think about what should be part of the cost function.
+      Maybe we want some sort of term that says: <em>you can push
+      objects, but don’t tip them over</em>. Maybe there should also be
+      some thought to the cost for the goal; do we select one grasp
+      orientation and go to that, or have multiple and go to the one
+      that is easiest to reach? I think these are solvable problems that
+      might just be a “get there when we get there” sort of thing. If we
+      wanted to really try to be trendy, we could prompt a VLM for what
+      safety constraints should there be, which is what I believe ReKep
+      <span class="citation" data-cites="huang2025rekep"><a
+      href="#ref-huang2025rekep" role="doc-biblioref">[21]</a></span>
+      kind of does. I don’t completely know how I feel about that
+      though.</p>
+      <h2 id="paper-idea-ii">4 Paper Idea II:</h2>
+      <p><strong>Note:</strong> <em>This one is much less thought out
+      because I did not evenly distribute my time between the two
+      ideas</em></p>
+      <p>Imitation learning (IL) has shown to be promising at many
+      complex manipulation tasks, but vanilla IL is known to be very
+      sensitive to <em>distributional-shift</em> <span class="citation"
+      data-cites="zare2024survey"><a href="#ref-zare2024survey"
+      role="doc-biblioref">[22]</a></span>. In order to make IL viable,
+      it needs increased robustness. In many other learning problems,
+      robustness has been improved by using inductive biases such as
+      adding in domain-specific invariances like convolutions or using
+      better feature engineering. This has motivated the search for
+      encoding stronger inductive biases into IL to make it more robust
+      to these. One of the main bits of structure in robotics problems
+      comes from physics and 3D geometry. In this idea, I propose giving
+      imitation learning policies information about the dynamics of the
+      system to learn from. My idea is to first infer a dynamics model
+      of the environment, then, along with the normal input, feed in a
+      collection of <em>basis trajectories</em> into the futuer and
+      their predicted observations: <span class="math display">
+      \{(\tau_1, o_1), ..., (\tau_k, o_1)\} </span> Where <span
+      class="math inline">\tau_i</span> is a sequence of actions through
+      the inferred dynamics model, and <span
+      class="math inline">o_i</span> is the corresponding predicted
+      observation. In order for this to work, we would need a dynamics
+      model that can produce the right kind of observations (probably
+      images). Then, if we are confident that we generated enough of and
+      a high enough quality of basis trajectories, we could also have
+      the robot take an action near the convex hull of these
+      trajectories. Obviously, we would probably be using a transformer
+      here. Maybe we would even have something like (I’m being a bit
+      sloppy here): <span class="math display"> \hat \tau =
+      \text{softmax}(Q_{\theta_1}(o_{1:k}, \tau_{1:k})) \tau_{1:k} +
+      \epsilon_{\theta_2}(o_{1:k}, \tau_{1:k}) </span> Where <span
+      class="math inline">\tau_{1:k}</span> and <span
+      class="math inline">o_{1:k}</span> denote stacking all of the
+      basis trajectories or predicted observations on a new tensor
+      dimension and <span class="math inline">Q_{\theta_1},
+      \epsilon_{\theta_2}</span> are learnable functions. I hope that
+      makes sense to me in the morning, I kind of just spitballed that
+      there like 5 minutes ago this evening.</p>
+      <p>The idea is that we would be giving the robot dynamics
+      information to work with when it is selecting its next actions.
+      The real fun part of this is kind of related to the previous paper
+      idea: how do we generate the basis trajectories? I think it would
+      be dope if there was some way to generate a real representative
+      set just based off of access to the dynamics function and a bit of
+      understanding of the physics. You would want the set to not just
+      be diverse in action space, but in resulting final state
+      space.</p>
+      <p>We would show that by inducing various distribution shifts
+      (different objects, different shelf, etc.), we would be more
+      robust than a naive approach.</p>
+      <p><strong>Relevant Literature:</strong> So, I didn’t really do a
+      literature review on this one, but I know there are papers out
+      there that exist. Here are some relevant papers that I have at
+      least read the abstract of and glanced at a figure or two: <span
+      class="citation"
+      data-cites="balim2025model chandra2025diwa demoss2023ditto liu2023dynamics hu2022model"><a
+      href="#ref-balim2025model" role="doc-biblioref">[23]</a>–<a
+      href="#ref-hu2022model" role="doc-biblioref">[27]</a></span>.
+      These approaches often make many implicit or explicit nods to RL
+      and/or human imagination.</p>
+      <p><strong>Thought:</strong> <em>I realize that perhaps both of
+      these paper ideas are simply shifting their contribution to the
+      problem of effective diverse sampling through a dynamics model
+      that involves potentially making or not making contact. A more
+      defined version of the problem is how to sample joint angle action
+      sequences through a dynamics model with different potential
+      contact modes such that we have a large diversity of resulting
+      states.</em></p>
+      <h2 id="some-other-semi-random-ideas">5 Some Other (Semi-)Random
+      Ideas</h2>
+      <p><strong>Thing 1:</strong> Last time, I mentioned an idea where
+      a behavior cloning or imitation learning policy would “fall back”
+      to MPC or something when it’s predicted actions didn’t seem to
+      work in a dynamics model of the scene. I think that the shelf
+      example could potentially be a motivating example if you only have
+      examples of 2 of the three modes in the first image, then during
+      inference you give it the third one, it might not know what to
+      do.</p>
+      <p><strong>Thing 2:</strong> In my proposed first project, the
+      dynamics model produced will actually be probabilistic, thus there
+      will be uncertainty. Is there an interesting direction of thinking
+      about how uncertain dynamics affect sampling-based MPC, and how
+      one could improve the sampling-based MPC by thinking about
+      uncertainty in dynamics?</p>
+      <p><strong>Thing 3:</strong> Here are some real life videos I took
+      of me doing some manipulation stuff (perhaps these could motivate
+      other motivating examples):</p>
+      <p><video src="./IMG_4507.mov" style="width:30.0%" controls=""><a
+      href="./IMG_4507.mov">Video</a></video> <video
+      src="./IMG_4508.mov" style="width:30.0%" controls=""><a
+      href="./IMG_4508.mov">Video</a></video> <video
+      src="./IMG_4510.mov" style="width:30.0%" controls=""><a
+      href="./IMG_4510.mov">Video</a></video></p>
+      <p><strong>Thing 4:</strong> This is the third consecutive weekly
+      meeting and corresponding write-up (the other two are <a
+      href="../2025-08-29_posa_meeting/">here</a> and <a
+      href="../2025-09-05/">here</a>). I am wondering if I could get
+      some feedback on my thinking/style, such as whether I should think
+      more about fewer ideas? Whether I am being too pie-in-the-sky?
+      Should I try to include more mathematical statements? etc.
+      Obviously, these write-ups are a little different from the style I
+      would do if I was actively working on a project, but I figure the
+      time before I have a computer or desk in the lab might be a good
+      time to refine my ability to think about and generate project
+      ideas slightly outside of areas where I am most comfortable
+      in.</p>
+      <h2 class="unnumbered" id="references">References</h2>
+      <div id="refs" class="references csl-bib-body"
+      data-entry-spacing="0" role="list">
+      <div id="ref-dogar2011framework" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[1] </div><div
+      class="csl-right-inline">M. Dogar and S. Srinivasa, <span>“A
+      framework for push-grasping in clutter,”</span> <em>Robotics:
+      Science and systems VII</em>, vol. 1, pp. 65–72, 2011.</div>
+      </div>
+      <div id="ref-dogar2010push" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[2] </div><div
+      class="csl-right-inline">M. R. Dogar and S. S. Srinivasa,
+      <span>“Push-grasping with dexterous hands: Mechanics and a
+      method,”</span> in <em>2010 IEEE/RSJ international conference on
+      intelligent robots and systems</em>, 2010, pp. 2123–2130.</div>
+      </div>
+      <div id="ref-li2024adapter" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[3] </div><div
+      class="csl-right-inline">H. Li, P. You, G. Wang, B. Fang, J. Yin,
+      H. Liu, and D. Guo, <span>“An adapter for interactive object
+      retrieval on the shelf,”</span> in <em>2024 IEEE 14th
+      international conference on CYBER technology in automation,
+      control, and intelligent systems (CYBER)</em>, 2024, pp.
+      505–510.</div>
+      </div>
+      <div id="ref-zeng2018learning" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[4] </div><div
+      class="csl-right-inline">A. Zeng, S. Song, S. Welker, J. Lee, A.
+      Rodriguez, and T. Funkhouser, <span>“Learning synergies between
+      pushing and grasping with self-supervised deep reinforcement
+      learning,”</span> in <em>2018 IEEE/RSJ international conference on
+      intelligent robots and systems (IROS)</em>, 2018, pp.
+      4238–4245.</div>
+      </div>
+      <div id="ref-zhong2024dual" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[5] </div><div
+      class="csl-right-inline">J. Zhong, Y. W. Wong, J. Jin, Y. Song, X.
+      Yuan, and X. Chen, <span>“Dual-critic deep reinforcement learning
+      for push-grasping synergy in cluttered environment,”</span> in
+      <em>2024 IEEE international conference on robotics and automation
+      (ICRA)</em>, 2024, pp. 3138–3144.</div>
+      </div>
+      <div id="ref-wang2025learning" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[6] </div><div
+      class="csl-right-inline">Y. Wang and H. Kasaei, <span>“Learning
+      dual-arm push and grasp synergy in dense clutter,”</span> <em>IEEE
+      Robotics and Automation Letters</em>, 2025.</div>
+      </div>
+      <div id="ref-kiatos2022learning" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[7] </div><div
+      class="csl-right-inline">M. Kiatos, I. Sarantopoulos, L. Koutras,
+      S. Malassiotis, and Z. Doulgeri, <span>“Learning push-grasping in
+      dense clutter,”</span> <em>IEEE Robotics and Automation
+      Letters</em>, vol. 7, no. 4, pp. 8783–8790, 2022.</div>
+      </div>
+      <div id="ref-ren2025collision" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[8] </div><div
+      class="csl-right-inline">K. Ren, G. Wang, A. S. Morgan, and K.
+      Hang, <span>“Collision-inclusive manipulation planning for
+      occluded object grasping via compliant robot motions,”</span>
+      <em>IEEE Robotics and Automation Letters</em>, no. 99, pp. 1–8,
+      2025.</div>
+      </div>
+      <div id="ref-stilman2007manipulation" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[9] </div><div
+      class="csl-right-inline">M. Stilman, J.-U. Schamburek, J. Kuffner,
+      and T. Asfour, <span>“Manipulation planning among movable
+      obstacles,”</span> in <em>Proceedings 2007 IEEE international
+      conference on robotics and automation</em>, 2007, pp.
+      3327–3332.</div>
+      </div>
+      <div id="ref-ren2024neural" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[10] </div><div
+      class="csl-right-inline">H. Ren and A. H. Qureshi, <span>“Neural
+      rearrangement planning for object retrieval from confined spaces
+      perceivable by robot’s in-hand rgb-d sensor,”</span> in <em>2024
+      IEEE international conference on robotics and automation
+      (ICRA)</em>, 2024, pp. 15388–15394.</div>
+      </div>
+      <div id="ref-stilman2005navigation" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[11] </div><div
+      class="csl-right-inline">M. Stilman and J. J. Kuffner,
+      <span>“Navigation among movable obstacles: Real-time reasoning in
+      complex environments,”</span> <em>International Journal of
+      Humanoid Robotics</em>, vol. 2, no. 4, pp. 479–503, 2005.</div>
+      </div>
+      <div id="ref-howell2022predictive" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[12] </div><div
+      class="csl-right-inline">T. Howell, N. Gileadi, S.
+      Tunyasuvunakool, K. Zakka, T. Erez, and Y. Tassa,
+      <span>“Predictive sampling: Real-time behaviour synthesis with
+      mujoco,”</span> <em>arXiv preprint arXiv:2212.00541</em>,
+      2022.</div>
+      </div>
+      <div id="ref-williams2018information" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[13] </div><div
+      class="csl-right-inline">G. Williams, P. Drews, B. Goldfain, J. M.
+      Rehg, and E. A. Theodorou, <span>“Information-theoretic model
+      predictive control: Theory and applications to autonomous
+      driving,”</span> <em>IEEE Transactions on Robotics</em>, vol. 34,
+      no. 6, pp. 1603–1622, 2018.</div>
+      </div>
+      <div id="ref-rizzi2023robust" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[14] </div><div
+      class="csl-right-inline">G. Rizzi, J. J. Chung, A. Gawel, L. Ott,
+      M. Tognon, and R. Siegwart, <span>“Robust sampling-based control
+      of mobile manipulators for interaction with articulated
+      objects,”</span> <em>IEEE Transactions on Robotics</em>, vol. 39,
+      no. 3, pp. 1929–1946, 2023.</div>
+      </div>
+      <div id="ref-weeda2025pushing" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[15] </div><div
+      class="csl-right-inline">J. J. Weeda, S. Bakker, G. Chen, and J.
+      Alonso-Mora, <span>“Pushing through clutter with movability
+      awareness of blocking obstacles,”</span> <em>arXiv preprint
+      arXiv:2502.20106</em>, 2025.</div>
+      </div>
+      <div id="ref-pezzato2025sampling" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[16] </div><div
+      class="csl-right-inline">C. Pezzato, C. Salmi, E. Trevisan, M.
+      Spahn, J. Alonso-Mora, and C. H. Corbato, <span>“Sampling-based
+      model predictive control leveraging parallelizable physics
+      simulations,”</span> <em>IEEE Robotics and Automation
+      Letters</em>, 2025.</div>
+      </div>
+      <div id="ref-xue2025full" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[17] </div><div
+      class="csl-right-inline">H. Xue, C. Pan, Z. Yi, G. Qu, and G. Shi,
+      <span>“Full-order sampling-based mpc for torque-level locomotion
+      control via diffusion-style annealing,”</span> in <em>2025 IEEE
+      international conference on robotics and automation (ICRA)</em>,
+      2025, pp. 4974–4981.</div>
+      </div>
+      <div id="ref-trevisan2024biased" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[18] </div><div
+      class="csl-right-inline">E. Trevisan and J. Alonso-Mora,
+      <span>“Biased-MPPI: Informing sampling-based model predictive
+      control by fusing ancillary controllers,”</span> <em>IEEE Robotics
+      and Automation Letters</em>, vol. 9, no. 6, pp. 5871–5878,
+      2024.</div>
+      </div>
+      <div id="ref-lambert2021stein" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[19] </div><div
+      class="csl-right-inline">A. Lambert, F. Ramos, B. Boots, D. Fox,
+      and A. Fishman, <span>“Stein variational model predictive
+      control,”</span> in <em>Conference on robot learning</em>, 2021,
+      pp. 1278–1297.</div>
+      </div>
+      <div id="ref-khandate2023sampling" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[20] </div><div
+      class="csl-right-inline">G. Khandate, S. Shang, E. T. Chang, T. L.
+      Saidi, Y. Liu, S. M. Dennis, J. Adams, and M. Ciocarlie,
+      <span>“Sampling-based exploration for reinforcement learning of
+      dexterous manipulation,”</span> <em>Robotics: Science and
+      Systems</em>, 2023.</div>
+      </div>
+      <div id="ref-huang2025rekep" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[21] </div><div
+      class="csl-right-inline">W. Huang, C. Wang, Y. Li, R. Zhang, and
+      L. Fei-Fei, <span>“ReKep: Spatio-temporal reasoning of relational
+      keypoint constraints for robotic manipulation,”</span> in
+      <em>Conference on robot learning</em>, 2025, pp. 4573–4602.</div>
+      </div>
+      <div id="ref-zare2024survey" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[22] </div><div
+      class="csl-right-inline">M. Zare, P. M. Kebria, A. Khosravi, and
+      S. Nahavandi, <span>“A survey of imitation learning: Algorithms,
+      recent developments, and challenges,”</span> <em>IEEE Transactions
+      on Cybernetics</em>, 2024.</div>
+      </div>
+      <div id="ref-balim2025model" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[23] </div><div
+      class="csl-right-inline">H. Balim, Y. Hu, Y. Zhang, and N. Li,
+      <span>“A model-based approach to imitation learning through
+      multi-step predictions,”</span> <em>arXiv preprint
+      arXiv:2504.13413</em>, 2025.</div>
+      </div>
+      <div id="ref-chandra2025diwa" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[24] </div><div
+      class="csl-right-inline">A. L. Chandra, I. Nematollahi, C. Huang,
+      T. Welschehold, W. Burgard, and A. Valada, <span>“DiWA: Diffusion
+      policy adaptation with world models,”</span> <em>Conference on
+      Robot Learning (CoRL)</em>, 2025.</div>
+      </div>
+      <div id="ref-demoss2023ditto" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[25] </div><div
+      class="csl-right-inline">B. DeMoss, P. Duckworth, N. Hawes, and I.
+      Posner, <span>“Ditto: Offline imitation learning with world
+      models,”</span> <em>arXiv preprint arXiv:2302.03086</em>,
+      2023.</div>
+      </div>
+      <div id="ref-liu2023dynamics" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[26] </div><div
+      class="csl-right-inline">Z. Liu, L. Liu, B. Wu, L. Li, X. Wang, B.
+      Yuan, and P. Zhao, <span>“Dynamics adapted imitation
+      learning,”</span> <em>Transactions on Machine Learning
+      Research</em>, 2023.</div>
+      </div>
+      <div id="ref-hu2022model" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[27] </div><div
+      class="csl-right-inline">A. Hu, G. Corrado, N. Griffiths, Z.
+      Murez, C. Gurau, H. Yeo, A. Kendall, R. Cipolla, and J. Shotton,
+      <span>“Model-based imitation learning for urban driving,”</span>
+      <em>Advances in Neural Information Processing Systems</em>, vol.
+      35, pp. 20703–20716, 2022.</div>
+      </div>
+      </div>
+  </body>
+
+</html>
