@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Write-up</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #eee;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        /* @page :left {
+            margin: 15mm 20mm 15mm 10mm;
+        }
+
+        @page :right {
+            margin: 15mm 10mm 15mm 20mm;
+        } */
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 12pt;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Write-up</h1>
+                <p class="date">2025 Sep 19</p>
+          </header>
+      <h2 id="last-time">1 Last Time</h2>
+      <p>We talked about contact. Specifically, we talked about this
+      motivating example of reaching a goal behind a movable object. I
+      had the following sketches:</p>
+      <p><img src="./image.png" style="width:49.0%" /> <img
+      src="./image-1.png" style="width:49.0%" /></p>
+      <p>The idea I had last time was to use a sampling-based MPC
+      strategy to “discover” that the occluding object needs to be
+      pushed out of the way. I talked about whether there might be a way
+      to do better sampling, and we also talked about contact modes and
+      contact mode search. This week, I have a few half-baked thoughts
+      regarding this problem, specifically with sampling better for
+      MPPI-like algorithms in contact-possible situations, but I was not
+      very organized and so it is not super cohesive.</p>
+      <h2 id="the-setup">2 The Setup</h2>
+      <h3 id="toy-problem-motivation">2.1 Toy Problem Motivation</h3>
+      <p>I took an evening to make a poorly-coded simulation of a
+      similar setup to the toy problem from yesterday. Here is a gif I
+      made of MPPI <span class="citation"
+      data-cites="williams2018information"><a
+      href="#ref-williams2018information"
+      role="doc-biblioref">[1]</a></span> trying to do the thing:</p>
+      <p><img src="./mppi_block_thing.gif" /></p>
+      <p>I used force controls on the sphere, a cost function that
+      mostly just penalizes distance to the goal (I also tried one that
+      penalizes collision as well, but it didn’t solve the harder task
+      of the big block still). I used a horizon of 50 steps with 20
+      samples. I tried increasing both of these values to 100, but the
+      big block problem was still not solved. It is very possible that
+      better tuning of all the hyperparameters might result in better
+      performance.</p>
+      <p>Perhaps this could serve as motivation for better sampling for
+      sampling-based MPC (recall that <span class="citation"
+      data-cites="trevisan2024biased"><a href="#ref-trevisan2024biased"
+      role="doc-biblioref">[2]</a></span> gave justification for pretty
+      much arbitrary sampling distributions for MPPI). The rest of this
+      write-up has a pretty strong MPPI bent, so yeah…</p>
+      <h3 id="notation">2.2 Notation</h3>
+      <p>Consider an optimal control problem with some inequality
+      constraints: <span class="math display"> \min_{u_{0:T}} \sum_t
+      c(x_t, u_t) + c_f (x_T) =: J(U) </span> <span
+      class="math display"> \text{s.t. } \; x_{t+1} = f(x_t, u_t), \; \;
+      \; g(x_t, u_t) \leq 0 </span> For reference, MPPI defines a
+      procedure where you sample Gaussian <span
+      class="math inline">\{u_t^{(i)} \}</span> and then reweight the
+      samples to find an optimal control sequence following: <span
+      class="math display"> u^*_t = \frac{\sum_i \exp(-J(U^{(i)}) /
+      \lambda) u^{(i)}_t}{\sum_i \exp(-J(U^{(i)}) / \lambda)} </span>
+      The justification comes from some math that shows a lower bound
+      (from “free energy” or something) on what looks like an expected
+      cost becomes an equality with the proposed reweighting. Also for
+      reference, here is some pseudocode:</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> MPPI(old_u, sigma, f, x0, J):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    u_samples <span class="op">=</span> old_u <span class="op">+</span> sigma <span class="op">*</span> gaussian()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    x_samples[:, <span class="dv">0</span>] <span class="op">=</span> x0</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, T):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        x_samples[:, t] <span class="op">=</span> f(x_samples[:, t<span class="op">-</span><span class="dv">1</span>], u_samples[:, t<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    costs <span class="op">=</span> J(x_samples, u_samples)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> reweight(costs, u_samples)  <span class="co"># according to equation above</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> u</span></code></pre></div>
+      <h3 id="how-is-contact-usually-handled">2.3 How is Contact Usually
+      Handled?</h3>
+      <p>Like we talked about last time, there are things called
+      <em>contact modes</em>, which are different configurations of
+      things being in contact (i.e. not-in-contact, sticking, sliding).
+      These seem to be typically determined by which constraints
+      (i.e. friction cone, no-penetration) are currently active. This,
+      alongside an MPC objective, can be phrased in the form of a
+      mixed-integer program. The space of contact modes is quite large,
+      and so there is interest in efficiently searching through them. In
+      order to <em>search</em> through different contact modes, some
+      methods employ Monte-Carlo tree search <span class="citation"
+      data-cites="zhu2023efficient"><a href="#ref-zhu2023efficient"
+      role="doc-biblioref">[3]</a></span> or diffusion-informed (like
+      informed by a trained diffusion model) search <span
+      class="citation" data-cites="kumar2025diffusion"><a
+      href="#ref-kumar2025diffusion"
+      role="doc-biblioref">[4]</a></span>.</p>
+      <h2 id="some-half-baked-ideas">3 Some Half-Baked Ideas</h2>
+      <p>In the classic formulation of MPPI, noisy <span
+      class="math inline">u^{(i)}_t</span> are all sampled before ever
+      rolling them forward. In this section, I instead think along the
+      lines of how one could adopt the MPPI algorithm by choosing how to
+      sample <span class="math inline">u^{(i)}_t</span> after rolling
+      out the dynamics to <span class="math inline">x^{(i)}_t</span>.
+      This changes the <code>MPPI</code> pseudocode above, where
+      <code>u_samples</code> would be computed for each timestep in the
+      for-loop. In this section, I examine some half-baked ideas on what
+      you could do with this version of MPPI.</p>
+      <h3 id="rrt-inspired-contact-seeking">3.1 RRT-inspired Contact
+      Seeking</h3>
+      <p>I know we have discussed <span class="citation"
+      data-cites="pang2023global"><a href="#ref-pang2023global"
+      role="doc-biblioref">[5]</a></span> before, but I don’t think we
+      ever talked about the RRT part. They adopt RRT to plan through
+      contact, but instead of only the normal expansion in RRT (where
+      you pick a random point, find the nearest in your tree, and just
+      iteratively move towards it), they propose occasionally sampling a
+      contact point and going towards that to incentivize contact. I
+      wonder if you could have a similar setup in MPPI where sometimes,
+      instead of just Gaussian actions centered at the previous best
+      trajectory, you pick actions that take you towards a point of
+      contact? Maybe here is some pseudocode:</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> MPPI_contact(old_u, sigma, f, x0, J, p_switch):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    u_samples <span class="op">=</span> old_u <span class="op">+</span> sigma <span class="op">*</span> gaussian()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    contact_seek_state <span class="op">=</span> [<span class="dv">0</span>, ..., <span class="dv">0</span>] <span class="co"># 1 means seek contact</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    x_samples[:, <span class="dv">0</span>] <span class="op">=</span> x0</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, T):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        contact_seek_state <span class="op">=</span> flip_with_prob(contact_seek_state, p_switch) <span class="co"># randomly flip</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        u_samples[contact_seek_state] <span class="op">=</span> action_to_go_towards_contact( <span class="co"># the i that satisfy it</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            x_samples[contact_seek_state]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        x_samples[:, t] <span class="op">=</span> f(x_samples[:, t<span class="op">-</span><span class="dv">1</span>], u_samples[:, t<span class="op">-</span><span class="dv">1</span>]) <span class="co"># roll forward</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    costs <span class="op">=</span> J(x_samples, u_samples)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> reweight(costs, u_samples)  <span class="co"># according to equation above</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> u</span></code></pre></div>
+      <p>Here is a sketch of what the behavior might look like. The
+      rollouts with sometimes flip and start seeking contact:</p>
+      <p><img src="image-2.png" /></p>
+      <h3 id="smoothing-rollout-controls-via-momentum">3.2 Smoothing
+      Rollout Controls via Momentum</h3>
+      <p>The idea here is to add some momentum to the sampled control
+      rollout noise so that it encourages more exploration through the
+      state space. Perhaps the motivation here is something like
+      Hamilton Monte-Carlo method (HMC).</p>
+      <p>In <span class="citation" data-cites="xue2025full"><a
+      href="#ref-xue2025full" role="doc-biblioref">[6]</a></span>, they
+      relate MPPI to diffusion (I haven’t read <span class="citation"
+      data-cites="li2025unifying"><a href="#ref-li2025unifying"
+      role="doc-biblioref">[7]</a></span>, but from the abstract, it
+      seems to suggest that the connection from MPPI to diffusion is
+      pretty deep). Diffusion can be viewed as performing stochastic
+      gradient langevin dynamics (SGLD). SGLD is a way of
+      <em>sampling</em> from a distribution via a random walk. Of course
+      in these settings, the analysis is for viewing the update of MPPI
+      as a single denoising step on the whole trajectory, whereas my
+      idea in this section views each timestep of the rollout control
+      sequence sampling as a <em>forward</em> diffusion-like
+      process.</p>
+      <p><em>Smoothing</em>, in terms of MPPI has also been explored. I
+      believe this is the motivation for the works (I know at least 2)
+      that use <em>splines</em> for MPPI control sequences <span
+      class="citation"
+      data-cites="bhardwaj2022storm hess2024sampling"><a
+      href="#ref-bhardwaj2022storm" role="doc-biblioref">[8]</a>, <a
+      href="#ref-hess2024sampling" role="doc-biblioref">[9]</a></span>.
+      There is also probably other stuff out there.</p>
+      <h3 id="dealing-with-constraints-during-the-rollout">3.3 Dealing
+      with Constraints during the Rollout</h3>
+      <p>It is possible that we might have some constraints that we want
+      to be satisfied through while we take actions. I feel like the few
+      papers I have seen deal with equality constraints are usually
+      dealt with by moving tangent to the constraint (i.e. linearize the
+      constraint and restrict yourself to moving in the direction that
+      satisfies the constraint (<span class="math inline">\perp \nabla
+      h(x)</span>)), then they “snap” back to the constraint to remove
+      accumulating errors from the approximation. For example, both
+      <span class="citation" data-cites="khandate2023sampling"><a
+      href="#ref-khandate2023sampling"
+      role="doc-biblioref">[10]</a></span> and CSVTO <span
+      class="citation" data-cites="power2024constrained"><a
+      href="#ref-power2024constrained"
+      role="doc-biblioref">[11]</a></span> seem to follow this pattern.
+      As a side note, <span class="citation"
+      data-cites="kumar2025diffusion"><a href="#ref-kumar2025diffusion"
+      role="doc-biblioref">[4]</a></span> uses CSVTO and an A* search
+      through contact modes (as well as diffusion). Perhaps a similar
+      approach could be taken while sampling control inputs <span
+      class="math inline">u^{(i)}_t</span> for sampling-based MPC? (I’m
+      sure someone has done this, but I didn’t take the time to really
+      do a search).</p>
+      <p>One could also imagine inequality constraints arising for a
+      variety of reasons, i.e. collision constraints. I wonder if one
+      could adopt a <em>resampling</em> technique, where, during MPC if
+      you find a trajectory that violates a collision constraint, you
+      delete it and replace it with a copy of a random other rollout
+      that satisfies all the other constraints. I also made a brief
+      sketch of this one (resampling for inequality constraints):</p>
+      <p><img src="image-3.png" /></p>
+      <h3 id="a-random-walk-perspective-of-mppi-rollouts">3.4 A
+      Random-Walk Perspective of MPPI Rollouts</h3>
+      <p>What if we phrased MPPI rollouts as a random walk through some
+      dynamics? Like, doesn’t the distribution of MPPI samples kind of
+      create a trajectory that follows the following stochastic
+      differential equation (SDE): <span class="math display"> dx_t =
+      f(x_t, \mu_t + \sigma_t d W_t) </span> Where <span
+      class="math inline">W_t</span> is a <a
+      href="https://en.wikipedia.org/wiki/Wiener_process">Wiener
+      process</a>. We could consider a simple system, where we have
+      acceleration control of a point mass with no external forces. We
+      could write this out as a couple of stochastic differential
+      equations: <span class="math display"> dx_t = v_t dt, \; \; dv_t =
+      \mu_t dt + \sigma_t d W_t </span> I wonder if this is a framing
+      that could yield anything. For example, one can use the above SDE
+      to analyze the variance of <span class="math inline">x_t</span> (I
+      believe in the above case, the variance is <span
+      class="math inline">\mathcal O(t^3)</span>, but don’t quote me on
+      that). Is there any use to this way of thinking about MPPI?</p>
+      <p>I have no idea if this is something that has been done or
+      anything similar.</p>
+      <h2 class="unnumbered" id="references">References</h2>
+      <div id="refs" class="references csl-bib-body"
+      data-entry-spacing="0" role="list">
+      <div id="ref-williams2018information" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[1] </div><div
+      class="csl-right-inline">G. Williams, P. Drews, B. Goldfain, J. M.
+      Rehg, and E. A. Theodorou, <span>“Information-theoretic model
+      predictive control: Theory and applications to autonomous
+      driving,”</span> <em>IEEE Transactions on Robotics</em>, vol. 34,
+      no. 6, pp. 1603–1622, 2018.</div>
+      </div>
+      <div id="ref-trevisan2024biased" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[2] </div><div
+      class="csl-right-inline">E. Trevisan and J. Alonso-Mora,
+      <span>“Biased-MPPI: Informing sampling-based model predictive
+      control by fusing ancillary controllers,”</span> <em>IEEE Robotics
+      and Automation Letters</em>, vol. 9, no. 6, pp. 5871–5878,
+      2024.</div>
+      </div>
+      <div id="ref-zhu2023efficient" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[3] </div><div
+      class="csl-right-inline">H. Zhu, A. Meduri, and L. Righetti,
+      <span>“Efficient object manipulation planning with monte carlo
+      tree search,”</span> in <em>2023 IEEE/RSJ international conference
+      on intelligent robots and systems (IROS)</em>, 2023, pp.
+      10628–10635.</div>
+      </div>
+      <div id="ref-kumar2025diffusion" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[4] </div><div
+      class="csl-right-inline">A. Kumar, T. Power, F. Yang, S. A.
+      Marinovic, S. Iba, R. S. Zarrin, and D. Berenson,
+      <span>“Diffusion-informed probabilistic contact search for
+      multi-finger manipulation,”</span> in <em>2025 IEEE international
+      conference on robotics and automation (ICRA)</em>, 2025, pp.
+      14277–14283.</div>
+      </div>
+      <div id="ref-pang2023global" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[5] </div><div
+      class="csl-right-inline">T. Pang, H. T. Suh, L. Yang, and R.
+      Tedrake, <span>“Global planning for contact-rich manipulation via
+      local smoothing of quasi-dynamic contact models,”</span> <em>IEEE
+      Transactions on robotics</em>, vol. 39, no. 6, pp. 4691–4711,
+      2023.</div>
+      </div>
+      <div id="ref-xue2025full" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[6] </div><div
+      class="csl-right-inline">H. Xue, C. Pan, Z. Yi, G. Qu, and G. Shi,
+      <span>“Full-order sampling-based mpc for torque-level locomotion
+      control via diffusion-style annealing,”</span> in <em>2025 IEEE
+      international conference on robotics and automation (ICRA)</em>,
+      2025, pp. 4974–4981.</div>
+      </div>
+      <div id="ref-li2025unifying" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[7] </div><div
+      class="csl-right-inline">Y. Li and M. Chen, <span>“Unifying model
+      predictive path integral control, reinforcement learning, and
+      diffusion models for optimal control and planning,”</span>
+      <em>arXiv preprint arXiv:2502.20476</em>, 2025.</div>
+      </div>
+      <div id="ref-bhardwaj2022storm" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[8] </div><div
+      class="csl-right-inline">M. Bhardwaj, B. Sundaralingam, A.
+      Mousavian, N. D. Ratliff, D. Fox, F. Ramos, and B. Boots,
+      <span>“Storm: An integrated framework for fast joint-space
+      model-predictive control for reactive manipulation,”</span> in
+      <em>Conference on robot learning</em>, 2022, pp. 750–759.</div>
+      </div>
+      <div id="ref-hess2024sampling" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[9] </div><div
+      class="csl-right-inline">A. Hess, A. M. Kübler, B. Forrai, M.
+      Dogar, and R. K. Katzschmann, <span>“Sampling-based model
+      predictive control for dexterous manipulation on a biomimetic
+      tendon-driven hand,”</span> <em>arXiv preprint
+      arXiv:2411.06183</em>, 2024.</div>
+      </div>
+      <div id="ref-khandate2023sampling" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[10] </div><div
+      class="csl-right-inline">G. Khandate, S. Shang, E. T. Chang, T. L.
+      Saidi, Y. Liu, S. M. Dennis, J. Adams, and M. Ciocarlie,
+      <span>“Sampling-based exploration for reinforcement learning of
+      dexterous manipulation,”</span> <em>Robotics: Science and
+      Systems</em>, 2023.</div>
+      </div>
+      <div id="ref-power2024constrained" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[11] </div><div
+      class="csl-right-inline">T. Power and D. Berenson,
+      <span>“Constrained stein variational trajectory
+      optimization,”</span> <em>IEEE Transactions on Robotics</em>,
+      2024.</div>
+      </div>
+      </div>
+  </body>
+
+</html>
