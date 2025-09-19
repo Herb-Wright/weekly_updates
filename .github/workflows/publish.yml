@@ -40,7 +40,7 @@ jobs:
             
             # Convert to HTML and maintain directory structure
             echo "Converting $file to $dirname/$filename_noext.html"
-            pandoc -s "$file" -o "$dirname/$filename_noext.html"  --to=html5 --katex --citeproc -M document-css=false -d ./_template/defaults.yml
+            pandoc -s "$file" -o "$dirname/$filename_noext.html"  --to=html5 --katex --citeproc -M document-css=false -d ./_template/defaults.yml --highlight-style=kate
           done
       
       - name: Remove markdown files
