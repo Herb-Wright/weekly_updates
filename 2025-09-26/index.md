@@ -43,7 +43,7 @@ Clearly, that will not work. Also, I know that this is possible because I threw 
 
 ### 3.1 Some Relevant Papers
 
-I have [previously done an overview of similar papers to this task](../2025-09-12/#existing-work). Here I simply mention a couple more papers to be aware of. I think [@wang2022efficient] is indicative of the simplifications common in papers doing manipulation in cluttered shelfs, from what I have seen. Specifically, they (1) assume all objects are cylinders and (2) ignore non-prehensile manipulation such as pushes. Of course, in link in the first paragraph, I overview literature that makes use of non-prehensile manipulation in clutter. Of course there is work that doesn't use these assumptions, such as [@saxena2023planning].
+I have [previously done an overview of similar papers to this task](../2025-09-12/#existing-work). Here I simply mention a couple more papers to be aware of. I think [@wang2022efficient] is indicative of the simplifications common in papers doing manipulation in cluttered shelfs, from what I have seen. Specifically, they (1) assume all objects are cylinders and (2) ignore non-prehensile manipulation such as pushes. Of course, in link in the first paragraph, I overview literature that makes use of non-prehensile manipulation in clutter. Of course there is work that doesn't use these assumptions, such as [@saxena2023planning]. Recently, FetchBot [@liufetchbot] is a sim2real RL method for fetching objects in clutter, but they seem to (a) use a suction-cup gripper, and (b) be "afraid" of contact (they try to avoid contact with other objects).
 
 ### 3.2 My Thoughts
 
