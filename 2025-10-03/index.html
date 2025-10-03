@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Update</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #eee;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        /* @page :left {
+            margin: 15mm 20mm 15mm 10mm;
+        }
+
+        @page :right {
+            margin: 15mm 10mm 15mm 20mm;
+        } */
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 12pt;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Update</h1>
+                <p class="date">2025 Oct 03</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1 Last Time</a></li>
+        <li><a href="#vlm-things" id="toc-vlm-things">2 VLM
+        Things</a></li>
+        <li><a href="#other-stuff" id="toc-other-stuff">3 Other
+        Stuff</a></li>
+        <li><a href="#diversity-in-3d-reconstruction"
+        id="toc-diversity-in-3d-reconstruction">4 Diversity in 3D
+        Reconstruction</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1 Last Time</h2>
+    <p>Last meeting, like most meetings, we (I?) were (was?) slightly
+    all over the place. There was, however, one concrete thing you
+    wanted me to do:</p>
+    <ol type="1">
+    <li>Take a picture of a cluttered shelf and prompt a VLM with
+    it.</li>
+    </ol>
+    <p>So, I did that (<a href="#vlm-things">Section 2</a>). I mention
+    some crackpot/other ideas in <a href="#other-stuff">Section 3</a>
+    because that is fun. I also have a bit on reconstruction and
+    diversity in <a href="#diversity-in-3d-reconstruction">Section 4</a>
+    (more related to my original proposed project).</p>
+    <h2 id="vlm-things">2 VLM Things</h2>
+    <h3 id="messing-around">2.1 Messing Around</h3>
+    <p>So here is the photo of a cluttered shelf I threw together. It is
+    not a very natural setup, but it contains enough complexity for our
+    purposes I think:</p>
+    <figure>
+    <img src="./IMG_4530.jpg"
+    alt="Image of cluttered shelf used in VLM prompts below" />
+    <figcaption aria-hidden="true">Image of cluttered shelf used in VLM
+    prompts below</figcaption>
+    </figure>
+    <p>I think this image of my convo with Qwen 3 is tentative evidence
+    that feedback can improve VLM plans (of course there is also
+    evidence for this in other people’s papers):</p>
+    <figure>
+    <img src="image.png"
+    alt="Qwen 3 VL generating high level plan for retrieving some oat milk." />
+    <figcaption aria-hidden="true">Qwen 3 VL generating high level plan
+    for retrieving some oat milk.</figcaption>
+    </figure>
+    <p>In the image the VLM is reprompted after initial plan saying the
+    low level controller was infeasible, and only figures out to use a
+    different object after being given a reason for the failure.</p>
+    <p>Another perspective, is that the above example is kind of
+    contrived. After all, it seems the VLM doesn’t recognize the milk is
+    milk in the photo when prompted for other outputs:</p>
+    <figure>
+    <img src="image-4.png" alt="VLM doesn’t recognize the milk…" />
+    <figcaption aria-hidden="true">VLM doesn’t recognize the
+    milk…</figcaption>
+    </figure>
+    <p>Perhaps I am overfitting to this example. Also, there is a very
+    small search space of “actions” to take in the first example, and
+    one could easily imagine random search finding the solution. Of
+    course, maybe the VLM is really just speeding up random search by
+    searching more intelligently—I could buy that.</p>
+    <h3 id="can-vlms-reason-well-enough">2.2 Can VLMs Reason Well
+    Enough?</h3>
+    <p>There is mixed evidence on VLMs being good reasoners. On one
+    hand, they seem to be able to reason well enough to see
+    significantly improved results in many papers, including but not
+    limited to BUMBLE <span class="citation"
+    data-cites="shah2025bumble"><a href="#ref-shah2025bumble"
+    role="doc-biblioref">[1]</a></span> (which we discussed last
+    meeting) and COME <span class="citation"
+    data-cites="zhi2025closed"><a href="#ref-zhi2025closed"
+    role="doc-biblioref">[2]</a></span>. Of course, in the BUMBLE paper,
+    the VLM was clearly not perfect:</p>
+    <figure>
+    <img src="image-1.png" alt="Some figures from BUMBLE [1]" />
+    <figcaption aria-hidden="true">Some figures from BUMBLE <span
+    class="citation" data-cites="shah2025bumble"><a
+    href="#ref-shah2025bumble"
+    role="doc-biblioref">[1]</a></span></figcaption>
+    </figure>
+    <p>Recently, I have (partially) read PAC Bench <span
+    class="citation" data-cites="gundawar2025pac"><a
+    href="#ref-gundawar2025pac" role="doc-biblioref">[3]</a></span>,
+    which argues that VLMs still struggle with <em>complex
+    affordances</em> and understanding <em>physical constraints</em>.
+    This seems to also align with <span class="citation"
+    data-cites="chow2025physbench"><a href="#ref-chow2025physbench"
+    role="doc-biblioref">[4]</a></span>. I think this perspective is
+    also corroborated from a few of the VLM works I cited in <a
+    href="../2025-09-26#some-relevant-papers">last week’s write-up</a>.
+    I even feel like many VLM papers just have a sort of “hacky” feel to
+    them. It should also be noted that if VLMs simply cannot perform
+    some function that is necessary to robotics, then current VLAs are
+    likely also out of luck, as they usually use a VLM backbone.</p>
+    <h3 id="looking-for-the-project-pitch">2.3 Looking for the “Project
+    Pitch”</h3>
+    <p>I thought maybe I would try to write what I would think the
+    “pitch” would be for this project. Previously, I expressed concern
+    that having a VLM be prompted upon failure is not novel, but there
+    seemed to be a thought that relating <em>control</em> to the VLM in
+    a novel way might add novelty. My opinion is that we could get some
+    novelty by combining (a) VLM planning, (b) “digital twin” (sysID for
+    ML people), and (c) controller feedback. The only paper I know of
+    that combines “digital twins” with VLM planning is <span
+    class="citation" data-cites="ning2025prompting"><a
+    href="#ref-ning2025prompting" role="doc-biblioref">[5]</a></span>,
+    which simply uses a VLM to <em>evaluate</em> sampled actions,
+    instead of using a VLM to generate and update “actions” based on
+    feedback from a controller. I can even imagine a fairly flashy paper
+    pitch that looks something like this:</p>
+    <ul>
+    <li><strong>Title:</strong> Model Predictive Imagination for Robust
+    VLM-based Planning</li>
+    <li><strong>Motivation:</strong> VLMs are a promising tool for
+    planning in robotics, but they still fragile and frequently get
+    things wrong. There is a need for helping VLM-based planners
+    understand the physical world and plan accordingly—something that
+    model-based controllers can help with.</li>
+    <li><strong>Method:</strong> Basically, observe a scene and both
+    create a “digital twin” (which can be updated as time goes on), and
+    prompt a VLM for a high level plan. Then pass that plan and model to
+    a controller, which tries to solve it. If it can, the robot executes
+    it, but if it can’t, you reprompt the VLM in an intelligent manner
+    (I am thinking maybe you could even have the VLM try to
+    qualitatively describe what went wrong from the images). Then you
+    repeat until you figure out how to solve the problem.</li>
+    <li><strong>Experiments:</strong> Grasping in confined, cluttered
+    places might be a good use case, but it might be worth brainstorming
+    others.</li>
+    </ul>
+    <p><strong>Question:</strong> <em>What do we think about this
+    pitch?</em></p>
+    <h2 id="other-stuff">3 Other Stuff</h2>
+    <h3 id="dont-fear-contact.">3.1 Don’t fear contact.</h3>
+    <ul>
+    <li>Most methods for grasping in clutter explicitly avoid making
+    contact with non-target objects—humans aren’t <em>afraid of
+    contact</em> in this way.</li>
+    <li>This shrinks the region of possible solutions for motion
+    planning to a grasp configuration.</li>
+    <li>What if we could instead say “don’t make bad contact, but it’s
+    okay to make some contact”</li>
+    <li>Understanding/encoding this would require understanding of the
+    dynamics.</li>
+    <li>Could you have motion planning RRT to a grasp pose that is
+    “unafraid of contact”, but is only afraid of “bad contact”?
+    <ul>
+    <li>The pipeline could be something like (observe scene) <span
+    class="math inline">\rightarrow</span> (reconstruct scene) <span
+    class="math inline">\rightarrow</span> (generate possible grasps)
+    <span class="math inline">\rightarrow</span> (determine what is
+    “bad” contact) <span class="math inline">\rightarrow</span> (run
+    contact allowing RRT).</li>
+    <li>Maybe RRT is to random/dumb to do this well/convincingly and
+    would require some sort of hack.</li>
+    </ul></li>
+    </ul>
+    <h3
+    id="active-learning-trajectory-optimization-for-reconstruction">3.2
+    Active Learning Trajectory Optimization for Reconstruction</h3>
+    <ul>
+    <li>Next best view selection or next best contact selection is
+    constrained by how you can move and based on where you are, which
+    naively picking a frame doesn’t account for</li>
+    <li>Can we phrase active learning as trajectory optimization?</li>
+    <li>Problem: temporal correlation</li>
+    <li>I haven’t thought too much about this, but I saw that the
+    reading group paper was <span class="citation"
+    data-cites="SathyanarayanH-RSS-25"><a
+    href="#ref-SathyanarayanH-RSS-25"
+    role="doc-biblioref">[6]</a></span>, which casts active learning as
+    trajectory optimization, but they seem to make a Gaussian
+    assumption, which shouldn’t hold in the case of object
+    reconstruction, so some different formulation is likely
+    necessary.</li>
+    </ul>
+    <h3 id="contact-reasoning">3.3 Contact Reasoning</h3>
+    <!-- Scaffolding:
+
+    - Given an objects shape and desired motion, find contacts that are both kinematically feasible and robustly result in the desired motion. -->
+    <p>Last time, I asked how a <em>C3+(some other stuff)</em> approach
+    (such as <span class="citation" data-cites="Venkatesh2025"><a
+    href="#ref-Venkatesh2025" role="doc-biblioref">[7]</a></span>) might
+    decide how to make contacts for a push, specifically when reasoning
+    about <em>how many</em> contacts, which would be nice for pushing
+    more <em>robustly</em>. I haven’t looked at any robust MPC
+    works/formulations, so this is definitely shooting from the hip, but
+    here is where my mind is at:</p>
+    <p>Consider a standard MPC loss in these sorts of settings:</p>
+    <p><span class="math display"> L(u_{0:n-1}, x_{0:n}) =
+    \sum_{k=0}^{n-1} \left(x_k^\top Q_k x_k + u_k^\top R_k u_k\right) +
+    x_n^\top Q_n x_n </span></p>
+    <p>One could imagine that the dynamics have some uncertainty—maybe
+    we don’t exactly know the center of mass. We would want something
+    that kind of looks like:</p>
+    <p><span class="math display"> \mathbb E_{x_{0:n}} \left[
+    L(u_{0:n-1}, x_{0:n}) \right] = \mathbb E_{x_{0:n}}
+    \left[\sum_{k=0}^{n-1} \left(x_k^\top Q_k x_k + u_k^\top R_k
+    u_k\right) + x_n^\top Q_n x_n\right] </span></p>
+    <p>But, this doesn’t really fit with our QP, because the <span
+    class="math inline">x_k</span>’s are decision variables, so we could
+    imagine approximating this with a few (<span
+    class="math inline">m</span>) samples:</p>
+    <p><span class="math display"> \frac{1}{m} \sum_{i=1}^m
+    \left[\sum_{k=0}^{n-1} \left({x_k^{(i)}}^\top Q_k x_k^{(i)} +
+    u_k^\top R_k u_k\right) + {x_n^{(i)}}^\top Q_n x_n^{(i)}\right]
+    </span></p>
+    <p>Then we could include all of our <span
+    class="math inline">x^{(i)}_k</span> as decision variables. I am
+    imagining <span class="math inline">m</span> is pretty small, so
+    that this would be computationally feasible. I don’t exactly love
+    this formulation, but this would allow us to express our MPC
+    formulation as an expectation under some uncertainty.</p>
+    <p><strong>Note:</strong> <em>Our samples are from our distribution
+    of uncertainty about center of mass, say, so that the dynamics for
+    each <span class="math inline">x^{(i)}_{1:n}</span> is deterministic
+    because it is conditioned on our sample.</em></p>
+    <p>The next thing would be to think about how to sample better. I
+    think this can be thought of as a nonconvex optimization problem; we
+    want to find a configuration that is capable of locally producing a
+    benefitial wrench on the object, subject to the configuration being
+    “reachable”. We can think about the contact points and forces that
+    would produce this wrench and try to enforce that they be
+    kinematically feasible.</p>
+    <p><strong>Problem:</strong> find contacts <span
+    class="math inline">x_1, ..., x_p</span> and forces <span
+    class="math inline">\lambda_1, ..., \lambda_p</span> subject to
+    <span class="math inline">\{(x_i, \lambda_i)\}</span> is
+    kinematically feasible, <span class="math inline">\{(x_i,
+    \lambda_i)\}</span> produces a desireable wrench, and <span
+    class="math inline">\{x_i\}</span> is on surface of object.</p>
+    <p>On another note, I think it would be cool if one could use this
+    sort of setup to “track” an object-centric trajectory. The demo
+    would be that you take a video of you doing something with an
+    object, and then the robot would be able to reproduce the object
+    trajectory, even though it has different kinematics than you. This
+    is not completely new (for example a similar thing appears in the
+    real2sim2real pipeline of <span class="citation"
+    data-cites="yu2025real2render2real"><a
+    href="#ref-yu2025real2render2real"
+    role="doc-biblioref">[8]</a></span>), but I think if you combine
+    this with uncertainty and the stuff above, it could be cool. Here is
+    an image:</p>
+    <p><img src="image-3.png" /></p>
+    <p>It does change the problem mid-trajectory, because you can’t
+    necessarily stop making contact, so you need to find some reasonable
+    contacts beforehand (kinematically).</p>
+    <p>On a relevant note, I do have a question that I can’t really
+    intuit in my brain after reading <span class="citation"
+    data-cites="Venkatesh2025"><a href="#ref-Venkatesh2025"
+    role="doc-biblioref">[7]</a></span>:</p>
+    <p><strong>Question:</strong> <em>Would a linearized MPC policy like
+    C3 be able to recognize how to make a “grasp” sort of configuration
+    in order to lift something?</em></p>
+    <p>I wonder if something along the lines of this subsection would
+    make for an okay class project for MEAM 5170.</p>
+    <h2 id="diversity-in-3d-reconstruction">4 Diversity in 3D
+    Reconstruction</h2>
+    <p>When I originally pitched <a
+    href="../2025-06-11_project_pitch/">this idea</a>, it was decided
+    that it would be made better if I could leverage priors from large
+    datasets of mesh assets. I think that just this combined with the
+    diversity aspect is something that needs to be figured out. Recall
+    this image from the project pitch:</p>
+    <p><img src="./kitchen.png" /></p>
+    <p>I think the things one needs to think about in order to correctly
+    get diversity is both:</p>
+    <ol type="1">
+    <li>diverse “scales” or having reconstructions with significantly
+    differently sized bounding boxes</li>
+    <li>diverse geometries within a scale/bounding box.</li>
+    </ol>
+    <p>After talking with Minghan, I think I can use multiple runs of
+    the Amodal3R <span class="citation" data-cites="wu2025amodal3r"><a
+    href="#ref-wu2025amodal3r" role="doc-biblioref">[9]</a></span>
+    method, which uses to TRELLIS <span class="citation"
+    data-cites="xiang2025structured"><a href="#ref-xiang2025structured"
+    role="doc-biblioref">[10]</a></span>, to <em>seed</em> the
+    optimization that would include stability prior. Because TRELLIS is
+    a flow-based model, it should be able to get the 2 in my above list,
+    but to get the 1, I think I will have to vary the bounding box
+    size.</p>
+    <p>Also after talking with Minghan, I think it might be good to come
+    up with some more motivating examples of diversity mattering for
+    dynamics. I think having a shelf of mugs could be one. Consider
+    trying to push some mugs around, where the handles are occluded, you
+    need to reason about a distribution that is nontrivial:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="An example of how there are diverse possible reconstructions under some occlusion. And those diverse reconstructions are both (a) interdependent between objects and (b) change the dynamics for manipulation." />
+    <figcaption aria-hidden="true">An example of how there are diverse
+    possible reconstructions under some occlusion. And those diverse
+    reconstructions are both (a) interdependent between objects and (b)
+    change the dynamics for manipulation.</figcaption>
+    </figure>
+    <p>It should also be noted that depending on which above setup is
+    true, the pushing dynamics will be different.</p>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body"
+    data-entry-spacing="0" role="list">
+    <div id="ref-shah2025bumble" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">R. Shah, A. Yu, Y. Zhu, Y. Zhu, and R.
+    Martı́n-Martı́n, <span>“Bumble: Unifying reasoning and acting with
+    vision-language models for building-wide mobile
+    manipulation,”</span> in <em>2025 IEEE international conference on
+    robotics and automation (ICRA)</em>, 2025, pp. 13337–13345.</div>
+    </div>
+    <div id="ref-zhi2025closed" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">P. Zhi, Z. Zhang, Y. Zhao, M. Han, Z.
+    Zhang, Z. Li, Z. Jiao, B. Jia, and S. Huang, <span>“Closed-loop
+    open-vocabulary mobile manipulation with gpt-4v,”</span> in <em>2025
+    IEEE international conference on robotics and automation
+    (ICRA)</em>, 2025, pp. 4761–4767.</div>
+    </div>
+    <div id="ref-gundawar2025pac" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">A. Gundawar, S. Sagar, and R. Senanayake,
+    <span>“PAC bench: Do foundation models understand prerequisites for
+    executing manipulation policies?”</span> <em>arXiv preprint
+    arXiv:2506.23725</em>, 2025.</div>
+    </div>
+    <div id="ref-chow2025physbench" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">W. Chow, J. Mao, B. Li, D. Seita, V.
+    Guizilini, and Y. Wang, <span>“PhysBench: Benchmarking and enhancing
+    vision-language models for physical world understanding,”</span>
+    <em>ICLR</em>, 2025.</div>
+    </div>
+    <div id="ref-ning2025prompting" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">C. Ning, K. Fang, and W.-C. Ma,
+    <span>“Prompting with the future: Open-world model predictive
+    control with interactive digital twins,”</span> in <em>RSS</em>,
+    2025.</div>
+    </div>
+    <div id="ref-SathyanarayanH-RSS-25" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">H. S. A. I. Abraham, <span>“<a
+    href="https://doi.org/10.15607/RSS.2025.XXI.118"><span
+    class="nocase">Behavior Synthesis via Contact-Aware Fisher
+    Information Maximization</span></a>,”</span> in <em>Proceedings of
+    robotics: Science and systems</em>, 2025.</div>
+    </div>
+    <div id="ref-Venkatesh2025" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[7] </div><div
+    class="csl-right-inline">S. Venkatesh, B. Bianchini, A. Aydinoglu,
+    W. Yang, and M. Posa, <span>“<a
+    href="https://doi.org/10.1109/LRA.2025.3615030">Approximating global
+    contact-implicit MPC via sampling and local
+    complementarity</a>,”</span> <em>IEEE Robotics and Automation
+    Letters (RA-L)</em>, 2025.</div>
+    </div>
+    <div id="ref-yu2025real2render2real" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[8] </div><div
+    class="csl-right-inline">J. Yu, L. Fu, H. Huang, K. El-Refai, R. A.
+    Ambrus, R. Cheng, M. Z. Irshad, and K. Goldberg,
+    <span>“Real2render2real: Scaling robot data without dynamics
+    simulation or robot hardware,”</span> <em>arXiv preprint
+    arXiv:2505.09601</em>, 2025.</div>
+    </div>
+    <div id="ref-wu2025amodal3r" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[9] </div><div
+    class="csl-right-inline">T. Wu, C. Zheng, F. Guan, A. Vedaldi, and
+    T.-J. Cham, <span>“Amodal3r: Amodal 3d reconstruction from occluded
+    2d images,”</span> <em>arXiv preprint arXiv:2503.13439</em>,
+    2025.</div>
+    </div>
+    <div id="ref-xiang2025structured" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[10] </div><div
+    class="csl-right-inline">J. Xiang, Z. Lv, S. Xu, Y. Deng, R. Wang,
+    B. Zhang, D. Chen, X. Tong, and J. Yang, <span>“Structured 3d
+    latents for scalable and versatile 3d generation,”</span> in
+    <em>Proceedings of the computer vision and pattern recognition
+    conference</em>, 2025, pp. 21469–21480.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
