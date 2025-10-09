@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Update</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Update</h1>
+                <p class="date">2025 Oct 10</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1 Last Time</a></li>
+        <li><a href="#vlm-stuff" id="toc-vlm-stuff">2 VLM Stuff</a></li>
+        <li><a
+        href="#robust-contact-learning-from-a-single-video-demonstration"
+        id="toc-robust-contact-learning-from-a-single-video-demonstration">3
+        Robust Contact &amp; Learning From a Single Video
+        Demonstration</a></li>
+        <li><a href="#revisiting-the-original-project"
+        id="toc-revisiting-the-original-project">4 Revisiting the
+        Original Project</a></li>
+        <li><a href="#some-high-level-thoughts"
+        id="toc-some-high-level-thoughts">5 Some High Level
+        Thoughts</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <!-- TODO: go through and add more visuals / math -->
+    <h2 id="last-time">1 Last Time</h2>
+    <p>Last meeting, we spent at least a little bit of time on four
+    different ideas:</p>
+    <ol type="1">
+    <li>VLM + world model + feedback from control</li>
+    <li>RRT that allows a bit of contact</li>
+    <li>Active learning for next best view—specifically over
+    trajectories with correlated observations</li>
+    <li>Robust contacts + learning from a single video
+    demonstration</li>
+    </ol>
+    <p>This week, I want to mainly focus on 1 and 4 (we resolved to keep
+    2 in the back pocket), and also have a bit written about my original
+    project idea, which I hope to work on when my computer arrives.
+    There were a few particular things that were resolved for me to do,
+    which can be summarized as:</p>
+    <ul>
+    <li>Try out VLM that generates image for goal</li>
+    <li>Come up with better demos/method for the learning from single
+    video demonstration idea</li>
+    </ul>
+    <p>Unfortunately, I ran out of Huggingface GPU hours before I could
+    even generate one image response, and my laptop can’t run any of the
+    models locally, so I couldn’t do the first point. But anyways, this
+    is the write-up for this week, and it is mostly just more discussion
+    and refinement of my past project ideas.</p>
+    <h2 id="vlm-stuff">2 VLM Stuff</h2>
+    <p>We have talked about this VLM idea for a few meetings. In this
+    section, I’m perhaps just trying to make things a bit clearer.
+    Recall that this was my proposed pitch (from last week’s
+    write-up):</p>
+    <blockquote>
+    <ul>
+    <li><strong>Title:</strong> Model Predictive Imagination for Robust
+    VLM-based Planning</li>
+    <li><strong>Motivation:</strong> VLMs are a promising tool for
+    planning in robotics, but they still fragile and frequently get
+    things wrong. There is a need for helping VLM-based planners
+    understand the physical world and plan accordingly—something that
+    model-based controllers can help with.</li>
+    <li><strong>Method:</strong> Basically, observe a scene and both
+    create a “digital twin” (which can be updated as time goes on), and
+    prompt a VLM for a high level plan. Then pass that plan and model to
+    a controller, which tries to solve it. If it can, the robot executes
+    it, but if it can’t, you reprompt the VLM in an intelligent manner
+    (I am thinking maybe you could even have the VLM try to
+    qualitatively describe what went wrong from the images). Then you
+    repeat until you figure out how to solve the problem.</li>
+    <li><strong>Experiments:</strong> Grasping in confined, cluttered
+    places might be a good use case, but it might be worth brainstorming
+    others.</li>
+    </ul>
+    </blockquote>
+    <p>I mentioned in the previous section that I wasn’t able to get an
+    example of generating an image for the goal. I think maybe there is
+    also a lesson there—image generation takes longer than text
+    generation, which probably matters for robotics, where speed matters
+    a bit. I think it is more common in the literature to ask VLMs to
+    output high-level TAMP-like actions, but this also might be a result
+    of VLMs that generate images being newer than those that output
+    text. However, I do think that thinking about how to translate from
+    whatever format the VLM output is in to the format for the
+    controller’s input is something that requires thought. There are
+    simple input/output formats where the translation is trivial, but
+    for example maybe it would be cool if the VLM could do natural
+    language corrections to the low-level controller, instead of just
+    selecting a different high-level action—an idea loosely inspired by
+    <span class="citation" data-cites="shi2024yell"><a
+    href="#ref-shi2024yell" role="doc-biblioref">[1]</a></span> and
+    similar works. This would require some thought to make sure our
+    controller can handle such corrections. Maybe that could be some
+    sort of follow-up work as well. Another question is what is the
+    right way to annotate the input images to the VLM. I have seen
+    various ways of doing it, but usually it comes down to detecting the
+    objects, then labelling them in the images input into the VLM.</p>
+    <p>I also think this might be a useful skeleton figure of what the
+    pipeline for this project might look like:</p>
+    <figure>
+    <img src="image-3.png"
+    alt="Overview of proposed pipeline for the VLM project idea" />
+    <figcaption aria-hidden="true">Overview of proposed pipeline for the
+    VLM project idea</figcaption>
+    </figure>
+    <p>How to detect and handle failure would also have to be
+    decided—for example, we could use a VLM to detect when the
+    controller does an undesireable action and thus detect failure. We
+    could also leverage the VLM to describe the failure (which has also
+    been done before in <span class="citation"
+    data-cites="pchelintsev2025lera"><a href="#ref-pchelintsev2025lera"
+    role="doc-biblioref">[2]</a></span>).</p>
+    <!-- https://witnesschain.com/blogs/open-source-vlms-2025 -->
+    <p><strong>Some more papers:</strong> Zhao et al <span
+    class="citation" data-cites="zhao2025seeing"><a
+    href="#ref-zhao2025seeing" role="doc-biblioref">[3]</a></span> uses
+    VLMs to estimate uncertainty and uses a belief state planner to plan
+    (uses MOLMO+SAM for object detection/segmentation, and then GPT-4o
+    for predicate evaluation). ManipGen <span class="citation"
+    data-cites="dalal2025local"><a href="#ref-dalal2025local"
+    role="doc-biblioref">[4]</a></span> is more of a RL paper, but they
+    use a VLM for determining high level actions for longer-horizon
+    planning (I feel like tasks such as placing an object in a drawer is
+    not <em>that</em> long horizon really). FailSafe <span
+    class="citation" data-cites="lin2025failsafe"><a
+    href="#ref-lin2025failsafe" role="doc-biblioref">[5]</a></span> was
+    put on Arxiv about a week ago, and it uses VLMs to try to recover
+    from failure states.</p>
+    <p><strong>On the experiments:</strong> I think we talked about
+    picking in clutter, where you might need to push things out of the
+    way. I also think that it might be good to have more than just that
+    example in mind for this idea. Perhaps we could try seeing if the
+    VLM can reason about when things are on top of each other; like if
+    the goal is to pick up a plate, but there is a bowl on top, it needs
+    to remove the bowl, then grab the plate.</p>
+    <h2 id="robust-contact-learning-from-a-single-video-demonstration">3
+    Robust Contact &amp; Learning From a Single Video Demonstration</h2>
+    <p>Last time I had <a href="../2025-10-03#contact-reasoning">a
+    section</a> that was kind of a mish-mash of a bunch of different
+    ideas and was not very coherent. In this section, I try to
+    <em>split</em> my previous ideas into two (hopefully) more clear
+    ideas.</p>
+    <h3 id="robust-contact">3.1 Robust Contact</h3>
+    <p>Robust pushing has been studied in the literature before.
+    Obviously <em>robust control</em> is a thing. <em>Convergent
+    Planning</em> <span class="citation"
+    data-cites="johnson2016convergent"><a
+    href="#ref-johnson2016convergent"
+    role="doc-biblioref">[6]</a></span> by Johnson et al was brought up
+    in a previous meeting, where they use contraction analysis of
+    dynamics to attempt to find robust trajectories. In a more recent
+    paper, Jankowski et al <span class="citation"
+    data-cites="jankowski2025robust"><a href="#ref-jankowski2025robust"
+    role="doc-biblioref">[7]</a></span> considers the variance and mean
+    of belief states during rollouts. They combine their analysis on
+    variance, with their previous work <span class="citation"
+    data-cites="jankowski2023vp"><a href="#ref-jankowski2023vp"
+    role="doc-biblioref">[8]</a></span> and the idea of a <em>contact
+    prior</em> to do sampling-based trajectory optimization. They also
+    cite this <em>The Unstable Queen</em> article <span class="citation"
+    data-cites="rodriguez2021unstable"><a
+    href="#ref-rodriguez2021unstable"
+    role="doc-biblioref">[9]</a></span>, which argues for the utility of
+    tactile sensing for robotics in unstructured environments. Of
+    course, looking at variance is not new; Shirai et al <span
+    class="citation" data-cites="shirai2023covariance"><a
+    href="#ref-shirai2023covariance"
+    role="doc-biblioref">[10]</a></span> have a highly relevant paper
+    where they have a similar formulation to <a
+    href="../2025-10-03#contact-reasoning">the equations from my last
+    write-up</a>:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="Comparison of my formulation from last week to Shirai et al" />
+    <figcaption aria-hidden="true">Comparison of my formulation from
+    last week to Shirai et al</figcaption>
+    </figure>
+    <p>Of course, there is perhaps a difference where the expectation
+    is, and they include a chance constraint, but it is a similar idea.
+    Perhaps those are relevant differences to think about, but perhaps
+    not.</p>
+    <p><strong>Question:</strong> <em>Are the two formulations for
+    robust MPC loss conceptually different enough to warrant thinking
+    about?</em></p>
+    <p>Here is the pitch at a high level:</p>
+    <ul>
+    <li><strong>Potential Title:</strong> <em>Robust MPC with
+    Probabilistic Real2Sim for Pushing in Clutter</em></li>
+    <li><strong>Motivation:</strong> Most MPC formulations require an
+    accurate model of the environment, and usually assume that there is
+    little-to-no uncertainty regarding these dynamics. In the real
+    world, however, uncertainty abounds—you can never know the exact
+    intertial or frictional properties of objects just by looking at
+    them. While some work has studied robust control and robust pushing,
+    they are often either overly cautious, make very limiting
+    assumptions, and/or have only been tested on toy simulation
+    problems. This leaves room for leveraging perception methods to
+    provide uncertainty, which is incorporated into robust low-level
+    control in an efficient manner for real-world execution.</li>
+    <li><strong>Method:</strong> Given a scene and a goal, create
+    uncertainty-aware object models and run robust CI-MPC similar to
+    <span class="citation" data-cites="shirai2023covariance"><a
+    href="#ref-shirai2023covariance"
+    role="doc-biblioref">[10]</a></span> iteratively. We may need to
+    have a better heuristic for sampling than what is used in tandem
+    with C3 in the lab currently. Also, once the push/manipulation is
+    underway, we can also hopefully update our object models with
+    information about the movements (sysID) to better inform future MPC
+    predictions.</li>
+    <li><strong>Experiments:</strong> Pushing under occlusion, clutter,
+    etc. where we don’t have defined object models beforehand, and are
+    seeing the objects for the first time online. We would want to
+    compare against formulations that don’t worry about uncertainty, so
+    maybe it would be worth having some sort of “failure states” for the
+    objects.</li>
+    </ul>
+    <p>I feel that in order for this to be a legitimate project, there
+    needs to be around three <em>concrete</em> contributions. I also
+    think that there are maybe some unsolved things regarding the above
+    high-level formulation. For one, I think that because the MPC is
+    going to be local, we will need to be pretty good at sampling
+    initial robot configurations to begin contact from—which feels like
+    a fun non-convex optimization problem over the robot kinematics.
+    Like if we have some sort of loss <span class="math inline">L</span>
+    measuring how good a configuration is based on the kinematics <span
+    class="math inline">\phi</span>, we could imagine trying to sample
+    from a distribution like: <span class="math display"> p(q) \propto
+    \exp\left( -L(\phi(q)) \right) </span> The connection to
+    optimization would of course be that: <span class="math display">
+    \text{argmax}_q \ln p(q) = \text{argmin}_q L(\phi(q)). </span> This
+    is kind of shifting the difficulty of the problem, though, because I
+    don’t know how to formulate a good <span
+    class="math inline">L</span> given a configuration of objects—maybe
+    you could use MPC cost, but that is expensive to compute.</p>
+    <h3 id="learning-from-a-single-video-demonstration">3.2 Learning
+    from a Single Video Demonstration</h3>
+    <p>I mentioned <span class="citation" data-cites="dong2025joint"><a
+    href="#ref-dong2025joint" role="doc-biblioref">[11]</a></span> last
+    time, where they argue for an <em>object-centric</em> approach to
+    learning from demonstration. They seem to only consider actions
+    where the person grasps, then does some simple movement with the
+    grasped object. Their pipeline seems to be to solve a big
+    optimization problem with respect to (a) quality of grasp pose; (b)
+    object/end-effector trajectory matching demonstrations; and (c)
+    safety of the kinematics. I think this is a reasonable approach, but
+    it ignores non-prehensile manipulation, or reasoning about contact
+    and multiple object trajectories. I, however, am a big fan of only
+    extracting the object trajectories, because this really is as
+    kinematically-agnostic as you can get. This is something that a lot
+    of other work trying to do learning from human demonstrations
+    doesn’t quite do, such as <span class="citation"
+    data-cites="bahety2025safemimic"><a href="#ref-bahety2025safemimic"
+    role="doc-biblioref">[12]</a></span>, which tries to use the human
+    grasp pose, and <span class="citation"
+    data-cites="yang2025physics"><a href="#ref-yang2025physics"
+    role="doc-biblioref">[13]</a></span>, which does retargeting. There
+    are some other relevant papers such as <em>You Only Demonstrate
+    Once</em> <span class="citation" data-cites="wen2022you"><a
+    href="#ref-wen2022you" role="doc-biblioref">[14]</a></span>, which
+    takes a single (object-centric) demonstration and tries to
+    generalize to objects in the same class, however they also only
+    focus on a single object and don’t seem to include non-prehensile
+    manipulation. A more recent paper, <em>You Only Teach Once</em>
+    <span class="citation" data-cites="zhou2025you"><a
+    href="#ref-zhou2025you" role="doc-biblioref">[15]</a></span> also
+    seems relevant, but I haven’t gotten around to reading it.</p>
+    <p>Here is the pitch at a high level:</p>
+    <ul>
+    <li><strong>Potential Title:</strong> <em>Learning Contact-rich
+    Manipulation from a Single Human Demonstration</em></li>
+    <li><strong>Motivation:</strong> Imitation learning has seen a lot
+    of success recently, but modern methods for imitation learning often
+    assume/require that the data is collected from the same robot
+    physically that it is deployed on. This means that such methods
+    cannot leverage the internet-scale of video data of human
+    demonstrations effectively. While some work has looked at imitation
+    learning from human videos, they either assume the robot can
+    effectively mimic the actual actions of the human, or that tasks
+    only consist of grasping and then assuming the grasped object stays
+    fixed to the gripper. This leaves room for a method that, from a
+    single human video, is capable of replicating the effects of
+    contact-rich human actions—grasping or non-prehensile—even if the
+    kinematics are very different.</li>
+    <li><strong>Method:</strong> <em>(I think this is suboptimal and
+    should be changed)</em> We can phrase the problem as trying to
+    control the objects to match their target trajectories. Perhaps we
+    want to distinguish grasping and non-prehensile actions via
+    semantically classifying the demonstrations. Our method would (1)
+    compute the estimated object/s trajectory/ies from video; (2) solve
+    opt problem to find initial configuration for robot to begin
+    manipulation; (3) control/solve for robot actions that would track
+    the trajectory/ies with <em>feedback</em>. We would want to leverage
+    a dynamics/contact model in order to convert from object movements
+    through contact back to robot actions in joint space.</li>
+    <li><strong>Experiments:</strong> I can identify 3 things we could
+    show in a demo: (i) tool use like a hammer or unscrewing something;
+    (ii) flipping a (toy) pancake with a spatula; (iii) pushing multiple
+    objects aside at the same time (sweeping motion). I think these
+    would make for cool demos.</li>
+    </ul>
+    <p>Phrasing the problem as trying to run a controller over object
+    pose trajectories with respect to robot actions would allow feedback
+    to help, say, adjust your grip pose when the grasped object shifts
+    during tool use, which might be cool.</p>
+    <p>Last time, thinking of examples of what would be good demos for
+    this sort of project is what we left off on last meeting. I
+    mentioned them in the above pitch, but here are the ones that I
+    think might be cool:</p>
+    <ul>
+    <li>Tool use: hammering in a nail, unscrewing a big nut with a
+    wrench</li>
+    <li>Flipping a toy pancake with a spatula; you have to reason about
+    both the spatula trajectory, the pancake trajectory, and the sliding
+    and sticking during the action.</li>
+    <li>Pushing multiple objects to the side in a sweeping motion. I
+    think this would be a good showcase of non-prehensile manipulation
+    with multiple objects</li>
+    </ul>
+    <p>Here is a simple sketch I made of the actions:</p>
+    <figure>
+    <img src="16549.jpg" alt="Proposed demos for this project" />
+    <figcaption aria-hidden="true">Proposed demos for this
+    project</figcaption>
+    </figure>
+    <p><strong>Question:</strong> <em>I think that this idea is cool but
+    needs more refinement than the other ones in this write-up. What are
+    your thoughts are about how to make this into a good idea?</em></p>
+    <h2 id="revisiting-the-original-project">4 Revisiting the Original
+    Project</h2>
+    <h3 id="the-high-level-overview">4.1 The High Level Overview</h3>
+    <p>I originally pitched this idea over the summer, and a more
+    detailed write-up can be found in my <a
+    href="../2025-06-11_project_pitch">original pitch</a>. I also added
+    a tiny bit more thought in <a
+    href="../2025-10-03#diversity-in-3d-reconstruction">a section last
+    week</a>. Here is a succinct version of the pitch:</p>
+    <ul>
+    <li><strong>(Potential) Title:</strong> <em>Diverse and Physically
+    Stable Bayesian World Models for Manipulation</em></li>
+    <li><strong>Motivation:</strong> The ability to convert partial
+    observations of a scene into reasonable estimates for the scene’s
+    dynamics is incredibly useful in robotics. In the case of robotic
+    manipulation, this usually means reconstructing the geometry of each
+    object in the scene along with some physics parameters. The
+    reconstructions ought to be physically stable and capture the
+    diversity/uncertainty from occlusion. Such diverse, physically
+    stable reconstructions from a single RGBD image can be used
+    downstream by controllers for robotic manipulation.</li>
+    <li><strong>Method:</strong> We can do Bayesian reconstruction using
+    a BundleSDF-like <span class="citation"
+    data-cites="wen2023bundlesdf"><a href="#ref-wen2023bundlesdf"
+    role="doc-biblioref">[16]</a></span> ensemble. Use Amodal3R <span
+    class="citation" data-cites="wu2025amodal3r"><a
+    href="#ref-wu2025amodal3r" role="doc-biblioref">[17]</a></span> with
+    some modulation as a prior, simplified probabilisitic ContactNets
+    <span class="citation" data-cites="pfrommer2021contactnets"><a
+    href="#ref-pfrommer2021contactnets"
+    role="doc-biblioref">[18]</a></span> loss for physical stability.
+    Then use likelihood from observation similar to the negative
+    sampling in <span class="citation" data-cites="wright2024v"><a
+    href="#ref-wright2024v" role="doc-biblioref">[19]</a></span>.</li>
+    <li><strong>Experiments:</strong> We can perform simple pushing
+    tasks to verify that our model is <em>accurate</em> via multi-object
+    pushing, and <em>diverse</em> via pushing with some occlusion that
+    creates multiple different possible outcomes from the same
+    push.</li>
+    </ul>
+    <p>Here is an image I made detailing the method visually:</p>
+    <figure>
+    <img src="image-1.png"
+    alt="Overview of the pipeline for my proposed project." />
+    <figcaption aria-hidden="true">Overview of the pipeline for my
+    proposed project.</figcaption>
+    </figure>
+    <h3 id="the-first-steps">4.2 The First Steps</h3>
+    <p>There are a few things that need to be done for the project. I
+    think the first steps would look something like the following:</p>
+    <ol type="1">
+    <li>Getting Amodal3R+registration running (Minghan probably already
+    has this, but I will want it working for me)
+    <ol type="1">
+    <li>Create a few example images</li>
+    <li>Get Amodal3R running on new GPU</li>
+    <li>Get registration working</li>
+    <li>Get Amodal3R working with randomized bounding boxes</li>
+    </ol></li>
+    <li>Training a Bayesian ensemble implicit neural model with Amodal3R
+    and depth supervision
+    <ol type="1">
+    <li>Negative sampling</li>
+    <li>Bayesian ensemble</li>
+    </ol></li>
+    <li>Code contact points loss
+    <ol type="1">
+    <li>Sampling contact points</li>
+    <li>Differential marching cubes (similar to <span class="citation"
+    data-cites="remelli2020meshsdf"><a href="#ref-remelli2020meshsdf"
+    role="doc-biblioref">[20]</a></span>)</li>
+    <li>Simplified contact nets loss</li>
+    </ol></li>
+    <li>Putting it all together</li>
+    <li>…</li>
+    </ol>
+    <p>I am kind of waiting until I have my computer before I start
+    doing this, which should be on <strong>Monday</strong>!</p>
+    <h2 id="some-high-level-thoughts">5 Some High Level Thoughts</h2>
+    <p>At a high level, I have 4 separate project ideas in this
+    write-up. I think they all share similar themes, but are also fairly
+    diverse. They range from incorporating world models into VLMs that
+    plan, to real2sim object reconstruction (perception), to robust
+    control, to learning from demonstration. I think it kind of reflects
+    what I want to do for my PhD: bounce around a bit, but be thinking
+    about uncertainty and robustness in tandem with what everyone else
+    in robotics is thinking about. There are still some things absent
+    from these ideas that I would love to dip into at some point
+    including:</p>
+    <ul>
+    <li>Deformable objects</li>
+    <li>Robustly handling transparent objects, deformable objects,
+    articulated objects, fluids all together</li>
+    <li>Analyzing distributional shift in learning-based robotics
+    methods</li>
+    </ul>
+    <p>These three I just mentioned also fit into the concept of
+    robustness. I also don’t want to stray too far from some fun
+    math.</p>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body"
+    data-entry-spacing="0" role="list">
+    <div id="ref-shi2024yell" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">L. X. Shi, Z. Hu, T. Z. Zhao, A. Sharma, K.
+    Pertsch, J. Luo, S. Levine, and C. Finn, <span>“Yell at your robot:
+    Improving on-the-fly from language corrections,”</span>
+    <em>CoRR</em>, 2024.</div>
+    </div>
+    <div id="ref-pchelintsev2025lera" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">S. Pchelintsev, M. Patratskiy, A.
+    Onishchenko, A. Korchemnyi, A. Medvedev, U. Vinogradova, I.
+    Galuzinsky, A. Postnikov, A. K. Kovalev, and A. I. Panov,
+    <span>“Lera: Replanning with visual feedback in instruction
+    following,”</span> <em>arXiv preprint arXiv:2507.05135</em>,
+    2025.</div>
+    </div>
+    <div id="ref-zhao2025seeing" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">L. Zhao, W. McClinton, A. Curtis, N. Kumar,
+    T. Silver, L. P. Kaelbling, and L. L. Wong, <span>“Seeing is
+    believing: Belief-space planning with foundation models as
+    uncertainty estimators,”</span> <em>arXiv preprint
+    arXiv:2504.03245</em>, 2025.</div>
+    </div>
+    <div id="ref-dalal2025local" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">M. Dalal, M. Liu, W. Talbott, C. Chen, D.
+    Pathak, J. Zhang, and R. Salakhutdinov, <span>“Local policies enable
+    zero-shot long-horizon manipulation,”</span> in <em>2025 IEEE
+    international conference on robotics and automation (ICRA)</em>,
+    2025, pp. 13875–13882.</div>
+    </div>
+    <div id="ref-lin2025failsafe" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">Z. Lin, J. Duan, H. Fang, D. Fox, R.
+    Krishna, C. Tan, and B. Wen, <span>“FailSafe: Reasoning and recovery
+    from failures in vision-language-action models,”</span> <em>arXiv
+    preprint arXiv:2510.01642</em>, 2025.</div>
+    </div>
+    <div id="ref-johnson2016convergent" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">A. M. Johnson, J. E. King, and S.
+    Srinivasa, <span>“Convergent planning,”</span> <em>IEEE Robotics and
+    Automation Letters</em>, vol. 1, no. 2, pp. 1044–1051, 2016.</div>
+    </div>
+    <div id="ref-jankowski2025robust" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[7] </div><div
+    class="csl-right-inline">J. Jankowski, L. Brudermüller, N. Hawes,
+    and S. Calinon, <span>“Robust pushing: Exploiting quasi-static
+    belief dynamics and contact-informed optimization,”</span> <em>The
+    International Journal of Robotics Research</em>, p.
+    02783649251318046, 2025.</div>
+    </div>
+    <div id="ref-jankowski2023vp" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[8] </div><div
+    class="csl-right-inline">J. Jankowski, L. Brudermüller, N. Hawes,
+    and S. Calinon, <span>“VP-STO: Via-point-based stochastic trajectory
+    optimization for reactive robot behavior,”</span> in <em>2023 IEEE
+    international conference on robotics and automation (ICRA)</em>,
+    2023, pp. 10125–10131.</div>
+    </div>
+    <div id="ref-rodriguez2021unstable" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[9] </div><div
+    class="csl-right-inline">A. Rodriguez, <span>“The unstable queen:
+    Uncertainty, mechanics, and tactile feedback,”</span> <em>Science
+    Robotics</em>, vol. 6, no. 54, p. eabi4667, 2021.</div>
+    </div>
+    <div id="ref-shirai2023covariance" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[10] </div><div
+    class="csl-right-inline">Y. Shirai, D. K. Jha, and A. U.
+    Raghunathan, <span>“Covariance steering for uncertain contact-rich
+    systems,”</span> in <em>2023 IEEE international conference on
+    robotics and automation (ICRA)</em>, 2023, pp. 7923–7929.</div>
+    </div>
+    <div id="ref-dong2025joint" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[11] </div><div
+    class="csl-right-inline">X. Dong, M. Johnson-Roberson, and W. Zhi,
+    <span>“Joint flow trajectory optimization for feasible robot motion
+    generation from video demonstrations,”</span> <em>arXiv preprint
+    arXiv:2509.20703</em>, 2025.</div>
+    </div>
+    <div id="ref-bahety2025safemimic" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[12] </div><div
+    class="csl-right-inline">A. Bahety, A. Balaji, B. Abbatematteo, and
+    R. Martı́n-Martı́n, <span>“SafeMimic: Towards safe and autonomous
+    human-to-robot imitation for mobile manipulation,”</span> <em>arXiv
+    preprint arXiv:2506.15847</em>, 2025.</div>
+    </div>
+    <div id="ref-yang2025physics" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[13] </div><div
+    class="csl-right-inline">L. Yang, H. Suh, T. Zhao, B. P. Graesdal,
+    T. Kelestemur, J. Wang, T. Pang, and R. Tedrake,
+    <span>“Physics-driven data generation for contact-rich manipulation
+    via trajectory optimization,”</span> <em>RSS</em>, 2025.</div>
+    </div>
+    <div id="ref-wen2022you" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[14] </div><div
+    class="csl-right-inline">B. Wen, W. Lian, K. Bekris, and S. Schaal,
+    <span>“You only demonstrate once: Category-level manipulation from
+    single visual demonstration,”</span> <em>RSS</em>, 2022.</div>
+    </div>
+    <div id="ref-zhou2025you" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[15] </div><div
+    class="csl-right-inline">H. Zhou, R. Wang, Y. Tai, Y. Deng, G. Liu,
+    and K. Jia, <span>“<a
+    href="https://doi.org/10.48550/arXiv.2501.14208">You only teach
+    once: Learn one-shot bimanual robotic manipulation from video
+    demonstrations</a>,”</span> <em>CoRR</em>, vol. abs/2501.14208,
+    2025.</div>
+    </div>
+    <div id="ref-wen2023bundlesdf" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[16] </div><div
+    class="csl-right-inline">B. Wen, J. Tremblay, V. Blukis, S. Tyree,
+    T. Müller, A. Evans, D. Fox, J. Kautz, and S. Birchfield,
+    <span>“Bundlesdf: Neural 6-dof tracking and 3d reconstruction of
+    unknown objects,”</span> in <em>Proceedings of the IEEE/CVF
+    conference on computer vision and pattern recognition</em>, 2023,
+    pp. 606–617.</div>
+    </div>
+    <div id="ref-wu2025amodal3r" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[17] </div><div
+    class="csl-right-inline">T. Wu, C. Zheng, F. Guan, A. Vedaldi, and
+    T.-J. Cham, <span>“Amodal3r: Amodal 3d reconstruction from occluded
+    2d images,”</span> <em>arXiv preprint arXiv:2503.13439</em>,
+    2025.</div>
+    </div>
+    <div id="ref-pfrommer2021contactnets" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[18] </div><div
+    class="csl-right-inline">S. Pfrommer, M. Halm, and M. Posa,
+    <span>“Contactnets: Learning discontinuous contact dynamics with
+    smooth, implicit representations,”</span> in <em>Conference on robot
+    learning</em>, 2021, pp. 2279–2291.</div>
+    </div>
+    <div id="ref-wright2024v" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[19] </div><div
+    class="csl-right-inline">H. Wright, W. Zhi, M. Johnson-Roberson, and
+    T. Hermans, <span>“V-PRISM: Probabilistic mapping of unknown
+    tabletop scenes,”</span> in <em>2024 IEEE/RSJ international
+    conference on intelligent robots and systems (IROS)</em>, 2024, pp.
+    1078–1085.</div>
+    </div>
+    <div id="ref-remelli2020meshsdf" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[20] </div><div
+    class="csl-right-inline">E. Remelli, A. Lukoianov, S. Richter, B.
+    Guillard, T. Bagautdinov, P. Baque, and P. Fua, <span>“Meshsdf:
+    Differentiable iso-surface extraction,”</span> <em>Advances in
+    Neural Information Processing Systems</em>, vol. 33, pp.
+    22468–22478, 2020.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
