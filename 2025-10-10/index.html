@@ -636,6 +636,12 @@
     href="#ref-lin2025failsafe" role="doc-biblioref">[5]</a></span> was
     put on Arxiv about a week ago, and it uses VLMs to try to recover
     from failure states.</p>
+    <p><strong>EDIT:</strong> <em>I just came across <span
+    class="citation" data-cites="wu2025foresight"><a
+    href="#ref-wu2025foresight" role="doc-biblioref">[6]</a></span>,
+    which is pretty similar to our idea here, as they use VLM to rank
+    actions with predicted outcomes from a world model, but I don’t
+    think they have the same reprompting setup we do.</em></p>
     <p><strong>On the experiments:</strong> I think we talked about
     picking in clutter, where you might need to push things out of the
     way. I also think that it might be good to have more than just that
@@ -656,26 +662,26 @@
     Planning</em> <span class="citation"
     data-cites="johnson2016convergent"><a
     href="#ref-johnson2016convergent"
-    role="doc-biblioref">[6]</a></span> by Johnson et al was brought up
+    role="doc-biblioref">[7]</a></span> by Johnson et al was brought up
     in a previous meeting, where they use contraction analysis of
     dynamics to attempt to find robust trajectories. In a more recent
     paper, Jankowski et al <span class="citation"
     data-cites="jankowski2025robust"><a href="#ref-jankowski2025robust"
-    role="doc-biblioref">[7]</a></span> considers the variance and mean
+    role="doc-biblioref">[8]</a></span> considers the variance and mean
     of belief states during rollouts. They combine their analysis on
     variance, with their previous work <span class="citation"
     data-cites="jankowski2023vp"><a href="#ref-jankowski2023vp"
-    role="doc-biblioref">[8]</a></span> and the idea of a <em>contact
+    role="doc-biblioref">[9]</a></span> and the idea of a <em>contact
     prior</em> to do sampling-based trajectory optimization. They also
     cite this <em>The Unstable Queen</em> article <span class="citation"
     data-cites="rodriguez2021unstable"><a
     href="#ref-rodriguez2021unstable"
-    role="doc-biblioref">[9]</a></span>, which argues for the utility of
-    tactile sensing for robotics in unstructured environments. Of
+    role="doc-biblioref">[10]</a></span>, which argues for the utility
+    of tactile sensing for robotics in unstructured environments. Of
     course, looking at variance is not new; Shirai et al <span
     class="citation" data-cites="shirai2023covariance"><a
     href="#ref-shirai2023covariance"
-    role="doc-biblioref">[10]</a></span> have a highly relevant paper
+    role="doc-biblioref">[11]</a></span> have a highly relevant paper
     where they have a similar formulation to <a
     href="../2025-10-03#contact-reasoning">the equations from my last
     write-up</a>:</p>
@@ -711,7 +717,7 @@
     uncertainty-aware object models and run robust CI-MPC similar to
     <span class="citation" data-cites="shirai2023covariance"><a
     href="#ref-shirai2023covariance"
-    role="doc-biblioref">[10]</a></span> iteratively. We may need to
+    role="doc-biblioref">[11]</a></span> iteratively. We may need to
     have a better heuristic for sampling than what is used in tandem
     with C3 in the lab currently. Also, once the push/manipulation is
     underway, we can also hopefully update our object models with
@@ -745,7 +751,7 @@
     <h3 id="learning-from-a-single-video-demonstration">3.2 Learning
     from a Single Video Demonstration</h3>
     <p>I mentioned <span class="citation" data-cites="dong2025joint"><a
-    href="#ref-dong2025joint" role="doc-biblioref">[11]</a></span> last
+    href="#ref-dong2025joint" role="doc-biblioref">[12]</a></span> last
     time, where they argue for an <em>object-centric</em> approach to
     learning from demonstration. They seem to only consider actions
     where the person grasps, then does some simple movement with the
@@ -760,19 +766,19 @@
     of other work trying to do learning from human demonstrations
     doesn’t quite do, such as <span class="citation"
     data-cites="bahety2025safemimic"><a href="#ref-bahety2025safemimic"
-    role="doc-biblioref">[12]</a></span>, which tries to use the human
+    role="doc-biblioref">[13]</a></span>, which tries to use the human
     grasp pose, and <span class="citation"
     data-cites="yang2025physics"><a href="#ref-yang2025physics"
-    role="doc-biblioref">[13]</a></span>, which does retargeting. There
+    role="doc-biblioref">[14]</a></span>, which does retargeting. There
     are some other relevant papers such as <em>You Only Demonstrate
     Once</em> <span class="citation" data-cites="wen2022you"><a
-    href="#ref-wen2022you" role="doc-biblioref">[14]</a></span>, which
+    href="#ref-wen2022you" role="doc-biblioref">[15]</a></span>, which
     takes a single (object-centric) demonstration and tries to
     generalize to objects in the same class, however they also only
     focus on a single object and don’t seem to include non-prehensile
     manipulation. A more recent paper, <em>You Only Teach Once</em>
     <span class="citation" data-cites="zhou2025you"><a
-    href="#ref-zhou2025you" role="doc-biblioref">[15]</a></span> also
+    href="#ref-zhou2025you" role="doc-biblioref">[16]</a></span> also
     seems relevant, but I haven’t gotten around to reading it.</p>
     <p>Here is the pitch at a high level:</p>
     <ul>
@@ -859,16 +865,16 @@
     <li><strong>Method:</strong> We can do Bayesian reconstruction using
     a BundleSDF-like <span class="citation"
     data-cites="wen2023bundlesdf"><a href="#ref-wen2023bundlesdf"
-    role="doc-biblioref">[16]</a></span> ensemble. Use Amodal3R <span
+    role="doc-biblioref">[17]</a></span> ensemble. Use Amodal3R <span
     class="citation" data-cites="wu2025amodal3r"><a
-    href="#ref-wu2025amodal3r" role="doc-biblioref">[17]</a></span> with
+    href="#ref-wu2025amodal3r" role="doc-biblioref">[18]</a></span> with
     some modulation as a prior, simplified probabilisitic ContactNets
     <span class="citation" data-cites="pfrommer2021contactnets"><a
     href="#ref-pfrommer2021contactnets"
-    role="doc-biblioref">[18]</a></span> loss for physical stability.
+    role="doc-biblioref">[19]</a></span> loss for physical stability.
     Then use likelihood from observation similar to the negative
     sampling in <span class="citation" data-cites="wright2024v"><a
-    href="#ref-wright2024v" role="doc-biblioref">[19]</a></span>.</li>
+    href="#ref-wright2024v" role="doc-biblioref">[20]</a></span>.</li>
     <li><strong>Experiments:</strong> We can perform simple pushing
     tasks to verify that our model is <em>accurate</em> via multi-object
     pushing, and <em>diverse</em> via pushing with some occlusion that
@@ -905,7 +911,7 @@
     <li>Sampling contact points</li>
     <li>Differential marching cubes (similar to <span class="citation"
     data-cites="remelli2020meshsdf"><a href="#ref-remelli2020meshsdf"
-    role="doc-biblioref">[20]</a></span>)</li>
+    role="doc-biblioref">[21]</a></span>)</li>
     <li>Simplified contact nets loss</li>
     </ol></li>
     <li>Putting it all together</li>
@@ -976,15 +982,21 @@
     from failures in vision-language-action models,”</span> <em>arXiv
     preprint arXiv:2510.01642</em>, 2025.</div>
     </div>
+    <div id="ref-wu2025foresight" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">Y. Wu, R. Tian, G. Swamy, and A. Bajcsy,
+    <span>“From foresight to forethought: Vlm-in-the-loop policy
+    steering via latent alignment,”</span> <em>RSS</em>, 2025.</div>
+    </div>
     <div id="ref-johnson2016convergent" class="csl-entry"
     role="listitem">
-    <div class="csl-left-margin">[6] </div><div
+    <div class="csl-left-margin">[7] </div><div
     class="csl-right-inline">A. M. Johnson, J. E. King, and S.
     Srinivasa, <span>“Convergent planning,”</span> <em>IEEE Robotics and
     Automation Letters</em>, vol. 1, no. 2, pp. 1044–1051, 2016.</div>
     </div>
     <div id="ref-jankowski2025robust" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[7] </div><div
+    <div class="csl-left-margin">[8] </div><div
     class="csl-right-inline">J. Jankowski, L. Brudermüller, N. Hawes,
     and S. Calinon, <span>“Robust pushing: Exploiting quasi-static
     belief dynamics and contact-informed optimization,”</span> <em>The
@@ -992,7 +1004,7 @@
     02783649251318046, 2025.</div>
     </div>
     <div id="ref-jankowski2023vp" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[8] </div><div
+    <div class="csl-left-margin">[9] </div><div
     class="csl-right-inline">J. Jankowski, L. Brudermüller, N. Hawes,
     and S. Calinon, <span>“VP-STO: Via-point-based stochastic trajectory
     optimization for reactive robot behavior,”</span> in <em>2023 IEEE
@@ -1001,48 +1013,48 @@
     </div>
     <div id="ref-rodriguez2021unstable" class="csl-entry"
     role="listitem">
-    <div class="csl-left-margin">[9] </div><div
+    <div class="csl-left-margin">[10] </div><div
     class="csl-right-inline">A. Rodriguez, <span>“The unstable queen:
     Uncertainty, mechanics, and tactile feedback,”</span> <em>Science
     Robotics</em>, vol. 6, no. 54, p. eabi4667, 2021.</div>
     </div>
     <div id="ref-shirai2023covariance" class="csl-entry"
     role="listitem">
-    <div class="csl-left-margin">[10] </div><div
+    <div class="csl-left-margin">[11] </div><div
     class="csl-right-inline">Y. Shirai, D. K. Jha, and A. U.
     Raghunathan, <span>“Covariance steering for uncertain contact-rich
     systems,”</span> in <em>2023 IEEE international conference on
     robotics and automation (ICRA)</em>, 2023, pp. 7923–7929.</div>
     </div>
     <div id="ref-dong2025joint" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[11] </div><div
+    <div class="csl-left-margin">[12] </div><div
     class="csl-right-inline">X. Dong, M. Johnson-Roberson, and W. Zhi,
     <span>“Joint flow trajectory optimization for feasible robot motion
     generation from video demonstrations,”</span> <em>arXiv preprint
     arXiv:2509.20703</em>, 2025.</div>
     </div>
     <div id="ref-bahety2025safemimic" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[12] </div><div
+    <div class="csl-left-margin">[13] </div><div
     class="csl-right-inline">A. Bahety, A. Balaji, B. Abbatematteo, and
     R. Martı́n-Martı́n, <span>“SafeMimic: Towards safe and autonomous
     human-to-robot imitation for mobile manipulation,”</span> <em>arXiv
     preprint arXiv:2506.15847</em>, 2025.</div>
     </div>
     <div id="ref-yang2025physics" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[13] </div><div
+    <div class="csl-left-margin">[14] </div><div
     class="csl-right-inline">L. Yang, H. Suh, T. Zhao, B. P. Graesdal,
     T. Kelestemur, J. Wang, T. Pang, and R. Tedrake,
     <span>“Physics-driven data generation for contact-rich manipulation
     via trajectory optimization,”</span> <em>RSS</em>, 2025.</div>
     </div>
     <div id="ref-wen2022you" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[14] </div><div
+    <div class="csl-left-margin">[15] </div><div
     class="csl-right-inline">B. Wen, W. Lian, K. Bekris, and S. Schaal,
     <span>“You only demonstrate once: Category-level manipulation from
     single visual demonstration,”</span> <em>RSS</em>, 2022.</div>
     </div>
     <div id="ref-zhou2025you" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[15] </div><div
+    <div class="csl-left-margin">[16] </div><div
     class="csl-right-inline">H. Zhou, R. Wang, Y. Tai, Y. Deng, G. Liu,
     and K. Jia, <span>“<a
     href="https://doi.org/10.48550/arXiv.2501.14208">You only teach
@@ -1051,7 +1063,7 @@
     2025.</div>
     </div>
     <div id="ref-wen2023bundlesdf" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[16] </div><div
+    <div class="csl-left-margin">[17] </div><div
     class="csl-right-inline">B. Wen, J. Tremblay, V. Blukis, S. Tyree,
     T. Müller, A. Evans, D. Fox, J. Kautz, and S. Birchfield,
     <span>“Bundlesdf: Neural 6-dof tracking and 3d reconstruction of
@@ -1060,7 +1072,7 @@
     pp. 606–617.</div>
     </div>
     <div id="ref-wu2025amodal3r" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[17] </div><div
+    <div class="csl-left-margin">[18] </div><div
     class="csl-right-inline">T. Wu, C. Zheng, F. Guan, A. Vedaldi, and
     T.-J. Cham, <span>“Amodal3r: Amodal 3d reconstruction from occluded
     2d images,”</span> <em>arXiv preprint arXiv:2503.13439</em>,
@@ -1068,14 +1080,14 @@
     </div>
     <div id="ref-pfrommer2021contactnets" class="csl-entry"
     role="listitem">
-    <div class="csl-left-margin">[18] </div><div
+    <div class="csl-left-margin">[19] </div><div
     class="csl-right-inline">S. Pfrommer, M. Halm, and M. Posa,
     <span>“Contactnets: Learning discontinuous contact dynamics with
     smooth, implicit representations,”</span> in <em>Conference on robot
     learning</em>, 2021, pp. 2279–2291.</div>
     </div>
     <div id="ref-wright2024v" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[19] </div><div
+    <div class="csl-left-margin">[20] </div><div
     class="csl-right-inline">H. Wright, W. Zhi, M. Johnson-Roberson, and
     T. Hermans, <span>“V-PRISM: Probabilistic mapping of unknown
     tabletop scenes,”</span> in <em>2024 IEEE/RSJ international
@@ -1083,7 +1095,7 @@
     1078–1085.</div>
     </div>
     <div id="ref-remelli2020meshsdf" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[20] </div><div
+    <div class="csl-left-margin">[21] </div><div
     class="csl-right-inline">E. Remelli, A. Lukoianov, S. Richter, B.
     Guillard, T. Bagautdinov, P. Baque, and P. Fua, <span>“Meshsdf:
     Differentiable iso-surface extraction,”</span> <em>Advances in

@@ -45,6 +45,8 @@ How to detect and handle failure would also have to be decided—for example, we
 
 **Some more papers:** Zhao et al [@zhao2025seeing] uses VLMs to estimate uncertainty and uses a belief state planner to plan (uses MOLMO+SAM for object detection/segmentation, and then GPT-4o for predicate evaluation). ManipGen [@dalal2025local] is more of a RL paper, but they use a VLM for determining high level actions for longer-horizon planning (I feel like tasks such as placing an object in a drawer is not *that* long horizon really). FailSafe [@lin2025failsafe] was put on Arxiv about a week ago, and it uses VLMs to try to recover from failure states.
 
+**EDIT:** *I just came across [@wu2025foresight], which is pretty similar to our idea here, as they use VLM to rank actions with predicted outcomes from a world model, but I don't think they have the same reprompting setup we do.*
+
 **On the experiments:** I think we talked about picking in clutter, where you might need to push things out of the way. I also think that it might be good to have more than just that example in mind for this idea. Perhaps we could try seeing if the VLM can reason about when things are on top of each other; like if the goal is to pick up a plate, but there is a bowl on top, it needs to remove the bowl, then grab the plate.
 
 ## 3 Robust Contact & Learning From a Single Video Demonstration
