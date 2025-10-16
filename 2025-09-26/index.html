@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Thing</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #eee;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        /* @page :left {
+            margin: 15mm 20mm 15mm 10mm;
+        }
+
+        @page :right {
+            margin: 15mm 10mm 15mm 20mm;
+        } */
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 12pt;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Thing</h1>
+                <p class="date">2025 Sep 26</p>
+          </header>
+      <h2 id="last-time">1 Last Time</h2>
+      <p>Last time, we talked about a lot of things.</p>
+      <h2 id="vlms-for-planning">2 VLMs for Planning</h2>
+      <h3 id="some-relevant-papers">2.1 Some Relevant Papers</h3>
+      <p>VLMs have been used for planning (and related things) in a few
+      papers. One fairly well-cited Deepmind paper used a VLM in tandem
+      with a learned policy to generalize to objects not in the policy’s
+      training distribution <span class="citation"
+      data-cites="stoneopen"><a href="#ref-stoneopen"
+      role="doc-biblioref">[1]</a></span>. A 2025 ICRA paper <span
+      class="citation" data-cites="zhi2025closed"><a
+      href="#ref-zhi2025closed" role="doc-biblioref">[2]</a></span>
+      proposes using a feedback loop where if failure of the plan is
+      detected, they reprompt the VLM. This is done <em>after</em> the
+      failed execution has already taken place. Also in ICRA was the
+      BUMBLE <span class="citation" data-cites="shah2025bumble"><a
+      href="#ref-shah2025bumble" role="doc-biblioref">[3]</a></span>
+      paper, where a VLM takes the place of a planner. They prompt the
+      VLM for multiple things and have a way of maintaining a “memory”
+      that they divide into short and long term and put in the context
+      window when prompting. They also use a <em>skill library</em>.
+      Another paper that leverages VLMs that is well cited that I may
+      have mentioned before is Rekep <span class="citation"
+      data-cites="huang2025rekep"><a href="#ref-huang2025rekep"
+      role="doc-biblioref">[4]</a></span>, where a VLM proposes
+      keypoint-based subgoals and constraints in python code, which are
+      then used for a constrained optimization solver. They have a
+      prompt for the VLM that is over a page long and kind of feels like
+      cheating. I have also mentioned <span class="citation"
+      data-cites="athalye2024pixels"><a href="#ref-athalye2024pixels"
+      role="doc-biblioref">[5]</a></span> before, where a VLM outputs
+      predicates. TAMP meets VLMs in <span class="citation"
+      data-cites="kumar2024open"><a href="#ref-kumar2024open"
+      role="doc-biblioref">[6]</a></span> as well (but I didn’t really
+      read it). Perhaps the most similar idea to what you mentioned last
+      meeting is <span class="citation" data-cites="yang2025guiding"><a
+      href="#ref-yang2025guiding" role="doc-biblioref">[7]</a></span>,
+      which I talk about in the next subsection. Another one that
+      explores using VLMs for replanning is <span class="citation"
+      data-cites="pchelintsev2025lera"><a
+      href="#ref-pchelintsev2025lera"
+      role="doc-biblioref">[8]</a></span>. Some other uses of VLMs in
+      robotics can be seen in <span class="citation"
+      data-cites="patel2025real"><a href="#ref-patel2025real"
+      role="doc-biblioref">[9]</a></span> and <span class="citation"
+      data-cites="zhao2024vlmpc"><a href="#ref-zhao2024vlmpc"
+      role="doc-biblioref">[10]</a></span> among others.</p>
+      <p><strong>Side Note:</strong> <em>here is the failure breakdown
+      for the BUMBLE paper, which I feel like is quintessential “big VLM
+      do everything” paper:</em></p>
+      <p><img src="image-3.png" /></p>
+      <p><em>The things I noticed include: the wide range of different
+      failures, how the VLM reasoning failed in 28 of the trials, and
+      that the end reasons with 7 trials each were (robot collision,
+      having too many detractors, and bad depth values)</em>.</p>
+      <h3 id="vlm-prompting-with-failure">2.2 VLM Prompting with
+      Failure</h3>
+      <p>Here are some screenshots from the <a
+      href="https://zt-yang.github.io/vlm-tamp-robot/">project page</a>
+      of <span class="citation" data-cites="yang2025guiding"><a
+      href="#ref-yang2025guiding" role="doc-biblioref">[7]</a></span>,
+      where they reprompt a VLM when the PDDL/Motion planning solver
+      fails:</p>
+      <p><img src="image.png" style="width:49.0%" /> <img
+      src="image-1.png" style="width:49.0%" /></p>
+      <p>They tell the VLM that it failed, the (discrete) sub-goals that
+      didn’t work, as well as a set of objects that had collisions with
+      the robot. The experiments kind of showed this re-prompting to be
+      successful.</p>
+      <h3 id="side-note">2.4 Side Note</h3>
+      <p>I tried to run a slightly harder version of the previous dummy
+      environment to a VLM and it kind of sucked. I don’t think this is
+      necessarily what will always happen, but I think it is indicative
+      of how it matters what you prompt and ask the VLM to do
+      specifically for performance. Here is the image of the result:</p>
+      <p><img src="image-2.png" /></p>
+      <p>Clearly, that will not work. Also, I know that this is possible
+      because I threw together some hacky keyboard control and I was
+      able to solve it, although it does take quite a bit of
+      wiggling.</p>
+      <h2 id="cluttered-shelves">3 Cluttered Shelves</h2>
+      <h3 id="some-relevant-papers-1">3.1 Some Relevant Papers</h3>
+      <p>I have <a href="../2025-09-12/#existing-work">previously done
+      an overview of similar papers to this task</a>. Here I simply
+      mention a couple more papers to be aware of. I think <span
+      class="citation" data-cites="wang2022efficient"><a
+      href="#ref-wang2022efficient" role="doc-biblioref">[11]</a></span>
+      is indicative of the simplifications common in papers doing
+      manipulation in cluttered shelfs, from what I have seen.
+      Specifically, they (1) assume all objects are cylinders and (2)
+      ignore non-prehensile manipulation such as pushes. Of course, in
+      link in the first paragraph, I overview literature that makes use
+      of non-prehensile manipulation in clutter. Of course there is work
+      that doesn’t use these assumptions, such as <span class="citation"
+      data-cites="saxena2023planning"><a href="#ref-saxena2023planning"
+      role="doc-biblioref">[12]</a></span>. Recently, FetchBot <span
+      class="citation" data-cites="liufetchbot"><a
+      href="#ref-liufetchbot" role="doc-biblioref">[13]</a></span> is a
+      sim2real RL method for fetching objects in clutter, but they seem
+      to (a) use a suction-cup gripper, and (b) be “afraid” of contact
+      (they try to avoid contact with other objects).</p>
+      <h3 id="my-thoughts">3.2 My Thoughts</h3>
+      <p>I think that manipulation in a cluttered shelf is cool. I think
+      at some point I want to do a project with it. I think after my <a
+      href="../2025-06-11_project_pitch/">first project</a> is in a
+      reasonable place, there might be room for something like this: See
+      a cluttered scene <span class="math inline">\rightarrow</span>
+      infer a dynamics model on-the-fly <span
+      class="math inline">\rightarrow</span> use some combo of
+      planning+control to do manipulation. I think there such a setup,
+      if done right, would be publishable. Of course, there are also
+      some other cool things to think about with a cluttered shelf
+      setup, such as:</p>
+      <ul>
+      <li>What happens when you don’t see the object you are looking
+      for, but there is a chance it may be there, just fully
+      occluded</li>
+      <li>What happens if you can get to a grasp pose, but can’t “pull”
+      the object out collision-free</li>
+      <li>etc.</li>
+      </ul>
+      <h2 id="other-thoughts">4 Other Thoughts</h2>
+      <ul>
+      <li>Object-centric planning</li>
+      <li>Washing the dishes</li>
+      </ul>
+      <h2 class="unnumbered" id="references">References</h2>
+      <div id="refs" class="references csl-bib-body"
+      data-entry-spacing="0" role="list">
+      <div id="ref-stoneopen" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[1] </div><div
+      class="csl-right-inline">A. Stone, T. Xiao, Y. Lu, K.
+      Gopalakrishnan, K.-H. Lee, Q. Vuong, P. Wohlhart, S. Kirmani, B.
+      Zitkovich, F. Xia, and others, <span>“Open-world object
+      manipulation using pre-trained vision-language models,”</span> in
+      <em>7th annual conference on robot learning</em>.</div>
+      </div>
+      <div id="ref-zhi2025closed" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[2] </div><div
+      class="csl-right-inline">P. Zhi, Z. Zhang, Y. Zhao, M. Han, Z.
+      Zhang, Z. Li, Z. Jiao, B. Jia, and S. Huang, <span>“Closed-loop
+      open-vocabulary mobile manipulation with gpt-4v,”</span> in
+      <em>2025 IEEE international conference on robotics and automation
+      (ICRA)</em>, 2025, pp. 4761–4767.</div>
+      </div>
+      <div id="ref-shah2025bumble" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[3] </div><div
+      class="csl-right-inline">R. Shah, A. Yu, Y. Zhu, Y. Zhu, and R.
+      Martı́n-Martı́n, <span>“Bumble: Unifying reasoning and acting with
+      vision-language models for building-wide mobile
+      manipulation,”</span> in <em>2025 IEEE international conference on
+      robotics and automation (ICRA)</em>, 2025, pp. 13337–13345.</div>
+      </div>
+      <div id="ref-huang2025rekep" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[4] </div><div
+      class="csl-right-inline">W. Huang, C. Wang, Y. Li, R. Zhang, and
+      L. Fei-Fei, <span>“ReKep: Spatio-temporal reasoning of relational
+      keypoint constraints for robotic manipulation,”</span> in
+      <em>Conference on robot learning</em>, 2025, pp. 4573–4602.</div>
+      </div>
+      <div id="ref-athalye2024pixels" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[5] </div><div
+      class="csl-right-inline">A. Athalye, N. Kumar, T. Silver, Y.
+      Liang, J. Wang, T. Lozano-Pérez, and L. P. Kaelbling, <span>“From
+      pixels to predicates: Learning symbolic world models via
+      pretrained vision-language models,”</span> <em>arXiv preprint
+      arXiv:2501.00296</em>, 2024.</div>
+      </div>
+      <div id="ref-kumar2024open" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[6] </div><div
+      class="csl-right-inline">N. Kumar, W. Shen, F. Ramos, D. Fox, T.
+      Lozano-Pérez, L. P. Kaelbling, and C. R. Garrett,
+      <span>“Open-world task and motion planning via vision-language
+      model inferred constraints,”</span> <em>arXiv preprint
+      arXiv:2411.08253</em>, 2024.</div>
+      </div>
+      <div id="ref-yang2025guiding" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[7] </div><div
+      class="csl-right-inline">Z. Yang, C. Garrett, D. Fox, T.
+      Lozano-Pérez, and L. P. Kaelbling, <span>“Guiding long-horizon
+      task and motion planning with vision language models,”</span> in
+      <em>2025 IEEE international conference on robotics and automation
+      (ICRA)</em>, 2025, pp. 16847–16853.</div>
+      </div>
+      <div id="ref-pchelintsev2025lera" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[8] </div><div
+      class="csl-right-inline">S. Pchelintsev, M. Patratskiy, A.
+      Onishchenko, A. Korchemnyi, A. Medvedev, U. Vinogradova, I.
+      Galuzinsky, A. Postnikov, A. K. Kovalev, and A. I. Panov,
+      <span>“Lera: Replanning with visual feedback in instruction
+      following,”</span> <em>arXiv preprint arXiv:2507.05135</em>,
+      2025.</div>
+      </div>
+      <div id="ref-patel2025real" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[9] </div><div
+      class="csl-right-inline">S. Patel, X. Yin, W. Huang, S. Garg, H.
+      Nayyeri, L. Fei-Fei, S. Lazebnik, and Y. Li, <span>“A
+      real-to-sim-to-real approach to robotic manipulation with
+      VLM-generated iterative keypoint rewards,”</span> <em>arXiv
+      preprint arXiv:2502.08643</em>, 2025.</div>
+      </div>
+      <div id="ref-zhao2024vlmpc" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[10] </div><div
+      class="csl-right-inline">W. Zhao, J. Chen, Z. Meng, D. Mao, R.
+      Song, and W. Zhang, <span>“VLMPC: Vision-language model predictive
+      control for robotic manipulation,”</span> in <em>Robotics: Science
+      and systems</em>, 2024.</div>
+      </div>
+      <div id="ref-wang2022efficient" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[11] </div><div
+      class="csl-right-inline">R. Wang, Y. Miao, and K. E. Bekris,
+      <span>“Efficient and high-quality prehensile rearrangement in
+      cluttered and confined spaces,”</span> in <em>2022 international
+      conference on robotics and automation (ICRA)</em>, 2022, pp.
+      1968–1975.</div>
+      </div>
+      <div id="ref-saxena2023planning" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[12] </div><div
+      class="csl-right-inline">D. M. Saxena and M. Likhachev,
+      <span>“Planning for complex non-prehensile manipulation among
+      movable objects by interleaving multi-agent pathfinding and
+      physics-based simulation,”</span> in <em>2023 IEEE international
+      conference on robotics and automation (ICRA)</em>, 2023, pp.
+      8141–8147.</div>
+      </div>
+      <div id="ref-liufetchbot" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[13] </div><div
+      class="csl-right-inline">W. Liu, Y. Wan, J. Wang, Y. Kuang, X.
+      Shi, H. Li, D. Zhao, Z. Zhang, and H. Wang, <span>“FetchBot:
+      Learning generalizable object fetching in cluttered scenes via
+      zero-shot Sim2Real,”</span> in <em>9th annual conference on robot
+      learning</em>.</div>
+      </div>
+      </div>
+  </body>
+
+</html>

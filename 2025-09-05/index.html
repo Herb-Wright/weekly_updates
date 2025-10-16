@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Update / Meeting Prep</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: 1px solid #eee;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        /* @page :left {
+            margin: 15mm 20mm 15mm 10mm;
+        }
+
+        @page :right {
+            margin: 15mm 10mm 15mm 20mm;
+        } */
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 12pt;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Update / Meeting Prep</h1>
+                <p class="date">2025 Sep 5</p>
+          </header>
+      <h2 id="last-meeting-recap">1 Last Meeting Recap</h2>
+      <p>Last meeting, we kind of just talked about vague, longer-term
+      research directions. The two broad directions that seemed worth me
+      looking into were:</p>
+      <ol type="1">
+      <li>Digital Twins</li>
+      <li>Fusing Learning-based approaches with Model-based ones</li>
+      </ol>
+      <p>In this write-up, I try to mention a handful of papers relevant
+      to each of these directions, and outline a potential project and
+      my preliminary thoughts regarding the direction.</p>
+      <h2 id="digital-twins">2 Digital Twins</h2>
+      <p>A very interesting trend in robotics goes by the name
+      <em>digital twins</em> (I have also seen the term real2sim
+      commonly used). The idea is to infer physical models of the world,
+      ready for simulation, with only your robot and some cameras. Doing
+      this well would be huge—you could leverage these models for more
+      diverse simulation data or as a model for MPC.</p>
+      <p>Informally, the task is to take some sorts of observations
+      about either one or more objects and/or an environment, then try
+      to build a simulatable model of it. Recently, it seems like
+      everyone is using learning-based approaches as the motivation and
+      using Gaussian Splatting (3DGS <span class="citation"
+      data-cites="kerbl20233d"><a href="#ref-kerbl20233d"
+      role="doc-biblioref">[1]</a></span> or 2DGS) of some form during
+      the creation of these models. There is a recent paper from Russ
+      Tedrake’s group, <span class="citation"
+      data-cites="pfaff2025_scalable_real2sim"><a
+      href="#ref-pfaff2025_scalable_real2sim"
+      role="doc-biblioref">[2]</a></span>, that proposes a pipeline for
+      constructing a digital twin of one object at a time by using 3DGS,
+      where a robot with pick up an object and show different sides to a
+      camera, then they estimate the physics parameters by having the
+      robot move the object around. Obviously, this approach is motived
+      more by the need for more robot data and not online control,
+      because it requires a lot of the robot interacting with the object
+      before the model is complete/useable. The digital twin trend has
+      this bias towards being motivated by learning-based approaches,
+      which is even more apparent in the term <em>digital cousin</em>
+      <span class="citation" data-cites="dai2024acdc"><a
+      href="#ref-dai2024acdc" role="doc-biblioref">[3]</a></span>, which
+      is basically performing domain randomization on the digital twin;
+      A digital cousin is much less useful for MPC than it is for RL.
+      Another thing indicative in the first paper is that there are sort
+      of two different parts to building a digital twin of an object:
+      (1) reconstructing its geometry and (2) inferring its physics
+      parameters.</p>
+      <p>Last week, I mentioned <span class="citation"
+      data-cites="li2025pin"><a href="#ref-li2025pin"
+      role="doc-biblioref">[4]</a></span>, which infers physics
+      parameters via differentiable simulation. Inferring parameters
+      such as inertia and friction are not new, in fact, <span
+      class="citation" data-cites="9325054"><a href="#ref-9325054"
+      role="doc-biblioref">[5]</a></span> is a 2021 paper from Tucker
+      Herman’s group where friction and inertia are inferred via the
+      robot interacting with the object. That one doesn’t use
+      differentiable simulation, but there are some differentiable
+      physics simulation papers that use system identification as their
+      motivation, such as <span class="citation" data-cites="gradsim"><a
+      href="#ref-gradsim" role="doc-biblioref">[6]</a></span>. While we
+      are on the topic of physics simulation, a paper from Ken
+      Goldberg’s group, <span class="citation"
+      data-cites="yu2025real2render2realscalingrobotdata"><a
+      href="#ref-yu2025real2render2realscalingrobotdata"
+      role="doc-biblioref">[7]</a></span>, builds simulated robot data
+      by <em>ignoring</em> physics altogether (they make a simplifying
+      assumption that a grasped object is fixed to the gripper) Besides
+      this though, it is pretty obvious that for accurate digital twins,
+      physics is important.</p>
+      <p>Critically, however, none of the papers mentioned before use
+      any sort of physics-understanding to guide
+      <em>reconstruction</em>. 3D reconstruction of objects
+      <em>without</em> physics has been explored a lot, from NeRFs <span
+      class="citation" data-cites="mildenhall2021nerf"><a
+      href="#ref-mildenhall2021nerf"
+      role="doc-biblioref">[8]</a></span>, splatting (cited previously),
+      other implicit functions <span class="citation"
+      data-cites="park2019deepsdf van2020learning mescheder2019occupancy"><a
+      href="#ref-park2019deepsdf" role="doc-biblioref">[9]</a>–<a
+      href="#ref-mescheder2019occupancy"
+      role="doc-biblioref">[11]</a></span>, my own work <span
+      class="citation" data-cites="wright2024robust"><a
+      href="#ref-wright2024robust" role="doc-biblioref">[12]</a></span>,
+      diffusion/flow-based approaches <span class="citation"
+      data-cites="xiang2025structured"><a
+      href="#ref-xiang2025structured"
+      role="doc-biblioref">[13]</a></span>, and many others that I won’t
+      list, but there are only a handful of papers using physics to
+      guide reconstruction. This is pretty important for digital twins
+      in my opinion, though. One of the earliest papers I am aware of
+      that makes this argument is <span class="citation"
+      data-cites="agnew2021amodal"><a href="#ref-agnew2021amodal"
+      role="doc-biblioref">[14]</a></span>, where they do completely
+      learned reconstructions, trained with some heuristic loss terms
+      for physical stability, then during experiments use MPPI in
+      simulation to plan interactions with the objects—the control
+      approach. There are other papers that do reconstruction with an
+      understanding of physics, including Vysics <span class="citation"
+      data-cites="bianchini2025vysics"><a
+      href="#ref-bianchini2025vysics"
+      role="doc-biblioref">[15]</a></span> and others <span
+      class="citation"
+      data-cites="ni2024phyrecon song2018inferring zheng2013beyond abou-chakra2024physically zhu2025one"><a
+      href="#ref-ni2024phyrecon" role="doc-biblioref">[16]</a>–<a
+      href="#ref-zhu2025one" role="doc-biblioref">[20]</a></span>. Some
+      of these papers, such as <span class="citation"
+      data-cites="zhu2025one"><a href="#ref-zhu2025one"
+      role="doc-biblioref">[20]</a></span> and <span class="citation"
+      data-cites="abou-chakra2024physically"><a
+      href="#ref-abou-chakra2024physically"
+      role="doc-biblioref">[19]</a></span> (which is used in its
+      follow-up work of <span class="citation"
+      data-cites="abou2025real"><a href="#ref-abou2025real"
+      role="doc-biblioref">[21]</a></span>). I should also mention
+      PhysTwin <span class="citation" data-cites="jiang2025phystwin"><a
+      href="#ref-jiang2025phystwin"
+      role="doc-biblioref">[22]</a></span>, which uses spring-damper
+      physics to simulate digital twins of deformable objects.</p>
+      <p><strong>My Assessment:</strong></p>
+      <ol type="1">
+      <li>A lot of current papers make the case of digital twins for
+      learning-based policies, but it is important to consider digital
+      twins as useful for both learning-based policies and model-based
+      control methods.</li>
+      <li>Because of (1), there is little talk of uncertainty/diversity
+      within the current digital twins work</li>
+      <li>I think that my <a href="../2025-06-11_project_pitch">proposed
+      project</a> would fit nicely into the literature</li>
+      <li>Gaussian splatting is all the rage, as is differentiable
+      rendering more broadly—I wonder if there are creative uses for
+      this in planning/control (perhaps you could define a classifier
+      over images <span class="math inline">c_\theta: [0, 1]^{H \times W
+      \times 3} \rightarrow [0, 1]</span> that determines whether a goal
+      is satisfied and use this on top of differentiable rendering as an
+      objective in an optimization problem).</li>
+      </ol>
+      <h2
+      id="fusion-of-large-data-learning-and-model-based-approaches">3
+      Fusion of Large-data Learning and Model-based Approaches</h2>
+      <p>The current field of robotics seems very bullish on leveraging
+      large amounts of data to solve robotics, but data alone won’t be
+      the solution (that’s my opinion at least, but there is kind of an
+      ongoing debate in the field <span class="citation"
+      data-cites="amato2025data"><a href="#ref-amato2025data"
+      role="doc-biblioref">[23]</a></span>). Reinforcement learning
+      seems to be cool again. Imitation learning, specifically behavior
+      cloning (BC) has seen lots of excitement in diffusion policies
+      <span class="citation" data-cites="chi2023diffusion"><a
+      href="#ref-chi2023diffusion" role="doc-biblioref">[24]</a></span>
+      (and their LBMs <span class="citation"
+      data-cites="barreiros2025careful"><a
+      href="#ref-barreiros2025careful"
+      role="doc-biblioref">[25]</a></span>) as well as large pretrained
+      VLAs, from RT-2 <span class="citation"
+      data-cites="rt22023arxiv"><a href="#ref-rt22023arxiv"
+      role="doc-biblioref">[26]</a></span> to the more recent pi0 <span
+      class="citation" data-cites="black2024pi_0"><a
+      href="#ref-black2024pi_0" role="doc-biblioref">[27]</a></span>. In
+      contrast to model-based approaches, these fully learned methods
+      can incorporate large amounts of training data—of course, we never
+      seem to have enough of that. Fully learned approaches have
+      produced some cool demos, but they lack some of the benefits of
+      model-based approaches, like understandability and high robustness
+      within the range of the model, even with very little previous
+      data. A promising question is whether one can <em>fuse</em>
+      model-based approaches with fully learned approaches in order to
+      make each more generalizable and robust. Here, I want to examine
+      this though, specific to planning/control in manipulation.</p>
+      <p>Last time, there were two things that were clearly mentioned as
+      examples of this fusion:</p>
+      <ol type="1">
+      <li>Warm-starting MPC or trajectory optimization with a
+      learning-based approach</li>
+      <li>Guiding learned-policies with model-based priors</li>
+      </ol>
+      <p>I talk about each briefly here, as well as some other stuff
+      later:</p>
+      <p><em>Warm-starting MPC with a learned approach:</em> There has
+      been work, such as <span class="citation"
+      data-cites="klauvco2019machine"><a href="#ref-klauvco2019machine"
+      role="doc-biblioref">[28]</a></span>, which tries to learn a good
+      initialization for MPC in specifically quadratic costs. I didn’t
+      really do a deep dive into this topic.</p>
+      <p><em>Guiding learned-policies with model-based priors:</em> Last
+      time, I mentioned <span class="citation"
+      data-cites="li2024language"><a href="#ref-li2024language"
+      role="doc-biblioref">[29]</a></span>, which guides diffusion
+      policies to avoid collisions. Notably, they realize that they have
+      to do this predictive step during the extra loss in the diffusion
+      process so that they don’t penalize the super noisy trajectory too
+      much. There is also a paper for UAVs, <span class="citation"
+      data-cites="kondo2024cgd"><a href="#ref-kondo2024cgd"
+      role="doc-biblioref">[30]</a></span>, that takes a diffusion-based
+      method and hacks in a way to add novel collision avoidance. There
+      is also a new method on Arxiv called TamedPUMA <span
+      class="citation" data-cites="bakker2025tamedpuma"><a
+      href="#ref-bakker2025tamedpuma"
+      role="doc-biblioref">[31]</a></span> that does imitation learning,
+      but produces a geometric fabric <span class="citation"
+      data-cites="van2022geometric"><a href="#ref-van2022geometric"
+      role="doc-biblioref">[32]</a></span>; I don’t really understand
+      the math behind fabrics (they borrow from differentiable geometry
+      and second-order dynamical systems I think), but I believe they
+      are very composable, so you can easily add in collision avoidance
+      or other hand-crafted fabrics into the output motion policies. It
+      is also perhaps worth noting that there exists work such as <span
+      class="citation" data-cites="chandra2025diwa"><a
+      href="#ref-chandra2025diwa" role="doc-biblioref">[33]</a></span>,
+      which learns a “world-model” in order to fine-tune a diffusion
+      policy in an RL-esque approach; there seem to be a few methods
+      that use some sort of RL-related technique to fine-tune learned
+      policies from BC (<span class="citation"
+      data-cites="ren2024diffusion"><a href="#ref-ren2024diffusion"
+      role="doc-biblioref">[34]</a></span> seems to be a well-cited
+      example). There is also a more recent paper, <span
+      class="citation" data-cites="wagenmaker2025steering"><a
+      href="#ref-wagenmaker2025steering"
+      role="doc-biblioref">[35]</a></span>, which apparently steers the
+      diffusion process with RL rewards (I say “apparently” because I
+      basically only read the abstract). While RL is often seen as an
+      alternative to model-based methods, it should be noted that most
+      real implementations of RL still technically rely on a model—your
+      simulator.</p>
+      <p>My two cents here is that it seems that the only examples of
+      <em>guiding a learned policy</em> that aren’t basically running
+      some sort of RL are focused on collision avoidance—of course, it
+      is very likely there exists such work, but I just didn’t come
+      across it in my limited readings. I wonder if there are other
+      things beside collision avoidance where a model-based approach
+      could be useful (more on that later).</p>
+      <p><em>Other stuff (my latest rambling thought process):</em> I’ve
+      never actually trained a BC or imitation learning (IL) policy, but
+      it seems that such approaches usually come with limitations, often
+      suffering under <em>distributional shift</em> <span
+      class="citation" data-cites="zare2024survey ross2010efficient"><a
+      href="#ref-zare2024survey" role="doc-biblioref">[36]</a>, <a
+      href="#ref-ross2010efficient"
+      role="doc-biblioref">[37]</a></span>. I think this is a big
+      problem, and I actually wrote <a
+      href="https://thoughts.herbiewright.com/posts/robustness_and_robotics/">a
+      short essay / blog post</a> about it over the summer (like with
+      most writing, I am sure I will look back and cringe at the blog
+      post in a year or so). But I think distributional shift is going
+      to be inevitable on any policy that wants to be deployed in the
+      real, (mostly) unstructured world—even for large VLAs. I also
+      think there is potential for model-based approaches to help bake
+      in a certain level of invariance to some distributional shifts.
+      Importantly, if you could find a way to use model-base approaches
+      to help overcome distributional shift, you can make the case for
+      it by inducing your own distributional shift on purpose and show
+      robustness—thus totally sidestepping the worry of a bigger VLA
+      coming out that does the thing because you are making a more
+      specific claim about distributional shift.</p>
+      <p>Imitation learning isn’t the only method with limitations,
+      though. Model-based approaches aren’t built for when the model is
+      <em>wrong</em>—I think you mentioned models being wrong in our
+      previous meeting. Ideally, a fusion of learning and model-based
+      approaches would get the best of both worlds.</p>
+      <p><strong>Here are some ideas I had that might be terrible or
+      maybe okay:</strong></p>
+      <p><em>Idea 1:</em> Maybe there are instances where a learned BC
+      policy experiences some sort of distributional shift where it
+      might know what the goal is supposed to look like, but is too
+      biased from its training data to get there (see image below (a)
+      and (b) for possible examples). One could imagine adjusting a
+      learned policy to also produce some representation of its local
+      goal (image (c)), then use that to potentially come up with a
+      better plan when distribution shift occurs</p>
+      <p><img src="image.png" /></p>
+      <p>I am actually very not confident that this would work at all,
+      but maybe there is some version that would, in which case, I think
+      we could tell a compelling story. This proposed idea is also
+      somewhat related to <span class="citation"
+      data-cites="balim2025model"><a href="#ref-balim2025model"
+      role="doc-biblioref">[38]</a></span> perhaps.</p>
+      <p><em>Idea 2:</em> This one is less well-formed, but I wonder if
+      the following setup is ever interesting: say I have a collection
+      of inferred dynamics models, each capable of generating a motion
+      plan or trajectory that is optimal <em>assuming the specific model
+      is correct</em>. Is there any interesting problem formulation of
+      determining which model is the one you should use. I guess I am
+      thinking that maybe you have a set of wildly different models
+      (rigid-body physics simulator with inferred properties, inferred
+      FEM spring/damper deformable simulator, completely learning-based
+      model, etc.) and in some domains one will do a better job than the
+      others, but you want to be robust to all the domains. This setup
+      is similar to something known as <em>multiple model predictive
+      control</em> I think, but I have not looked into it. Could this
+      potentially be something interesting to think about?</p>
+      <h2 id="other-logistical-stuff">4 Other Logistical Stuff</h2>
+      <ol type="1">
+      <li>About a week or so ago, we (me and some co-authors) got a
+      revise and resubmit back from our RA-L paper (updated version of
+      <a href="https://herb-wright.github.io/brrp/">BRRP</a>). I have
+      been working on that recently, although it is not that much
+      overhead (most of the rebuttal points just come down to
+      explanation and writing). We have a few weeks to get that
+      resubmitted, which shouldn’t be too much of a problem. Here is the
+      new fig 1 that is pretty cool:</li>
+      </ol>
+      <figure>
+      <img src="./importance_of_geometry_v3.png"
+      alt="Updated BRRP Fig 1 showcasing precise collision avoidance" />
+      <figcaption aria-hidden="true">Updated BRRP Fig 1 showcasing
+      precise collision avoidance</figcaption>
+      </figure>
+      <ol start="2" type="1">
+      <li>I signed up for the neural scene representations class
+      Tue/Thur @3:30. The paper list seems fairly relevant to robotic
+      perception.</li>
+      </ol>
+      <h2 class="unnumbered" id="references">References</h2>
+      <div id="refs" class="references csl-bib-body"
+      data-entry-spacing="0" role="list">
+      <div id="ref-kerbl20233d" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[1] </div><div
+      class="csl-right-inline">B. Kerbl, G. Kopanas, T. Leimkühler, and
+      G. Drettakis, <span>“3D gaussian splatting for real-time radiance
+      field rendering.”</span> <em>ACM Trans. Graph.</em>, vol. 42, no.
+      4, pp. 139–1, 2023.</div>
+      </div>
+      <div id="ref-pfaff2025_scalable_real2sim" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[2] </div><div
+      class="csl-right-inline">N. Pfaff, E. Fu, J. Binagia, P. Isola,
+      and R. Tedrake, <span>“<a
+      href="https://arxiv.org/abs/2503.00370">Scalable Real2Sim:
+      Physics-aware asset generation via robotic pick-and-place
+      setups</a>,”</span> 2025.</div>
+      </div>
+      <div id="ref-dai2024acdc" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[3] </div><div
+      class="csl-right-inline">T. Dai, J. Wong, Y. Jiang, C. Wang, C.
+      Gokmen, R. Zhang, J. Wu, and L. Fei-Fei, <span>“Automated creation
+      of digital cousins for robust policy learning,”</span> in
+      <em>Conference on robot learning (CoRL)</em>, 2024.</div>
+      </div>
+      <div id="ref-li2025pin" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[4] </div><div
+      class="csl-right-inline">W. Li, H. Zhao, Z. Yu, Y. Du, Q. Zou, R.
+      Hu, and K. Xu, <span>“Pin-wm: Learning physics-informed world
+      models for non-prehensile manipulation,”</span> <em>arXiv preprint
+      arXiv:2504.16693</em>, 2025.</div>
+      </div>
+      <div id="ref-9325054" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[5] </div><div
+      class="csl-right-inline">B. Sundaralingam and T. Hermans,
+      <span>“<a href="https://doi.org/10.1109/TRO.2020.3043675">In-hand
+      object-dynamics inference using tactile fingertips</a>,”</span>
+      <em>IEEE Transactions on Robotics</em>, vol. 37, no. 4, pp.
+      1115–1126, 2021.</div>
+      </div>
+      <div id="ref-gradsim" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[6] </div><div
+      class="csl-right-inline">K. M. Jatavallabhula, M. Macklin, F.
+      Golemo, V. Voleti, L. Petrini, M. Weiss, B. Considine, J.
+      Parent-Levesque, K. Xie, K. Erleben, L. Paull, F. Shkurti, D.
+      Nowrouzezahrai, and S. Fidler, <span>“<a
+      href="https://openreview.net/forum?id=c_E8kFWfhp0">gradSim:
+      Differentiable simulation for system identification and visuomotor
+      control</a>,”</span> <em>International Conference on Learning
+      Representations (ICLR)</em>, 2021.</div>
+      </div>
+      <div id="ref-yu2025real2render2realscalingrobotdata"
+      class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[7] </div><div
+      class="csl-right-inline">J. Yu, L. Fu, H. Huang, K. El-Refai, R.
+      A. Ambrus, R. Cheng, M. Z. Irshad, and K. Goldberg, <span>“<a
+      href="https://arxiv.org/abs/2505.09601">Real2Render2Real: Scaling
+      robot data without dynamics simulation or robot
+      hardware</a>.”</span> 2025.</div>
+      </div>
+      <div id="ref-mildenhall2021nerf" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[8] </div><div
+      class="csl-right-inline">B. Mildenhall, P. P. Srinivasan, M.
+      Tancik, J. T. Barron, R. Ramamoorthi, and R. Ng, <span>“Nerf:
+      Representing scenes as neural radiance fields for view
+      synthesis,”</span> <em>Communications of the ACM</em>, vol. 65,
+      no. 1, pp. 99–106, 2021.</div>
+      </div>
+      <div id="ref-park2019deepsdf" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[9] </div><div
+      class="csl-right-inline">J. J. Park, P. Florence, J. Straub, R.
+      Newcombe, and S. Lovegrove, <span>“Deepsdf: Learning continuous
+      signed distance functions for shape representation,”</span> in
+      <em>Proceedings of the IEEE/CVF conference on computer vision and
+      pattern recognition</em>, 2019, pp. 165–174.</div>
+      </div>
+      <div id="ref-van2020learning" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[10] </div><div
+      class="csl-right-inline">M. Van der Merwe, Q. Lu, B.
+      Sundaralingam, M. Matak, and T. Hermans, <span>“Learning
+      continuous 3d reconstructions for geometrically aware
+      grasping,”</span> in <em>2020 IEEE international conference on
+      robotics and automation (ICRA)</em>, 2020, pp. 11516–11522.</div>
+      </div>
+      <div id="ref-mescheder2019occupancy" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[11] </div><div
+      class="csl-right-inline">L. Mescheder, M. Oechsle, M. Niemeyer, S.
+      Nowozin, and A. Geiger, <span>“Occupancy networks: Learning 3d
+      reconstruction in function space,”</span> in <em>Proceedings of
+      the IEEE/CVF conference on computer vision and pattern
+      recognition</em>, 2019, pp. 4460–4470.</div>
+      </div>
+      <div id="ref-wright2024robust" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[12] </div><div
+      class="csl-right-inline">H. Wright, W. Zhi, M. Johnson-Roberson,
+      and T. Hermans, <span>“Robust bayesian scene reconstruction by
+      leveraging retrieval-augmented priors,”</span> <em>arXiv preprint
+      arXiv:2411.19461</em>, 2024.</div>
+      </div>
+      <div id="ref-xiang2025structured" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[13] </div><div
+      class="csl-right-inline">J. Xiang, Z. Lv, S. Xu, Y. Deng, R. Wang,
+      B. Zhang, D. Chen, X. Tong, and J. Yang, <span>“Structured 3d
+      latents for scalable and versatile 3d generation,”</span> in
+      <em>Proceedings of the computer vision and pattern recognition
+      conference</em>, 2025, pp. 21469–21480.</div>
+      </div>
+      <div id="ref-agnew2021amodal" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[14] </div><div
+      class="csl-right-inline">W. Agnew, C. Xie, A. Walsman, O. Murad,
+      Y. Wang, P. Domingos, and S. Srinivasa, <span>“Amodal 3d
+      reconstruction for robotic manipulation via stability and
+      connectivity,”</span> in <em>Conference on robot learning</em>,
+      2021, pp. 1498–1508.</div>
+      </div>
+      <div id="ref-bianchini2025vysics" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[15] </div><div
+      class="csl-right-inline">B. Bianchini, M. Zhu, M. Sun, B. Jiang,
+      C. J. Taylor, and M. Posa, <span>“Vysics: Object reconstruction
+      under occlusion by fusing vision and contact-rich physics,”</span>
+      in <em>Robotics: Science and systems (RSS)</em>, 2025.</div>
+      </div>
+      <div id="ref-ni2024phyrecon" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[16] </div><div
+      class="csl-right-inline">J. Ni, Y. Chen, B. Jing, N. Jiang, B.
+      Wang, B. Dai, P. Li, Y. Zhu, S.-C. Zhu, and S. Huang,
+      <span>“Phyrecon: Physically plausible neural scene
+      reconstruction,”</span> <em>Advances in Neural Information
+      Processing Systems</em>, vol. 37, pp. 25747–25780, 2024.</div>
+      </div>
+      <div id="ref-song2018inferring" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[17] </div><div
+      class="csl-right-inline">C. Song and A. Boularias,
+      <span>“Inferring 3d shapes of unknown rigid objects in clutter
+      through inverse physics reasoning,”</span> <em>IEEE robotics and
+      automation letters</em>, vol. 4, no. 2, pp. 201–208, 2018.</div>
+      </div>
+      <div id="ref-zheng2013beyond" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[18] </div><div
+      class="csl-right-inline">B. Zheng, Y. Zhao, J. C. Yu, K. Ikeuchi,
+      and S.-C. Zhu, <span>“Beyond point clouds: Scene understanding by
+      reasoning geometry and physics,”</span> in <em>Proceedings of the
+      IEEE conference on computer vision and pattern recognition</em>,
+      2013, pp. 3127–3134.</div>
+      </div>
+      <div id="ref-abou-chakra2024physically" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[19] </div><div
+      class="csl-right-inline">J. Abou-Chakra, K. Rana, F. Dayoub, and
+      N. Suenderhauf, <span>“<a
+      href="https://openreview.net/forum?id=AEq0onGrN2">Physically
+      embodied gaussian splatting: A realtime correctable world model
+      for robotics</a>,”</span> in <em>8th annual conference on robot
+      learning</em>, 2024.</div>
+      </div>
+      <div id="ref-zhu2025one" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[20] </div><div
+      class="csl-right-inline">Y. Zhu, T. Xiang, A. M. Dollar, and Z.
+      Pan, <span>“One-shot real-to-sim via end-to-end differentiable
+      simulation and rendering,”</span> <em>IEEE Robotics and Automation
+      Letters</em>, 2025.</div>
+      </div>
+      <div id="ref-abou2025real" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[21] </div><div
+      class="csl-right-inline">J. Abou-Chakra, L. Sun, K. Rana, B. May,
+      K. Schmeckpeper, M. V. Minniti, and L. Herlant,
+      <span>“Real-is-sim: Bridging the sim-to-real gap with a dynamic
+      digital twin for real-world robot policy evaluation,”</span>
+      <em>arXiv preprint arXiv:2504.03597</em>, 2025.</div>
+      </div>
+      <div id="ref-jiang2025phystwin" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[22] </div><div
+      class="csl-right-inline">H. Jiang, H.-Y. Hsu, K. Zhang, H.-N. Yu,
+      S. Wang, and Y. Li, <span>“PhysTwin: Physics-informed
+      reconstruction and simulation of deformable objects from
+      videos,”</span> <em>ICCV</em>, 2025.</div>
+      </div>
+      <div id="ref-amato2025data" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[23] </div><div
+      class="csl-right-inline">N. M. Amato, S. Hutchinson, A. Garg, A.
+      Billard, D. Rus, R. Tedrake, F. Park, and K. Goldberg,
+      <span>“<span>‘Data will solve robotics and automation: True or
+      false?’</span>: A debate,”</span> <em>Science Robotics</em>, vol.
+      10, no. 105, p. eaea7897, 2025.</div>
+      </div>
+      <div id="ref-chi2023diffusion" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[24] </div><div
+      class="csl-right-inline">C. Chi, Z. Xu, S. Feng, E. Cousineau, Y.
+      Du, B. Burchfiel, R. Tedrake, and S. Song, <span>“Diffusion
+      policy: Visuomotor policy learning via action diffusion,”</span>
+      <em>The International Journal of Robotics Research</em>, p.
+      02783649241273668, 2023.</div>
+      </div>
+      <div id="ref-barreiros2025careful" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[25] </div><div
+      class="csl-right-inline">J. Barreiros, A. Beaulieu, A. Bhat, R.
+      Cory, E. Cousineau, H. Dai, C.-H. Fang, K. Hashimoto, M. Z.
+      Irshad, M. Itkina, and others, <span>“A careful examination of
+      large behavior models for multitask dexterous
+      manipulation,”</span> <em>arXiv preprint arXiv:2507.05331</em>,
+      2025.</div>
+      </div>
+      <div id="ref-rt22023arxiv" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[26] </div><div
+      class="csl-right-inline">A. Brohan, N. Brown, J. Carbajal, Y.
+      Chebotar, X. Chen, K. Choromanski, T. Ding, D. Driess, A. Dubey,
+      C. Finn, P. Florence, C. Fu, M. G. Arenas, K. Gopalakrishnan, K.
+      Han, K. Hausman, A. Herzog, J. Hsu, B. Ichter, A. Irpan, N. Joshi,
+      R. Julian, D. Kalashnikov, Y. Kuang, I. Leal, L. Lee, T.-W. E.
+      Lee, S. Levine, Y. Lu, H. Michalewski, I. Mordatch, K. Pertsch, K.
+      Rao, K. Reymann, M. Ryoo, G. Salazar, P. Sanketi, P. Sermanet, J.
+      Singh, A. Singh, R. Soricut, H. Tran, V. Vanhoucke, Q. Vuong, A.
+      Wahid, S. Welker, P. Wohlhart, J. Wu, F. Xia, T. Xiao, P. Xu, S.
+      Xu, T. Yu, and B. Zitkovich, <span>“RT-2: Vision-language-action
+      models transfer web knowledge to robotic control,”</span> in
+      <em>arXiv preprint arXiv:2307.15818</em>, 2023.</div>
+      </div>
+      <div id="ref-black2024pi_0" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[27] </div><div
+      class="csl-right-inline">K. Black, N. Brown, D. Driess, A. Esmail,
+      M. Equi, C. Finn, N. Fusai, L. Groom, K. Hausman, B. Ichter, and
+      others, <em>arXiv preprint arXiv:2410.24164</em>, 2024.</div>
+      </div>
+      <div id="ref-klauvco2019machine" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[28] </div><div
+      class="csl-right-inline">M. Klaučo, M. Kalúz, and M. Kvasnica,
+      <span>“Machine learning-based warm starting of active set methods
+      in embedded model predictive control,”</span> <em>Engineering
+      Applications of Artificial Intelligence</em>, vol. 77, pp. 1–8,
+      2019.</div>
+      </div>
+      <div id="ref-li2024language" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[29] </div><div
+      class="csl-right-inline">H. Li, Q. Feng, Z. Zheng, J. Feng, Z.
+      Chen, and A. Knoll, <span>“Language-guided object-centric
+      diffusion policy for generalizable and collision-aware robotic
+      manipulation,”</span> <em>arXiv preprint arXiv:2407.00451</em>,
+      2024.</div>
+      </div>
+      <div id="ref-kondo2024cgd" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[30] </div><div
+      class="csl-right-inline">K. Kondo, A. Tagliabue, X. Cai, C.
+      Tewari, O. Garcia, M. Espitia-Alvarez, and J. P. How, <span>“Cgd:
+      Constraint-guided diffusion policies for uav trajectory
+      planning,”</span> <em>arXiv preprint arXiv:2405.01758</em>,
+      2024.</div>
+      </div>
+      <div id="ref-bakker2025tamedpuma" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[31] </div><div
+      class="csl-right-inline">S. Bakker, R. Pérez-Dattari, C. Della
+      Santina, W. Böhmer, and J. Alonso-Mora, <span>“TamedPUMA: Safe and
+      stable imitation learning with geometric fabrics,”</span>
+      <em>arXiv preprint arXiv:2503.17432</em>, 2025.</div>
+      </div>
+      <div id="ref-van2022geometric" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[32] </div><div
+      class="csl-right-inline">K. Van Wyk, M. Xie, A. Li, M. A. Rana, B.
+      Babich, B. Peele, Q. Wan, I. Akinola, B. Sundaralingam, D. Fox,
+      and others, <span>“Geometric fabrics: Generalizing classical
+      mechanics to capture the physics of behavior,”</span> <em>IEEE
+      Robotics and Automation Letters</em>, vol. 7, no. 2, pp.
+      3202–3209, 2022.</div>
+      </div>
+      <div id="ref-chandra2025diwa" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[33] </div><div
+      class="csl-right-inline">A. L. Chandra, I. Nematollahi, C. Huang,
+      T. Welschehold, W. Burgard, and A. Valada, <span>“DiWA: Diffusion
+      policy adaptation with world models,”</span> <em>Conference on
+      Robot Learning (CoRL)</em>, 2025.</div>
+      </div>
+      <div id="ref-ren2024diffusion" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[34] </div><div
+      class="csl-right-inline">A. Z. Ren, J. Lidard, L. L. Ankile, A.
+      Simeonov, P. Agrawal, A. Majumdar, B. Burchfiel, H. Dai, and M.
+      Simchowitz, <span>“Diffusion policy policy optimization,”</span>
+      <em>arXiv preprint arXiv:2409.00588</em>, 2024.</div>
+      </div>
+      <div id="ref-wagenmaker2025steering" class="csl-entry"
+      role="listitem">
+      <div class="csl-left-margin">[35] </div><div
+      class="csl-right-inline">A. Wagenmaker, M. Nakamoto, Y. Zhang, S.
+      Park, W. Yagoub, A. Nagabandi, A. Gupta, and S. Levine,
+      <span>“Steering your diffusion policy with latent space
+      reinforcement learning,”</span> <em>arXiv preprint
+      arXiv:2506.15799</em>, 2025.</div>
+      </div>
+      <div id="ref-zare2024survey" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[36] </div><div
+      class="csl-right-inline">M. Zare, P. M. Kebria, A. Khosravi, and
+      S. Nahavandi, <span>“A survey of imitation learning: Algorithms,
+      recent developments, and challenges,”</span> <em>IEEE Transactions
+      on Cybernetics</em>, 2024.</div>
+      </div>
+      <div id="ref-ross2010efficient" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[37] </div><div
+      class="csl-right-inline">S. Ross and D. Bagnell, <span>“Efficient
+      reductions for imitation learning,”</span> in <em>Proceedings of
+      the thirteenth international conference on artificial intelligence
+      and statistics</em>, 2010, pp. 661–668.</div>
+      </div>
+      <div id="ref-balim2025model" class="csl-entry" role="listitem">
+      <div class="csl-left-margin">[38] </div><div
+      class="csl-right-inline">H. Balim, Y. Hu, Y. Zhang, and N. Li,
+      <span>“A model-based approach to imitation learning through
+      multi-step predictions,”</span> <em>arXiv preprint
+      arXiv:2504.13413</em>, 2025.</div>
+      </div>
+      </div>
+  </body>
+
+</html>
