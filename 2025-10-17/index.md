@@ -30,9 +30,27 @@ Then, I also had a figure for the proposed method:
 
 The mathematical formulation of things can be found in depth in my [original pitch](../2025-06-11_project_pitch).
 
+Obviously, we didn't get around to discussing this last meeting, but there are a few changes since the original pitch; namely the idea to use Amodal3R + bounding box randomization to get diversity, which maybe has a similar insight to [@saund2021diverse], but in 2D instead of 3D.
+
+**Question:** *How does this pitch sound? What would strengthen it?*
+
 ### 2.2 Initial Steps
 
-The first step, in my estimation, is to get Amodal3R [@wu2025amodal3r] working on my new computer. There is [a github repo](https://github.com/Sm0kyWu/Amodal3R) for it, which I have cloned, but I did not have time to actually get around to resolving all the dependency things to try it out.
+The first step, in my estimation, is to get Amodal3R [@wu2025amodal3r] working on my new computer. There is [a github repo](https://github.com/Sm0kyWu/Amodal3R) for it, which I have cloned, but I did not have time to actually get around to resolving all the dependency things to try it out. I had a sort of roadmap set out last time, and here were the first few of the items:
+
+> 1. Getting Amodal3R+registration running (Minghan probably already has this, but I will want it working for me)
+>     1. Create a few example images
+>     2. Get Amodal3R running on new GPU
+>     3. Get registration working
+>     4. Get Amodal3R working with randomized bounding boxes
+> 2. Training a Bayesian ensemble implicit neural model with Amodal3R and depth supervision
+>     1. Negative sampling
+>     2. Bayesian ensemble
+> ...
+
+**Question:** *How do we feel about just going for it on this project?*
+
+There are probably going to be problems that pop up along the way, but I would like to preemptively aim for maybe like IROS next year deadline
 
 ## 3 Brainstorming a MEAM 5170 Project
 

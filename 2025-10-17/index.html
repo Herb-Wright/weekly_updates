@@ -521,6 +521,8 @@
         MEAM 5170 Project</a></li>
         <li><a href="#openai-api-keys" id="toc-openai-api-keys">4 OpenAI
         API Keys</a></li>
+        <li><a href="#other-news" id="toc-other-news">5 Other
+        News</a></li>
         <li><a href="#references"
         id="toc-references">References</a></li>
         </ul>
@@ -586,6 +588,14 @@
     </figure>
     <p>The mathematical formulation of things can be found in depth in
     my <a href="../2025-06-11_project_pitch">original pitch</a>.</p>
+    <p>Obviously, we didn’t get around to discussing this last meeting,
+    but there are a few changes since the original pitch; namely the
+    idea to use Amodal3R + bounding box randomization to get diversity,
+    which maybe has a similar insight to <span class="citation"
+    data-cites="saund2021diverse"><a href="#ref-saund2021diverse"
+    role="doc-biblioref">[5]</a></span>, but in 2D instead of 3D.</p>
+    <p><strong>Question:</strong> <em>How does this pitch sound? What
+    would strengthen it?</em></p>
     <h3 id="initial-steps">2.2 Initial Steps</h3>
     <p>The first step, in my estimation, is to get Amodal3R <span
     class="citation" data-cites="wu2025amodal3r"><a
@@ -593,7 +603,32 @@
     working on my new computer. There is <a
     href="https://github.com/Sm0kyWu/Amodal3R">a github repo</a> for it,
     which I have cloned, but I did not have time to actually get around
-    to resolving all the dependency things to try it out.</p>
+    to resolving all the dependency things to try it out. I had a sort
+    of roadmap set out last time, and here were the first few of the
+    items:</p>
+    <blockquote>
+    <ol type="1">
+    <li>Getting Amodal3R+registration running (Minghan probably already
+    has this, but I will want it working for me)
+    <ol type="1">
+    <li>Create a few example images</li>
+    <li>Get Amodal3R running on new GPU</li>
+    <li>Get registration working</li>
+    <li>Get Amodal3R working with randomized bounding boxes</li>
+    </ol></li>
+    <li>Training a Bayesian ensemble implicit neural model with Amodal3R
+    and depth supervision
+    <ol type="1">
+    <li>Negative sampling</li>
+    <li>Bayesian ensemble …</li>
+    </ol></li>
+    </ol>
+    </blockquote>
+    <p><strong>Question:</strong> <em>How do we feel about just going
+    for it on this project?</em></p>
+    <p>There are probably going to be problems that pop up along the
+    way, but I would like to preemptively aim for maybe like IROS next
+    year deadline</p>
     <h2 id="brainstorming-a-meam-5170-project">3 Brainstorming a MEAM
     5170 Project</h2>
     <h2 id="openai-api-keys">4 OpenAI API Keys</h2>
@@ -653,6 +688,10 @@
     <figcaption aria-hidden="true">OpenAI dashboard for billing
     info</figcaption>
     </figure>
+    <h2 id="other-news">5 Other News</h2>
+    <ul>
+    <li></li>
+    </ul>
     <h2 class="unnumbered" id="references">References</h2>
     <div id="refs" class="references csl-bib-body" role="list">
     <div id="ref-wen2023bundlesdf" class="csl-entry" role="listitem">
@@ -686,6 +725,12 @@
     tabletop scenes,”</span> in <em>2024 IEEE/RSJ international
     conference on intelligent robots and systems (IROS)</em>, 2024, pp.
     1078–1085.</div>
+    </div>
+    <div id="ref-saund2021diverse" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">B. Saund and D. Berenson, <span>“Diverse
+    plausible shape completions from ambiguous depth images,”</span> in
+    <em>Conference on robot learning</em>, 2021, pp. 1802–1813.</div>
     </div>
     </div>
   </body>
