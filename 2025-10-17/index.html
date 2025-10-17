@@ -521,8 +521,6 @@
         MEAM 5170 Project</a></li>
         <li><a href="#openai-api-keys" id="toc-openai-api-keys">4 OpenAI
         API Keys</a></li>
-        <li><a href="#other-news" id="toc-other-news">5 Other
-        News</a></li>
         <li><a href="#references"
         id="toc-references">References</a></li>
         </ul>
@@ -631,6 +629,43 @@
     year deadline</p>
     <h2 id="brainstorming-a-meam-5170-project">3 Brainstorming a MEAM
     5170 Project</h2>
+    <p>I think I might want to do something related to robust control
+    for my MEAM 5170 final project. I am curious what you think. I can
+    think of a few different directions to do, all of which are related
+    to the particle-based stuff discussed previously:</p>
+    <ul>
+    <li>Do some sort of particle-based robust pushing by first having
+    something like TRELLIS <span class="citation"
+    data-cites="xiang2025structured"><a href="#ref-xiang2025structured"
+    role="doc-biblioref">[6]</a></span> create multiple reconstructions
+    and picking random guesses for center of mass and frictional and
+    inertial properties, then doing the particle-based contact implicit
+    control. I would have to use a very small number of particles, and
+    it might be pretty slow.
+    <ul>
+    <li>This could be made more complicated by doing further sysID
+    during the execution of the push.</li>
+    </ul></li>
+    <li>Do the particle-based contact implicit control, but do some sort
+    of consensus (related to <span class="citation"
+    data-cites="aydinoglu2024consensus"><a
+    href="#ref-aydinoglu2024consensus"
+    role="doc-biblioref">[7]</a></span>) with the QPs as well in order
+    to be more efficient. I could also consider doing some sort of
+    feedback thing.</li>
+    </ul>
+    <p>The second bullet (and this whole section in general) is very
+    related to the ESE talk this past week.</p>
+    <p>Here is the formulation that I had a couple weeks ago for the
+    particle-based robust MPC, but with the complimentarity constraint:
+    <span class="math display"> \min_{u, \{x_i\}, \{\lambda\}}
+    \frac{1}{m} \sum_{i=1}^m \left[\sum_{k=0}^{n-1}
+    \left({x_k^{(i)}}^\top Q_k x_k^{(i)} + u_k^\top R_k u_k\right) +
+    {x_n^{(i)}}^\top Q_n x_n^{(i)}\right] </span> <span
+    class="math display"> \text{s.t. } \; 0 \leq \lambda_k^{(i)} \perp
+    g(x_k^{(i)}) \geq 0</span> <span class="math display"> \;\;\;\;\;\;
+    \text{and some linear constraints}  </span></p>
+    <!-- [@drnach2021robust] -->
     <h2 id="openai-api-keys">4 OpenAI API Keys</h2>
     <p>This section just has some info from when I briefly looked into
     OpenAI API keys. Here are some of the popular OpenAI models and
@@ -688,10 +723,6 @@
     <figcaption aria-hidden="true">OpenAI dashboard for billing
     info</figcaption>
     </figure>
-    <h2 id="other-news">5 Other News</h2>
-    <ul>
-    <li></li>
-    </ul>
     <h2 class="unnumbered" id="references">References</h2>
     <div id="refs" class="references csl-bib-body" role="list">
     <div id="ref-wen2023bundlesdf" class="csl-entry" role="listitem">
@@ -731,6 +762,21 @@
     class="csl-right-inline">B. Saund and D. Berenson, <span>“Diverse
     plausible shape completions from ambiguous depth images,”</span> in
     <em>Conference on robot learning</em>, 2021, pp. 1802–1813.</div>
+    </div>
+    <div id="ref-xiang2025structured" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">J. Xiang, Z. Lv, S. Xu, Y. Deng, R. Wang,
+    B. Zhang, D. Chen, X. Tong, and J. Yang, <span>“Structured 3d
+    latents for scalable and versatile 3d generation,”</span> in
+    <em>Proceedings of the computer vision and pattern recognition
+    conference</em>, 2025, pp. 21469–21480.</div>
+    </div>
+    <div id="ref-aydinoglu2024consensus" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[7] </div><div
+    class="csl-right-inline">A. Aydinoglu, A. Wei, W.-C. Huang, and M.
+    Posa, <span>“Consensus complementarity control for multi-contact
+    mpc,”</span> <em>IEEE Transactions on Robotics</em>, 2024.</div>
     </div>
     </div>
   </body>

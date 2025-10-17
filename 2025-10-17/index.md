@@ -54,7 +54,22 @@ There are probably going to be problems that pop up along the way, but I would l
 
 ## 3 Brainstorming a MEAM 5170 Project
 
+I think I might want to do something related to robust control for my MEAM 5170 final project. I am curious what you think. I can think of a few different directions to do, all of which are related to the particle-based stuff discussed previously:
 
+- Do some sort of particle-based robust pushing by first having something like TRELLIS [@xiang2025structured] create multiple reconstructions and picking random guesses for center of mass and frictional and inertial properties, then doing the particle-based contact implicit control. I would have to use a very small number of particles, and it might be pretty slow.
+  - This could be made more complicated by doing further sysID during the execution of the push.
+- Do the particle-based contact implicit control, but do some sort of consensus (related to [@aydinoglu2024consensus]) with the QPs as well in order to be more efficient. I could also consider doing some sort of feedback thing.
+
+The second bullet (and this whole section in general) is very related to the ESE talk this past week. 
+
+Here is the formulation that I had a couple weeks ago for the particle-based robust MPC, but with the complimentarity constraint:
+$$ \min_{u, \{x_i\}, \{\lambda\}} \frac{1}{m} \sum_{i=1}^m \left[\sum_{k=0}^{n-1} \left({x_k^{(i)}}^\top Q_k x_k^{(i)} + u_k^\top R_k u_k\right) + {x_n^{(i)}}^\top Q_n x_n^{(i)}\right] $$
+$$ \text{s.t. } \; 0 \leq \lambda_k^{(i)} \perp g(x_k^{(i)}) \geq 0$$
+$$ \;\;\;\;\;\; \text{and some linear constraints}  $$
+
+
+
+<!-- [@drnach2021robust] -->
 
 ## 4 OpenAI API Keys
 
@@ -84,9 +99,7 @@ But you can easily add payment methods and set usage limits in their dashboard:
 
 ![OpenAI dashboard for billing info](image-2.png)
 
-## 5 Other News
 
-- 
 
 ## References
 
