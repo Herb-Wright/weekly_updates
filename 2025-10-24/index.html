@@ -522,6 +522,8 @@
         <li><a href="#thinking-about-meam-5170-final-project"
         id="toc-thinking-about-meam-5170-final-project">4 Thinking about
         MEAM 5170 Final Project</a></li>
+        <li><a href="#other-stuff" id="toc-other-stuff">5 Other
+        Stuff</a></li>
         <li><a href="#references"
         id="toc-references">References</a></li>
         </ul>
@@ -539,8 +541,9 @@
     </ol>
     <p>In this write-up I start trying to make the method happen, and
     have preliminary “reconstructions” with Amodal3R, then I revisit the
-    project pitch and clarify the potential experiments, finally, I have
-    a word on what could potentially be my MEAM 5170 final project.</p>
+    project pitch and clarify the potential experiments, after that, I
+    have a word on what could potentially be my MEAM 5170 final project,
+    before some other random notes.</p>
     <h2 id="getting-amodal3r-running">2 Getting Amodal3R Running</h2>
     <p>In this section, I detail getting Amodal3R <span class="citation"
     data-cites="wu2025amodal3r"><a href="#ref-wu2025amodal3r"
@@ -558,10 +561,110 @@
     <p>It actually ended up being quite a process because my cuda
     version (13.0) was not supported by many of the dependencies, so I
     had to throw the project into a docker container with a lower cuda
-    version (12.8), and mess with versions to make things work out.</p>
+    version (12.8), and mess with versions to make things work out. I
+    also took an image with one of the depth cameras, and ran it through
+    a segmentation pipeline (described below), and finally fed it to
+    Amodal3R. Here are the results from that:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="Results of Amodal3R on image of my desk." />
+    <figcaption aria-hidden="true">Results of Amodal3R on image of my
+    desk.</figcaption>
+    </figure>
+    <p>There are also GIFs produced by Amodal3R:</p>
+    <p><img src="./sample_multi_water_bottle1.gif"
+    style="width:32.0%" /> <img src="./sample_multi_tumbler1.gif"
+    style="width:32.0%" /> <img src="./sample_multi_tape1.gif"
+    style="width:32.0%" /></p>
+    <p>My segmentation pipeline is basically Grounded SAM, but with
+    newer models. I take MM-Grounding-DINO <span class="citation"
+    data-cites="zhao2024open"><a href="#ref-zhao2024open"
+    role="doc-biblioref">[2]</a></span> and feed the outputs into SAM2
+    <span class="citation" data-cites="ravi2024sam"><a
+    href="#ref-ravi2024sam" role="doc-biblioref">[3]</a></span>. I use
+    the prompt, “object that can be picked up with one hand”. The whole
+    segmentation process takes &lt;1s complete. The scene I gave it was
+    not a particularly difficult one, but I found the performance to be
+    pretty good.</p>
+    <p>In total I have the following working:</p>
+    <ul>
+    <li>Amodal3R inference demo in docker container</li>
+    <li>A pipeline similar to Grounded SAM <span class="citation"
+    data-cites="ren2024grounded"><a href="#ref-ren2024grounded"
+    role="doc-biblioref">[4]</a></span>, but with newer models, crappily
+    coded in a big python file</li>
+    <li>My computer setup so that I can get a lab depth camera to run in
+    ROS</li>
+    </ul>
+    <p>The next step is to put everything together (right now, they all
+    just use various file systems and don’t talk) and have a way to (1)
+    take in an image; (2) Run segmentation/processing; (3) Query
+    Amodal3R for reconstructions. I think I want to use ROS to make all
+    of these work, because Amodal3R is in a docker container for me
+    currently due to CUDA version conflicts. I also need to get
+    registration setup. I am thinking FoundationPose <span
+    class="citation" data-cites="wen2024foundationpose"><a
+    href="#ref-wen2024foundationpose"
+    role="doc-biblioref">[5]</a></span> could do that, but perhaps even
+    simpler would be RANSAC with FPFH, which is what I have done
+    previously <span class="citation" data-cites="wright2024robust"><a
+    href="#ref-wright2024robust" role="doc-biblioref">[6]</a></span>; it
+    is slow but works well enough. The other thing to do is start
+    randomizing the bounding boxes.</p>
     <h2 id="the-project-pitch-revisited">3 The Project Pitch
     Revisited</h2>
     <h3 id="overview">3.1 Overview</h3>
+    <ul>
+    <li><strong>Potential Title:</strong> <em>Diverse and Physically
+    Stable Bayesian World Models for Manipulation</em></li>
+    <li><strong>Motivation:</strong> Understanding the dynamics of a
+    scene is crucial for many robotic manipulation tasks and algorithms.
+    In the real world, given a new scene, we cannot assume a complete
+    understanding of the dynamics, and must infer them from incomplete
+    observation. In many robotics tasks, a dynamics model can be formed
+    by reconstructing the geometry of all relevant objects and inferring
+    their physical properties. Most work that does this tends to be
+    deterministic, which fails to capture the distributional nature of
+    reconstructions under occlusion, or does not reason about the
+    physical behavior of the reconstructions when simulated. This
+    project proposes bridging the gap, and creating physically stable,
+    diverse multi-object reconstructions that can be used as a world
+    model.</li>
+    <li><strong>Method:</strong> We can optimize for object shape by
+    using a Bayesian ensemble (maybe <span class="citation"
+    data-cites="d2021stein"><a href="#ref-d2021stein"
+    role="doc-biblioref">[7]</a></span>) of BundleSDF-like <span
+    class="citation" data-cites="wen2023bundlesdf"><a
+    href="#ref-wen2023bundlesdf" role="doc-biblioref">[8]</a></span>
+    models, and defining a loss function with three parts: (i) alignment
+    with a data-driven prior via Amodal3R <span class="citation"
+    data-cites="wu2025amodal3r"><a href="#ref-wu2025amodal3r"
+    role="doc-biblioref">[1]</a></span>; (ii) alignment with the
+    observed depth image; (iii) a stability loss inspired by ContactNets
+    <span class="citation" data-cites="pfrommer2021contactnets"><a
+    href="#ref-pfrommer2021contactnets"
+    role="doc-biblioref">[9]</a></span>. We can then estimate physics
+    parameters (friction, mass, etc) in a more heuristic way. Here is a
+    figure I made previously detailing the method:</li>
+    </ul>
+    <figure>
+    <img src="./image-1.png" alt="Overview of proposed project" />
+    <figcaption aria-hidden="true">Overview of proposed
+    project</figcaption>
+    </figure>
+    <p>The experiments were a big topic in the previous meeting, and
+    have their own dedicated subsection. There are still some specifics
+    regarding the method that deserve being outlined. For one, I was
+    thinking we could do bounding box randomization + Amodal3R for
+    diverse generations. This seemed to be slightly controversial in the
+    last meeting, as it likely doesn’t give the <em>true</em>
+    distribution of shapes that you want. One could also imagine
+    training a new model from scratch to really care about diversity,
+    but that might constitute its own project. There are also other
+    details regarding the stability loss that are answered in my <a
+    href="../2025-06-11_project_pitch/">previous pitch</a> of this
+    project. I think that dealing with disjoint objects might be a
+    problem as well.</p>
     <h3 id="potential-experiments">3.2 Potential Experiments</h3>
     <p>We spent a lot of time last meeting discussing potential
     experiments for the proposed project. There seemed to be this
@@ -572,16 +675,73 @@
     <ul>
     <li>Motivate needing <em>diverse</em> reconstructions</li>
     <li>Motivate the <em>physically stable</em> part</li>
-    <li>Robotic experiments that showcase something <em>useful</em></li>
+    <li>Robotic experiments that showcase something <em>useful</em> and
+    <em>“real”</em>.</li>
     </ul>
     <p>This section is meant to detail a few potential <em>robotic</em>
     experiments that have been discussed previously.</p>
-    <p><strong>Tub of Dishes:</strong></p>
-    <p><strong>Mug Hanging:</strong></p>
-    <p><strong>Simple Pushing I:</strong></p>
-    <p><strong>Simple Pushing II:</strong></p>
+    <p><strong>Tub of Dishes:</strong> <em>(diversity, physical
+    accuracty, real)</em></p>
+    <p><strong>Mug Hanging:</strong> <em>(diversity, real)</em> Mug
+    hanging is not new, Simeonov et al <span class="citation"
+    data-cites="simeonov2023shelving"><a
+    href="#ref-simeonov2023shelving"
+    role="doc-biblioref">[10]</a></span> is a 2023 paper that does it in
+    sim.</p>
+    <p><strong>Simple Pushing I:</strong> <em>(physical
+    accuracy)</em></p>
+    <p><strong>Simple Pushing II:</strong> <em>(diversity, physical
+    accuracy)</em></p>
     <h2 id="thinking-about-meam-5170-final-project">4 Thinking about
     MEAM 5170 Final Project</h2>
+    <p><em>Robust Control?</em></p>
+    <p>Ideas:</p>
+    <ul>
+    <li>Diverse 3D reconstruction → particle-based stochastic MPC</li>
+    <li>Consensus for particle-based stochastic MPC with complimentarity
+    contraints</li>
+    <li>Connection between expectation steering and gradient smoothing?
+    ← This could be interesting—how does difference in center of mass or
+    friction change this?</li>
+    </ul>
+    <h2 id="other-stuff">5 Other Stuff</h2>
+    <h3 id="a-note-on-the-vlm-idea">5.1 A Note on the VLM Idea</h3>
+    <p>AHA <span class="citation" data-cites="duan2024aha"><a
+    href="#ref-duan2024aha" role="doc-biblioref">[11]</a></span> is
+    another VLM for failure detection &amp; reasoning paper in robotics.
+    AHA is a new VLM they introduce, tailor-made for robotics. One of
+    the downstream robotics things they do in the experiments is to plug
+    it into PRoC3S <span class="citation"
+    data-cites="pmlr-v270-curtis25a"><a href="#ref-pmlr-v270-curtis25a"
+    role="doc-biblioref">[12]</a></span>, and use it to evaluate TAMP
+    plans that have been rolled out in a simulator as well as to evalute
+    natural language goal satisfaction. Here it is in their own words
+    (talking about incorporating AHA into PRoC3S):</p>
+    <blockquote>
+    <p>We incorporated a VLM into this pipeline in two ways: (1) we
+    prompt the VLM with visualizations of failed plan executions within
+    the simulator, ask it to return an explanation for the failure, and
+    feed this back to PRoC3S’ LLM during the LMP feedback stage, (2)
+    after PRoC3S returns a valid plan, we provide a visualization of
+    this to the VLM and ask it to return whether this plan truly
+    achieves the natural language goal, with replanning triggered if
+    not</p>
+    </blockquote>
+    <p>This seems to be pretty similar to our proposed idea, but perhaps
+    using a controller instead of a TAMP planner adds some novelty. They
+    (AHA) also only evaluate this functionality in simulation, which I
+    think significantly separates it from our idea. The actual PRoC3S
+    paper doesn’t actually do any of this, and is using an LLM to help
+    define CCSPs.</p>
+    <p>Basically the takeaway is that I believe the novelty from the VLM
+    idea we have discussed probably comes from the
+    <strong>sysID</strong> and <strong>low-level controller</strong>
+    parts, rather than the VLM stuff.</p>
+    <p><strong>Note:</strong> <em>I am leading (or already led) the
+    reading group on the 24th, where I chose FOREWARN <span
+    class="citation" data-cites="wu2025foresight"><a
+    href="#ref-wu2025foresight" role="doc-biblioref">[13]</a></span> as
+    the paper, which we discussed a bit a couple meetings ago.</em></p>
     <h2 class="unnumbered" id="references">References</h2>
     <div id="refs" class="references csl-bib-body" role="list">
     <div id="ref-wu2025amodal3r" class="csl-entry" role="listitem">
@@ -589,6 +749,96 @@
     class="csl-right-inline">T. Wu, C. Zheng, F. Guan, A. Vedaldi, and
     T.-J. Cham, <span>“Amodal3r: Amodal 3d reconstruction from occluded
     2d images,”</span> <em>ICCV</em>, 2025.</div>
+    </div>
+    <div id="ref-zhao2024open" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">X. Zhao, Y. Chen, S. Xu, X. Li, X. Wang, Y.
+    Li, and H. Huang, <span>“An open and comprehensive pipeline for
+    unified object grounding and detection,”</span> <em>arXiv preprint
+    arXiv:2401.02361</em>, 2024.</div>
+    </div>
+    <div id="ref-ravi2024sam" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">N. Ravi, V. Gabeur, Y.-T. Hu, R. Hu, C.
+    Ryali, T. Ma, H. Khedr, R. Rädle, C. Rolland, L. Gustafson, and
+    others, <span>“Sam 2: Segment anything in images and videos,”</span>
+    <em>arXiv preprint arXiv:2408.00714</em>, 2024.</div>
+    </div>
+    <div id="ref-ren2024grounded" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">T. Ren, S. Liu, A. Zeng, J. Lin, K. Li, H.
+    Cao, J. Chen, X. Huang, Y. Chen, F. Yan, and others, <span>“Grounded
+    sam: Assembling open-world models for diverse visual tasks,”</span>
+    <em>arXiv preprint arXiv:2401.14159</em>, 2024.</div>
+    </div>
+    <div id="ref-wen2024foundationpose" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">B. Wen, W. Yang, J. Kautz, and S.
+    Birchfield, <span>“Foundationpose: Unified 6d pose estimation and
+    tracking of novel objects,”</span> in <em>Proceedings of the
+    IEEE/CVF conference on computer vision and pattern recognition</em>,
+    2024, pp. 17868–17879.</div>
+    </div>
+    <div id="ref-wright2024robust" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">H. Wright, W. Zhi, M. Johnson-Roberson, and
+    T. Hermans, <span>“Robust bayesian scene reconstruction by
+    leveraging retrieval-augmented priors,”</span> <em>arXiv preprint
+    arXiv:2411.19461</em>, 2024.</div>
+    </div>
+    <div id="ref-d2021stein" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[7] </div><div
+    class="csl-right-inline">F. D’Angelo, V. Fortuin, and F. Wenzel,
+    <span>“On stein variational neural network ensembles,”</span>
+    <em>arXiv preprint arXiv:2106.10760</em>, 2021.</div>
+    </div>
+    <div id="ref-wen2023bundlesdf" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[8] </div><div
+    class="csl-right-inline">B. Wen, J. Tremblay, V. Blukis, S. Tyree,
+    T. Müller, A. Evans, D. Fox, J. Kautz, and S. Birchfield,
+    <span>“Bundlesdf: Neural 6-dof tracking and 3d reconstruction of
+    unknown objects,”</span> in <em>Proceedings of the IEEE/CVF
+    conference on computer vision and pattern recognition</em>, 2023,
+    pp. 606–617.</div>
+    </div>
+    <div id="ref-pfrommer2021contactnets" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[9] </div><div
+    class="csl-right-inline">S. Pfrommer, M. Halm, and M. Posa,
+    <span>“Contactnets: Learning discontinuous contact dynamics with
+    smooth, implicit representations,”</span> in <em>Conference on robot
+    learning</em>, 2021, pp. 2279–2291.</div>
+    </div>
+    <div id="ref-simeonov2023shelving" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[10] </div><div
+    class="csl-right-inline">A. Simeonov, A. Goyal, L. Manuelli, Y.-C.
+    Lin, A. Sarmiento, A. R. Garcia, P. Agrawal, and D. Fox,
+    <span>“Shelving, stacking, hanging: Relational pose diffusion for
+    multi-modal rearrangement,”</span> in <em>Conference on robot
+    learning</em>, 2023, pp. 2030–2069.</div>
+    </div>
+    <div id="ref-duan2024aha" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[11] </div><div
+    class="csl-right-inline">J. Duan, W. Pumacay, N. Kumar, Y. R. Wang,
+    S. Tian, W. Yuan, R. Krishna, D. Fox, A. Mandlekar, and Y. Guo,
+    <span>“Aha: A vision-language-model for detecting and reasoning over
+    failures in robotic manipulation,”</span> <em>ICLR</em>, 2025.</div>
+    </div>
+    <div id="ref-pmlr-v270-curtis25a" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[12] </div><div
+    class="csl-right-inline">A. Curtis, N. Kumar, J. Cao, T.
+    Lozano-Pérez, and L. P. Kaelbling, <span>“Trust the PRoC3S: Solving
+    long-horizon robotics problems with LLMs and constraint
+    satisfaction,”</span> in <em>Proceedings of the 8th conference on
+    robot learning</em>, 2025, vol. 270, pp. 1362–1383.</div>
+    </div>
+    <div id="ref-wu2025foresight" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[13] </div><div
+    class="csl-right-inline">Y. Wu, R. Tian, G. Swamy, and A. Bajcsy,
+    <span>“From foresight to forethought: Vlm-in-the-loop policy
+    steering via latent alignment,”</span> <em>RSS</em>, 2025.</div>
     </div>
     </div>
   </body>
