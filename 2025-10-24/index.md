@@ -30,7 +30,9 @@ There are also GIFs produced by Amodal3R:
 ![](./sample_multi_tumbler1.gif){width=32%}
 ![](./sample_multi_tape1.gif){width=32%}
 
-My segmentation pipeline is basically Grounded SAM, but with newer models. I take MM-Grounding-DINO [@zhao2024open] and feed the outputs into SAM2 [@ravi2024sam]. I use the prompt, "object that can be picked up with one hand". The whole segmentation process takes <1s complete. The scene I gave it was not a particularly difficult one, but I found the performance to be pretty good.
+I think Amodal3R is decent at producing meshes, but it is certainly not perfect, as it totally failed with my tumbler. However, I think that it can be *good enough* for the purposes of this project—it also motivates still including the observed points as supervision during the optimization-based reconstruction in my proposed full method pipeline (see picture in next subsection).
+
+**Segmentation pipeline:** My segmentation pipeline is basically Grounded SAM, but with newer models. I take MM-Grounding-DINO [@zhao2024open] and feed the outputs into SAM2 [@ravi2024sam]. I use the prompt, "object that can be picked up with one hand". The whole segmentation process takes <1s complete. The scene I gave it was not a particularly difficult one, but I found the performance to be pretty good.
 
 In total I have the following working:
 
@@ -60,27 +62,35 @@ We spent a lot of time last meeting discussing potential experiments for the pro
 - Motivate the *physically stable* part
 - Robotic experiments that showcase something *useful* and *"real"*.
 
-This section is meant to detail a few potential *robotic* experiments that have been discussed previously.
+This section is meant to detail a few potential *robotic* experiments that have been discussed previously, as well as some thoughts on some other ones.
 
-**Tub of Dishes:** *(diversity, physical accuracty, real)*
+**Tub of Dishes:** *(diversity, physical accuracy, real)* We discussed trying to determine if you could pull out an object from a tub of dishes. I think in this setup, our method will always be *more conservative* than approaches that are (a) deterministic or (b) don't reason about physics. I don't exactly know if that is a useful thing to show—I'm sure you could make an argument about safety. Perhaps we could actually try to plan a pull that works, and show that robustly planning pulling out an occluded spatula/spoon is successful more often (doesn't knock things over). This would, of course, be open-loop, which may make the argument weaker. Here is an image I made of a potential setup:
 
-**Mug Hanging:** *(diversity, real)* Mug hanging is not new, Simeonov et al [@simeonov2023shelving] is a 2023 paper that does it in sim.
+![Image of occluded potential spatula or spoon/ladle](image-3.png)
 
-**Simple Pushing I:** *(physical accuracy)*
+**Mug Hanging:** *(diversity, real)* Mug hanging is not new, Simeonov et al [@simeonov2023shelving] is a 2023 paper that does it in sim. Diversity could be useful with mug-hanging; you could have a mug, where you cannot determine where the handle is, and plan a robust trajectory to hang the mug that takes into account the variation. A deterministic reconstruction would likely fail in this situation.
 
-**Simple Pushing II:** *(diversity, physical accuracy)*
+**Simple Pushing I:** *(physical accuracy)* I originally proposed a pushing experiment meant to verify that we can predict shape accurately. The setup was basically to plan a push of object 1 into object 2 in order to get object 2 to it's desired location.
 
+**Simple Pushing II:** *(diversity, physical accuracy)* Another pushing experiment I posed was a simple, contrived setup, where there is a big box in front occluding two boxes in such a way that it is uncertain where one box stops and the other one starts. Then you would have a predefined push and show that you can capture a distribution that "covers" the possible effects of the push. I made this image previously:
+
+![My original pushing experiment for diversity](image-4.png)
+
+**Other Ideas:**
+
+- Grasping occluded regions of objects
+- Pushing occluded objects in the occluded areas
+- Planning pushes that result in the widest difference of outcomes in order to gather information
 
 
 ## 4 Thinking about MEAM 5170 Final Project
 
-*Robust Control?*
+I think I want to do a final project related to robust/stochastic control. I think there are two ways I could go:
 
-Ideas:
+1. Try to use off-the-shelf models or learn something to predict uncertainty over a parameter like friction, center of mass, shape, etc. Then do the simple sampling-based LCP formulation I have had in the past
+2. Do some sort of optimization tricks to make things work, such as consensus, etc.
 
-- Diverse 3D reconstruction → particle-based stochastic MPC
-- Consensus for particle-based stochastic MPC with complimentarity contraints
-- Connection between expectation steering and gradient smoothing? ← This could be interesting—how does difference in center of mass or friction change this?
+I could also do some sort of feedback thing similar to [@shirai2023covariance].
 
 ## 5 Other Stuff
 

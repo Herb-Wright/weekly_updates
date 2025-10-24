@@ -576,8 +576,16 @@
     style="width:32.0%" /> <img src="./sample_multi_tumbler1.gif"
     style="width:32.0%" /> <img src="./sample_multi_tape1.gif"
     style="width:32.0%" /></p>
-    <p>My segmentation pipeline is basically Grounded SAM, but with
-    newer models. I take MM-Grounding-DINO <span class="citation"
+    <p>I think Amodal3R is decent at producing meshes, but it is
+    certainly not perfect, as it totally failed with my tumbler.
+    However, I think that it can be <em>good enough</em> for the
+    purposes of this project—it also motivates still including the
+    observed points as supervision during the optimization-based
+    reconstruction in my proposed full method pipeline (see picture in
+    next subsection).</p>
+    <p><strong>Segmentation pipeline:</strong> My segmentation pipeline
+    is basically Grounded SAM, but with newer models. I take
+    MM-Grounding-DINO <span class="citation"
     data-cites="zhao2024open"><a href="#ref-zhao2024open"
     role="doc-biblioref">[2]</a></span> and feed the outputs into SAM2
     <span class="citation" data-cites="ravi2024sam"><a
@@ -679,41 +687,87 @@
     <em>“real”</em>.</li>
     </ul>
     <p>This section is meant to detail a few potential <em>robotic</em>
-    experiments that have been discussed previously.</p>
+    experiments that have been discussed previously, as well as some
+    thoughts on some other ones.</p>
     <p><strong>Tub of Dishes:</strong> <em>(diversity, physical
-    accuracty, real)</em></p>
+    accuracy, real)</em> We discussed trying to determine if you could
+    pull out an object from a tub of dishes. I think in this setup, our
+    method will always be <em>more conservative</em> than approaches
+    that are (a) deterministic or (b) don’t reason about physics. I
+    don’t exactly know if that is a useful thing to show—I’m sure you
+    could make an argument about safety. Perhaps we could actually try
+    to plan a pull that works, and show that robustly planning pulling
+    out an occluded spatula/spoon is successful more often (doesn’t
+    knock things over). This would, of course, be open-loop, which may
+    make the argument weaker. Here is an image I made of a potential
+    setup:</p>
+    <figure>
+    <img src="image-3.png"
+    alt="Image of occluded potential spatula or spoon/ladle" />
+    <figcaption aria-hidden="true">Image of occluded potential spatula
+    or spoon/ladle</figcaption>
+    </figure>
     <p><strong>Mug Hanging:</strong> <em>(diversity, real)</em> Mug
     hanging is not new, Simeonov et al <span class="citation"
     data-cites="simeonov2023shelving"><a
     href="#ref-simeonov2023shelving"
     role="doc-biblioref">[10]</a></span> is a 2023 paper that does it in
-    sim.</p>
-    <p><strong>Simple Pushing I:</strong> <em>(physical
-    accuracy)</em></p>
+    sim. Diversity could be useful with mug-hanging; you could have a
+    mug, where you cannot determine where the handle is, and plan a
+    robust trajectory to hang the mug that takes into account the
+    variation. A deterministic reconstruction would likely fail in this
+    situation.</p>
+    <p><strong>Simple Pushing I:</strong> <em>(physical accuracy)</em> I
+    originally proposed a pushing experiment meant to verify that we can
+    predict shape accurately. The setup was basically to plan a push of
+    object 1 into object 2 in order to get object 2 to it’s desired
+    location.</p>
     <p><strong>Simple Pushing II:</strong> <em>(diversity, physical
-    accuracy)</em></p>
+    accuracy)</em> Another pushing experiment I posed was a simple,
+    contrived setup, where there is a big box in front occluding two
+    boxes in such a way that it is uncertain where one box stops and the
+    other one starts. Then you would have a predefined push and show
+    that you can capture a distribution that “covers” the possible
+    effects of the push. I made this image previously:</p>
+    <figure>
+    <img src="image-4.png"
+    alt="My original pushing experiment for diversity" />
+    <figcaption aria-hidden="true">My original pushing experiment for
+    diversity</figcaption>
+    </figure>
+    <p><strong>Other Ideas:</strong></p>
+    <ul>
+    <li>Grasping occluded regions of objects</li>
+    <li>Pushing occluded objects in the occluded areas</li>
+    <li>Planning pushes that result in the widest difference of outcomes
+    in order to gather information</li>
+    </ul>
     <h2 id="thinking-about-meam-5170-final-project">4 Thinking about
     MEAM 5170 Final Project</h2>
-    <p><em>Robust Control?</em></p>
-    <p>Ideas:</p>
-    <ul>
-    <li>Diverse 3D reconstruction → particle-based stochastic MPC</li>
-    <li>Consensus for particle-based stochastic MPC with complimentarity
-    contraints</li>
-    <li>Connection between expectation steering and gradient smoothing?
-    ← This could be interesting—how does difference in center of mass or
-    friction change this?</li>
-    </ul>
+    <p>I think I want to do a final project related to robust/stochastic
+    control. I think there are two ways I could go:</p>
+    <ol type="1">
+    <li>Try to use off-the-shelf models or learn something to predict
+    uncertainty over a parameter like friction, center of mass, shape,
+    etc. Then do the simple sampling-based LCP formulation I have had in
+    the past</li>
+    <li>Do some sort of optimization tricks to make things work, such as
+    consensus, etc.</li>
+    </ol>
+    <p>I could also do some sort of feedback thing similar to <span
+    class="citation" data-cites="shirai2023covariance"><a
+    href="#ref-shirai2023covariance"
+    role="doc-biblioref">[11]</a></span>.</p>
     <h2 id="other-stuff">5 Other Stuff</h2>
     <h3 id="a-note-on-the-vlm-idea">5.1 A Note on the VLM Idea</h3>
     <p>AHA <span class="citation" data-cites="duan2024aha"><a
-    href="#ref-duan2024aha" role="doc-biblioref">[11]</a></span> is
+    href="#ref-duan2024aha" role="doc-biblioref">[12]</a></span> is
     another VLM for failure detection &amp; reasoning paper in robotics.
     AHA is a new VLM they introduce, tailor-made for robotics. One of
     the downstream robotics things they do in the experiments is to plug
     it into PRoC3S <span class="citation"
     data-cites="pmlr-v270-curtis25a"><a href="#ref-pmlr-v270-curtis25a"
-    role="doc-biblioref">[12]</a></span>, and use it to evaluate TAMP
+    role="doc-biblioref">[13]</a></span>, and use it to evaluate TAMP
     plans that have been rolled out in a simulator as well as to evalute
     natural language goal satisfaction. Here it is in their own words
     (talking about incorporating AHA into PRoC3S):</p>
@@ -740,10 +794,11 @@
     <p><strong>Note:</strong> <em>I am leading (or already led) the
     reading group on the 24th, where I chose FOREWARN <span
     class="citation" data-cites="wu2025foresight"><a
-    href="#ref-wu2025foresight" role="doc-biblioref">[13]</a></span> as
+    href="#ref-wu2025foresight" role="doc-biblioref">[14]</a></span> as
     the paper, which we discussed a bit a couple meetings ago.</em></p>
     <h2 class="unnumbered" id="references">References</h2>
-    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="refs" class="references csl-bib-body"
+    data-entry-spacing="0" role="list">
     <div id="ref-wu2025amodal3r" class="csl-entry" role="listitem">
     <div class="csl-left-margin">[1] </div><div
     class="csl-right-inline">T. Wu, C. Zheng, F. Guan, A. Vedaldi, and
@@ -819,15 +874,23 @@
     multi-modal rearrangement,”</span> in <em>Conference on robot
     learning</em>, 2023, pp. 2030–2069.</div>
     </div>
-    <div id="ref-duan2024aha" class="csl-entry" role="listitem">
+    <div id="ref-shirai2023covariance" class="csl-entry"
+    role="listitem">
     <div class="csl-left-margin">[11] </div><div
+    class="csl-right-inline">Y. Shirai, D. K. Jha, and A. U.
+    Raghunathan, <span>“Covariance steering for uncertain contact-rich
+    systems,”</span> in <em>2023 IEEE international conference on
+    robotics and automation (ICRA)</em>, 2023, pp. 7923–7929.</div>
+    </div>
+    <div id="ref-duan2024aha" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[12] </div><div
     class="csl-right-inline">J. Duan, W. Pumacay, N. Kumar, Y. R. Wang,
     S. Tian, W. Yuan, R. Krishna, D. Fox, A. Mandlekar, and Y. Guo,
     <span>“Aha: A vision-language-model for detecting and reasoning over
     failures in robotic manipulation,”</span> <em>ICLR</em>, 2025.</div>
     </div>
     <div id="ref-pmlr-v270-curtis25a" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[12] </div><div
+    <div class="csl-left-margin">[13] </div><div
     class="csl-right-inline">A. Curtis, N. Kumar, J. Cao, T.
     Lozano-Pérez, and L. P. Kaelbling, <span>“Trust the PRoC3S: Solving
     long-horizon robotics problems with LLMs and constraint
@@ -835,7 +898,7 @@
     robot learning</em>, 2025, vol. 270, pp. 1362–1383.</div>
     </div>
     <div id="ref-wu2025foresight" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[13] </div><div
+    <div class="csl-left-margin">[14] </div><div
     class="csl-right-inline">Y. Wu, R. Tian, G. Swamy, and A. Bajcsy,
     <span>“From foresight to forethought: Vlm-in-the-loop policy
     steering via latent alignment,”</span> <em>RSS</em>, 2025.</div>
