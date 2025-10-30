@@ -40,8 +40,11 @@ It should also be noted that in the above image, the dry erase fluid was not det
 
 ### 2.3 Next Steps: Registration!
 
-Obviously, the next step is to do registration.
-<!-- REGISTRATION!!! -->
+Obviously, the next step is to do registration. We talked about how registration is not exactly "solved", but I think we can have something work okay-enough for our purposes. PushAnything, and other projects in the lab, have used FoundationPose. I have used RANSAC with FPFH before in my most recent paper (which I submitted the camera-ready version of this week). Here is an figure I made for a write-up during my undergrad with that registration:
+
+![](image-3.png)
+
+It's not perfect, but *maybe* good enough. What makes this particular registration problem hard is that the objects are only partially visible, the point cloud and segmentation is potentially noisy, the registration is global
 
 ## 3 Discussing my MEAM 5170 Final Project
 
