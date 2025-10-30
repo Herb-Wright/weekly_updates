@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Update</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Update</h1>
+                <p class="date">2025 Oct 31</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1 Last Time</a></li>
+        <li><a href="#amodal3r-pipeline" id="toc-amodal3r-pipeline">2
+        Amodal3R Pipeline</a></li>
+        <li><a href="#discussing-my-meam-5170-final-project"
+        id="toc-discussing-my-meam-5170-final-project">3 Discussing my
+        MEAM 5170 Final Project</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1 Last Time</h2>
+    <p>Last time, we talked a bit about the Amodal3R and the progress on
+    my first project, among other things. As far as the project goes, I
+    got Amodal3R to run locally, and setup a segmentation pipeline. I
+    also asked about what my final project should be in MEAM 5170. The
+    things on my todo list this week were:</p>
+    <ol type="1">
+    <li>Put the different pieces together to have an image →
+    segmentation → Amodal3R pipeline</li>
+    <li>Try to register the different meshes to the point cloud from a
+    depth camera</li>
+    </ol>
+    <p>In this write-up I do both of those things as well as talk a bit
+    about my project pitch I gave in MEAM 5170. Happy Halloween 🎃.</p>
+    <h2 id="amodal3r-pipeline">2 Amodal3R Pipeline</h2>
+    <h3 id="putting-the-pieces-together">2.1 Putting the Pieces
+    Together</h3>
+    <p>I have been trying to put things together better. I now have a
+    file that in one shot reads an image from the ros topic for the
+    camera, segments it, then runs it through Amodal3R <span
+    class="citation" data-cites="wu2025amodal3r"><a
+    href="#ref-wu2025amodal3r" role="doc-biblioref">[1]</a></span>,
+    <em>with each object in parallel</em>. Here is a new example scene
+    that I did, highlighting that it can sometimes fail to detect weird
+    objects:</p>
+    <figure>
+    <img src="image.png"
+    alt="New example scene with incorrect segmentation" />
+    <figcaption aria-hidden="true">New example scene with incorrect
+    segmentation</figcaption>
+    </figure>
+    <p>I detail the segmentation process in the previous writeup. This
+    scene, when ran through Amodal3R produces the following
+    reconstructions:</p>
+    <figure>
+    <img src="./reconstructions.gif"
+    alt="Example Amodal3R generated meshes on scene" />
+    <figcaption aria-hidden="true">Example Amodal3R generated meshes on
+    scene</figcaption>
+    </figure>
+    <h3 id="failure-examples">2.2 Failure Examples</h3>
+    <p>It should be noted that it is possible for Amodal3R to mess up on
+    the objects. Take for example, this reconstruction of the water
+    bottle, where occlusion and other factors caused Amodal3R to mess
+    up:</p>
+    <figure>
+    <img src="./bad_recon.gif"
+    alt="Example of mesh failure with water bottle" />
+    <figcaption aria-hidden="true">Example of mesh failure with water
+    bottle</figcaption>
+    </figure>
+    <p>You can also get segmentation failures that result in degredation
+    in reconstruction quality. Here is an example where failing to
+    correctly segment the weird camera mount causes problems for the
+    reconstruction of objects:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="Segmentation failure leads to degredation in reconstruction quality" />
+    <figcaption aria-hidden="true">Segmentation failure leads to
+    degredation in reconstruction quality</figcaption>
+    </figure>
+    <p>It should also be noted that in the above image, the dry erase
+    fluid was not detected at all. Also, Amodal3R took about
+    <strong>14.8 seconds</strong> to generate the meshes for the above
+    scene.</p>
+    <h3 id="registration-time">2.3 Registration Time!</h3>
+    <p>For this section, I just wanted to do simple, unoptimized
+    registration just to get it working. <!-- REGISTRATION!!! --></p>
+    <h2 id="discussing-my-meam-5170-final-project">3 Discussing my MEAM
+    5170 Final Project</h2>
+    <p>I pitched my project this last week, here is the slide I had for
+    it:</p>
+    <figure>
+    <img src="image-1.png" alt="Slide for pitching my final project" />
+    <figcaption aria-hidden="true">Slide for pitching my final
+    project</figcaption>
+    </figure>
+    <p>I wanted to maybe discuss a few things surrounding it. I wanted
+    to see if I could express the whole pipeline a bit more
+    mathematically to develop a better understanding of it. Basically,
+    my starting point here is that we can define a cost for a policy,
+    <span class="math inline">\pi: \mathcal X \rightarrow \mathcal
+    U</span>, (local to a starting state) with an MPC cost: <span
+    class="math display"> C(\pi; x_0) = x_F^\top Q_F x_F \sum_t x_t^\top
+    Q_t x_t + \pi(x_t)^\top R_t \pi(x_t) </span> Please note that I am
+    changing notation from my slide. Where we also enforce that <span
+    class="math inline">x_{t+1} = f(x_t, \pi (x_t))</span> holds for
+    each <span class="math inline">t</span>. We can parameterize our
+    dynamics by our model parameters, <span
+    class="math inline">\xi</span> (friction, shape, mass, etc.): <span
+    class="math display">x_{t+1} = f(x_t, \pi (x_t); \xi)</span> In our
+    case, we assume some uncertainty about these parameters, yielding a
+    stochastic policy optimization problem: <span class="math display">
+    \pi^\star = \text{arg}\min_\pi \mathbb E_{p(\xi|o)} \left[C(\pi;
+    x_0, \xi)\right] </span> Where <span class="math inline">C</span> is
+    now also parameterized by <span class="math inline">\xi</span>, and
+    <span class="math inline">p(\xi | o)</span> is our belief about the
+    model parameters <span class="math inline">\xi</span> given our
+    previous observations <span class="math inline">o</span>.</p>
+    <p><strong>Question:</strong> <em>Would the above policy
+    optimization problem be considered robust control or stochastic
+    control?</em></p>
+    <p>In order to solve the above equation, we are going to do a few
+    tricks. The first thing is to realize that our <span
+    class="math inline">p(\zeta | o)</span> will be changing frequently
+    as we observe more and update our belief, thus, we really only want
+    to solve the policy locally, because we will resolve it again soon
+    anyways. This is why our cost is only relative to <span
+    class="math inline">x_0</span>. In pursuit of this, we can also
+    solve for locally linear policies during our horizon: <span
+    class="math display"> \pi(x_t) \approx \pi(\bar x_t) + \nabla_{\bar
+    x_t} \pi(\bar x_t) (x_t - \bar x_t) = v_t + K_t x_t </span> where we
+    can optimize for our parameters <span class="math inline">v_t^*,
+    K_t^*</span>. We can also linearize and encode dynamics/contact as
+    constraints, yielding an LCP.</p>
+    <!-- He asked if there are any examples of when it is necessary to have uncertainty -->
+    <!-- Could this potentially be a paper? Workshop? What experiments would make it convincing? Can we analyze and understand what the method is doing? -->
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-wu2025amodal3r" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">T. Wu, C. Zheng, F. Guan, A. Vedaldi, and
+    T.-J. Cham, <span>“Amodal3r: Amodal 3d reconstruction from occluded
+    2d images,”</span> <em>ICCV</em>, 2025.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
