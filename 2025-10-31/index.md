@@ -64,7 +64,7 @@ Where $C$ is now also parameterized by $\xi$, and $p(\xi | o)$ is our belief abo
 
 In order to solve the above equation, we are going to do a few tricks. The first thing is to realize that our $p(\zeta | o)$ will be changing frequently as we observe more and update our belief, thus, we really only want to solve the policy locally, because we will resolve it again soon anyways. This is why our cost is only relative to $x_0$. In pursuit of this, we can also solve for locally linear policies during our horizon:
 $$ \pi(x_t) \approx \pi(\bar x_t) + \nabla_{\bar x_t} \pi(\bar x_t) (x_t - \bar x_t) = v_t + K_t x_t $$
-where we can optimize for our parameters $v_t^*, K_t^*$. We can also linearize and encode dynamics/contact as constraints, yielding an LCP.
+where we can optimize for our parameters $v_t^*, K_t^*$. We can also linearize and encode dynamics/contact as constraints, yielding an LCP. Anyways, that was all pretty standard, but I am just trying to mathemetize/justify what is going on.
 
 <!-- He asked if there are any examples of when it is necessary to have uncertainty -->
 
