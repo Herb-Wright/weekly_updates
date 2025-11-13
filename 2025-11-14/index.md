@@ -7,10 +7,15 @@ link-citations: true
 
 ## 1 Last Time
 
-Last time, our meeting was in the middle of the week, so there wasn't too much to talk about. I had some initial registration results that were *okay*, but this week I wanted to try out some things to see if I could do better.
+Last time, our meeting was in the middle of the week, so there wasn't too much to talk about. I had some initial registration results that were *okay*, but this week I wanted to try out some things to see if I could do better. What I actually have this week is basically a bunch of bugs.
 
 ## 2 More Registration Results
 
+I have gotten foundation pose to work and it seems to be slightly off. Here is an image I made of what is going on:
+
+![Foundation pose for water bottle seems to be off. Also notice in the second one that the bottle is flipped.](image-1.png)
+
+The other thing that might be necessary is a way to select between the different  poses.
 
 
 ## 3 The Bigger Picture
