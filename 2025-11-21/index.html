@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Update</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Update</h1>
+                <p class="date">2025 Nov 121</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1 Last Time</a></li>
+        <li><a href="#registration-update"
+        id="toc-registration-update">2 Registration Update</a></li>
+        <li><a href="#admm-for-robust-contact-implicit-control"
+        id="toc-admm-for-robust-contact-implicit-control">3 ADMM for
+        Robust Contact-Implicit Control</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1 Last Time</h2>
+    <p>Last time, we talked about a few things, but mostly about how to
+    solve the sample-based CI-MPC problem more efficiently.</p>
+    <h2 id="registration-update">2 Registration Update</h2>
+    <h2 id="admm-for-robust-contact-implicit-control">3 ADMM for Robust
+    Contact-Implicit Control</h2>
+    <p>Previously, ADMM <span class="citation"
+    data-cites="boyd2011distributed"><a href="#ref-boyd2011distributed"
+    role="doc-biblioref">[1]</a></span> has been applied for
+    contact-implicit control in C3 <span class="citation"
+    data-cites="aydinoglu2024consensus"><a
+    href="#ref-aydinoglu2024consensus"
+    role="doc-biblioref">[2]</a></span>. In this section, I go over a
+    formulation for applying ADMM in the sampling-based robust control
+    setting.</p>
+    <h3 id="no-feedback">3.1 No Feedback</h3>
+    <p>Consider the robust control problem over uncertain model
+    parameters <span class="math inline">\xi</span>: <span
+    class="math display"> \text{arg}\min_u \mathbb E_{\xi} \left[
+    C_\xi(u_{[T]}) \right], </span> where <span
+    class="math inline">C_\xi(u_{[T]}) = \sum_t C_t (x_t, u_t;
+    \xi)</span>, with each <span class="math inline">C_t</span> being
+    convex and quadratic in <span class="math inline">x_t, u_t</span>,
+    and <span class="math inline">x_t</span> is determined by rolling
+    forward dynamics from <span class="math inline">x_0</span> with
+    control inputs <span class="math inline">u_t</span> and simulator
+    parameters <span class="math inline">\xi</span>. We are specifically
+    concerned with the case where this is a probabilistic version of the
+    contact-implicit control problem formulated as follows: <span
+    class="math display"> \text{arg}\min_{u, x, \lambda} \;\; \sum_t
+    x_t^\top Q x_t + u_t^\top R u_t </span> <span class="math display">
+    \text{s.t. }\;\; x_{t+1} = A x_t + B u_t + D \lambda_t + d </span>
+    <span class="math display">  0 \leq \lambda_t \perp E x_t + F
+    \lambda_t + G u_t + c \geq 0 </span> We want to consider the problem
+    where we approximate this control problem with a set of samples over
+    unknown parameters <span class="math inline">\xi</span>, giving us
+    the following: <span class="math display"> \text{arg}\min_{u,
+    x^{(i)}, \lambda^{(i)}} \;\; \sum_{i, t} {x_t^{(i)}}^\top Q
+    x_t^{(i)} + {u_t}^\top R u_t </span> <span class="math display">
+    \text{s.t. }\;\; x_{t+1}^{(i)} = A^{(i)} x_t^{(i)} + B u_t + D^{(i)}
+    \lambda_t^{(i)} + d^{(i)} </span> <span class="math display"> 0 \leq
+    \lambda_t^{(i)} \perp E^{(i)} x_t^{(i)} + F^{(i)} \lambda_t^{(i)} +
+    G^{(i)} u_t + c \geq 0. </span> This optimization problem is
+    potentially prohibitively expensive. We can speed it up by using
+    ADMM on an alternate formulation: <span class="math display">
+    \text{arg}\min_{v, u^{(i)}, x^{(i)}, \lambda^{(i)}} \;\; \sum_{i, t}
+    {x_t^{(i)}}^\top Q x_t^{(i)} + {u_t^{(i)}}^\top R u_t^{(i)} </span>
+    <span class="math display"> \text{s.t. }\;\; x_{t+1}^{(i)} = A^{(i)}
+    x_t^{(i)} + B u_t^{(i)} + D^{(i)} \lambda_t^{(i)} + d^{(i)} </span>
+    <span class="math display"> 0 \leq \lambda_t^{(i)} \perp E^{(i)}
+    x_t^{(i)} + F^{(i)} \lambda_t^{(i)} + G^{(i)} u_t^{(i)} + c \geq 0.
+    </span> <span class="math display"> v = u^{(i)}, </span> where we
+    have introduced new decision variables and corresponding
+    constraints. However, this means each sample is pretty much
+    decoupled from each other except for that last constraint. We can
+    also consider the augmented Lagrangian of the above problem, where
+    we do the same trick as C3 of lifting all other constraints into the
+    objective (with <span class="math inline">z = [u, x, \lambda]</span>
+    (each sample)): <span class="math display"> \mathcal L_\rho (z, v,
+    w) = c(z) + \mathcal I_\mathcal{D}(z) + \mathcal I_\mathcal{H}(z) +
+    \sum_i \left[{w^{(i)}}^\top (u^{(i)} - v)  + \rho \|u^{(i)} - v\|^2
+    \right] </span> It should be noted that only the last term (the
+    squared term) depends on <span class="math inline">v</span>. Thus,
+    we can consider doing a ADMM algorithm like so:</p>
+    <p><strong>Repeat:</strong> (Initialize <span class="math inline">v,
+    w</span>)</p>
+    <ol type="1">
+    <li><span class="math inline">z = \text{arg}\min_z \mathcal L_\rho
+    (z, v, w)</span> <em>// for the first run, ignore the <span
+    class="math inline">v</span> terms in objective</em></li>
+    <li><span class="math inline">v = \text{arg}\min_v \mathcal L_\rho
+    (z, v, w)</span></li>
+    <li><span class="math inline">w^{(i)}_{k+1} = w^{(i)}_k + \rho
+    (u^{(i)} - v)</span></li>
+    </ol>
+    <p><strong>End</strong></p>
+    <p>It should be noted that 1. above is simply an augmented version
+    of the original contact-implicit problem, solved per sample, and
+    that 2. is simply a very easy least-squares problem. We can use
+    batched C3 for 1. and quickly solve 2. analytically, which has the
+    following form: <span class="math display"> \text{arg}\min_v
+    \mathcal L_\rho (z, v, w) = \text{arg}\min_v \sum_i {w^{(i)}}^\top
+    (u^{(i)} - v)  + \rho\|u^{(i)} - v\|^2 </span> <span
+    class="math display"> = \frac{1}{n} \sum_i u_i + \frac{1}{2 \rho
+    n}\sum_i w_i </span></p>
+    <h3 id="with-feedback">3.2 With Feedback</h3>
+    <!-- The next step is to say that our $u_t$ *can* be different for each $\xi^{(i)}$ sample, but only through a feedback term on $x_t$: -->
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-boyd2011distributed" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">S. Boyd, N. Parikh, E. Chu, B. Peleato, J.
+    Eckstein, and others, <span>“Distributed optimization and
+    statistical learning via the alternating direction method of
+    multipliers,”</span> <em>Foundations and Trends<span></span> in
+    Machine learning</em>, vol. 3, no. 1, pp. 1–122, 2011.</div>
+    </div>
+    <div id="ref-aydinoglu2024consensus" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">A. Aydinoglu, A. Wei, W.-C. Huang, and M.
+    Posa, <span>“Consensus complementarity control for multi-contact
+    mpc,”</span> <em>IEEE Transactions on Robotics</em>, 2024.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
