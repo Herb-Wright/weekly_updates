@@ -54,6 +54,7 @@ $$ = \frac{1}{n} \sum_i u_i + \frac{1}{n}\sum_i w_i $$
 
 ### 3.2 With Feedback Gains and C3+
 
+That's all well and good, but what we really want is to incorporate our robust control ideas into C3+ [@bui2025push] and add in some *feedback* control for our actions. We consider the following optimization problem:
 
 
 
