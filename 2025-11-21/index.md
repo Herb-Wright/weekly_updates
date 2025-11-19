@@ -33,24 +33,30 @@ $$ \text{s.t. }\;\; x_{t+1}^{(i)} = A^{(i)} x_t^{(i)} + B u_t^{(i)} + D^{(i)} \l
 $$ 0 \leq \lambda_t^{(i)} \perp E^{(i)} x_t^{(i)} + F^{(i)} \lambda_t^{(i)} + G^{(i)} u_t^{(i)} + c \geq 0. $$
 $$ v = u^{(i)}, $$
 where we have introduced new decision variables and corresponding constraints. However, this means each sample is pretty much decoupled from each other except for that last constraint. We can also consider the augmented Lagrangian of the above problem, where we do the same trick as C3 of lifting all other constraints into the objective (with $z = [u, x, \lambda]$ (each sample)):
-$$ \mathcal L_\rho (z, v, w) = c(z) + \mathcal I_\mathcal{D}(z) + \mathcal I_\mathcal{H}(z) + \sum_i \left[{w^{(i)}}^\top (u^{(i)} - v)  + \rho \|u^{(i)} - v\|^2 \right] $$
+$$ \mathcal L_\rho (z, v, y) = c(z) + \mathcal I_\mathcal{D}(z) + \mathcal I_\mathcal{H}(z) + \sum_i \left[{y^{(i)}}^\top (u^{(i)} - v)  + \rho \|u^{(i)} - v\|^2 \right] $$
+or if we want the scaled version of the augmented Lagrangian:
+$$ \mathcal L_\rho (z, v, y) = c(z) + \mathcal I_\mathcal{D}(z) + \mathcal I_\mathcal{H}(z) + \sum_i \rho \left[\|w^{(i)} + u^{(i)} - v \|^2  - \|w^{(i)}\|^2 \right] $$
 It should be noted that only the last term (the squared term) depends on $v$. Thus, we can consider doing a ADMM algorithm like so:
 
 **Repeat:** (Initialize $v, w$)
 
 1. $z = \text{arg}\min_z \mathcal L_\rho (z, v, w)$  *// for the first run, ignore the $v$ terms in objective*
 2. $v = \text{arg}\min_v \mathcal L_\rho (z, v, w)$
-3. $w^{(i)}_{k+1} = w^{(i)}_k + \rho (u^{(i)} - v)$
+3. $w^{(i)}_{k+1} = w^{(i)}_k + u^{(i)} - v$
 
 **End**
 
 It should be noted that 1. above is simply an augmented version of the original contact-implicit problem, solved per sample, and that 2. is simply a very easy least-squares problem. We can use batched C3 for 1. and quickly solve 2. analytically, which has the following form:
-$$ \text{arg}\min_v \mathcal L_\rho (z, v, w) = \text{arg}\min_v \sum_i {w^{(i)}}^\top (u^{(i)} - v)  + \rho\|u^{(i)} - v\|^2 $$
-$$ = \frac{1}{n} \sum_i u_i + \frac{1}{2 \rho n}\sum_i w_i $$
+$$ \text{arg}\min_v \mathcal L_\rho (z, v, w) = \text{arg}\min_v \sum_i \|w^{(i)} + u^{(i)} - v \|^2  $$
+$$ = \frac{1}{n} \sum_i u_i + \frac{1}{n}\sum_i w_i $$
 
 
 
-### 3.2 With Feedback
+### 3.2 With Feedback Gains and C3+
+
+
+
+
 <!-- The next step is to say that our $u_t$ *can* be different for each $\xi^{(i)}$ sample, but only through a feedback term on $x_t$: -->
 
 ## References

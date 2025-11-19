@@ -581,8 +581,12 @@
     we do the same trick as C3 of lifting all other constraints into the
     objective (with <span class="math inline">z = [u, x, \lambda]</span>
     (each sample)): <span class="math display"> \mathcal L_\rho (z, v,
-    w) = c(z) + \mathcal I_\mathcal{D}(z) + \mathcal I_\mathcal{H}(z) +
-    \sum_i \left[{w^{(i)}}^\top (u^{(i)} - v)  + \rho \|u^{(i)} - v\|^2
+    y) = c(z) + \mathcal I_\mathcal{D}(z) + \mathcal I_\mathcal{H}(z) +
+    \sum_i \left[{y^{(i)}}^\top (u^{(i)} - v)  + \rho \|u^{(i)} - v\|^2
+    \right] </span> or if we want the scaled version of the augmented
+    Lagrangian: <span class="math display"> \mathcal L_\rho (z, v, y) =
+    c(z) + \mathcal I_\mathcal{D}(z) + \mathcal I_\mathcal{H}(z) +
+    \sum_i \rho \left[\|w^{(i)} + u^{(i)} - v \|^2  - \|w^{(i)}\|^2
     \right] </span> It should be noted that only the last term (the
     squared term) depends on <span class="math inline">v</span>. Thus,
     we can consider doing a ADMM algorithm like so:</p>
@@ -594,8 +598,8 @@
     class="math inline">v</span> terms in objective</em></li>
     <li><span class="math inline">v = \text{arg}\min_v \mathcal L_\rho
     (z, v, w)</span></li>
-    <li><span class="math inline">w^{(i)}_{k+1} = w^{(i)}_k + \rho
-    (u^{(i)} - v)</span></li>
+    <li><span class="math inline">w^{(i)}_{k+1} = w^{(i)}_k + u^{(i)} -
+    v</span></li>
     </ol>
     <p><strong>End</strong></p>
     <p>It should be noted that 1. above is simply an augmented version
@@ -603,10 +607,9 @@
     that 2. is simply a very easy least-squares problem. We can use
     batched C3 for 1. and quickly solve 2. analytically, which has the
     following form: <span class="math display"> \text{arg}\min_v
-    \mathcal L_\rho (z, v, w) = \text{arg}\min_v \sum_i {w^{(i)}}^\top
-    (u^{(i)} - v)  + \rho\|u^{(i)} - v\|^2 </span> <span
-    class="math display"> = \frac{1}{n} \sum_i u_i + \frac{1}{2 \rho
-    n}\sum_i w_i </span></p>
+    \mathcal L_\rho (z, v, w) = \text{arg}\min_v \sum_i \|w^{(i)} +
+    u^{(i)} - v \|^2  </span> <span class="math display"> = \frac{1}{n}
+    \sum_i u_i + \frac{1}{n}\sum_i w_i </span></p>
     <h3 id="with-feedback">3.2 With Feedback</h3>
     <!-- The next step is to say that our $u_t$ *can* be different for each $\xi^{(i)}$ sample, but only through a feedback term on $x_t$: -->
     <h2 class="unnumbered" id="references">References</h2>
