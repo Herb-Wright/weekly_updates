@@ -518,38 +518,64 @@
         <li><a href="#admm-for-robust-contact-implicit-control"
         id="toc-admm-for-robust-contact-implicit-control">3 ADMM for
         Robust Contact-Implicit Control</a></li>
+        <li><a href="#class-project-woes" id="toc-class-project-woes">4
+        Class Project Woes</a></li>
         <li><a href="#references"
         id="toc-references">References</a></li>
+        <li><a href="#appendix" id="toc-appendix">Appendix</a></li>
         </ul>
   </nav>
     <h2 id="last-time">1 Last Time</h2>
     <p>Last time, we talked about a few things, but mostly about how to
-    solve the sample-based CI-MPC problem more efficiently.</p>
+    solve the sample-based CI-MPC problem more efficiently. The thing in
+    this write-up that I am most excited for is the follow-up on this
+    discussion, the culmination of which is in <a
+    href="#with-feedback-gains-and-c3">section 3.2</a></p>
     <h2 id="registration-update">2 Registration Update</h2>
+    <p>Because parallelizing FoundationPose <span class="citation"
+    data-cites="wen2024foundationpose"><a
+    href="#ref-wen2024foundationpose"
+    role="doc-biblioref">[1]</a></span> might get pretty expensive, I
+    figured I would try using Teaser++ <span class="citation"
+    data-cites="yang2020teaser"><a href="#ref-yang2020teaser"
+    role="doc-biblioref">[2]</a></span>, but it didn’t do as well as I
+    hoped. Here are a couple example registrations of a water
+    bottle:</p>
+    <figure>
+    <img src="image-1.png" alt="Teaser++ doesn’t do great." />
+    <figcaption aria-hidden="true">Teaser++ doesn’t do
+    great.</figcaption>
+    </figure>
+    <p>Basically, I think maybe going the FoundationPose route might be
+    the best for now.</p>
+    <p><em>Currently, I am kind of putting this project on the
+    back-burner, as my class project feels more pressing.</em></p>
     <h2 id="admm-for-robust-contact-implicit-control">3 ADMM for Robust
     Contact-Implicit Control</h2>
     <p>Previously, ADMM <span class="citation"
     data-cites="boyd2011distributed"><a href="#ref-boyd2011distributed"
-    role="doc-biblioref">[1]</a></span> has been applied for
+    role="doc-biblioref">[3]</a></span> has been applied for
     contact-implicit control in C3 <span class="citation"
     data-cites="aydinoglu2024consensus"><a
     href="#ref-aydinoglu2024consensus"
-    role="doc-biblioref">[2]</a></span>. In this section, I go over a
+    role="doc-biblioref">[4]</a></span>. In this section, I go over a
     formulation for applying ADMM in the sampling-based robust control
     setting.</p>
     <h3 id="no-feedback">3.1 No Feedback</h3>
-    <p>Consider the robust control problem over uncertain model
-    parameters <span class="math inline">\xi</span>: <span
-    class="math display"> \text{arg}\min_u \mathbb E_{\xi} \left[
-    C_\xi(u_{[T]}) \right], </span> where <span
-    class="math inline">C_\xi(u_{[T]}) = \sum_t C_t (x_t, u_t;
-    \xi)</span>, with each <span class="math inline">C_t</span> being
-    convex and quadratic in <span class="math inline">x_t, u_t</span>,
-    and <span class="math inline">x_t</span> is determined by rolling
-    forward dynamics from <span class="math inline">x_0</span> with
-    control inputs <span class="math inline">u_t</span> and simulator
-    parameters <span class="math inline">\xi</span>. We are specifically
-    concerned with the case where this is a probabilistic version of the
+    <p>This section contains a simple formulation of ADMM consensus for
+    sharing control input across samples. Consider the robust control
+    problem over uncertain model parameters <span
+    class="math inline">\xi</span>: <span class="math display">
+    \text{arg}\min_u \mathbb E_{\xi} \left[ C_\xi(u_{[T]}) \right],
+    </span> where <span class="math inline">C_\xi(u_{[T]}) = \sum_t C_t
+    (x_t, u_t; \xi)</span>, with each <span
+    class="math inline">C_t</span> being convex and quadratic in <span
+    class="math inline">x_t, u_t</span>, and <span
+    class="math inline">x_t</span> is determined by rolling forward
+    dynamics from <span class="math inline">x_0</span> with control
+    inputs <span class="math inline">u_t</span> and simulator parameters
+    <span class="math inline">\xi</span>. We are specifically concerned
+    with the case where this is a probabilistic version of the
     contact-implicit control problem formulated as follows: <span
     class="math display"> \text{arg}\min_{u, x, \lambda} \;\; \sum_t
     x_t^\top Q x_t + u_t^\top R u_t </span> <span class="math display">
@@ -615,14 +641,193 @@
     <p>That’s all well and good, but what we really want is to
     incorporate our robust control ideas into C3+ <span class="citation"
     data-cites="bui2025push"><a href="#ref-bui2025push"
-    role="doc-biblioref">[3]</a></span> and add in some
+    role="doc-biblioref">[5]</a></span> and add in some
     <em>feedback</em> control for our actions. We consider the following
-    optimization problem:</p>
-    <!-- The next step is to say that our $u_t$ *can* be different for each $\xi^{(i)}$ sample, but only through a feedback term on $x_t$: -->
-    <h2 class="unnumbered" id="references">References</h2>
+    optimization problem, where we include feedback terms:</p>
+    <p><strong>Original Optimization Problem:</strong> We are going to
+    assume <span class="math inline">c(x, u)</span> is the quadratic
+    objective above, averaged over samples. <span class="math display">
+    \min_{x, u, \lambda, K, v}  c(x, u) + \alpha \|K\|^2 </span> <span
+    class="math display"> \text{s.t. }\;\; x_{t+1}^{(i)} = A^{(i)}
+    x_t^{(i)} + B u_t + D^{(i)} \lambda_t^{(i)} + d^{(i)} </span> <span
+    class="math display"> 0 \leq \lambda_t^{(i)} \perp E^{(i)} x_t^{(i)}
+    + F^{(i)} \lambda_t^{(i)} + G^{(i)} u_t + c \geq 0. </span> <span
+    class="math display"> u_k^{(i)} = K_k x_k^{(i)} + v_k </span> Note
+    that we have added a regularization/penalty on the gain <span
+    class="math inline">K</span>. In C3+, from <span class="citation"
+    data-cites="bui2025push"><a href="#ref-bui2025push"
+    role="doc-biblioref">[5]</a></span>, a new variable, <span
+    class="math inline">\eta</span>, is introduced. Using the same
+    trick, we have the optimization problem: <span class="math display">
+    \min_{x, u, \lambda, K, v, \eta}  c(x, u) + \alpha \|K\|^2 </span>
+    <span class="math display"> \text{s.t. }\;\; x_{t+1}^{(i)} = A^{(i)}
+    x_t^{(i)} + B u_t + D^{(i)} \lambda_t^{(i)} + d^{(i)} </span> <span
+    class="math display"> \eta_k^{(i)} = E^{(i)} x_t^{(i)} + F^{(i)}
+    \lambda_t^{(i)} + G^{(i)} u_t + c </span> <span
+    class="math display"> 0 \leq \lambda_t^{(i)} \perp \eta_k^{(i)} \geq
+    0. </span> <span class="math display"> u_k^{(i)} = K_k x_k^{(i)} +
+    v_k </span></p>
+    <p>It should be noted that this bottom constraint may cause a
+    problem; essentially it is a <em>bilinear</em> constraint, not a
+    linear constraint. However, by reformulating the problem and making
+    use of ADMM, we can handle it.</p>
+    <p><strong>Equivalent Optimization Problem:</strong> We can rewrite
+    the previous optimization problem by doing the same <em>copy
+    variables</em> trick. In our case, we will define <span
+    class="math inline">\delta = [\delta^x, \delta^u, \delta^\lambda,
+    \delta^\eta]^\top</span> and another variable, <span
+    class="math inline">\xi = [\xi^x, \xi^{K}, \xi^v, \xi^\lambda,
+    \xi^\eta]^\top</span>. Notice that these variables are not exact
+    copies of each other, because <span
+    class="math inline">\delta</span> contains <span
+    class="math inline">u</span> and <span
+    class="math inline">\xi</span> contains <span class="math inline">K,
+    v</span>. We can rewrite our problem now as follows, by making use
+    of indicator <span class="math inline">\mathcal I</span> functions:
+    <span class="math display"> \min_{\delta, \xi} c(\delta) + \alpha
+    \|\xi^K\|^2 + \mathcal I_\mathcal{D}(\delta) + \mathcal
+    I_\mathcal{C}(\xi) </span> <span class="math display"> \text{s.t.
+    }\;\; \delta^x = \xi^x, \;\; \delta^\lambda = \xi^\lambda, \;\;
+    \delta^\eta = \xi^\eta </span> <span class="math display"> \delta^u
+    = \xi^K \delta^u + \xi^v </span> At this point, we still have a
+    bilinear constraint, but ADMM has been used with bilinear
+    constraints before <span class="citation"
+    data-cites="zhang2020bilinear"><a href="#ref-zhang2020bilinear"
+    role="doc-biblioref">[6]</a></span>. To see how it works out, we
+    should consider the augmented Lagrangian of this above
+    formulation:</p>
+    <p><strong>Augmented Lagrangian:</strong> Here is the
+    <em>scaled</em> version of the augmented Lagrangian: <span
+    class="math display"> \mathcal L (\delta, \xi, w) = c(\delta) +
+    \alpha \|\xi^K\|^2 + \mathcal I_\mathcal{D}(\delta) + \mathcal
+    I_\mathcal{C}(\xi) + \rho\sum_{\cdot \in \{x, \lambda, \eta\}}\left[
+    \|w^\cdot + \delta^\cdot - \xi^\cdot\|^2 - \|w^\cdot\|^2 \right]
+    </span> <span class="math display"> + \rho \sum_i \left[\|
+    w^{u^{(i)}} + \delta^{u^{(i)}} - \xi^K \delta^{x^{(i)}} - \xi^v  \|
+    - \|w^{u^{i}}\|^2\right] </span> Forgive the odd notation. Now we
+    can see that, given a <span class="math inline">w</span>, if we fix
+    either <span class="math inline">\delta</span> or <span
+    class="math inline">\xi</span>, the minimization problem becomes
+    easy. We can simply run the ADMM procedure as follows:</p>
+    <p><strong>Repeat:</strong> <em>initialize <span
+    class="math inline">w, \xi</span></em></p>
+    <ol type="1">
+    <li><span class="math inline">\delta = \text{arg}\min_\delta
+    \mathcal L_\rho (\delta, \xi, w)</span> <em>// for the first run,
+    ignore the <span class="math inline">\xi</span> terms in
+    objective</em></li>
+    <li><span class="math inline">\xi = \text{arg}\min_\xi \mathcal
+    L_\rho (\delta, \xi, w)</span></li>
+    <li>update <span class="math inline">w</span></li>
+    </ol>
+    <p><strong>End</strong></p>
+    <p>Clearly, step 1 is still a QP. We can batch this QP over samples,
+    because there is not interdependence from <span
+    class="math inline">K, v</span>. Then, in step 2, we have a much
+    easier time as well. For one, we can solve for <span
+    class="math inline">\xi^\lambda, \xi^\eta</span> the same way that
+    C3+ does. It should also be clear that solving for <span
+    class="math inline">\xi^K, \xi^v</span> is completely detached from
+    the <span class="math inline">\lambda, \eta</span> part, meaning it
+    is an unconstrainted least-squares problem. Both of these can be
+    computed analytically. For reference, here is that least-squares
+    problem: <span class="math display"> \text{arg}\min_{\xi^{K},\xi^v}
+    \mathcal L(\delta, \xi, w) = \text{arg}\min_{K, v}  \rho \sum_i
+    \left[\| w^{u^{(i)}} + \delta^{u^{(i)}} - K \delta^{x^{(i)}} - v \|
+    - \|w^{u^{i}}\|^2\right]  + \alpha \|K\|^2 </span> We can interpret
+    this as basically <em>fitting</em> a <span class="math inline">K,
+    v</span> line to the <span class="math inline">(w^u +
+    \delta^u)</span>’s. It is unconstrained because our complimentarity
+    set has nothing to say about <span class="math inline">K</span> or
+    <span class="math inline">v</span>: <span class="math display">
+    \mathcal C = \{\xi: 0 \leq \xi^\lambda \perp \xi^\eta \geq 0\}
+    </span></p>
+    <p>So basically, step 1 is solving parallel QPs and step 2 is
+    computed analytically with a few matrix operations.</p>
+    <h3 id="what-about-stabilizing-k">3.3 What about Stabilizing <span
+    class="math inline">K</span>?</h3>
+    <p>In last week’s meeting we talked about how maybe one should
+    encode a constraint that <span class="math inline">K</span> be
+    <em>stabilizing</em> of the linear system instead of simply be fit
+    to the <span class="math inline">u</span>’s we solve for. I think
+    there may be something here, but I couldn’t come up with a clear way
+    to do it that fit nice, and I am not too worried about the size of
+    <span class="math inline">K</span>, because it will only be <span
+    class="math inline">T \times n_u \times n_x</span>, whereas our
+    <span class="math inline">\lambda</span>’s will be <span
+    class="math inline">n_\text{samples} \times T \times n_c</span>,
+    which may be just as big, if not bigger.</p>
+    <h2 id="class-project-woes">4 Class Project Woes</h2>
+    <p>Last time, C3 was producing all zeros. This was because of a
+    silly bug in my code for calculating the jacobian <span
+    class="math inline">\partial f / \partial u</span>. That has been
+    fixed. Right now, C3 produces non-zero control strategies, but they
+    are nonsensical:</p>
+    <figure>
+    <img src="./c3_failing.gif"
+    alt="C3 is not generating good control outputs" />
+    <figcaption aria-hidden="true">C3 is not generating good control
+    outputs</figcaption>
+    </figure>
+    <p>I feel like there can only be a few reasons for this happening. I
+    think, though, the most likely culprit is either incorrectly
+    computing the matrices for C3 or having bad hyperparameters for the
+    optimization. Originally, I thought maybe I was doing the contact in
+    a silly way, but here is what the contact set looks like:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="The contacts used in the above example." />
+    <figcaption aria-hidden="true">The contacts used in the above
+    example.</figcaption>
+    </figure>
+    <p>As you can see, they are maybe good enough, though it might make
+    sense to add a contact for the corner of the cube on the ground that
+    doesn’t have a contact location.</p>
+    <p>I kind of think that I might try to implement C3+ somewhat from
+    scratch instead, as I think it might give me a couple of benefits.
+    For one, I would have more understanding and debugging access to the
+    internals, and for another, I could make sure to use something like
+    QPTH (PyTorch) <span class="citation" data-cites="amos2017optnet"><a
+    href="#ref-amos2017optnet" role="doc-biblioref">[7]</a></span> or
+    QPAX (Jax) <span class="citation"
+    data-cites="tracy2024differentiability"><a
+    href="#ref-tracy2024differentiability"
+    role="doc-biblioref">[8]</a></span> for solving QPs in batch, which
+    might be useful when I am moving to the sampling-based version. I
+    think using JAX might make even more sense considering I am trying
+    to interface with MJX from Mujoco, which uses JAX. I do believe
+    there would be a performance hit if I were to implement this stuff
+    in Python/JAX, I don’t think it matters <em>too</em> much at the
+    moment, when I am just trying to get things working. Also, QPTH
+    advertises that when you start having batched QPs, it is much faster
+    to do them on the GPU. Here is the graph they have on <a
+    href="https://locuslab.github.io/qpth/">their webite</a>:</p>
+    <figure>
+    <img src="image-3.png"
+    alt="qpth outperforms Gurobi for large batch sizes." />
+    <figcaption aria-hidden="true">qpth outperforms Gurobi for large
+    batch sizes.</figcaption>
+    </figure>
+    <h2 id="references">References</h2>
     <div id="refs" class="references csl-bib-body" role="list">
-    <div id="ref-boyd2011distributed" class="csl-entry" role="listitem">
+    <div id="ref-wen2024foundationpose" class="csl-entry"
+    role="listitem">
     <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">B. Wen, W. Yang, J. Kautz, and S.
+    Birchfield, <span>“Foundationpose: Unified 6d pose estimation and
+    tracking of novel objects,”</span> in <em>Proceedings of the
+    IEEE/CVF conference on computer vision and pattern recognition</em>,
+    2024, pp. 17868–17879.</div>
+    </div>
+    <div id="ref-yang2020teaser" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">H. Yang, J. Shi, and L. Carlone,
+    <span>“Teaser: Fast and certifiable point cloud
+    registration,”</span> <em>IEEE Transactions on Robotics</em>, vol.
+    37, no. 2, pp. 314–333, 2020.</div>
+    </div>
+    <div id="ref-boyd2011distributed" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
     class="csl-right-inline">S. Boyd, N. Parikh, E. Chu, B. Peleato, J.
     Eckstein, and others, <span>“Distributed optimization and
     statistical learning via the alternating direction method of
@@ -631,20 +836,64 @@
     </div>
     <div id="ref-aydinoglu2024consensus" class="csl-entry"
     role="listitem">
-    <div class="csl-left-margin">[2] </div><div
+    <div class="csl-left-margin">[4] </div><div
     class="csl-right-inline">A. Aydinoglu, A. Wei, W.-C. Huang, and M.
     Posa, <span>“Consensus complementarity control for multi-contact
     mpc,”</span> <em>IEEE Transactions on Robotics</em>, 2024.</div>
     </div>
     <div id="ref-bui2025push" class="csl-entry" role="listitem">
-    <div class="csl-left-margin">[3] </div><div
+    <div class="csl-left-margin">[5] </div><div
     class="csl-right-inline">H. Bui, Y. Gao, H. Yang, E. Cui, S. Mody,
     B. Acosta, T. S. Felix, B. Bianchini, and M. Posa, <span>“Push
     anything: Single-and multi-object pushing from first sight with
     contact-implicit MPC,”</span> <em>arXiv preprint
     arXiv:2510.19974</em>, 2025.</div>
     </div>
+    <div id="ref-zhang2020bilinear" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">J. Zhang, Y. Duan, Y. Lu, M. K. Ng, and H.
+    Chang, <span>“Bilinear constraint based ADMM for mixed
+    poisson-gaussian noise removal,”</span> <em>Inverse Problems and
+    Imaging</em>, vol. 15, no. 2, pp. 339–366, 2020.</div>
     </div>
+    <div id="ref-amos2017optnet" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[7] </div><div
+    class="csl-right-inline">B. Amos and J. Z. Kolter, <span>“OptNet:
+    Differentiable optimization as a layer in neural networks,”</span>
+    <em>arXiv preprint arXiv:1703.00443</em>, 2017.</div>
+    </div>
+    <div id="ref-tracy2024differentiability" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[8] </div><div
+    class="csl-right-inline">K. Tracy and Z. Manchester, <span>“<a
+    href="https://arxiv.org/abs/2406.11749">On the differentiability of
+    the primal-dual interior-point method</a>.”</span> 2024.</div>
+    </div>
+    <div id="ref-sam3d_meta_2025" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[9] </div><div
+    class="csl-right-inline">SAM 3D Team (Meta AI), <span>“SAM 3D: 3Dfy
+    anything in images.”</span> <a
+    href="https://ai.meta.com/research/publications/sam-3d-3dfy-anything-in-images/"
+    class="uri">https://ai.meta.com/research/publications/sam-3d-3dfy-anything-in-images/</a>,
+    2025.</div>
+    </div>
+    </div>
+    <h2 id="appendix">Appendix</h2>
+    <p>I tried out Meta’s new SAM-3D <span class="citation"
+    data-cites="sam3d_meta_2025"><a href="#ref-sam3d_meta_2025"
+    role="doc-biblioref">[9]</a></span>. It seems to be pretty good, but
+    is not perfect at occlusions, and the Toblerone is out of
+    distribution—of course, Amodal3R has this same problem depending on
+    bounding box. Here is what I generated from playing around:</p>
+    <figure>
+    <img src="image.png"
+    alt="SAM-3D model does really good, but is not perfect." />
+    <figcaption aria-hidden="true">SAM-3D model does really good, but is
+    not perfect.</figcaption>
+    </figure>
+    <p>It is possible that using this model might be better than what I
+    am doing now, as it does predict pose during the reconstruction
+    process as well—though the poses may need to be further refined.</p>
   </body>
 
 </html>
