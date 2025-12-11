@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Update</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Update</h1>
+                <p class="date">2025 Dec 12</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1 Last Time</a></li>
+        <li><a href="#c3-in-mujoco" id="toc-c3-in-mujoco">2 C3+ in
+        Mujoco</a></li>
+        <li><a
+        href="#adventures-with-rc3-in-mujoco-hyperparameter-tuning-sucks"
+        id="toc-adventures-with-rc3-in-mujoco-hyperparameter-tuning-sucks">3
+        Adventures with RC3+ in Mujoco (hyperparameter tuning
+        sucks)</a></li>
+        <li><a href="#other-stuff" id="toc-other-stuff">4 Other
+        Stuff</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1 Last Time</h2>
+    <p>Last time, we mostly talked about how to introduce the RC3+
+    method we have been discussing. This time, I worked to get pushing a
+    cube in Mujoco working for C3+. I also try to get RC3+ to push the
+    cube as well.</p>
+    <p><strong>Note:</strong> §3 in this write-up is probably impossible
+    to decipher unless I just explain it, so don’t waste too much time
+    trying to fully understand the graphs if you read this before
+    meeting.</p>
+    <h2 id="c3-in-mujoco">2 C3+ in Mujoco</h2>
+    <p>Previously, my Mujoco stuff was not working at all. I decided to
+    take things into my own hands and fully write the collision
+    detection for the system. I simply want the 4 corners of the cube
+    closes to the ground, the closest point for the sphere to the ground
+    and the closest point from the sphere to the cube. Here is a
+    visualization of the resulting contact set:</p>
+    <figure>
+    <img src="image.png"
+    alt="Visualization of hand-coded contact set" />
+    <figcaption aria-hidden="true">Visualization of hand-coded contact
+    set</figcaption>
+    </figure>
+    <p>After the collision detection stuff was done, it was time to
+    debug the full LCS to make sure it was reasonable. After making sure
+    all my normals, etc were facing the right way, it seemed like my LCS
+    looked reasonable. Here is the LCS (using Anitescu formulation):</p>
+    <figure>
+    <img src="lcs.gif" style="width:50.0%"
+    alt="Anitescu LCS using MJX to compute desired quantities" />
+    <figcaption aria-hidden="true">Anitescu LCS using MJX to compute
+    desired quantities</figcaption>
+    </figure>
+    <p>I should note that I hard-coded the <span
+    class="math inline">u</span>’s for the above GIF. Once that was
+    done, I could move on to the full C3+ algorithm. After toiling for
+    hours with hyperparameters, I finally got C3+ to push a block in
+    Mujoco:</p>
+    <p><img src="./c3p_push_block_yay.gif" style="width:49.0%" /> <img
+    src="./c3_push_again.gif" style="width:49.0%" /></p>
+    <p>The difference between the two is a slight change in
+    hyperparameters and, more importantly, decreasing the block’s <span
+    class="math inline">\mu</span>, while increasing its mass. It almost
+    looks like it is running into something like the Painlevè paradox in
+    the first one. I used the following hyperparameters to get this to
+    work:</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><span class="math inline">T</span></td>
+    <td><span class="math inline">8</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\Delta t</span></td>
+    <td><span class="math inline">0.1</span></td>
+    </tr>
+    <tr class="odd">
+    <td>iterations</td>
+    <td><span class="math inline">5</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">R</span></td>
+    <td><span class="math inline">0.05 \times I</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">Q^{q_\text{block}}</span></td>
+    <td><span class="math inline">10^4 \times I</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">Q^{q_\text{ball}}</span></td>
+    <td><span class="math inline">10 \times I</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">Q^{v}</span></td>
+    <td><span class="math inline">100 \times I</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\rho_0^\lambda,
+    \rho_0^\eta</span></td>
+    <td><span class="math inline">2^{-5} \times 100</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">\rho_0^\text{otherwise}</span></td>
+    <td><span class="math inline">2^{-5}</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\rho</span> mult.</td>
+    <td><span class="math inline">2</span></td>
+    </tr>
+    </tbody>
+    </table>
+    <h2 id="adventures-with-rc3-in-mujoco-hyperparameter-tuning-sucks">3
+    Adventures with RC3+ in Mujoco (hyperparameter tuning sucks)</h2>
+    <p>I am struggling to get RC3+ to find intelligent <span
+    class="math inline">K, v</span>. I generated the following figure to
+    help debug, but the figure shows what I want to be seeing:</p>
+    <p><img src="image-3.png" /></p>
+    <p>Here is the corresponding <span class="math inline">K</span>
+    matrix, however:</p>
+    <figure>
+    <img src="image-4.png"
+    alt="The K_2 \in \mathbb R^{n_u \times n_x} matrix" />
+    <figcaption aria-hidden="true">The <span class="math inline">K_2 \in
+    \mathbb R^{n_u \times n_x}</span> matrix</figcaption>
+    </figure>
+    <p>The u’s that ended up being executed was
+    <code>-3.2286420e+00</code> for <span
+    class="math inline">t&#39;=0</span> and <code>9.9949634e-01</code>
+    for <span class="math inline">t&#39; = 1</span>, which is not what
+    we want. Then I noticed that maybe this is because the C3+ full
+    <span class="math inline">u</span> trajectory looked a little sus,
+    so I tried to go back and hyperparameter tune so it was nicely
+    behaved, but instead I am just frustrating myself:</p>
+    <figure>
+    <img src="image-5.png" alt="Hyperparameter tuning is hard" />
+    <figcaption aria-hidden="true">Hyperparameter tuning is
+    hard</figcaption>
+    </figure>
+    <p>It is very hard to get the hyperparameters tuned for even this
+    simple example. I threw the best that I could get on RC3+, using
+    <span class="math inline">\mu \sim \text{Unif}(0.1, 0.5)</span>,
+    then rolled it out on the edges of this distribution:</p>
+    <p><img src="./rc3_first.gif" /></p>
+    <p>I should note that I am only rolling out the first <span
+    class="math inline">u</span> here because the other <span
+    class="math inline">u</span>’s are kind of garbage, and the
+    complementarity constraints are not completely satisfied by the end
+    of the optimization. Here are those debug plots corresponding to
+    these settings:</p>
+    <p><img src="image-6.png" /></p>
+    <p>Which looks decent, until you notice that the <span
+    class="math inline">u</span>’s are on the scale of <code>1e-7</code>
+    so basically zero, which means that this is kind of pointless…</p>
+    <p><strong>Basically:</strong> it pushes the block, but I am unsure
+    if the <span class="math inline">K</span>’s are getting us much… but
+    maybe I’m just trash at hyperparameter tuning.</p>
+    <p>The thing is, because C3+ doesn’t generate the control throughout
+    the horizon that I want, it is difficult to think that RC3+ will be
+    much better…</p>
+    <p><strong>Question:</strong> How can I do better at tuning this? It
+    seems like the hyperparameters that are relevant are the cost
+    matrices <span class="math inline">Q, Q_f, R</span> and the <span
+    class="math inline">\rho</span> parameters.</p>
+    <p>Also here are the hyperparameters I am using:</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><span class="math inline">T</span></td>
+    <td><span class="math inline">8</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\Delta t</span></td>
+    <td><span class="math inline">0.1</span></td>
+    </tr>
+    <tr class="odd">
+    <td>iterations</td>
+    <td><span class="math inline">10</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">R</span></td>
+    <td><span class="math inline">0.0005 \times I</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">Q^{q_\text{block}}</span></td>
+    <td><span class="math inline">200 \times I</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">Q^{q_\text{ball}}</span></td>
+    <td><span class="math inline">0.1 \times I</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">Q^{v}</span></td>
+    <td><span class="math inline">10 \times I</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">Q_f</span></td>
+    <td><span class="math inline">100 \times Q</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">\rho_t^\lambda,
+    \rho_t^\eta</span></td>
+    <td><span class="math inline">1</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\rho_t^u</span></td>
+    <td><span class="math inline">0.0001</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">\rho_t^\text{otherwise}</span></td>
+    <td><span class="math inline">0.01</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\rho</span> mult.</td>
+    <td><span class="math inline">1</span></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>(I changed some of them and generated the following plot)</p>
+    <p><img src="image-7.png" /></p>
+    <p>The thing to note is that the u’s are really only relevant at
+    <span class="math inline">t=0</span>. This is what happens with
+    C3+:</p>
+    <p><img src="image-8.png" /></p>
+    <h2 id="other-stuff">4 Other Stuff</h2>
+    <h3 id="mini-lit-review">4.1 Mini Lit Review</h3>
+    <p>We have discussed <span class="citation"
+    data-cites="shirai2023covariance"><a
+    href="#ref-shirai2023covariance" role="doc-biblioref">[1]</a></span>
+    before, where they claim to be the first to show covariance steering
+    with chance constraints for complementarity systems. They are the
+    inspiration for using the <span class="math inline">K_t, v_t</span>
+    to steer the distribution. In their work, they additionally add a
+    gain on contact forces <span class="math inline">\lambda</span>,
+    however replicating this would require another trick with the
+    problem formulation. There is also a similar paper, <span
+    class="citation" data-cites="shirai2023chance"><a
+    href="#ref-shirai2023chance" role="doc-biblioref">[2]</a></span>, by
+    the same first author where the problem is phrased as a MIQP. An
+    earlier paper that deals with stochasticity and complementarity
+    constraints in robotics is <span class="citation"
+    data-cites="drnach2021robust"><a href="#ref-drnach2021robust"
+    role="doc-biblioref">[3]</a></span>, where they cite <span
+    class="citation" data-cites="luo2013properties"><a
+    href="#ref-luo2013properties" role="doc-biblioref">[4]</a></span>,
+    which defines the stochastic complementarity problem as: <span
+    class="math display"> \text{find } x^* \text{ s.t. } 0 \leq x^*
+    \perp F(x^*, \omega) \geq 0 \text{ where } \omega \in \Omega
+    \text{a.s.}</span> where <span class="math inline">\omega</span> is
+    a random variable. If <span class="math inline">F</span> is affine,
+    this is called a <em>stochastic linear complementarity problem</em>
+    (SLCP). However, this doesn’t feel like what we actually want for
+    uncertainty propogating through a complementarity constraint,
+    because it constrains that the whole distribution “shares” the <span
+    class="math inline">x^*</span>. Another older robotics paper that
+    uses SLCP to smooth contact <span class="citation"
+    data-cites="tassa2010stochastic"><a href="#ref-tassa2010stochastic"
+    role="doc-biblioref">[5]</a></span>. In the case of both <span
+    class="citation" data-cites="drnach2021robust"><a
+    href="#ref-drnach2021robust" role="doc-biblioref">[3]</a></span> and
+    <span class="citation" data-cites="tassa2010stochastic"><a
+    href="#ref-tassa2010stochastic" role="doc-biblioref">[5]</a></span>,
+    they use expected residual minimization: <span class="math display">
+    r_\text{ERM} (x) = \mathbb E [\| \psi (x, \omega) \|] </span> Which
+    really just feels like a totally different problem than what we are
+    trying to model. There is apparently some cool theory around it
+    though about finding a solution robust to variations in <span
+    class="citation" data-cites="chen2009robust"><a
+    href="#ref-chen2009robust" role="doc-biblioref">[6]</a></span>, but
+    alas I didn’t read it. In <span class="citation"
+    data-cites="drnach2022mediating"><a href="#ref-drnach2022mediating"
+    role="doc-biblioref">[7]</a></span>, they use a ERM above with a
+    chance constraint.</p>
+    <p>We have also discussed <span class="citation"
+    data-cites="jankowski2025robust"><a href="#ref-jankowski2025robust"
+    role="doc-biblioref">[8]</a></span> before, where only look at pose
+    uncertainty and make a restrictive quasistatic assumption—which
+    means they cannot reason/model things like a grasp where the robot
+    may be applying opposing forces. They use a sampling-based strategy
+    <span class="citation" data-cites="jankowski2023vp"><a
+    href="#ref-jankowski2023vp" role="doc-biblioref">[9]</a></span>
+    instead of contact-implicit optimization like C3+ <span
+    class="citation" data-cites="bui2025push"><a href="#ref-bui2025push"
+    role="doc-biblioref">[10]</a></span>. They are also the paper that
+    points to <em>domain randomization</em> (DR) <span class="citation"
+    data-cites="muratore2022robot"><a href="#ref-muratore2022robot"
+    role="doc-biblioref">[11]</a></span> as motivation for robust
+    MPC.</p>
+    <p>On a fairly separate note, I thought the problem in <span
+    class="citation" data-cites="guzman2022bayesian"><a
+    href="#ref-guzman2022bayesian" role="doc-biblioref">[12]</a></span>
+    was interesting, where they do a hyperparameter optimization BO type
+    of thing to find the system parameters instead of using sysID. In
+    other words, they chose system parameters to maximize the policies
+    performance on the true dynamics instead of simply trying to match
+    the true dynamics.</p>
+    <h3 id="violating-markovs-principle">4.2 Violating Markov’s
+    Principle</h3>
+    <p>I talked with Ethan, he seemed a bit hung up on the feedback
+    stuff. The justification is that we are linearizing a policy:</p>
+    <p><span class="math display"> \pi (x) \approx K_t x + v_t
+    </span></p>
+    <p>However, because <span class="math inline">K_t, v_t</span> are
+    completely separate at each timestep there is no consistency and we
+    might not be representing <span class="math inline">\pi</span> at
+    all.</p>
+    <h3 id="logistical-stuff">4.3 Logistical Stuff</h3>
+    <ul>
+    <li>My lab slides are available at this link: <a
+    href="https://docs.google.com/presentation/d/1ViBG_jvQvzFDr0zi8uiuuqMS9ZAq8PxpIOW3YRYq9Iw/edit?usp=sharing">Lab
+    Meeting Presentation</a></li>
+    <li>I have requested permission for/been put on the waitlist for the
+    CIS 7000 class that Dinesh is teaching (on Robot Learning). I am not
+    signed up for any other classes currently.</li>
+    </ul>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-shirai2023covariance" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">Y. Shirai, D. K. Jha, and A. U.
+    Raghunathan, <span>“Covariance steering for uncertain contact-rich
+    systems,”</span> in <em>2023 IEEE international conference on
+    robotics and automation (ICRA)</em>, 2023, pp. 7923–7929.</div>
+    </div>
+    <div id="ref-shirai2023chance" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">Y. Shirai, D. K. Jha, A. U. Raghunathan,
+    and D. Romeres, <span>“Chance-constrained optimization in
+    contact-rich systems.”</span> in <em>ACC</em>, 2023, pp.
+    14–21.</div>
+    </div>
+    <div id="ref-drnach2021robust" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">L. Drnach and Y. Zhao, <span>“Robust
+    trajectory optimization over uncertain terrain with stochastic
+    complementarity,”</span> <em>IEEE Robotics and Automation
+    Letters</em>, vol. 6, no. 2, pp. 1168–1175, 2021.</div>
+    </div>
+    <div id="ref-luo2013properties" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">M.-J. Luo and Y. Lu, <span>“Properties of
+    expected residual minimization model for a class of stochastic
+    complementarity problems,”</span> <em>Journal of Applied
+    Mathematics</em>, vol. 2013, no. 1, p. 497586, 2013.</div>
+    </div>
+    <div id="ref-tassa2010stochastic" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">Y. Tassa and E. Todorov, <span>“Stochastic
+    complementarity for local control of discontinuous dynamics.”</span>
+    in <em>Robotics: Science and systems</em>, 2010, vol. 6.</div>
+    </div>
+    <div id="ref-chen2009robust" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">X. Chen, C. Zhang, and M. Fukushima,
+    <span>“Robust solution of monotone stochastic linear complementarity
+    problems,”</span> <em>Mathematical Programming</em>, vol. 117, no.
+    1, pp. 51–80, 2009.</div>
+    </div>
+    <div id="ref-drnach2022mediating" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[7] </div><div
+    class="csl-right-inline">L. Drnach, J. Z. Zhang, and Y. Zhao,
+    <span>“Mediating between contact feasibility and robustness of
+    trajectory optimization through chance complementarity
+    constraints,”</span> <em>Frontiers in Robotics and AI</em>, vol. 8,
+    p. 785925, 2022.</div>
+    </div>
+    <div id="ref-jankowski2025robust" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[8] </div><div
+    class="csl-right-inline">J. Jankowski, L. Brudermüller, N. Hawes,
+    and S. Calinon, <span>“Robust pushing: Exploiting quasi-static
+    belief dynamics and contact-informed optimization,”</span> <em>The
+    International Journal of Robotics Research</em>, p.
+    02783649251318046, 2025.</div>
+    </div>
+    <div id="ref-jankowski2023vp" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[9] </div><div
+    class="csl-right-inline">J. Jankowski, L. Brudermüller, N. Hawes,
+    and S. Calinon, <span>“VP-STO: Via-point-based stochastic trajectory
+    optimization for reactive robot behavior,”</span> in <em>2023 IEEE
+    international conference on robotics and automation (ICRA)</em>,
+    2023, pp. 10125–10131.</div>
+    </div>
+    <div id="ref-bui2025push" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[10] </div><div
+    class="csl-right-inline">H. Bui, Y. Gao, H. Yang, E. Cui, S. Mody,
+    B. Acosta, T. S. Felix, B. Bianchini, and M. Posa, <span>“Push
+    anything: Single-and multi-object pushing from first sight with
+    contact-implicit MPC,”</span> <em>arXiv preprint
+    arXiv:2510.19974</em>, 2025.</div>
+    </div>
+    <div id="ref-muratore2022robot" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[11] </div><div
+    class="csl-right-inline">F. Muratore, F. Ramos, G. Turk, W. Yu, M.
+    Gienger, and J. Peters, <span>“Robot learning from randomized
+    simulations: A review,”</span> <em>Frontiers in Robotics and
+    AI</em>, vol. 9, p. 799893, 2022.</div>
+    </div>
+    <div id="ref-guzman2022bayesian" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[12] </div><div
+    class="csl-right-inline">R. Guzman, R. Oliveira, and F. Ramos,
+    <span>“Bayesian optimisation for robust model predictive control
+    under model parameter uncertainty,”</span> in <em>2022 international
+    conference on robotics and automation (ICRA)</em>, 2022, pp.
+    5539–5545.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
