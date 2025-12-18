@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Weekly Update</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: sans-serif;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 10pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Weekly Update</h1>
+                <p class="date">2025 Dec 12</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1 Last Time</a></li>
+        <li><a href="#brainstorming-experiments"
+        id="toc-brainstorming-experiments">2 Brainstorming
+        Experiments</a></li>
+        <li><a href="#adventures-with-robust-c3"
+        id="toc-adventures-with-robust-c3">3 Adventures with Robust
+        C3+</a></li>
+        <li><a href="#other-stuff" id="toc-other-stuff">4 Other
+        Stuff</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1 Last Time</h2>
+    <p>Last time, we talked about my hyperparameter tuning woes with
+    C3+, the main takeaways were that (1) I should tune the cost to
+    deincentivise a striking sort of shove at the beginning, and (2) I
+    should investigate why not all the <span
+    class="math inline">u_0</span>’s were the same. We also discussed
+    what the project could look like in the long term, including
+    brainstorming what the real world experiment for the down-the-line
+    paper would be.</p>
+    <h2 id="brainstorming-experiments">2 Brainstorming Experiments</h2>
+    <figure>
+    <img src="image.png" alt="Cartoon of some potential tasks" />
+    <figcaption aria-hidden="true">Cartoon of some potential
+    tasks</figcaption>
+    </figure>
+    <p><strong>Pivoting with Shape Uncertainty:</strong> In this task,
+    the goal is to pivot the block (or whatever other object) with only
+    1 contact point, without completely tipping it over. When there is
+    uncertainty about the shape, the contact points with the ground that
+    are used for linearization change and affect the LCS dynamics of
+    different trajectories. The goal with this experiment would be to
+    show that steering improves success during the pivoting motion.</p>
+    <p><strong>Pushing with Friction Uncertainty:</strong> In this task,
+    the goal is to push the block (or arbitrary object) to a target
+    location. I think this could even be 2d planar pushing instead of
+    just in a straight line. If there is uncertainty about friction, we
+    could arrive in failure modes where the planned push doesn’t have
+    enough force to overcome friction. The goal would be to show that
+    steering allows for adapting to friction level.</p>
+    <p><strong>Pushing with Center of Mass Uncertainty:</strong> In this
+    task, the goal is to push a taller block, where the end effector
+    starts high. If there is center of mass and friction uncertainty, we
+    would want the control strategy to be able to “go low” and push
+    lower down on the block instead of on the top, where there is risk
+    of toppling/tipping. The goal would be to show that a robust,
+    steering approach recognizes when it needs to do this.</p>
+    <p><strong>“Lifting” with Shape Uncertainty:</strong> In this task,
+    there would be 3 actuated spheres surrounding an object with shape
+    uncertainty. The idea is that by having an idea about the different
+    possible shapes, a robust movement of the EEs could make the lifting
+    operation better.</p>
+    <p><strong>“Unstacking” with Friction Uncertainty:</strong> In this
+    task, there are two stacked blocks and the goal is to remove the
+    second one while ensuring the top block doesn’t move too far away in
+    the xy-plane. In order to acheive this, the two spheres need to
+    clamp down on the second block and allow friction to slide the top
+    block off. The goal is to show that understanding uncertainty about
+    friction helps plan better control strategies.</p>
+    <p><strong>Placing with Shape Uncertainty:</strong> In this task,
+    the block starts clamped by the two spheres, then must be placed in
+    a narrow area, where it might require moving another block out of
+    the way. If there is shape uncertainty, this could be difficult to
+    do precisely. The goal would be to show that a robust approach,
+    which reasons about the uncertainty, is better able to complete the
+    action. I am less confident that an LCS would effectively be able to
+    do this one, but perhaps there is something similar that would be
+    better.</p>
+    <p>There are also other tasks that have been done in the literature,
+    here is an image of some of them:</p>
+    <figure>
+    <img src="image-7.png"
+    alt="Some other contact-rich tasks that have been done in the literature (from [1], [2], and [3])" />
+    <figcaption aria-hidden="true">Some other contact-rich tasks that
+    have been done in the literature (from <span class="citation"
+    data-cites="shirai2025hierarchical"><a
+    href="#ref-shirai2025hierarchical"
+    role="doc-biblioref">[1]</a></span>, <span class="citation"
+    data-cites="jiang2024contact"><a href="#ref-jiang2024contact"
+    role="doc-biblioref">[2]</a></span>, and <span class="citation"
+    data-cites="kang2025dexterous"><a href="#ref-kang2025dexterous"
+    role="doc-biblioref">[3]</a></span>)</figcaption>
+    </figure>
+    <h2 id="adventures-with-robust-c3">3 Adventures with Robust C3+</h2>
+    <h3 id="understanding-the-algorithm">3.1 Understanding the
+    Algorithm</h3>
+    <p>Recall that our algorithm basically alternates between:</p>
+    <ol type="1">
+    <li>Solving QP for <span class="math inline">u, x, \lambda,
+    \eta</span> by ignoring <span class="math inline">u^{(i)} = K
+    x^{(i)} + v</span> and <span class="math inline">0 \leq \lambda
+    \perp \eta \geq 0</span> constraints (except for regularization in
+    augmented Lagrangian)</li>
+    <li>Solving for <span class="math inline">K, v</span> and projecting
+    <span class="math inline">\lambda, \eta</span> into the
+    complementarity constraints</li>
+    </ol>
+    <p>The very first thing I did was notice that some hyperparameters
+    created NaNs during the algorithm. Upon inspection, I found that the
+    QP step would occasionally return NaNs if the Shur complement matrix
+    was poorly conditioned (<span class="math inline">\kappa \approx
+    10^9</span>). This happened for some hyperparameter values, because
+    the Shur complement matrix looked something like <span
+    class="math inline">S = -M_2 M_1^{-1} M_2^\top</span>. So if <span
+    class="math inline">M_1, M_2</span> were poorly conditioned a little
+    bit, <span class="math inline">S</span> would be even worse.
+    Fortunately, there was an easy fix—just use float64’s instead of
+    float32’s. So, I did that. I also made some changes where I moved
+    the ball to the other side of the block so the expected <span
+    class="math inline">u</span>’s would be positive, I made the ball
+    not have torque control (only xyz forces) and made the control
+    cancel out gravity.</p>
+    <p>The next thing I noticed after I was getting unintuitive results
+    with RC3+ was that the first QP step gave kind of the opposite
+    result of what we want. Ideally, we should see that the block
+    doesn’t go as far for higher friction values, and that the control
+    strategy wants to push higher (bigger <span
+    class="math inline">u</span>) on <span
+    class="math inline">t=1</span> (where <span
+    class="math inline">t</span> starts at <span
+    class="math inline">0</span>). Instead, what happened was the
+    opposite after the very first QP step, but after a lot of
+    iterations, it would reverse:</p>
+    <figure>
+    <img src="image-3.png"
+    alt="The first QP step outputs the opposite of what we want and it takes time to get to the good solution" />
+    <figcaption aria-hidden="true">The first QP step outputs the
+    opposite of what we want and it takes time to get to the good
+    solution</figcaption>
+    </figure>
+    <p>After spending a bit being puzzled by this, I the best
+    explanation that I came up with for what is going on is that the
+    first QP step is using the wrong directions of the friction cone in
+    the Anitescu formulation—it is using the forward pointing ones to
+    push it towards the goal, and if <span
+    class="math inline">\mu</span> is higher, it can use more force, and
+    thus needs less force from the ball-block contact, explaining why
+    the <span class="math inline">x</span> for <span
+    class="math inline">t=1</span> was reversed. Here is a simplified
+    graph to explain what is going on:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="After first QP step, the ball when low friction is present is pushed further than high friction" />
+    <figcaption aria-hidden="true">After first QP step, the ball when
+    low friction is present is pushed further than high
+    friction</figcaption>
+    </figure>
+    <p>The next puzzle was the <span class="math inline">u</span>’s at
+    <span class="math inline">t=1</span>. If you squint at the first
+    image in this section, you will see that the <span
+    class="math inline">x</span> for the ball is positive at <span
+    class="math inline">t=1</span>, which differs from the above image.
+    This is potentially puzzling, but I think it comes down to how <span
+    class="math inline">\rho</span> acting on <span
+    class="math inline">\eta</span> works in the first QP step. At the
+    first QP, the <span class="math inline">\delta</span> variables are
+    set to 0, and in Anitescu’s formulation, a penalty <span
+    class="math inline">\|\eta_k\|^2</span> is similar to doing <span
+    class="math inline">\|\phi(q_k)\|^2</span>, where <span
+    class="math inline">\phi</span> is the distance. This means that at
+    the first QP step, there is a sort of force pulling the ball to be
+    in contact with the block. Thus, we can see that how influential the
+    <span class="math inline">\rho</span> hyperparameters can be.</p>
+    <h3 id="the-cube-gets-pushed">3.2 The Cube Gets Pushed</h3>
+    <p>With these insights in mind, I had the idea to first warm start
+    the optimization by enforcing <span class="math inline">K=0</span>
+    and <span class="math inline">\rho</span> is constant, so that I
+    could cache the Cholesky decompositions for the QP step and run this
+    about 10 times, before running the full algorithm, with varying
+    <span class="math inline">\rho</span> and <span
+    class="math inline">K</span> for about 5 iterations. Then I was able
+    to, even if it is still kind of stochastic, get the sort of graph I
+    was looking for.</p>
+    <figure>
+    <img src="image-4.png" alt="This is what we want to be seeing" />
+    <figcaption aria-hidden="true">This is what we want to be
+    seeing</figcaption>
+    </figure>
+    <p>Here is a GIF of pushing the block:</p>
+    <figure>
+    <img src="./finally_kind_of.gif" alt="RC3+ pushing block." />
+    <figcaption aria-hidden="true">RC3+ pushing block.</figcaption>
+    </figure>
+    <p>We can also compare the block error after 10 (s) from both a
+    feedback and no feedback strategy:</p>
+    <figure>
+    <img src="image-5.png"
+    alt="Positional error in meters after 10 (s) of each control strategy" />
+    <figcaption aria-hidden="true">Positional error in meters after 10
+    (s) of each control strategy</figcaption>
+    </figure>
+    <p>We see that there is a difference between having feedback and not
+    having feedback, even if this is kind of a toy example and perhaps
+    isn’t that strong of evidence of anything. I should note that for
+    the above example, it took about 0.1 (s) to solve and I was using 25
+    samples.</p>
+    <h3 id="potential-improvement">3.3 Potential Improvement?</h3>
+    <p>I think we could enforce a known <span
+    class="math inline">u_0</span> constraint and simply execute the
+    first <span class="math inline">K, v</span> and try to predict how
+    the world will change as the action is executed like shown in this
+    diagram:</p>
+    <figure>
+    <img src="image-6.png"
+    alt="Illustration of what I think might help" />
+    <figcaption aria-hidden="true">Illustration of what I think might
+    help</figcaption>
+    </figure>
+    <p>The benefit of this is that you wouldn’t have to roll-out 2
+    timesteps, you would always be just rolling out one. I also have a
+    hunch that it (enforcing a <span class="math inline">u_0</span>
+    constraint) could help with what I have been dealing with above.</p>
+    <p>Another thought I had is that we could resample our uncertainty
+    at each ADMM iteration, which might prevent us from
+    overfitting/becoming biased to the samples we have.</p>
+    <p>Also, would it ever make sense to use an even more simplified
+    model, like a quasidynamic one (similar to <span class="citation"
+    data-cites="pang2023global"><a href="#ref-pang2023global"
+    role="doc-biblioref">[4]</a></span>) in order to make things
+    faster/better behaved?</p>
+    <h2 id="other-stuff">4 Other Stuff</h2>
+    <h3 id="classes-next-semester">4.1 Classes Next Semester</h3>
+    <p>I have been approved for the CIS 7000 Robot Learning class, so I
+    will be taking that next semester, which is on Monday from
+    1:45-4:45pm, <strong>which conflicts with when lab meeting is
+    currently</strong>. I have also been told that STAT 9270 might be a
+    good class to take (Bayesian Statistical Theory and Methods), but I
+    am on the fence currently.’</p>
+    <h3 id="section">4.2</h3>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-shirai2025hierarchical" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">Y. Shirai, A. Raghunathan, and D. K. Jha,
+    <span>“Hierarchical contact-rich trajectory optimization for
+    multi-modal manipulation using tight convex relaxations,”</span>
+    <em>arXiv preprint arXiv:2503.07963</em>, 2025.</div>
+    </div>
+    <div id="ref-jiang2024contact" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">Y. Jiang, M. Yu, X. Zhu, M. Tomizuka, and
+    X. Li, <span>“Contact-implicit model predictive control for
+    dexterous in-hand manipulation: A long-horizon and robust
+    approach,”</span> in <em>2024 IEEE/RSJ international conference on
+    intelligent robots and systems (IROS)</em>, 2024, pp.
+    5260–5266.</div>
+    </div>
+    <div id="ref-kang2025dexterous" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">T. Kang, J. Kim, S. Oh, W. Lim, J. Lee,
+    S.-J. Yi, and J. Seo, <span>“Dexterous ungrasping manipulation in
+    three dimensions,”</span> in <em>2025 IEEE international conference
+    on robotics and automation (ICRA)</em>, 2025, pp. 14030–14036.</div>
+    </div>
+    <div id="ref-pang2023global" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">T. Pang, H. T. Suh, L. Yang, and R.
+    Tedrake, <span>“Global planning for contact-rich manipulation via
+    local smoothing of quasi-dynamic contact models,”</span> <em>IEEE
+    Transactions on robotics</em>, vol. 39, no. 6, pp. 4691–4711,
+    2023.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
