@@ -1,7 +1,7 @@
 ---
 title: Weekly Update
 date: 2025 Dec 12
-bibliography: 2025-12-19/refs.bib
+bibliography: 2025-12-18/refs.bib
 link-citations: true
 ---
 
