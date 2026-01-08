@@ -2,6 +2,9 @@
  * I add this to html files generated with pandoc.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
  html {
     font-size: 100%;
     overflow-y: scroll;
@@ -11,7 +14,8 @@
 
 body {
     color: #444;
-    font-family: sans-serif;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 450;
     font-size: 12px;
     line-height: 1.7;
     padding: 1em;
@@ -72,11 +76,19 @@ img {
     max-width: 100%;
 }
 
+video {
+    max-height: 350px;
+    max-width: 100%;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: #111;
     line-height: 125%;
     margin-top: 2em;
     font-weight: normal;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 250;
+
 }
 
 h4, h5, h6 {
@@ -84,11 +96,12 @@ h4, h5, h6 {
 }
 
 h1 {
-    font-size: 2.5em;
+    font-size: 2.25em;
+    text-decoration: dotted underline;
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 1.875em;
 }
 
 h3 {
@@ -96,7 +109,7 @@ h3 {
 }
 
 h4 {
-    font-size: 1.2em;
+    font-size: 1.25em;
 }
 
 h5 {
@@ -310,7 +323,7 @@ div.csl-indent {
     }
 
     body {
-        font-size: 10pt;
+        font-size: 9pt;
         line-height: 1.5;
         max-width: 100%;
         padding-bottom: 0pt;
@@ -337,6 +350,19 @@ div.csl-indent {
 
     abbr[title]:after {
         content: " (" attr(title) ")";
+    }
+
+    video {
+        display: none;
+    }
+
+    video + figcaption::before {
+        content: "[Video not available in print/pdf] \A";
+        display: block;
+        margin-top: 0.5em;
+        font-size: 9pt;
+        color: #666;
+        font-style: italic;
     }
 
     .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
@@ -403,6 +429,19 @@ div.csl-indent {
         /* border-bottom: none; */
         border-left: 1pt solid #444;
     }
+
+    span.display {
+        overflow: visible;
+    }
+}
+
+@page {
+    /* Set the margin for the physical piece of paper */
+    /* margin: 1in;  */
+    margin: 2cm;
+    
+    /* Optional: Set paper size if you know it's always A4 or Letter */
+    /* size: Letter; */
 }
 
 
