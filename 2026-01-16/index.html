@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 Jan 16</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#c3-cube-pivoting" id="toc-c3-cube-pivoting">2. C3+
+        Cube Pivoting</a></li>
+        <li><a href="#other-thoughts" id="toc-other-thoughts">3. Other
+        Thoughts</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last meeting, I was having some issues getting C3+ to work for
+    the pivoting task. I also had some ideas for improving the robust
+    CI-MPC algorithm we have been discussing. There were concerns about
+    whether there was some sort of bug in the LCS and how to run the
+    <span class="math inline">K_t, v_t</span> controllers at a different
+    frequency than the MPC solve. In this write-up I make steps towards
+    getting C3+ working on the cube pivoting task.</p>
+    <p>The cliff-notes version of this write-up is:</p>
+    <ul>
+    <li>I don’t think the “gap” was a bug, I think it really is an
+    artifact of Anitescu friction</li>
+    <li>I was able to <em>kind of</em> get C3+ to tip the cube, but it
+    was hacky—perhaps there is evidence that linearization is just kinda
+    bad for this task</li>
+    <li>I have a collection of thoughts about running <span
+    class="math inline">K</span> at a different frequency and the
+    reweighting idea.</li>
+    </ul>
+    <h2 id="c3-cube-pivoting">2. C3+ Cube Pivoting</h2>
+    <h3 id="debugging-the-lcs">2.1. Debugging The LCS</h3>
+    <p>After about a day of debugging, I have come to the conclusion
+    that there was not really a bug in the GIF from last time. Here is a
+    cartoon of what I think was happening:</p>
+    <figure>
+    <img src="image-1.png"
+    alt="My hypothesis for why no contact was made in the GIF" />
+    <figcaption aria-hidden="true">My hypothesis for why no contact was
+    made in the GIF</figcaption>
+    </figure>
+    <p>Basically, because of the gap enforced by Anitescu friction
+    approximation seems to cause the the ball to not have to contact the
+    block in order to lift it. When I printed out the complementarity
+    parts like distance, etc. it all seemed to check out. It seemed like
+    the friction was really never sticking and was <em>always</em>
+    sliding. The distance was about <span class="math inline">\phi
+    \approx 0.05</span> at its largest when force was applied, which
+    feels fairly reasonable. It should also be noted that as the cube
+    tips, the LCS linearization will predict a smaller gap/distance than
+    the actual gap/distance, thus making it seem even more off in the
+    GIF from last time.</p>
+    <h3 id="debugging-c3-algo-and-costs">2.2. Debugging C3+ Algo and
+    Costs</h3>
+    <p>After looking into the LCS, I figured the best thing to do was
+    simply <em>shrink</em> the cube in the LCS down and see if I can get
+    a sort of proof-of-life that C3+ <em>can</em> do the tip up. My
+    first few attempts, after tuning hyperparameters were kind of
+    frustrating, as it seemed to be okay sometimes, and fail other
+    times:</p>
+    <figure>
+    <img src="image.png"
+    alt="Illustration of the bug I was dealing with" />
+    <figcaption aria-hidden="true">Illustration of the bug I was dealing
+    with</figcaption>
+    </figure>
+    <p>I was able to fix the above by making some changes and solving a
+    minor bug with the shrinking. This meant that I was finally able to
+    get C3+ to tip the cube:</p>
+    <figure>
+    <img src="./c3p_tips_cube_success.gif"
+    alt="C3+ successfully tips the cube! (yellow is beginning location for solve, green is trajectory of ball q’s from MPC solve)" />
+    <figcaption aria-hidden="true">C3+ successfully tips the cube!
+    (yellow is beginning location for solve, green is trajectory of ball
+    <span class="math inline">q</span>’s from MPC solve)</figcaption>
+    </figure>
+    <p>However, in order to get this to work I need a few pieces
+    (changing any of these causes it to not work):</p>
+    <ol type="1">
+    <li>I had to shrink the cube for the LCS, specifically I had to
+    shrink it all the way from side lengths of 0.3 to side lengths of
+    0.2—I tried 0.25 but it didn’t work.</li>
+    <li>I had to add a PD controller to track the <span
+    class="math inline">q, v</span> trajectory from the MPC solve
+    alongside executing the <span class="math inline">u</span>’s</li>
+    <li>I had to tune the hyperparameters obviously (like <span
+    class="math inline">\rho</span>); changing almost any of these by an
+    order of magnitude causes failure (including changing <span
+    class="math inline">\Delta t</span>)</li>
+    </ol>
+    <p>I don’t really enjoy how sensitive it seemed to all these
+    settings, even with such a toy problem as this. On one hand, this
+    could be good motivation for a robust approach, on the other hand,
+    it may signal that trying to get a more complicated procedure like
+    robust control to work will be difficult. I am imagining that
+    getting it working will at least require (a) having some sort of way
+    to do the PD controller at a higher freq tracking states and (b)
+    having something that can change the uncertainty distribution such
+    that it finds that it needs to think the cube is smaller to
+    work.</p>
+    <h3 id="lowering-delta-t">2.3 Lowering <span
+    class="math inline">\Delta t</span></h3>
+    <p>I decided to try to lower <span class="math inline">\Delta
+    t</span>, but I couldn’t even get it to work when I changed the
+    initial condition to very close to where you would need to be:</p>
+    <figure>
+    <video src="./smaller_dt.mp4" controls=""><a
+    href="./smaller_dt.mp4">Video of trying C3+ on the cube pivoting
+    with a smaller \Delta t. It fails to complete the task in both
+    cases.</a></video>
+    <figcaption aria-hidden="true">Video of trying C3+ on the cube
+    pivoting with a smaller <span class="math inline">\Delta t</span>.
+    It fails to complete the task in both cases.</figcaption>
+    </figure>
+    <p>I fear that C3+ just isn’t solving it good enough. Here are some
+    graphs I generated:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="Graphs of C3+ first MPC solve for \Delta t = 0.02" />
+    <figcaption aria-hidden="true">Graphs of C3+ first MPC solve for
+    <span class="math inline">\Delta t = 0.02</span></figcaption>
+    </figure>
+    <p>Perhaps this task is just too hard for C3+ to work? Like between
+    the linearization and ADMM, maybe it just can’t find reasonable
+    plans? Like I am imagining the linearization might drive an
+    intelligent solution to want to do something like the following:</p>
+    <figure>
+    <img src="image-3.png"
+    alt="Illustration of what linearization might mean for the solution" />
+    <figcaption aria-hidden="true">Illustration of what linearization
+    might mean for the solution</figcaption>
+    </figure>
+    <h3 id="back-to-delta-t-0.1">2.4. Back to <span
+    class="math inline">\Delta t = 0.1</span></h3>
+    <p>Just for good measure, I also tried the starting position for
+    <span class="math inline">\Delta t = 0.1</span> and the cube being
+    the true size (not shrunk). I don’t think C3+ did particularly well.
+    Here is a GIF of that:</p>
+    <figure>
+    <img src="./C3p_trash.gif"
+    alt="C3+ with the real block size cannot find a good solution." />
+    <figcaption aria-hidden="true">C3+ with the real block size cannot
+    find a good solution.</figcaption>
+    </figure>
+    <p>It should be noted that complementarity did not get satisfied by
+    this solve despite running 50 ADMM iterations. I also tried changing
+    rho a bit and could not get any better. If you try to actually roll
+    out the MPC closed loop, you get this:</p>
+    <figure>
+    <video src="./not_good.mp4" controls=""><a
+    href="./not_good.mp4">Rolling out the MPC closed loop cannot tip the
+    block.</a></video>
+    <figcaption aria-hidden="true">Rolling out the MPC closed loop
+    cannot tip the block.</figcaption>
+    </figure>
+    <p>So, maybe there is something going on here. It could potentially
+    be a hyperparameter issue. You can clearly see it kind of
+    oscillating between modes around the corner, but it never wants to
+    actually make contact in a way that tips the cube. I’m not sure
+    exactly what the solution is here; it could be a fundamental
+    linearization problem or a me-being-bad-at-hyperparameter tuning
+    problem.</p>
+    <p><strong>Shrinking the Cube 0.3→0.25:</strong> Check out this
+    behavior:</p>
+    <figure>
+    <video src="./chaos.mp4" controls=""><a href="./chaos.mp4">When the
+    cube is shrunk to 0.25, it tips the cube, then goes
+    crazy.</a></video>
+    <figcaption aria-hidden="true">When the cube is shrunk to 0.25, it
+    tips the cube, then goes crazy.</figcaption>
+    </figure>
+    <p>I mean that kinda feels like I have a bug or ADMM is failing to
+    solve at all or something. But also, why does it only happen like
+    many timesteps in? My best guess is that it has something to do with
+    linearizing around the corner of the shrunk cube when it is on the
+    face of the big cube.</p>
+    <p>Perhaps the solution is to simply change the task? Here is the
+    cube pivoting task which was done in the original C3 paper, that
+    seems like it would be easier:</p>
+    <figure>
+    <img src="image-4.png" alt="Cube pivoting in C3 paper" />
+    <figcaption aria-hidden="true">Cube pivoting in C3
+    paper</figcaption>
+    </figure>
+    <h2 id="other-thoughts">3. Other Thoughts</h2>
+    <h3 id="thinking-about-k-for-rc3">3.1. Thinking about <span
+    class="math inline">K</span> for RC3+</h3>
+    <p>Last time, there was concern about just grabbing the <span
+    class="math inline">K</span> that was solved for by the robust
+    method and using that at a higher frequency. If this is a problem, I
+    think something like the following might be more stable:</p>
+    <ol type="1">
+    <li>Solve for <span class="math inline">K</span>, regularized
+    towards a PD controller <span
+    class="math inline">K_\text{pd}</span></li>
+    <li>Then if <span class="math inline">\bar x</span> is the mean
+    state and <span class="math inline">\tilde K = K -
+    K_\text{pd}</span>, we calculate the quantity <span
+    class="math inline">\hat v = v + \tilde K x_0 + K_\text{pd} \bar
+    x</span></li>
+    <li>Finally, we run the controller <span class="math inline">u =
+    K_\text{pd} (x - \bar x) + \hat v</span> at the higher
+    frequency</li>
+    </ol>
+    <p>I think this could potentially resolve some of the problems with
+    running <span class="math inline">K</span> at a higher frequency,
+    but there still may be others stemming from the fact that <span
+    class="math inline">K_\text{pd}</span> has the same gains at each
+    frequency.</p>
+    <h3 id="thinking-about-forward-sim-of-lcs">3.2. Thinking about
+    Forward Sim of LCS</h3>
+    <p>We will likely have to do forward simulation of the LCS for at
+    least the async version of the algorithm. In such a case, we really
+    care the most about speed. A common way to solve complementarity
+    problems efficiently in physics simulation is to use projected
+    Gauss-Seidal. This would not be very efficient on a GPU as it
+    requires looping through each element of the complementarity
+    constraint. We care about utilizing the GPU, so maybe we could use
+    the projected Jacobi method, where we iterate: <span
+    class="math display"> \lambda = \max\left(0, \lambda - \frac{F
+    \lambda + q}{\text{diag}(F)} \right) </span> This operation, when
+    jitted, could potentially have speed improvements over a QP solver,
+    albeit sacrificing some accuracy.</p>
+    <p>I wonder if this could also be used by the reweighting idea to
+    make it faster.</p>
+  </body>
+
+</html>
