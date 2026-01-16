@@ -95,7 +95,7 @@ I think this could potentially resolve some of the problems with running $K$ at 
 
 ### 3.2. Thinking about Forward Sim of LCS
 
-We will likely have to do forward simulation of the LCS for at least the async version of the algorithm. In such a case, we really care the most about speed. A common way to solve complementarity problems efficiently in physics simulation is to use projected Gauss-Seidal. This would not be very efficient on a GPU as it requires looping through each element of the complementarity constraint. We care about utilizing the GPU, so maybe we could use the projected Jacobi method, where we iterate:
+We will likely have to do forward simulation of the LCS for at least the async version of the algorithm. In such a case, we really care the most about speed. A common way to solve complementarity problems efficiently in physics simulation is to use projected Gauss-Seidel. This would not be very efficient on a GPU as it requires looping through each element of the complementarity constraint. We care about utilizing the GPU, so maybe we could use the projected Jacobi method, where we iterate:
 $$ \lambda = \max\left(0, \lambda - \frac{F \lambda + q}{\text{diag}(F)} \right) $$
 This operation, when jitted, could potentially have speed improvements over a QP solver, albeit sacrificing some accuracy.
 
