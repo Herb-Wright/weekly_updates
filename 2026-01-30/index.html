@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 Jan 30</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#towards-better-c3-convergence"
+        id="toc-towards-better-c3-convergence">2. Towards Better C3+
+        Convergence</a></li>
+        <li><a href="#more-stuff" id="toc-more-stuff">3. More
+        Stuff</a></li>
+        <li><a href="#robust-approach-shows-signs-of-life"
+        id="toc-robust-approach-shows-signs-of-life">4. Robust Approach
+        Shows Signs of Life</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time was a while ago, but I remember I was still struggling
+    to get things working and the suggestion was to play around with
+    <span class="math inline">\rho</span> to see if I could get better
+    convergence, I did a little bit of that and even did a slight bit of
+    research on an adaptive rho (§2.2). That was two weeks ago, and I
+    have kind of been all over the place in the meantime, so hopefully
+    this write-up is somewhat coherent.</p>
+    <p>The main takeaways from this write-up:</p>
+    <ul>
+    <li>NaNs are/were the bane of my existence (§2.1, §3.1, and
+    §3.2)</li>
+    <li>It seems like, after much hyperparameter tuning, <span
+    class="math inline">\Delta t = 0.05</span> might be necessary for
+    the cube tipping task (§2.1)</li>
+    <li>I now have a fairly hacky equality-constrained QP solving method
+    (§3.2)</li>
+    <li>Weighting the samples seems like it could be successful
+    (§3.3)</li>
+    <li><em>The robust approach is very promising, and it was able to
+    tip the cube if feedback was included</em> (§4)</li>
+    </ul>
+    <h2 id="towards-better-c3-convergence">2. Towards Better C3+
+    Convergence</h2>
+    <h3 id="getting-it-working">2.1. Getting it “Working”</h3>
+    <p><strong>Equilibration:</strong> The first thing I did was try to
+    add some equilibration to help the Shur complement matrix not be so
+    degenerate during the KKT solve part of the ADMM algorithm. I was
+    seeing condition numbers like <span
+    class="math inline">10^15-10^16</span>—which was the whole reason I
+    switched to float64s in the first place. Relatedly, OSQP <span
+    class="citation" data-cites="stellato2020osqp"><a
+    href="#ref-stellato2020osqp" role="doc-biblioref">[1]</a></span>
+    uses a variant of <em>Ruiz equilibration</em> <span class="citation"
+    data-cites="ruiz2001scaling"><a href="#ref-ruiz2001scaling"
+    role="doc-biblioref">[2]</a></span> to equilibrate the KKT matrix
+    during the ADMM algorithm for solving a QP. Ruiz equilibration tries
+    to minimize the <span class="math inline">\infty</span>-norms of the
+    rows/columns of a matrix, which is a cheaper proxy to directly
+    reducing the condition number of a matrix. In the case of my
+    problem, the matrix we are trying to equilibrate is not necessarily
+    the KKT matrix itself to be better conditioned, but the Shur
+    complement matrix of <span class="math inline">B A^{-1}
+    B^\top</span>. I have played around with different ways of
+    conditioning, and the method I finally landed on is explained in
+    §3.2 of this write-up. The reason the condition number was/is so bad
+    is due to both the cost matrices and the <span
+    class="math inline">\rho</span> parameters/schedule.</p>
+    <p><strong>Fixing a Bug:</strong> I realized that I had a minor bug
+    in my linearization code, where I would not take the new state into
+    account everywhere that I should have (i.e. I was still linearizing
+    part of the LCS around <span class="math inline">x=0</span> even
+    when <span class="math inline">x \neq 0</span>). This wouldn’t have
+    made a difference on the first MPC solve, but would on subsequent
+    solves, and it would be especially pronounced once the end effector
+    was around the edge of box. Regardless, I have fixed the bug, but it
+    still didn’t cause things to magically work all of a sudden.</p>
+    <p>Finally, I could move on to hyperparameter tuning. As I went
+    about hyperparameter tuning, I noticed that there were four
+    different types of <em>failure modes</em> that would occur with
+    certain hyperparameter selections. At <span
+    class="math inline">\Delta t = 0.1</span>, it was very difficult (I
+    wasn’t able to do it) to find a hyperparameter selection that
+    avoided all of these and had the desired behavior. Here they
+    are:</p>
+    <p><strong>Failure Mode 1:</strong> <em>C3+ uses high-velocity
+    sliding friction to tip the block.</em> This creates a problem
+    because the ball pretty quickly gets past the edge of the cube,
+    which then causes the linearization to be poor. It also often
+    involves high velocity, which might not be desired for actual
+    robotic motions</p>
+    <p><strong>Failure Mode 2:</strong> <em>C3+ tries to go backwards
+    first, before tipping the block.</em> This is a problem because we
+    only execute the first action from the MPC solve. This means that
+    the ball just kind of shuffles backwards until it goes around the
+    edge and pushes from the wrong side.</p>
+    <figure>
+    <video src="./c3p_tip_cube_1.mp4" controls=""><a
+    href="./c3p_tip_cube_1.mp4">C3+ tries to tip cube, it wanders
+    backwards before going around the corner and tipping the
+    cube.</a></video>
+    <figcaption aria-hidden="true">C3+ tries to tip cube, it wanders
+    backwards before going around the corner and tipping the
+    cube.</figcaption>
+    </figure>
+    <p><strong>Failure Mode 3:</strong> <em>C3+ “whacks” the block, then
+    breaks contact.</em> This is a problem because C3+ doesn’t actually
+    stabilize the block around the tipped position. Once the block is
+    “whacked”, contact is broken, and when the block starts to fall
+    back, linearization often starts to fail (i.e. linearizes too far
+    around the edge).</p>
+    <p><strong>Failure Mode 4:</strong> <em>C3+ doesn’t want to move at
+    all.</em> This is a problem because the objective is never
+    satisfied. This is usually due to either (a) too high of a cost on
+    the ball <span class="math inline">x</span>’s or <span
+    class="math inline">u</span>’s, <em>or</em> too lax of
+    complementarity constraints such that they don’t get satisfied at
+    all (block moves but ball doesn’t). Usually, there is a combination
+    of the two.</p>
+    <p><strong>Success (or Close Enough):</strong> I was able to get
+    something that resembles success:</p>
+    <figure>
+    <img src="./c3p_success_maybe.gif" alt="C3+ tips the cube!" />
+    <figcaption aria-hidden="true">C3+ tips the cube!</figcaption>
+    </figure>
+    <p>In this next video I had <span class="math inline">Q_{q\text{
+    box}} = 2 \times 10^5</span>, <span class="math inline">Q_{q\text{
+    EE}} = 0</span>, <span class="math inline">Q_v = 5 \times
+    10^2</span>, <span class="math inline">Q_f = 2 Q</span>, and the
+    cube was shrunk to side lengths <span
+    class="math inline">l=0.29</span>. Furthermore, <span
+    class="math inline">\Delta t = 0.05</span>. Here is the result:</p>
+    <figure>
+    <video src="./c3p_tip_cube_2.mp4" controls=""><a
+    href="./c3p_tip_cube_2.mp4">Example of success with C3+ tipping
+    cube. There is some near-concerning behavior as it almost seems to
+    exhibit failure mode 2 for the first one or two
+    timesteps</a></video>
+    <figcaption aria-hidden="true">Example of success with C3+ tipping
+    cube. There is some near-concerning behavior as it almost seems to
+    exhibit failure mode 2 for the first one or two
+    timesteps</figcaption>
+    </figure>
+    <p><strong>Note:</strong> <em>The success in the above video
+    critically hinges on the cube being “shrunk” to sides of 0.29 in the
+    LCS. If you change this, it fails (as seen in §4 of this
+    write-up).</em></p>
+    <h3 id="other-ideas">2.2. Other Ideas</h3>
+    <p><strong>Adaptive rho:</strong> One other thing that I considered
+    was the way that <span class="math inline">\rho</span> is scheduled.
+    In the original C3 paper <span class="citation"
+    data-cites="aydinoglu2024consensus"><a
+    href="#ref-aydinoglu2024consensus"
+    role="doc-biblioref">[3]</a></span>, and subsequent versions, <span
+    class="math inline">\rho</span> follows a geometric schedule where
+    it is always increased by a constant factor at each iteration. In
+    ADMM <span class="citation" data-cites="neal2011distributed"><a
+    href="#ref-neal2011distributed" role="doc-biblioref">[4]</a></span>,
+    most convergence proofs assume the problem is convex and step sized
+    is <em>fixed</em>. The CI-MPC problem, however, is decidedly
+    non-convex. In <span class="citation"
+    data-cites="neal2011distributed"><a href="#ref-neal2011distributed"
+    role="doc-biblioref">[4]</a></span>, the authors also explain that
+    there is a heuristic commonly used for having an <em>adaptive</em>
+    <span class="math inline">\rho</span> parameter based on the primal
+    and dual residuals. The problem is, with the version of ADMM I am
+    using the robust formulation, the dual residual is not as they have
+    derived, due to the bilinear constraint. There are many different
+    proposed ADMM adaptive <span class="math inline">\rho</span>
+    strategies, but perhaps the most appealing to me is not even
+    proposed for ADMM. It is the simple heuristic: <span
+    class="math display"> \rho_{k+1} = \begin{cases} \beta \rho_k, &amp;
+    |r_k| \geq \gamma | r_{k-1} | \\ \rho_k, &amp; \text{otherwise}
+    \end{cases} </span> which comes from §2.2.5 of <span
+    class="citation" data-cites="bertsekas2014constrained"><a
+    href="#ref-bertsekas2014constrained"
+    role="doc-biblioref">[5]</a></span> on augmented Lagrangian
+    methods.</p>
+    <h2 id="more-stuff">3. More Stuff</h2>
+    <h3 id="float32">3.1. Float32?</h3>
+    <p>I noticed that there was a problem when I moved to Float32. Even
+    though there were no NaNs, the solution would have large numerical
+    error in certain <span class="math inline">x</span> dimensions, as
+    visualized below:</p>
+    <figure>
+    <img src="./changing_to_float32_cause_problems.gif"
+    alt="Changing to Float32 causes the MPC solve to have numerically unstable x’s" />
+    <figcaption aria-hidden="true">Changing to Float32 causes the MPC
+    solve to have numerically unstable <span
+    class="math inline">x</span>’s</figcaption>
+    </figure>
+    <p>I was able to fix it, though:</p>
+    <p><strong>FIX:</strong> <em>I simply added an extra “projection”
+    step after solving the KKT matrix that projects the solution back
+    into the constraints, taking the average absolute violation of the
+    constraints from about <span class="math inline">2\times
+    10^{-2}</span> to about <span class="math inline">1 \times
+    10^{-4}</span></em></p>
+    <h3 id="my-current-equality-constrained-qp-solve-method">3.2. My
+    Current Equality-Constrained QP Solve Method</h3>
+    <p>Given an equality constrained QP of the form:</p>
+    <p><span class="math display"> \min_x x^\top Q x + c^\top x
+    \;\;\text{ s.t. } A x = b, </span></p>
+    <p>my current method is the following:</p>
+    <ol type="1">
+    <li>Scale constraints <span class="math inline">A, b</span> by <span
+    class="math inline">1/({\|A_i\|_2} + \epsilon)</span></li>
+    <li>Scale primal variables in <span class="math inline">Q, A,
+    c</span> by doing a single Ruiz Equilibration <span class="citation"
+    data-cites="ruiz2001scaling"><a href="#ref-ruiz2001scaling"
+    role="doc-biblioref">[2]</a></span> iteration on <span
+    class="math inline">Q</span>, and applying the corresponding scale,
+    <span class="math inline">1 / (\sqrt{\|Q_i\|_\infty} +
+    \epsilon)</span>, to <span class="math inline">A, c</span></li>
+    <li>Doing Cholesky solves to calculate the quantities <span
+    class="math inline">Q^{-1} A^\top</span> and <span
+    class="math inline">Q^{-1} c</span></li>
+    <li>Calculate the negative Shur complement: <span
+    class="math inline">-S = A Q^{-1} A^\top</span></li>
+    <li>Symmetrize <span class="math inline">S</span> by setting <span
+    class="math inline">S \gets (S + S^\top)/2</span></li>
+    <li>Scale <span class="math inline">S</span> by doing a single Ruiz
+    Equilibration iteration</li>
+    <li>Add a ridge to <span class="math inline">S</span> for numerical
+    stability (about <span class="math inline">10^{-4}</span>)</li>
+    <li>Cholesky solve and scale to recover the Lagrange multiplier
+    <span class="math inline">y^* = -S^{-1} (b - A Q^{-1} c)</span></li>
+    <li>Calculate and scale the primal solution <span
+    class="math inline">x^* = -Q^{-1} c - Q^{-1} A^\top y^*</span></li>
+    <li>Project <span class="math inline">x^*</span> onto the constraint
+    <span class="math inline">A x = b</span></li>
+    <li>Return <span class="math inline">x^*</span></li>
+    </ol>
+    <p>I found this to tentatively work best as it avoided the many NaNs
+    I ran into in the last couple of weeks. That being said, if you
+    choose bad hyperparameters, you still end up with a bunch of NaNs.
+    For example:</p>
+    <ul>
+    <li>Setting <span class="math inline">\rho</span> to get too big
+    results in NaNs</li>
+    <li>Decreasing <span class="math inline">\alpha</span> too much
+    results in NaNs (off diagonal terms cause numerical errors after so
+    many matrix operations, which is step 6 exists above)</li>
+    </ul>
+    <p>For reference, after this process, I am able to get condition
+    numbers down to <span class="math inline">&lt;10^6</span> for <span
+    class="math inline">S</span>, which avoids NaNs in the Cholesky
+    solve.</p>
+    <h3 id="scoringweighting-the-samples">3.3. Scoring/Weighting the
+    Samples</h3>
+    <p>One thing I noticed is that if we have an LCP of the form: <span
+    class="math display"> \text{find } \lambda \;\;\text{ s.t. } 0 \leq
+    \lambda \perp F \lambda + q \geq 0, </span> and we know that <span
+    class="math inline">F</span> is both <em>symmetric</em> and positive
+    semi-definite, which is the case in the Anitescu formulation <span
+    class="citation" data-cites="anitescu2006optimization"><a
+    href="#ref-anitescu2006optimization"
+    role="doc-biblioref">[6]</a></span> because <span
+    class="math inline">F \propto J_c M^{-1} J_c^\top</span> (the
+    Delassus operator?), then, there are actually two distinct QPs that
+    encode this LCP. The first one is the one I brought up previously:
+    <span class="math display"> \min_\lambda \lambda^\top F \lambda +
+    q^\top \lambda \;\;\text{ s.t. } \lambda \geq 0 \text{ and } F
+    \lambda + q \geq 0 </span> But the simpler one, which skipped my
+    mind up until now, is the following: <span class="math display">
+    \min_\lambda \frac{1}{2}\lambda^\top F \lambda + q^\top \lambda
+    \;\;\text{ s.t. } \lambda \geq 0 </span> This QP drops the expensive
+    <span class="math inline">F \lambda + q \geq 0</span> constraint. I
+    figured that if we use this for forward sim, we can simply measure
+    <span class="math inline">\sum_t \| x_t - \hat x_t \|^2</span> and
+    weight accordingly. I implemented the scoring to see what would come
+    of it, and I got the following:</p>
+    <figure>
+    <img src="image.png"
+    alt="Scoring samples by their performance at prediction past observations" />
+    <figcaption aria-hidden="true">Scoring samples by their performance
+    at prediction past observations</figcaption>
+    </figure>
+    <p>I feel like that looks good.</p>
+    <h2 id="robust-approach-shows-signs-of-life">4. Robust Approach
+    Shows Signs of Life</h2>
+    <p>After fighting hyperparameters and the all-too-frequent NaNs, I
+    was able to get the robust approach to pivot the cube, but it
+    required having feedback, which is good for our argument. Here is a
+    promising GIF of the result:</p>
+    <figure>
+    <img src="./signs_of_life.gif"
+    alt="The robust approach with steering/feedback shows signs of life!" />
+    <figcaption aria-hidden="true">The robust approach with
+    steering/feedback shows signs of life!</figcaption>
+    </figure>
+    <p>Quantitatively, I have also graphed the error after two seconds
+    in simulation of the above videos:</p>
+    <figure>
+    <img src="./bar_plot.png"
+    alt="Comparison of the error on the cube tipping task when removing key components of the method." />
+    <figcaption aria-hidden="true">Comparison of the error on the cube
+    tipping task when removing key components of the
+    method.</figcaption>
+    </figure>
+    <p>Here are the hyperparameters I used for the robust version of the
+    above proof-of-concept:</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><span class="math inline">\Delta t</span></td>
+    <td>0.05</td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">T</span></td>
+    <td>7</td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">n_\text{samples}</span></td>
+    <td>16</td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\alpha</span></td>
+    <td>0.001</td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">Q_{q\text{ box}}</span></td>
+    <td><span class="math inline">2 \times 10^5</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">Q_{q\text{ EE}}</span></td>
+    <td><span class="math inline">1 \times 10^1</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">Q_v</span></td>
+    <td><span class="math inline">5 \times 10^2</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">Q_\text{final}</span></td>
+    <td><span class="math inline">2 Q</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">R</span></td>
+    <td><span class="math inline">0.01</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">l</span> dist.</td>
+    <td><span class="math inline">\text{Unif}[0.27, 0.33]</span></td>
+    </tr>
+    <tr class="odd">
+    <td>precision</td>
+    <td><code>Float32</code></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">n_\text{iters}</span> init</td>
+    <td>10</td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">n_\text{iters}</span> full</td>
+    <td>10</td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\rho_x</span></td>
+    <td><span class="math inline">1</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">\rho_u</span></td>
+    <td><span class="math inline">0.1</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\rho_\eta</span></td>
+    <td><span class="math inline">50 \times 2^i</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">\rho_\lambda</span></td>
+    <td><span class="math inline">50 \times 2^i</span></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>With these hyperparameters, I noticed that each solve took about
+    <span class="math inline">0.06</span> seconds, including building
+    the LCS. Hopefully, this could be pushed a bit down with some
+    optimization as <span class="math inline">\Delta t</span> was <span
+    class="math inline">0.05</span>.</p>
+    <p><strong>What is missing from the above:</strong></p>
+    <ul>
+    <li>Reweighting samples</li>
+    <li>Regularizing <span class="math inline">K</span> towards a PD
+    controller
+    <ul>
+    <li>And any sort of low-level PD controller</li>
+    </ul></li>
+    <li>Adaptive <span class="math inline">\rho</span></li>
+    </ul>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-stellato2020osqp" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">B. Stellato, G. Banjac, P. Goulart, A.
+    Bemporad, and S. Boyd, <span>“OSQP: An operator splitting solver for
+    quadratic programs,”</span> <em>Mathematical Programming
+    Computation</em>, vol. 12, no. 4, pp. 637–672, 2020.</div>
+    </div>
+    <div id="ref-ruiz2001scaling" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">D. Ruiz, <span>“A scaling algorithm to
+    equilibrate both rows and columns norms in matrices,”</span>
+    CM-P00040415, 2001.</div>
+    </div>
+    <div id="ref-aydinoglu2024consensus" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">A. Aydinoglu, A. Wei, W.-C. Huang, and M.
+    Posa, <span>“Consensus complementarity control for multi-contact
+    mpc,”</span> <em>IEEE Transactions on Robotics</em>, 2024.</div>
+    </div>
+    <div id="ref-neal2011distributed" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">P. Neal, C. Eric, P. Borja, and E.
+    Jonathan, <span>“Distributed optimization and statistical learning
+    via the alternating direction method of multipliers,”</span>
+    <em>Foundations and Trends<span></span> in Machine learning</em>,
+    vol. 3, no. 1, pp. 1–122, 2011.</div>
+    </div>
+    <div id="ref-bertsekas2014constrained" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">D. P. Bertsekas, <em>Constrained
+    optimization and lagrange multiplier methods</em>. Academic press,
+    2014.</div>
+    </div>
+    <div id="ref-anitescu2006optimization" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">M. Anitescu, <span>“Optimization-based
+    simulation of nonsmooth rigid multibody dynamics,”</span>
+    <em>Mathematical Programming</em>, vol. 105, no. 1, pp. 113–143,
+    2006.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
