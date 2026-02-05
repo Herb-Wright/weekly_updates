@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 Feb 6</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#profiling-the-admm-steps"
+        id="toc-profiling-the-admm-steps">2. Profiling the ADMM
+        steps</a></li>
+        <li><a href="#towards-a-pushing-experiment-sim"
+        id="toc-towards-a-pushing-experiment-sim">3. Towards a Pushing
+        Experiment (Sim)</a></li>
+        <li><a href="#brainstorming" id="toc-brainstorming">4.
+        Brainstorming</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time, there was some promising signs from the robust
+    contact-implicit MPC method I have been working on. It was decided
+    that pushing for IROS may be in the books. The main things I took
+    away to do this week were to (a) profile the code, (b) think about
+    and move towards a couple new experiments.</p>
+    <p>The main takeaways in this write-up are:</p>
+    <ul>
+    <li>The ADMM algorithm perf. saturates on GPU around 64 samples,
+    likely due to memory bandwidth (§2)</li>
+    <li>I have updated to use a QP for the initial LCS forward step, and
+    pushing is… okay, but still has some issues (§3)</li>
+    <li>I have some thoughts for experiments, but I think multi-object
+    pushing and object reorientation are the way to go (§4)</li>
+    </ul>
+    <h2 id="profiling-the-admm-steps">2. Profiling the ADMM steps</h2>
+    <p>The first thing I did was to profile the ADMM part and try to
+    better understand its parallelization. The first graph I have here
+    is a speed test of the ADMM algo, using pretty much the <a
+    href="../2026-01-30/#robust-approach-shows-signs-of-life">same
+    hyperparameters as last time</a>, except I used <span
+    class="math inline">n_\text{iters} = 8</span> for both init and full
+    ADMM loops and varied <span
+    class="math inline">n_\text{samples}</span>. Here is the graph of
+    the average ADMM runtime depending on the number of samples:</p>
+    <figure>
+    <img src="image.png"
+    alt="ADMM Speed test averaged over 5 runs, done after JIT compilation and a warm-up run, on NVIDIA RTX 5090." />
+    <figcaption aria-hidden="true">ADMM Speed test averaged over 5 runs,
+    done after JIT compilation and a warm-up run, on NVIDIA RTX
+    5090.</figcaption>
+    </figure>
+    <p>The first thing to notice is that there is a sweet-spot of
+    parallelization, then it starts to saturate at about <span
+    class="math inline">n_\text{samples} = 64</span>. The second thing
+    to notice is that before then, we are well below the <span
+    class="math inline">\Delta t</span> line—which we want to be because
+    I am timing <em>just</em> the ADMM part and not LCS/matrix creation
+    or any other overhead. One might question, however, <em>why</em> we
+    are saturating so soon. I mean at 64 samples, we are still under a
+    GB as far as memory is concerned. My best guess is that the
+    bottleneck is coming from some sort of moving memory around on the
+    GPU. For context, here is the trace view from the profiler for <span
+    class="math inline">n_\text{samples} = 128</span>:</p>
+    <figure>
+    <img src="image-1.png"
+    alt="Trace view of from the profiler for 128 samples." />
+    <figcaption aria-hidden="true">Trace view of from the profiler for
+    128 samples.</figcaption>
+    </figure>
+    <p>Clearly, the algorithm is parallelized and on the GPU, and the
+    thing that takes up the largest portion of the time is the cholesky
+    solves (<code>cho_solve</code>), and particularly the
+    <code>triangular-solve</code> operation. Because this is a library
+    call, I am not sure there is too much that can be done to optimize
+    it.</p>
+    <h2 id="towards-a-pushing-experiment-sim">3. Towards a Pushing
+    Experiment (Sim)</h2>
+    <p><strong>Updating Forward Sim:</strong> The first thing I did is
+    change how I was doing the first forward sim step. Previously, I was
+    using <code>mjx.step</code> to forward simulate each sample, then I
+    was creating the LCS’s and running ADMM. I changed this to first
+    construct the LCS’s for each sample, then forward simulate the LCS
+    by solving the QPs I mentioned in the last writeup to forward
+    simulate: <span class="math display"> \min_\lambda
+    \frac{1}{2}\lambda^\top F \lambda + q^\top \lambda \;\;\text{ s.t. }
+    \lambda \geq 0 </span> I used MPAX <span class="citation"
+    data-cites="lu2024mpax"><a href="#ref-lu2024mpax"
+    role="doc-biblioref">[1]</a></span> with pretty lax parameter
+    settings to favor speed to solve the QPs. After this change, I made
+    sure the algorithm still works and is fast (shrunk sphere just to
+    test robustness):</p>
+    <figure>
+    <img src="./still_works.gif"
+    alt="Verifying the control algorithm still works" />
+    <figcaption aria-hidden="true">Verifying the control algorithm still
+    works</figcaption>
+    </figure>
+    <p>As you can see, the algorithm is capable of running at 20 Hz and
+    can tip the cube. I should note that there is some steady-state
+    error and the controller actually <em>overshoots</em> the desired
+    rotation.</p>
+    <p><strong>Basic Pushing:</strong> The next thing I did is return to
+    pushing, because there will probably be a pushing experiment—either
+    toy or multiple-object planar pushing. I noticed that, similar to
+    the cube tipping task, there is considerable steady-state error, but
+    pushing does occur. Here is a GIF of that:</p>
+    <figure>
+    <img src="./pushing1.gif"
+    alt="Left: Visualizing the run of the pushing task. Right: Graphing the distance between desired block position and actual during sim." />
+    <figcaption aria-hidden="true"><strong>Left:</strong> Visualizing
+    the run of the pushing task. <strong>Right:</strong> Graphing the
+    distance between desired block position and actual during
+    sim.</figcaption>
+    </figure>
+    <p>Previously I also had the thought that it would be cool if the
+    robust approach could learn where to push based on some sort of
+    uncertainty, but I am worried that this is not really feasible. I
+    wonder if there is something about the LCS that makes finding
+    <em>where</em> to contact kind of difficult. For example, here is
+    two different coefficients of friction for this tall-block pushing
+    task:</p>
+    <p><img src="./push2.gif" /></p>
+    <p>The <span class="math inline">\mu = 0.5</span> one clearly gets
+    stuck, even though it is given the range <span
+    class="math inline">\hat \mu \sim \text{Unif}[0.3, 0.7]</span>.
+    Again I am not sure how to get around this or even if it is worth
+    doing one of these sorts of experiments.</p>
+    <p><strong>Hyperparameters:</strong> For both of the following
+    pushing experiments, the hyperparameters were similar to the
+    following table:</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td><span class="math inline">\Delta t</span></td>
+    <td>0.05</td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">T</span></td>
+    <td>7</td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">n_\text{samples}</span></td>
+    <td>32</td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\alpha</span></td>
+    <td>0.01</td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">Q_{q\text{ box}}</span></td>
+    <td><span class="math inline">5 \times 10^5</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">Q_{q\text{ EE}}</span></td>
+    <td><span class="math inline">1 \times 10^1</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">Q_v</span></td>
+    <td><span class="math inline">1 \times 10^4</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">Q_\text{final}</span></td>
+    <td><span class="math inline">2 Q</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">R</span></td>
+    <td><span class="math inline">0.01</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\mu</span> uncertainty</td>
+    <td><span class="math inline">\text{Unif}[0.3, 0.7]</span></td>
+    </tr>
+    <tr class="odd">
+    <td>precision</td>
+    <td><code>Float32</code></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">n_\text{iters}</span> init</td>
+    <td>8</td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">n_\text{iters}</span> full</td>
+    <td>10</td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\rho_x</span></td>
+    <td><span class="math inline">1</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">\rho_u</span></td>
+    <td><span class="math inline">0.1</span></td>
+    </tr>
+    <tr class="even">
+    <td><span class="math inline">\rho_\eta</span></td>
+    <td><span class="math inline">50 \times 2^i</span></td>
+    </tr>
+    <tr class="odd">
+    <td><span class="math inline">\rho_\lambda</span></td>
+    <td><span class="math inline">50 \times 2^i</span></td>
+    </tr>
+    </tbody>
+    </table>
+    <h2 id="brainstorming">4. Brainstorming</h2>
+    <h3 id="experiments">4.1. Experiments</h3>
+    <p>If we are aiming for IROS, we better get what experiments we are
+    going to do settled. As food for thought, here are some experiments
+    from recent papers that focus on contact dynamics in some way:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="Examples of Contact-Rich experiments in other recent papers" />
+    <figcaption aria-hidden="true">Examples of Contact-Rich experiments
+    in other recent papers</figcaption>
+    </figure>
+    <p>My current thoughts is that we should consider the following
+    experiments:</p>
+    <ul>
+    <li>Multi-object pushing (in sim or real)</li>
+    <li>Pushing in a circle (in sim or real)</li>
+    <li>Planar rotation, perhaps with the trifinger (in sim)</li>
+    <li>The tip cube toy task (sim)</li>
+    </ul>
+    <p>The idea is that we would want to showcase (a) real world
+    transfer; (b) multiple end-effectors; (c) multiple objects. The
+    focus could be on shape uncertainty, but we can also include other
+    uncertainties. If there is time, I think it might look better to do
+    the sim pushing stuff by having the reduced model of just xyz force
+    control of the end-effector, but actually use inverse kinematics and
+    a Franka model to have a robot in the actual experiment/figures.</p>
+    <p>For baselines, I think it would be best to compare with:</p>
+    <ul>
+    <li>A deterministic version (similar to C3+ <span class="citation"
+    data-cites="bui2025push"><a href="#ref-bui2025push"
+    role="doc-biblioref">[2]</a></span>)</li>
+    <li>A sampling-based MPC approach (like MPPI+randomization similar
+    to <span class="citation"
+    data-cites="pezzato2025sampling abraham2020model"><a
+    href="#ref-pezzato2025sampling" role="doc-biblioref">[3]</a>, <a
+    href="#ref-abraham2020model" role="doc-biblioref">[4]</a></span>; I
+    should probably sit down and do a close read of one or both of
+    these)</li>
+    <li>A robust version of the method but without steering</li>
+    </ul>
+    <h3 id="towards-the-paper">4.2. Towards the Paper</h3>
+    <p>Recall the paper “pitch” from a previous write-up:</p>
+    <blockquote>
+    <ul>
+    <li><strong>Potential Title:</strong> <em>Efficient ADMM-based
+    Robust Contact-Implicit Control</em></li>
+    <li><strong>Motivation:</strong> Current contact-implicit MPC
+    approaches ignore uncertainty—which is all too common in real world
+    scenarios—whereas, on the other hand, most robust control approaches
+    cannot handle complementarity constraints. Thus, there is room for
+    an efficient method that performs contact-implicit robust control in
+    a way that can handle general uncertainties.</li>
+    <li><strong>Method:</strong> We would introduce a method for
+    contact-implicit robust control that uses GPU parallelization to
+    generate distributionally robust feedback plans. Our method would
+    use samples to solve an expectation based loss with that becomes
+    basic matrix operations and some linear solves with the ADMM
+    algorithm. We would also include a reweighting for system
+    identification.</li>
+    <li><strong>Experiments:</strong> Our experiments would aim to show
+    that (i) there are circumstances where a robust approach outperforms
+    C3+ w/ a PD controller; (ii) Both the reweighting and
+    sampling/steering improve performance with the method; (iii) It can
+    work real-time in the real world. Here is an image from last time of
+    some potential experiments</li>
+    </ul>
+    </blockquote>
+    <p>I think that one clear point to emphasize in an eventual paper is
+    the ability to handle general uncertainties in real-time. To
+    exemplify what I mean, here is a comparison with other robust
+    approaches to contact-rich manipulation:</p>
+    <table>
+    <colgroup>
+    <col style="width: 24%" />
+    <col style="width: 20%" />
+    <col style="width: 26%" />
+    <col style="width: 27%" />
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Method</th>
+    <th>Opposing Contacts?</th>
+    <th>Shape Uncertainty?</th>
+    <th>Real-time?</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>BS-VP-STO <span class="citation"
+    data-cites="jankowski2025robust"><a href="#ref-jankowski2025robust"
+    role="doc-biblioref">[5]</a></span></td>
+    <td>N</td>
+    <td>N</td>
+    <td>Y (<span class="math inline">M = 6</span> @ 5 Hz)</td>
+    </tr>
+    <tr class="even">
+    <td>CS4UCS <span class="citation"
+    data-cites="shirai2023covariance"><a
+    href="#ref-shirai2023covariance"
+    role="doc-biblioref">[6]</a></span></td>
+    <td>Y</td>
+    <td>Y (in theory, untested)</td>
+    <td>N</td>
+    </tr>
+    <tr class="odd">
+    <td><strong>Ours</strong></td>
+    <td><strong>Y</strong></td>
+    <td><strong>Y</strong></td>
+    <td><strong>Y (<span class="math inline">M = 32</span> @ 20
+    Hz)</strong></td>
+    </tr>
+    </tbody>
+    </table>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-lu2024mpax" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">H. Lu, Z. Peng, and J. Yang, <span>“MPAX:
+    Mathematical programming in JAX,”</span> <em>arXiv preprint
+    arXiv:2412.09734</em>, 2024.</div>
+    </div>
+    <div id="ref-bui2025push" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">H. Bui, Y. Gao, H. Yang, E. Cui, S. Mody,
+    B. Acosta, T. S. Felix, B. Bianchini, and M. Posa, <span>“Push
+    anything: Single-and multi-object pushing from first sight with
+    contact-implicit MPC,”</span> <em>arXiv preprint
+    arXiv:2510.19974</em>, 2025.</div>
+    </div>
+    <div id="ref-pezzato2025sampling" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">C. Pezzato, C. Salmi, E. Trevisan, M.
+    Spahn, J. Alonso-Mora, and C. H. Corbato, <span>“Sampling-based
+    model predictive control leveraging parallelizable physics
+    simulations,”</span> <em>IEEE Robotics and Automation Letters</em>,
+    2025.</div>
+    </div>
+    <div id="ref-abraham2020model" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">I. Abraham, A. Handa, N. Ratliff, K.
+    Lowrey, T. D. Murphey, and D. Fox, <span>“Model-based generalization
+    under parameter uncertainty using path integral control,”</span>
+    <em>IEEE Robotics and Automation Letters</em>, vol. 5, no. 2, pp.
+    2864–2871, 2020.</div>
+    </div>
+    <div id="ref-jankowski2025robust" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">J. Jankowski, L. Brudermüller, N. Hawes,
+    and S. Calinon, <span>“Robust pushing: Exploiting quasi-static
+    belief dynamics and contact-informed optimization,”</span> <em>The
+    International Journal of Robotics Research</em>, p.
+    02783649251318046, 2025.</div>
+    </div>
+    <div id="ref-shirai2023covariance" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[6] </div><div
+    class="csl-right-inline">Y. Shirai, D. K. Jha, and A. U.
+    Raghunathan, <span>“Covariance steering for uncertain contact-rich
+    systems,”</span> in <em>2023 IEEE international conference on
+    robotics and automation (ICRA)</em>, 2023, pp. 7923–7929.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
