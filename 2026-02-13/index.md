@@ -32,11 +32,11 @@ Unfortunately, it doesn't seem like there is a great way to get around this. Her
 In order to implement reweighting into the ADMM algorithm, we start with the objective:
 $$ \min_{\pi} \mathbb E_{\xi \sim P(\xi)} [ c(x(\xi), u(\xi)) ] $$
 We instead consider if we have some sort of observation that we are adjusting our belief in $\xi$ with:
-$$ \min_{\pi} \mathbb E_{\xi \sim P(o_{1:T_\text{hist}})} [ c( x(\xi),  u(\xi)) ] $$
+$$ \min_{\pi} \mathbb E_{\xi \sim P(\xi|o_{1:T_\text{hist}})} [ c( x(\xi),  u(\xi)) ] $$
 Using Bayes rule, we can convert this to:
-$$ \min_{\pi} \mathbb E_{\xi \sim P(\xi)} \left[P(o_{1:T_\text{hist}}) c( x(\xi),  u(\xi)) \right] $$
+$$ \min_{\pi} \mathbb E_{\xi \sim P(\xi)} \left[P(o_{1:T_\text{hist}}|\xi) c( x(\xi),  u(\xi)) \right] $$
 After turning this into our MPC objective, we have:
-$$ \min_{\substack{ x_{0:T}^{(1:N)},  u_{0:T-1}^{(1:N)}, \lambda_{0:T-1}^{(1:N)}, \\ K_{0:T-1},  v_{0:T-1}}} \; \sum_{i=1}^N P(o_{1:T_\text{hist}}) \left[ \left\| x^{(i)}_T\right\|_{Q_f}^2 + \sum_{t=0}^{T-1}  \left\|  x^{(i)}_t \right\|_Q^2 + \left\|  u^{(i)}_t \right\|^2_R \right] $$
+$$ \min_{\substack{ x_{0:T}^{(1:N)},  u_{0:T-1}^{(1:N)}, \lambda_{0:T-1}^{(1:N)}, \\ K_{0:T-1},  v_{0:T-1}}} \; \sum_{i=1}^N P(o_{1:T_\text{hist}}|\xi) \left[ \left\| x^{(i)}_T\right\|_{Q_f}^2 + \sum_{t=0}^{T-1}  \left\|  x^{(i)}_t \right\|_Q^2 + \left\|  u^{(i)}_t \right\|^2_R \right] $$
 $$ \text{ s.t. } \;  x_{t+1}^{(i)} = f_{\xi^{(i)}} ( x_t^{(i)},  u_t^{(i)}, \lambda_t^{(i)}) $$
 $$ 0 \leq \lambda_t^{(i)} \perp \Phi_{\xi^{(i)}}( x_t^{(i)},  u_t^{(i)}, \lambda_t^{(i)}) \geq 0 $$
 $$   u_t^{(i)} = K_t  x_t^{(i)} +  v_t $$ 
