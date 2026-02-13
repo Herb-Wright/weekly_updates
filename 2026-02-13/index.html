@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 Feb 13</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#revisiting-timing-results"
+        id="toc-revisiting-timing-results">2. (Revisiting) Timing
+        Results</a></li>
+        <li><a href="#adding-in-reweighting"
+        id="toc-adding-in-reweighting">3. Adding in Reweighting</a></li>
+        <li><a href="#tip-cube-experiments"
+        id="toc-tip-cube-experiments">4. Tip Cube Experiments</a></li>
+        <li><a href="#towards-a-tri-finger-reorientation-task-in-sim"
+        id="toc-towards-a-tri-finger-reorientation-task-in-sim">5.
+        Towards a Tri-finger Reorientation Task in Sim</a></li>
+        <li><a href="#other-minor-stuff" id="toc-other-minor-stuff">6.
+        Other Minor Stuff</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time, we spent most of the meeting talking about the
+    parallelization. This week, I have a small recap of that, then I
+    also ran some experiments for the tip-cube task, where I have
+    implemented the reweighting, but found reweighting to be not very
+    important for the task, but we probably shouldn’t draw broad
+    conclusions. Finally, I also talk about some other stuff.</p>
+    <h2 id="revisiting-timing-results">2. (Revisiting) Timing
+    Results</h2>
+    <p>This section simply summarizes our looking into timing results
+    for Cholesky solves. The experiments here are generated by running
+    various Cholesky decompositions and solves on random matrices with
+    dimensions similar to those in the push-cube/pivot-cube tasks.</p>
+    <p><strong>Takeaway 1:</strong> <em>Having JAX compile to CPU is
+    significantly slower than GPU for all batch sizes.</em></p>
+    <figure>
+    <img src="image.png"
+    alt="Comparison of GPU vs CPU compiled Cholesky Decomp+Solves in JAX" />
+    <figcaption aria-hidden="true">Comparison of GPU vs CPU compiled
+    Cholesky Decomp+Solves in JAX</figcaption>
+    </figure>
+    <p><strong>Takeaway 2:</strong> <em>The <code>cho_solve</code> part
+    seems to saturate at around 32-64 samples.</em></p>
+    <p>Unfortunately, it doesn’t seem like there is a great way to get
+    around this. Here are a couple plots that show the saturation:</p>
+    <figure>
+    <img src="image-1.png"
+    alt="Cholesky solve (not including decomposition) saturates on GPU" />
+    <figcaption aria-hidden="true">Cholesky solve (not including
+    decomposition) saturates on GPU</figcaption>
+    </figure>
+    <p><strong>Takeaway 3:</strong> <em>Manually calling
+    <code>triangular_solve</code> with an explicit batch dimension
+    doesn’t really help at all.</em></p>
+    <figure>
+    <img src="image-2.png"
+    alt="Comparisons of different ways to do the Cholesky solve" />
+    <figcaption aria-hidden="true">Comparisons of different ways to do
+    the Cholesky solve</figcaption>
+    </figure>
+    <h2 id="adding-in-reweighting">3. Adding in Reweighting</h2>
+    <p>In order to implement reweighting into the ADMM algorithm, we
+    start with the objective: <span class="math display"> \min_{\pi}
+    \mathbb E_{\xi \sim P(\xi)} [ c(x(\xi), u(\xi)) ] </span> We instead
+    consider if we have some sort of observation that we are adjusting
+    our belief in <span class="math inline">\xi</span> with: <span
+    class="math display"> \min_{\pi} \mathbb E_{\xi \sim
+    P(o_{1:T_\text{hist}})} [ c( x(\xi),  u(\xi)) ] </span> Using Bayes
+    rule, we can convert this to: <span class="math display"> \min_{\pi}
+    \mathbb E_{\xi \sim P(\xi)} \left[P(o_{1:T_\text{hist}}) c(
+    x(\xi),  u(\xi)) \right] </span> After turning this into our MPC
+    objective, we have: <span class="math display"> \min_{\substack{
+    x_{0:T}^{(1:N)},  u_{0:T-1}^{(1:N)}, \lambda_{0:T-1}^{(1:N)}, \\
+    K_{0:T-1},  v_{0:T-1}}} \; \sum_{i=1}^N P(o_{1:T_\text{hist}})
+    \left[ \left\| x^{(i)}_T\right\|_{Q_f}^2 +
+    \sum_{t=0}^{T-1}  \left\|  x^{(i)}_t \right\|_Q^2 +
+    \left\|  u^{(i)}_t \right\|^2_R \right] </span> <span
+    class="math display"> \text{ s.t. } \;  x_{t+1}^{(i)} =
+    f_{\xi^{(i)}} ( x_t^{(i)},  u_t^{(i)}, \lambda_t^{(i)}) </span>
+    <span class="math display"> 0 \leq \lambda_t^{(i)} \perp
+    \Phi_{\xi^{(i)}}( x_t^{(i)},  u_t^{(i)}, \lambda_t^{(i)}) \geq 0
+    </span> <span class="math display">   u_t^{(i)} = K_t  x_t^{(i)}
+    +  v_t </span> In practice, this really only affects the QP step,
+    where <span class="math inline">P(o_{1:T_\text{hist}} | \xi )</span>
+    balances the cost matrices with the augmented Lagrangian matching
+    terms. A low likelihood corresponds to the matching terms having a
+    larger effect. Also, as I mentioned previously, I am simply using
+    the likelihood: <span class="math display"> P(o_{1:T_\text{hist}} |
+    \xi ) \propto \exp \left(- \gamma \sum_t \| \hat x - x_o \|^2
+    \right) </span> Where <span class="math inline">\hat x</span> is
+    gathered from rolling the LCS forward. Because of this, the LCS
+    rolling forward can be combined with the initial stepping of the LCS
+    for the ADMM optimization for added efficiency. I have implemented
+    all of this and here is an example of what the reweighting
+    probabilities look like at various time points:</p>
+    <figure>
+    <img src="image-3.png" alt="Results of reweighting" />
+    <figcaption aria-hidden="true">Results of reweighting</figcaption>
+    </figure>
+    <p>After adding all this in, I was able to keep the time for the
+    whole controller loop to be from 0.048-0.052 (s).</p>
+    <h2 id="tip-cube-experiments">4. Tip Cube Experiments</h2>
+    <p>I ran an ablation experiment on the tip-cube task. For the
+    experiment, I slightly randomized the starting position of the ball,
+    the rotation of the block, and the dimensions of the block. Then I
+    tested taking away key elements of the method by running the
+    experiment 100 times each. I call a run a success if the block’s
+    rotation is within 0.25 radians of the desired rotation after 2
+    seconds of simulation. Here are the results:</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Method</th>
+    <th>Success Rate</th>
+    <th>Avg. error (rad)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>No Steering</td>
+    <td>28%</td>
+    <td>0.4166</td>
+    </tr>
+    <tr class="even">
+    <td>No Reweighting</td>
+    <td>70%</td>
+    <td>0.2839</td>
+    </tr>
+    <tr class="odd">
+    <td>Full Method</td>
+    <td><strong>71%</strong></td>
+    <td><strong>0.2777</strong></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>As you can see, the steering does seem to be important, but the
+    reweighting doesn’t seem to be much of a factor and the difference
+    could easily be described by statistical noise. I am not sure a 71%
+    success rate is that good, so this might need to be revisited. I
+    should note that I do not give the methods the true size of the
+    block beforehand, and instead simply give them a distribution to be
+    robust to. I tried to examine how <span
+    class="math inline">\gamma</span> (hyperparameter for reweighting)
+    affects the performance, and it really doesn’t affect it that
+    much:</p>
+    <figure>
+    <img src="image-4.png"
+    alt="Effect of \gamma on success. \gamma=0 is equivalent to no reweighting, and \gamma = 10.0 resulted in NaNs regularly." />
+    <figcaption aria-hidden="true">Effect of <span
+    class="math inline">\gamma</span> on success. <span
+    class="math inline">\gamma=0</span> is equivalent to no reweighting,
+    and <span class="math inline">\gamma = 10.0</span> resulted in NaNs
+    regularly.</figcaption>
+    </figure>
+    <p>I mean, perhaps there is an argument that a correctly tuned <span
+    class="math inline">\gamma</span> (maybe about <span
+    class="math inline">\gamma = 10^{-3}</span>) will result in
+    statistically significant improvement if we have enough trials—it
+    resulted in a success rate of 75%, which was the highest.</p>
+    <p>The next step here would be to compare with a sampling-based
+    approach like MPPI. We can even compare against a robust version of
+    it <span class="citation"
+    data-cites="abraham2020model pezzato2025sampling"><a
+    href="#ref-abraham2020model" role="doc-biblioref">[1]</a>, <a
+    href="#ref-pezzato2025sampling"
+    role="doc-biblioref">[2]</a></span>.</p>
+    <p>I also reran the above experiment using <span
+    class="math inline">\gamma=0.001</span> and doing 1000 trials
+    instead, and got the following results (± is 95% CI):</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Method</th>
+    <th>Success Rate</th>
+    <th>Avg. error (rad)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>No Steering</td>
+    <td>28.8%</td>
+    <td>0.4126 ±0.0109</td>
+    </tr>
+    <tr class="even">
+    <td>No Reweighting</td>
+    <td>72.2%</td>
+    <td>0.2716 ±0.0097</td>
+    </tr>
+    <tr class="odd">
+    <td>Full Method</td>
+    <td><strong>72.8%</strong></td>
+    <td><strong>0.2700</strong> ±0.0096</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>Clearly, the result with respect to steering is significant, but
+    the one with respect to reweighting is not.</p>
+    <p>My untested hypothesis is that <span
+    class="math inline">\gamma</span> would need to be much larger to
+    matter much, but that when <span class="math inline">\gamma</span>
+    is big enough, it creates numerical issues in solving the QP, which
+    just cancels out any benefit.</p>
+    <h2 id="towards-a-tri-finger-reorientation-task-in-sim">5. Towards a
+    Tri-finger Reorientation Task in Sim</h2>
+    <p>The next step is to do a simulated task of a trifinger
+    reorienting an object. There exists a trifinger URDF/XML file for
+    Mujoco that I can use:</p>
+    <figure>
+    <img src="./trifinger.gif" alt="Mujoco trifinger setup" />
+    <figcaption aria-hidden="true">Mujoco trifinger setup</figcaption>
+    </figure>
+    <p>I just need to implement the correct contact detection so that
+    only contacts between the object and fingertips are considered, and
+    unnecessary contacts are not. I would also like to do the ADMM
+    algorithm in joint torques instead of fingertip positions.</p>
+    <h2 id="other-minor-stuff">6. Other Minor Stuff</h2>
+    <h3 id="robot-learning-class">6.1. Robot Learning Class</h3>
+    <p>This week, quite a bit of time got eaten up preparing for the
+    robot learning class I am taking, where I have been assigned to be a
+    debater on Monday. It is about simulation and its role in
+    robotics.</p>
+    <h3 id="writing-the-paper">6.2. Writing the Paper</h3>
+    <p>I figure I am at the part of the project, where I could begin a
+    draft of the paper. I am hoping to make significant progress on this
+    next week.</p>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-abraham2020model" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">I. Abraham, A. Handa, N. Ratliff, K.
+    Lowrey, T. D. Murphey, and D. Fox, <span>“Model-based generalization
+    under parameter uncertainty using path integral control,”</span>
+    <em>IEEE Robotics and Automation Letters</em>, vol. 5, no. 2, pp.
+    2864–2871, 2020.</div>
+    </div>
+    <div id="ref-pezzato2025sampling" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">C. Pezzato, C. Salmi, E. Trevisan, M.
+    Spahn, J. Alonso-Mora, and C. H. Corbato, <span>“Sampling-based
+    model predictive control leveraging parallelizable physics
+    simulations,”</span> <em>IEEE Robotics and Automation Letters</em>,
+    2025.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
