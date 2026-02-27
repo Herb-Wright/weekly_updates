@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 Feb 27</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#trying-to-fix-the-float32-gap"
+        id="toc-trying-to-fix-the-float32-gap">2. Trying to Fix The
+        Float32 Gap</a></li>
+        <li><a href="#implementing-a-baseline-predictive-sampling"
+        id="toc-implementing-a-baseline-predictive-sampling">3.
+        Implementing a Baseline: Predictive Sampling</a></li>
+        <li><a href="#additional-thoughts"
+        id="toc-additional-thoughts">4. Additional Thoughts</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time, I tried to implement the constraint to not go outside
+    of the cube, but it didn’t work so well. I basically came to the
+    conclusion that numerical issues were the culprit. After this week,
+    I am not so sure.</p>
+    <h2 id="trying-to-fix-the-float32-gap">2. Trying to Fix The Float32
+    Gap</h2>
+    <h3 id="null-space-idea">2.1. Null Space Idea</h3>
+    <p>My first idea is that perhaps it might be possible to solve the
+    equality constrained QP via reparameterizing the QP into an
+    unconstrained problem with the null space of the constraint matrix.
+    My thought was that, because the constraint matrix actually stays
+    the same over each iterations, we could simply compute the QR
+    decomposition of it off the bat, then just continually use that. I
+    tried to implement it and it was painfully slow, so I decided to
+    simply speed test the QR decomposition speed, and it turned out this
+    idea is not viable because the QR decomposition parallelizes
+    incredibly poorly:</p>
+    <figure>
+    <img src="image.png"
+    alt="Speed test of QR decomposition for a matrix of size 530x360" />
+    <figcaption aria-hidden="true">Speed test of QR decomposition for a
+    matrix of size 530x360</figcaption>
+    </figure>
+    <p>Remember that for this idea, this would only have to run once;
+    unfortunately, even with this, it is about 4x too slow at
+    minimum.</p>
+    <h3 id="other-untested-ideas">2.2. Other (Untested) Ideas</h3>
+    <p>Here are some other ideas I considered:</p>
+    <ul>
+    <li>Doing a refinement step after solving the KKT matrix with the
+    Shur complement. I decided not to really test this because it didn’t
+    seem promising. My best guess is that just by constructing the <span
+    class="math inline">S</span> matrix, you are losing the relevant
+    precision/accuracy.</li>
+    </ul>
+    <h3 id="a-miracle">2.3. A Miracle?</h3>
+    <p>I don’t exactly know what changed, but when I went back to
+    running on Float32 after undoing a bunch of code, things started
+    working pretty well. In fact, I did a test with <strong>200
+    trials</strong> for different settings for the method and these were
+    the results (I am reporting different tolerances):</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Method</th>
+    <th>&lt;0.2 (rad)</th>
+    <th>&lt;0.25 (rad)</th>
+    <th>&lt;0.3 (rad)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>Deterministic</td>
+    <td>0.560</td>
+    <td>0.895</td>
+    <td>0.965</td>
+    </tr>
+    <tr class="even">
+    <td>No steering</td>
+    <td>0.440</td>
+    <td>0.940</td>
+    <td><strong>1.000</strong></td>
+    </tr>
+    <tr class="odd">
+    <td>No re-weighting</td>
+    <td><strong>0.650</strong></td>
+    <td><strong>1.000</strong></td>
+    <td><strong>1.000</strong></td>
+    </tr>
+    <tr class="even">
+    <td>Full method</td>
+    <td><strong>0.650</strong></td>
+    <td><strong>1.000</strong></td>
+    <td><strong>1.000</strong></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>It should be noted that I was slightly varying the starting
+    rotation and size of the block around the z-axis and the starting
+    xyz position of the ball. The starting position of the ball was
+    drawn from a uniform distribution with extents of ±0.05 (m). The
+    next experiment I ran was to increase this to ±0.1 (m), so there is
+    <strong>more variation</strong> and do <strong>500 trials</strong>
+    (<em>note:</em> the block size ranges from 0.28 (m) to 0.32 (m), so
+    the new distribution of starting position of the ball takes up about
+    2/3 of the block in any direction). Here were the results from that
+    (I also add a Float64 comparison):</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Method</th>
+    <th>&lt;0.2 (rad)</th>
+    <th>&lt;0.25 (rad)</th>
+    <th>&lt;0.3 (rad)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>Deterministic</td>
+    <td>0.522</td>
+    <td>0.772</td>
+    <td>0.826</td>
+    </tr>
+    <tr class="even">
+    <td>No steering</td>
+    <td>0.444</td>
+    <td>0.854</td>
+    <td><strong>0.902</strong></td>
+    </tr>
+    <tr class="odd">
+    <td>No re-weighting</td>
+    <td>0.634</td>
+    <td><strong>0.900</strong></td>
+    <td><strong>0.902</strong></td>
+    </tr>
+    <tr class="even">
+    <td>Full method</td>
+    <td>0.610</td>
+    <td>0.884</td>
+    <td>0.884</td>
+    </tr>
+    <tr class="odd">
+    <td>Full method (Float64)</td>
+    <td><strong>0.646</strong></td>
+    <td>0.884</td>
+    <td>0.886</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>I think the takeaway is that the re-weighting really doesn’t seem
+    to be helping, but the steering does seem to be helping at least a
+    little bit. Also, it seems fairly clear that the deterministic
+    version performs worse.</p>
+    <p><em>Obviously,</em> it’s a bit weird that things just were
+    working all of a sudden, and it suggests there was a bug somewhere
+    going on—either before or after. In order to verify that things are
+    reasonable, here is a video of a few back-to-back trials for both
+    Float32 and Float64 precisions:</p>
+    <figure>
+    <video src="./example_rollouts.mp4" controls=""><a
+    href="./example_rollouts.mp4">Examples of various trials with the
+    full method for the larger variation and two different precisions
+    (Float32 and Float64). Their performance is comparable</a></video>
+    <figcaption aria-hidden="true">Examples of various trials with the
+    full method for the larger variation and two different precisions
+    (Float32 and Float64). Their performance is comparable</figcaption>
+    </figure>
+    <h2 id="implementing-a-baseline-predictive-sampling">3. Implementing
+    a Baseline: Predictive Sampling</h2>
+    <p>I wanted to try out a basic baseline to compare against. I
+    figured the easiest would be to use <em>predictive sampling</em> as
+    done in MJPC <span class="citation"
+    data-cites="howell2022predictive"><a
+    href="#ref-howell2022predictive"
+    role="doc-biblioref">[1]</a></span>. This can be seen as a variant
+    of MPPI <span class="citation"
+    data-cites="williams2016aggressive"><a
+    href="#ref-williams2016aggressive"
+    role="doc-biblioref">[2]</a></span> in the limit of infinite
+    temperature. Basically, you randomly sample perturbations to a
+    nominal <span class="math inline">u</span> trajectory and evaluate
+    each of the trajectories costs, then apply the best scoring one:</p>
+    <figure>
+    <img src="image-1.png" alt="Predictive sampling from [1]." />
+    <figcaption aria-hidden="true">Predictive sampling from <span
+    class="citation" data-cites="howell2022predictive"><a
+    href="#ref-howell2022predictive"
+    role="doc-biblioref">[1]</a></span>.</figcaption>
+    </figure>
+    <p>I implemented basically this, and made the design decision to use
+    <strong>cubic splines</strong> with a number of knot points to make
+    the trajectory. I didn’t hyperparameter tune aggressively, but made
+    sure it could kinda work. I used pretty much the same cost matrices
+    from running C3-like algorithms to calculate the cost, multiplied by
+    a constant factor and evaluated along the rollout at a higher
+    frequency than the control rate. I made two different sets of
+    hyperparameters: a “beefy” one that doesn’t run in real time, and a
+    normal set of hyperparameters that does run in real time. Here are
+    those hyperparameters:</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Parameter</th>
+    <th>Normal</th>
+    <th>Beefy</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td># of knot points</td>
+    <td>4</td>
+    <td>5</td>
+    </tr>
+    <tr class="even">
+    <td># of samples</td>
+    <td>64</td>
+    <td>256</td>
+    </tr>
+    <tr class="odd">
+    <td>noise <span class="math inline">\sigma</span></td>
+    <td>3.0</td>
+    <td>3.0</td>
+    </tr>
+    <tr class="even">
+    <td>controller <span class="math inline">\Delta t</span></td>
+    <td>0.05</td>
+    <td>0.05</td>
+    </tr>
+    <tr class="odd">
+    <td>rollout <span class="math inline">\Delta t</span></td>
+    <td>0.01</td>
+    <td>0.01</td>
+    </tr>
+    <tr class="even">
+    <td>horizon (s)</td>
+    <td>0.35</td>
+    <td>0.5</td>
+    </tr>
+    <tr class="odd">
+    <td>real-time?</td>
+    <td>yes</td>
+    <td>3-4x slower</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>I tested these two settings for MJPC on the problem. I gave my
+    implementation of MJPC access to the average of the shape
+    distribution (side lengths of 0.3), instead of the ground truth
+    block size. For each method, I ran 300 trials each on both a low
+    variance initialization (end effector <span
+    class="math inline">(x_0, y_0, z_0) \sim \text{Unif}[-0.05,
+    0.05]</span>) and a high variance initialization (end effector <span
+    class="math inline">(x_0, y_0, z_0) \sim \text{Unif}[-0.1,
+    0.1]</span>). Here are the results:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="Our method vs MJPC with two different settings" />
+    <figcaption aria-hidden="true">Our method vs MJPC with two different
+    settings</figcaption>
+    </figure>
+    <p>As you can see, the beefier MJPC version is much more successful,
+    but the real-time one struggles. My best guess is that this is due
+    to the horizon being increased from 0.35 (what our R-CI-MPC method
+    uses) to 0.50. Unfortunately (or fortunately), I was unable to
+    increase the horizon <em>and</em> stay at a real-time rate (20 Hz).
+    I also tried running the predictive sampling controller at 10 Hz,
+    but that also didn’t work as well. A common failure mode for MJPC
+    was that it would just sit there and never find a trajectory that
+    gave it enough reward to overcome the cost of moving from the
+    initial configuration.</p>
+    <p><em>Also,</em> another thing to note is that MJPC had much lower
+    levels of actual error when successful. If you were to measure
+    success with a strict tolerance, say 0.1 (rad), then MJPC would
+    significantly outperform our robust contact-implicit control method.
+    This is because our method constantly overshoots and reaches an
+    equilibrium with significant bias (usually around 0.2 (rad)).</p>
+    <p>The next thing I did was see if increasing the object <em>shape
+    distribution</em> would highlight the utility of doing a robust
+    approach. So, I increased the width, length, and height
+    distributions from <span class="math inline">\text{Unif}[0.28,
+    0.32]</span> to <span class="math inline">\text{Unif}[0.25,
+    0.35]</span>, and tested both our method without re-weighting (same
+    distribution for uncertainty as used to generate boxes) and two
+    versions of the beefy version of MJPC—one with access to the ground
+    truth block size, and one with the average block size (like before).
+    Here is table of the results for <strong>100 runs</strong>:</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Method</th>
+    <th>&lt;0.2 (rad)</th>
+    <th>&lt;0.25 (rad)</th>
+    <th>&lt;0.3 (rad)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>Beefy MJPC (mean)</td>
+    <td>0.79</td>
+    <td>0.81</td>
+    <td>0.82</td>
+    </tr>
+    <tr class="even">
+    <td>Beefy MJPC (g.t. shape)</td>
+    <td><strong>0.93</strong></td>
+    <td>0.94</td>
+    <td>0.94</td>
+    </tr>
+    <tr class="odd">
+    <td>Ours, no Reweighting</td>
+    <td>0.82</td>
+    <td><strong>0.97</strong></td>
+    <td><strong>0.97</strong></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>Don’t ask me why, with a wider distribution, the R-CI-MPC method
+    did better. But regardless, it seems like our method does better
+    with the shape distribution.</p>
+    <h2 id="additional-thoughts">4. Additional Thoughts</h2>
+    <p>I think that if we make the decision to forgo the re-weighting,
+    it might be a good idea to think about what the paper would have to
+    really make it feel full. I was hoping to have more time to
+    brainstorm some ideas here, but I did not. I mean right now, our
+    contributions could be enumerated as:</p>
+    <ol type="1">
+    <li>GPU parallelizing ADMM-based CI-MPC</li>
+    <li>Efficient addition of steering/feedback into sampling-based
+    CI-MPC problem via bilinear ADMM</li>
+    <li>Overall, an efficient and effective <em>robust</em> CI-MPC
+    algorithm</li>
+    </ol>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-howell2022predictive" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">T. Howell, N. Gileadi, S. Tunyasuvunakool,
+    K. Zakka, T. Erez, and Y. Tassa, <span>“Predictive sampling:
+    Real-time behaviour synthesis with mujoco,”</span> <em>arXiv
+    preprint arXiv:2212.00541</em>, 2022.</div>
+    </div>
+    <div id="ref-williams2016aggressive" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">G. Williams, P. Drews, B. Goldfain, J. M.
+    Rehg, and E. A. Theodorou, <span>“Aggressive driving with model
+    predictive path integral control,”</span> in <em>2016 IEEE
+    international conference on robotics and automation (ICRA)</em>,
+    2016, pp. 1433–1440.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
