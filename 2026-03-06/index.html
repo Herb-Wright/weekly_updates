@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 March 6</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#revisiting-re-weighting"
+        id="toc-revisiting-re-weighting">2. Revisiting
+        Re-weighting</a></li>
+        <li><a href="#updates-to-baselines"
+        id="toc-updates-to-baselines">3. Updates to Baselines</a></li>
+        <li><a href="#towards-trifinger-reorientation"
+        id="toc-towards-trifinger-reorientation">4. Towards Trifinger
+        Reorientation</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time, we discussed how the Float32 issues kind of just went
+    away. The things we decided to do moving forward were (a) not give
+    up on reweighting; (b) Update baselines/implementation; and (c) move
+    towards the other two experiments (trifinger reorientation). There
+    was also a brief discussion of finger gaiting.</p>
+    <h2 id="revisiting-re-weighting">2. Revisiting Re-weighting</h2>
+    <p>I wanted to re-test re-weighting but crank up parameters to
+    really tease out the effect. I decided to run <strong>1000 trials
+    each</strong> and use the <strong>high variance</strong>
+    initialization settings from last time (ball position <span
+    class="math inline">x, y, z \sim \text{Unif}[-0.1, 0.1]</span>; box
+    side lengths <span class="math inline">w, l, h \sim
+    \text{Unif}[0.25, 0.35]</span>; block rotation <span
+    class="math inline">\theta \sim \text{Unif}[-0.1, 0.1]</span> (rad);
+    Controller given true block size distribution). Here is a table with
+    the results:</p>
+    <table style="width:100%;">
+    <colgroup>
+    <col style="width: 50%" />
+    <col style="width: 15%" />
+    <col style="width: 17%" />
+    <col style="width: 15%" />
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Method</th>
+    <th>&lt;0.2 (rad)</th>
+    <th>&lt;0.25 (rad)</th>
+    <th>&lt;0.3 (rad)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>Beefy MJPC</td>
+    <td>0.827</td>
+    <td>0.841</td>
+    <td>0.858</td>
+    </tr>
+    <tr class="even">
+    <td>No steering</td>
+    <td>0.581</td>
+    <td>0.758</td>
+    <td>0.897</td>
+    </tr>
+    <tr class="odd">
+    <td>No re-weighting</td>
+    <td><strong>0.913</strong></td>
+    <td>0.973</td>
+    <td>0.974</td>
+    </tr>
+    <tr class="even">
+    <td><strong>Full method</strong> (<span class="math inline">\gamma =
+    0.1</span>)</td>
+    <td>0.532</td>
+    <td><strong>0.993</strong></td>
+    <td><strong>1.000</strong></td>
+    </tr>
+    </tbody>
+    </table>
+    <p>I think these results are fairly interesting. It should be noted
+    that because <span class="math inline">N</span> is so high, these
+    are pretty much all significant. The full method (including
+    re-weighting) achieves 100% success if the tolerance is very loose,
+    but at the high tolerance, it is outshined by all other versions,
+    including <em>No re-weighting</em>, which maintains a success rate
+    of over 90%. I also include a comparison with the “beefy” MJPC
+    version from last week, where both the full method and <em>No
+    re-weighting</em> outperform it on 0.25 and 0.3 radians
+    tolerances.</p>
+    <p><strong>Question:</strong> <em>Does MPC think there will be
+    steady state error?</em></p>
+    <p>No. Here is a figure graphing what the various particles look
+    like after the MPC solve, and what actually happens at that
+    timestep:</p>
+    <figure>
+    <img src="image-1.png"
+    alt="MPC thinks there won’t be steady-state error, but there is." />
+    <figcaption aria-hidden="true">MPC thinks there won’t be
+    steady-state error, but there is.</figcaption>
+    </figure>
+    <p>Likely, the issue is some sort of convergence, this could also be
+    evidenced by the fact that the <span
+    class="math inline">x_0</span>’s are all a bit different from the
+    actual <span class="math inline">x_0</span> error.</p>
+    <p>The next thing I did was to do an analysis on the <span
+    class="math inline">\gamma</span> hyperparameter. I decided to try
+    two different <span class="math inline">\gamma</span> settings in
+    addition to <span class="math inline">\gamma=0</span> (<em>No
+    re-weighting</em> above) and <span class="math inline">\gamma =
+    0.1</span> (<em>Full method</em> above). I originally planned to
+    include <span class="math inline">\gamma = 1.0</span>, but this
+    performed poorly (&lt;0.5 success rate with high tolerance) and
+    occasionally resulted in NaNs. Here is a graph displaying the
+    results from using the different tolerances (same setup as
+    before):</p>
+    <figure>
+    <img src="image.png"
+    alt="Effect of re-weighting \gamma on performance" />
+    <figcaption aria-hidden="true">Effect of re-weighting <span
+    class="math inline">\gamma</span> on performance</figcaption>
+    </figure>
+    <p>It kind of seems like the re-weighting <strong>slightly
+    helps</strong> as far as tipping the block, but
+    <strong>hurts</strong> the steady-state error of the controller.</p>
+    <h2 id="updates-to-baselines">3. Updates to Baselines</h2>
+    <p>Last time, I had my own implementation of predictive sampling in
+    MJPC <span class="citation" data-cites="howell2022predictive"><a
+    href="#ref-howell2022predictive"
+    role="doc-biblioref">[1]</a></span>. The actual baselines we should
+    compare against ought to be (a) the actual implementation of MJPC
+    predictive sampling and (b) A <em>robust</em> version, perhaps
+    similar to E-MPPI <span class="citation"
+    data-cites="abraham2020model"><a href="#ref-abraham2020model"
+    role="doc-biblioref">[2]</a></span>.</p>
+    <h2 id="towards-trifinger-reorientation">4. Towards Trifinger
+    Reorientation</h2>
+    <h3 id="creating-the-lcs">4.1. Creating the LCS</h3>
+    <p>I was able to get an LCS kind of working for the trifinger. I did
+    this by modeling the fingertips as a sphere and reusing my
+    sphere-box collision code. Here is me testing the LCS vs the actual
+    sim, where both use dt=0.01:</p>
+    <figure>
+    <img src="./trifinger_lcs_test.gif"
+    alt="Comparison of Trifinger sim and LCS with dt=0.01 each" />
+    <figcaption aria-hidden="true">Comparison of Trifinger sim and LCS
+    with dt=0.01 each</figcaption>
+    </figure>
+    <p><strong>Note:</strong> <em>the small green/red spheres are the
+    contact points and when it is red, it means that the signed distance
+    for the contact point is within epsilon (in the actual simulation,
+    not LCS linearization)</em></p>
+    <p>However, I am worried that the LCS is either not good enough or
+    there is a bug somewhere, because when I crank up the dt to 0.05, I
+    get the following behavior (same u input):</p>
+    <figure>
+    <img src="./lcs_slow.gif" alt="Trifinger LCS with dt=0.05" />
+    <figcaption aria-hidden="true">Trifinger LCS with
+    dt=0.05</figcaption>
+    </figure>
+    <h3 id="trying-to-run-mpc">4.2. Trying to Run MPC</h3>
+    <p>The next thing I did was run CI-MPC on the trifinger LCS that I
+    had. I used <strong>dt=0.05</strong>, and was able to get this after
+    some minor cost tuning:</p>
+    <figure>
+    <video src="./trifinger_reorientation.mp4" controls=""><a
+    href="./trifinger_reorientation.mp4">Trying to get Trifinger
+    Reorientation working (2x speed)</a></video>
+    <figcaption aria-hidden="true">Trying to get Trifinger Reorientation
+    working (2x speed)</figcaption>
+    </figure>
+    <p>Clearly, it is not quite there yet, but you can see sparks of it
+    doing the rotation. There were also some other concerns I have. For
+    one, the timing for the above was about <strong>0.12 (s)</strong>
+    for <strong>32 particles</strong>, and about <strong>0.09
+    (s)</strong> for <strong>16 particles</strong>, which is too slow
+    for the 20 Hz that it takes to use dt=0.05. I tried to use dt=0.1,
+    but it didn’t quite work at all. I also ran into some NaNs at many
+    hyperparameter settings, which is nothing new; likely the solution
+    to this is to decrease the number of ADMM iterations . I want to do
+    some hyperparameter tuning next, and get some better visualizations
+    on what the MPC controller thinks is going to happen, and constraint
+    satisfaction over algorithm iterations.</p>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-howell2022predictive" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">T. Howell, N. Gileadi, S. Tunyasuvunakool,
+    K. Zakka, T. Erez, and Y. Tassa, <span>“Predictive sampling:
+    Real-time behaviour synthesis with mujoco,”</span> <em>arXiv
+    preprint arXiv:2212.00541</em>, 2022.</div>
+    </div>
+    <div id="ref-abraham2020model" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">I. Abraham, A. Handa, N. Ratliff, K.
+    Lowrey, T. D. Murphey, and D. Fox, <span>“Model-based generalization
+    under parameter uncertainty using path integral control,”</span>
+    <em>IEEE Robotics and Automation Letters</em>, vol. 5, no. 2, pp.
+    2864–2871, 2020.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
