@@ -1,7 +1,7 @@
 ---
 title: Herbie's Weekly Update 🗓️
-date: 2026 March 27
-bibliography: 2026-03-27/refs.bib
+date: 2026 March 26
+bibliography: 2026-03-26/refs.bib
 link-citations: true
 ---
 
