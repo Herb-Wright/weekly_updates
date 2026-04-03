@@ -53,8 +53,7 @@ As you can see this is promising, but I may want to do hyperparameter tuning bec
 ## 4. On Push Anything
 
 - Claude Opus suggests using LCM instead of pybind, as pybind would require embedding a python interpreter in the C++ code, and LCM is highly modular
-- 
-- 
+- Haven't had too much time to actually implement anything
 
 
 
