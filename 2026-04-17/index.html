@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 April 17</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#trifinger-reorientation"
+        id="toc-trifinger-reorientation">2. Trifinger
+        Reorientation</a></li>
+        <li><a href="#new-robust-reweighting-idea"
+        id="toc-new-robust-reweighting-idea">3. New Robust Reweighting
+        Idea</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time, we talked about my struggles with getting results that
+    looked good. It was decided that I should investigate shape
+    uncertainty on the Trifinger task some more. There was also an idea
+    floated to have <span class="math inline">\mu</span> be a decision
+    variable. I also introduced a pretty heuristic resampling
+    method.</p>
+    <h2 id="trifinger-reorientation">2. Trifinger Reorientation</h2>
+    <h3 id="shape-uncertainty-task">2.1. Shape Uncertainty Task</h3>
+    <p><strong>Insight 1:</strong> <em>There is high sensitivity to
+    hyperparameters, and optimal hyperparameters are not consistently
+    found by optuna</em></p>
+    <figure>
+    <img src="image.png"
+    alt="Different results for shape uncertainty with the Trifinger reorientation task." />
+    <figcaption aria-hidden="true">Different results for shape
+    uncertainty with the Trifinger reorientation task.</figcaption>
+    </figure>
+    <p>I think there is a thought that if I did a super large-scale
+    experiment where I ran many different runs of this setup, I could
+    get statistically significant/reliable results, however that would
+    be computationally expensive.</p>
+    <h3 id="friction-uncertainty-task">2.2. Friction Uncertainty
+    Task</h3>
+    <p>The friction uncertainty task also exhibits the same
+    high-variance with respect to different runs/hyperparameters:</p>
+    <figure>
+    <img src="image-1.png"
+    alt="Different results for friction uncertainty with the Trifinger reorientation task" />
+    <figcaption aria-hidden="true">Different results for friction
+    uncertainty with the Trifinger reorientation task</figcaption>
+    </figure>
+    <h3 id="exploring-likelihood">2.3. Exploring Likelihood</h3>
+    <p>After our discussion last time, I wanted to actually investigate
+    if our likelihood was capturing what we want. In short, I found that
+    the scales were pretty small, and the models inaccurate enough that
+    the likelihood didn’t really work that well. Here is a
+    cursor-generated plot with the best of the diagnostic results that I
+    could get:</p>
+    <figure>
+    <img src="image-5.png"
+    alt="Diagnostic results for resampling with \gamma=100.0" />
+    <figcaption aria-hidden="true">Diagnostic results for resampling
+    with <span class="math inline">\gamma=100.0</span></figcaption>
+    </figure>
+    <p>Note that the difference between high probability and low
+    probability points is pretty small. If <span
+    class="math inline">\gamma</span> is increased to try to widen this
+    gap, we get the following:</p>
+    <figure>
+    <img src="image-6.png"
+    alt="Diagnostic results for resampling with \gamma=10000.0" />
+    <figcaption aria-hidden="true">Diagnostic results for resampling
+    with <span class="math inline">\gamma=10000.0</span></figcaption>
+    </figure>
+    <p>Which is no where near the true value.</p>
+    <h2 id="new-robust-reweighting-idea">3. New Robust Reweighting
+    Idea</h2>
+    <h3 id="the-method">3.1. The Method</h3>
+    <p>I had a thought to, instead of using reweighting/resampling to do
+    sys ID, what if you used it to convert the problem into a true
+    min-max robust control problem. Here is the mathematical
+    justification I came up with.</p>
+    <p>Let’s start by defining a distributionally robust optimization
+    problem <span class="citation"
+    data-cites="rahimian2019distributionally"><a
+    href="#ref-rahimian2019distributionally"
+    role="doc-biblioref">[1]</a></span> over policies and a
+    KL-divergence <span class="math inline">\epsilon</span>-ball around
+    a prior as the ambiguity set: <span class="math display"> \min_\pi
+    \max_{q \in \mathcal Q} \mathbb E_{\xi \sim q(\xi)} [C(\pi; \xi)]
+    </span> <span class="math display"> \mathcal Q := \{ q \in
+    \Delta^\Xi : KL(q \| p) \leq \epsilon \} </span> Where <span
+    class="math inline">p: \Xi \rightarrow \mathbb R_{+}</span> is the
+    prior probability density function. This problem has the same
+    min-max setup as classic robust control, but now, we are taking a
+    max with respect to distributions. The basic approach I am going to
+    propose is to do the following at each MPC re-solve in the closed
+    loop execution of the controller:</p>
+    <ol type="1">
+    <li>Calculate an approximate solution <span
+    class="math inline">q^*</span> using the previous MPC costs from
+    last solve</li>
+    <li>Calculate a new control policy from <span
+    class="math inline">x_t</span> based on the distribution <span
+    class="math inline">q^*</span>.</li>
+    </ol>
+    <p>Once we have <span class="math inline">q^*</span>, step 2 is just
+    using our original expectation-based C3 solve. So, here, I will
+    explain how to do step 1.</p>
+    <p>We consider the inner problem for a defined <span
+    class="math inline">\pi</span> (we use the previous solve): <span
+    class="math display"> \max_{q \in \mathcal Q} \mathbb E_{\xi \sim
+    q(\xi)} [C(\pi; \xi)] </span> The first thing we will do is
+    construct the lagrangian with respect to the KL-divergence
+    constraint: <span class="math display"> \bar {\mathcal L}(q, \tau) =
+    \mathbb E_{\xi \sim q(\xi)} [C(\pi; \xi)] - \tau KL(q \| p) + \tau
+    \epsilon </span> Our process for approximately solving for <span
+    class="math inline">q^*</span> will be to determine a suitable
+    Lagrange multiplier <span class="math inline">\tau^* &gt; 0</span>,
+    then analytically solve <span class="math inline">\max_{q \in
+    \Delta^\Xi} \bar{\mathcal L} (q, \tau^*)</span>. It turns out that
+    solving this Lagrangian is easy, as you can apply Donsker and
+    Varadhan’s lemma:</p>
+    <blockquote>
+    <p><strong>Lemma.</strong> <em>(Donsker-Varadhan)</em> For
+    measureable function <span class="math inline">h: \Xi \rightarrow
+    \mathbb R</span> and any probability distribution <span
+    class="math inline">p \in \Delta^\Xi</span>, we have: <span
+    class="math display"> \ln \mathbb E_{\xi \sim p} [\exp(h(\xi))] =
+    \sup_{q \in \Delta^\Xi} \left\{ \mathbb E_{\xi \sim q} [h(\xi)] -
+    KL(q \| p) \right\} </span> The suprema is obtained with the
+    following probability density function: <span class="math display">
+    q^*(\xi) = p(\xi) \exp(h(\xi)) / Z, </span> where <span
+    class="math inline">Z = \mathbb E_{\xi&#39; \sim
+    p}[\exp(h(\xi&#39;))]</span> is a normalization constant. This
+    distribution is known as the Gibbs or Boltzmann distribution.</p>
+    </blockquote>
+    <p>This lemma can be found in page 159 of <span class="citation"
+    data-cites="catoni2004statistical"><a
+    href="#ref-catoni2004statistical"
+    role="doc-biblioref">[2]</a></span> and also as lemma 1.1.3 in <span
+    class="citation" data-cites="catoni2007pac"><a
+    href="#ref-catoni2007pac" role="doc-biblioref">[3]</a></span>.
+    Applying it gets us to: <span class="math display"> \max_{q \in
+    \Delta^\Xi} \bar{\mathcal L} (q, \tau) = q^*(\xi) = p(\xi)
+    \exp\left(\frac{C(\pi; \xi)}{\tau} \right) / Z </span> If we have a
+    collection of previous MPC samples from a previous <span
+    class="math inline">q&#39;</span>, we can approximately re-weight
+    them according to this distribution: <span class="math display">
+    q(\xi^{(i)}) \propto w(\xi^{(i)}) = \frac{p(\xi) \exp(C(\pi;
+    \xi^{(i)})/ \tau^*)}{q&#39;(\xi^{(i)})} </span> I propose resampling
+    according to these weights, and estimating <span
+    class="math inline">q&#39;(\xi^{(i)})</span> with the number of
+    samples that are identical to <span
+    class="math inline">\xi^{(i)}</span>. Then, this fits nicely into
+    the resampling technique I proposed last time. Also similar to last
+    time, it would be very prudent to have a rejuvenation step that
+    resamples from the prior with probability <span
+    class="math inline">\beta</span> for each particle. Finally, I use
+    the following to set <span class="math inline">\tau</span>: <span
+    class="math display"> \tau^* = \sqrt{\frac{\mathbf{Var}_p (C(\pi;
+    \xi^{(i)}))}{\epsilon}}, </span> where <span
+    class="math inline">\mathbf{Var}_p(C)</span> in practice looks like
+    the empirical variance of the particles costs, while also doing the
+    re-weighting for <span class="math inline">q&#39;</span> via
+    counting identical particles. There is mathematical justification
+    for this setting of <span class="math inline">\tau</span>, but I
+    haven’t really gone through it completely.</p>
+    <p>Altogether, I assume <span class="math inline">p</span> is a
+    uniform distribution and the full robust sampling looks like
+    this:</p>
+    <blockquote>
+    <p><strong>Given:</strong> previous MPC particles <span
+    class="math inline">\xi^{(1)}, ..., \xi^{(N)}</span> and
+    corresponding costs <span class="math inline">C^{(1)}, ...,
+    C^{(N)}</span> with mean <span class="math inline">\bar C = \sum_i
+    C^{(i)}</span> and identical counts <span class="math inline">\tilde
+    q&#39;(\xi^{(i)})</span>:</p>
+    <ol type="1">
+    <li>Determine <span class="math inline">\tau^* \gets \sqrt{\sum_i
+    \frac{(C^{(i)} - \bar C)^2}{\tilde q&#39;(\xi^{(i)}) \epsilon (N -
+    1)}}</span></li>
+    <li>Solve for weights <span class="math inline">w^{(i)} =
+    \frac{\exp(C^{(i)} / \tau^*)}{\tilde q&#39;(\xi^{(i)})}</span></li>
+    <li>Resample <span class="math inline">\xi^{(1)}, ...,
+    \xi^{(N)}</span> according to weights <span
+    class="math inline">w^{(i)}</span></li>
+    <li>For each particle, replace with random <span
+    class="math inline">\xi \sim p(\xi)</span> with probability <span
+    class="math inline">\beta</span>.</li>
+    </ol>
+    </blockquote>
+    <p>There is a nice intuition that this is performing something
+    similar to boosting in machine learning—samples where the controller
+    had high cost get up-weighted to reduce risk.</p>
+    <h3 id="results">3.2. Results</h3>
+    <p>The first thing I do is design an experiment where I first
+    hyperparameter tune extensively for the deterministic method on the
+    nominal distribution (cube with sides of 6 cm), then I take share
+    those hyperparameters between all methods, and include <span
+    class="math inline">\alpha=100, \beta\in \{0.3, 1.0\},
+    \epsilon=0.1</span> as parameters for the other controllers. Here
+    are the results across various shape distributions:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="Results for DRO method on Trifinger shape uncertainty task (N=500)" />
+    <figcaption aria-hidden="true">Results for DRO method on Trifinger
+    shape uncertainty task (<span
+    class="math inline">N=500</span>)</figcaption>
+    </figure>
+    <p>As you can see, the DRO method and full resampling method (<span
+    class="math inline">\beta=1.0</span>) have similar performance. Both
+    distributional controllers are more robust to the deterministic
+    controller as the distribution changes—with very statistically
+    significant results.</p>
+    <p>The next test is on frictional uncertainty; I only vary the
+    fingertip friction coefficent, and use a distribution <span
+    class="math inline">\mu \in \text{Unif}[0.2, 1.8]</span>, separately
+    per finger. Results for frictional uncertainty:</p>
+    <figure>
+    <img src="image-3.png"
+    alt="Frictional uncertainty on Trifinger reorientation." />
+    <figcaption aria-hidden="true">Frictional uncertainty on Trifinger
+    reorientation.</figcaption>
+    </figure>
+    <p>My take away from this experiment is that having the
+    distributional aspect is really the most important, and
+    feedback/robust resampling don’t matter that much.</p>
+    <p><strong>Some Diagnostics:</strong> I had Cursor generate a plot
+    to visualize the distribution of the samples at various times in the
+    trifinger rollout. Here is that graph:</p>
+    <figure>
+    <img src="image-4.png"
+    alt="Visualizing the distribution of approximate q^* at parameters used." />
+    <figcaption aria-hidden="true">Visualizing the distribution of
+    approximate <span class="math inline">q^*</span> at parameters
+    used.</figcaption>
+    </figure>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-rahimian2019distributionally" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">H. Rahimian and S. Mehrotra,
+    <span>“Distributionally robust optimization: A review,”</span>
+    <em>arXiv preprint arXiv:1908.05659</em>, 2019.</div>
+    </div>
+    <div id="ref-catoni2004statistical" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">O. Catoni, <em>Statistical learning theory
+    and stochastic optimization: Ecole d’et<span>é</span> de
+    probabilit<span>é</span>s de saint-flour XXXI-2001</em>. Springer,
+    2004.</div>
+    </div>
+    <div id="ref-catoni2007pac" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">O. Catoni, <span>“PAC-bayesian supervised
+    classification: The thermodynamics of statistical learning,”</span>
+    <em>arXiv preprint arXiv:0712.0248</em>, 2007.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
