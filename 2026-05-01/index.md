@@ -65,16 +65,16 @@ The next thing I did was try to tune each method separately on the hard-coded ca
 
 To be honest, I don't have that much trust in these results. Also, here are the random per-task parameters that I used (ultimately the uncertainty was 8-dim):
 
-| Category    | Quantity               | Distribution            | Range / value       |
-| ----------- | ---------------------- | ----------------------- | ------------------- | 
-| Uncertainty | Box side lengths       | i.i.d. uniform per axis | [5, 7] (cm)         |
-| Uncertainty | Fingertip friction     | Uniform                 | [0.5, 1.5]          |
-| Uncertainty | Ground & cube friction | Uniform                 | [0.05, 0.2]         |
-| Uncertainty | Cube COM offset (3D)   | Gaussian                | σ = 0.01 m per axis |
-| Task        | Target position        | i.i.d. uniform          | [-0.06, 0.06] m     |
-| Task        | Target rotation        | Uniform                 | [-0.5, 0.5] rad     |
-| Task        | Start position         | i.i.d. uniform          | [-0.001, 0.001] m   |
-| Task        | Start rotation         | Uniform                 | [-0.01, 0.01] rad   |
+| Category    | Quantity               | Distribution | Range / value       |
+| ----------- | ---------------------- | ------------ | ------------------- |
+| Uncertainty | Box side lengths       | Uniform      | [5, 7] (cm)         |
+| Uncertainty | Fingertip friction     | Uniform      | [0.5, 1.5]          |
+| Uncertainty | Ground & cube friction | Uniform      | [0.05, 0.2]         |
+| Uncertainty | Cube COM offset (3D)   | Gaussian     | σ = 0.01 m per axis |
+| Task        | Target position        | Uniform      | [-0.06, 0.06] m     |
+| Task        | Target rotation        | Uniform      | [-0.5, 0.5] rad     |
+| Task        | Start position         | Uniform      | [-0.001, 0.001] m   |
+| Task        | Start rotation         | Uniform      | [-0.01, 0.01] rad   |
 
 
 
