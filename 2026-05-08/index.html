@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 May 8</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#towards-paper-results"
+        id="toc-towards-paper-results">2. Towards Paper Results</a></li>
+        <li><a href="#cube-tipping" id="toc-cube-tipping">2.4. Cube
+        Tipping</a></li>
+        <li><a href="#other-stuff" id="toc-other-stuff">3. Other
+        Stuff</a></li>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time we decided I should just move towards experiments that
+    might appear in the eventual paper. This week, I make progress
+    towards that.</p>
+    <h2 id="towards-paper-results">2. Towards Paper Results</h2>
+    <h3 id="trifinger-combined-uncertainty">2.1. Trifinger — Combined
+    Uncertainty</h3>
+    <p>I did a ton of hyperparameter tuning on the same fixed cases for
+    all methods and tried a bunch of hyperparameters between each
+    method, then I ran the combined uncertainty test on the
+    <em>best</em> hyperparameters found. Here are the results:</p>
+    <figure>
+    <img src="image.png" alt="Combined Uncertainty Results" />
+    <figcaption aria-hidden="true">Combined Uncertainty
+    Results</figcaption>
+    </figure>
+    <p>As you see there is about a 10% gain from the distributional
+    methods. I think this would continue to be the case at higher <span
+    class="math inline">N</span>’s, and would like to run this
+    experiment with <span class="math inline">N=1000</span>. I also want
+    to add other baselines to this experiment.</p>
+    <h3 id="trifinger-cube-size">2.2. Trifinger — Cube Size</h3>
+    <p>Then, using the best hyperparameters found (different from 2.1
+    but best for this task), I ran the cube size experiment and got
+    these results:</p>
+    <figure>
+    <img src="image-1.png" alt="Cube Size Results" />
+    <figcaption aria-hidden="true">Cube Size Results</figcaption>
+    </figure>
+    <p>Clearly, there is assymetric difficulty to the problem, and the
+    robust approaches help a little bit.</p>
+    <h3 id="trying-to-get-mppi-to-work">2.3. Trying to get MPPI to
+    Work</h3>
+    <p>I am trying to get EMPPI <span class="citation"
+    data-cites="abraham2020model"><a href="#ref-abraham2020model"
+    role="doc-biblioref">[1]</a></span> working as a baseline, but I am
+    struggling just to get plain MPPI to torque control the normal cube.
+    Because the full trifinger model is too complicated to run
+    efficiently, I made a simplified model, but infuriatingly, it is not
+    accurate enough to the full model:</p>
+    <figure>
+    <img src="./ex1_0p5x_processed.gif"
+    alt="Left: Open loop MPPI rollout on simplified model. Right: Rolling out the same actions on the full model" />
+    <figcaption aria-hidden="true"><strong>Left:</strong> Open loop MPPI
+    rollout on simplified model. <strong>Right:</strong> Rolling out the
+    same actions on the full model</figcaption>
+    </figure>
+    <p>Here is another one:</p>
+    <figure>
+    <img src="./ex2_0p5x_processed.gif"
+    alt="Left: Open loop MPPI rollout on simplified model. Right: Rolling out same actions on the full model" />
+    <figcaption aria-hidden="true"><strong>Left:</strong> Open loop MPPI
+    rollout on simplified model. <strong>Right:</strong> Rolling out
+    same actions on the full model</figcaption>
+    </figure>
+    <p>This is a bit puzzling because the simplified model used for the
+    second figure is basically the one used to create the LCS. I have
+    tried playing around with contact solvers, etc, and I even printed
+    off the signed distances between the finger tip and the cube leading
+    up to when contact was made and it was not very illuminating, except
+    that there were clear differences:</p>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>step</th>
+    <th>t_s</th>
+    <th>d_lite_mm</th>
+    <th>d_full_mm</th>
+    <th>delta_mm</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>0</td>
+    <td>0.0050</td>
+    <td>56.8861</td>
+    <td>56.8381</td>
+    <td>0.0480</td>
+    </tr>
+    <tr class="even">
+    <td>1</td>
+    <td>0.0100</td>
+    <td>56.3325</td>
+    <td>0.0000</td>
+    <td>56.3325</td>
+    </tr>
+    <tr class="odd">
+    <td>2</td>
+    <td>0.0150</td>
+    <td>55.5149</td>
+    <td>56.5638</td>
+    <td>-1.0489</td>
+    </tr>
+    <tr class="even">
+    <td>3</td>
+    <td>0.0200</td>
+    <td>54.4354</td>
+    <td>56.3345</td>
+    <td>-1.8991</td>
+    </tr>
+    <tr class="odd">
+    <td>4</td>
+    <td>0.0250</td>
+    <td>53.0966</td>
+    <td>55.8405</td>
+    <td>-2.7438</td>
+    </tr>
+    <tr class="even">
+    <td>5</td>
+    <td>0.0300</td>
+    <td>51.5021</td>
+    <td>0.0000</td>
+    <td>51.5021</td>
+    </tr>
+    <tr class="odd">
+    <td>6</td>
+    <td>0.0350</td>
+    <td>49.6557</td>
+    <td>54.0658</td>
+    <td>-4.4101</td>
+    </tr>
+    <tr class="even">
+    <td>7</td>
+    <td>0.0400</td>
+    <td>47.5624</td>
+    <td>0.0000</td>
+    <td>47.5624</td>
+    </tr>
+    <tr class="odd">
+    <td>8</td>
+    <td>0.0450</td>
+    <td>45.2276</td>
+    <td>51.2625</td>
+    <td>-6.0349</td>
+    </tr>
+    <tr class="even">
+    <td>9</td>
+    <td>0.0500</td>
+    <td>42.6575</td>
+    <td>49.4854</td>
+    <td>-6.8279</td>
+    </tr>
+    <tr class="odd">
+    <td>10</td>
+    <td>0.0550</td>
+    <td>39.9956</td>
+    <td>47.6059</td>
+    <td>-7.6104</td>
+    </tr>
+    <tr class="even">
+    <td>11</td>
+    <td>0.0600</td>
+    <td>37.2450</td>
+    <td>45.6254</td>
+    <td>-8.3805</td>
+    </tr>
+    <tr class="odd">
+    <td>12</td>
+    <td>0.0650</td>
+    <td>34.4089</td>
+    <td>43.5141</td>
+    <td>-9.1052</td>
+    </tr>
+    <tr class="even">
+    <td>13</td>
+    <td>0.0700</td>
+    <td>31.4906</td>
+    <td>41.3069</td>
+    <td>-9.8163</td>
+    </tr>
+    <tr class="odd">
+    <td>14</td>
+    <td>0.0750</td>
+    <td>28.4935</td>
+    <td>39.0064</td>
+    <td>-10.5129</td>
+    </tr>
+    <tr class="even">
+    <td>15</td>
+    <td>0.0800</td>
+    <td>25.4211</td>
+    <td>36.6152</td>
+    <td>-11.1941</td>
+    </tr>
+    <tr class="odd">
+    <td>16</td>
+    <td>0.0850</td>
+    <td>22.2767</td>
+    <td>34.1360</td>
+    <td>-11.8593</td>
+    </tr>
+    <tr class="even">
+    <td>17</td>
+    <td>0.0900</td>
+    <td>19.0640</td>
+    <td>31.5715</td>
+    <td>-12.5075</td>
+    </tr>
+    <tr class="odd">
+    <td>18</td>
+    <td>0.0950</td>
+    <td>15.7866</td>
+    <td>28.9247</td>
+    <td>-13.1381</td>
+    </tr>
+    <tr class="even">
+    <td>19</td>
+    <td>0.1000</td>
+    <td>12.4481</td>
+    <td>26.1984</td>
+    <td>-13.7504</td>
+    </tr>
+    <tr class="odd">
+    <td>20</td>
+    <td>0.1050</td>
+    <td>9.4311</td>
+    <td>23.8103</td>
+    <td>-14.3792</td>
+    </tr>
+    <tr class="even">
+    <td>21</td>
+    <td>0.1100</td>
+    <td>6.7288</td>
+    <td>21.7550</td>
+    <td>-15.0262</td>
+    </tr>
+    <tr class="odd">
+    <td>22</td>
+    <td>0.1150</td>
+    <td>4.3378</td>
+    <td>20.0310</td>
+    <td>-15.6932</td>
+    </tr>
+    <tr class="even">
+    <td>23</td>
+    <td>0.1200</td>
+    <td>2.2589</td>
+    <td>0.0000</td>
+    <td>2.2589</td>
+    </tr>
+    <tr class="odd">
+    <td>24</td>
+    <td>0.1250</td>
+    <td>0.4969</td>
+    <td>17.5924</td>
+    <td>-17.0955</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>Like the sphere seems to be placed at the right spot initially as
+    the signed distance discrepancy is small, but integrating forward
+    creates problems I guess; I don’t really know. I have also tried to
+    replace it with geometry closer to the full model and it runs into
+    the same sort of problems:</p>
+    <p><img src="./ex3_0p5x_processed.gif" style="width:49.5%" /> <img
+    src="./ex4_0p5x_processed.gif" style="width:49.5%" /></p>
+    <p>My best guess is that the MJX version just behaves significantly
+    different from the CPU version.</p>
+    <h2 id="cube-tipping">2.4. Cube Tipping</h2>
+    <p>I am still working on reproducing the results I previously had
+    with the box tipping experiment. However, I do think I will clearly
+    be able to show improvement with the feedback.</p>
+    <h2 id="other-stuff">3. Other Stuff</h2>
+    <p>I think for baselines I could do:</p>
+    <ol type="1">
+    <li>MJPC (deterministic) <span class="citation"
+    data-cites="howell2022predictive"><a
+    href="#ref-howell2022predictive"
+    role="doc-biblioref">[2]</a></span></li>
+    <li>EMPPI <span class="citation" data-cites="abraham2020model"><a
+    href="#ref-abraham2020model"
+    role="doc-biblioref">[1]</a></span></li>
+    <li>PETS-MJX (A variant of PETS, where MJX ensemble is used instead
+    of neural ensemble of models; so basically CEM w/ ensemble) <span
+    class="citation" data-cites="chua2018deep"><a
+    href="#ref-chua2018deep" role="doc-biblioref">[3]</a></span></li>
+    </ol>
+    <p>If I feel ambitious, I could also try to implement <span
+    class="citation" data-cites="shirai2023covariance"><a
+    href="#ref-shirai2023covariance"
+    role="doc-biblioref">[4]</a></span>, but I think it would be way to
+    slow. Another idea is to implement some form of the
+    complementarity-free dynamics <span class="citation"
+    data-cites="jin2024complementarity"><a
+    href="#ref-jin2024complementarity"
+    role="doc-biblioref">[5]</a></span>.</p>
+    <h2 class="unnumbered" id="references">References</h2>
+    <div id="refs" class="references csl-bib-body" role="list">
+    <div id="ref-abraham2020model" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[1] </div><div
+    class="csl-right-inline">I. Abraham, A. Handa, N. Ratliff, K.
+    Lowrey, T. D. Murphey, and D. Fox, <span>“Model-based generalization
+    under parameter uncertainty using path integral control,”</span>
+    <em>IEEE Robotics and Automation Letters</em>, vol. 5, no. 2, pp.
+    2864–2871, 2020.</div>
+    </div>
+    <div id="ref-howell2022predictive" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[2] </div><div
+    class="csl-right-inline">T. Howell, N. Gileadi, S. Tunyasuvunakool,
+    K. Zakka, T. Erez, and Y. Tassa, <span>“Predictive sampling:
+    Real-time behaviour synthesis with mujoco,”</span> <em>arXiv
+    preprint arXiv:2212.00541</em>, 2022.</div>
+    </div>
+    <div id="ref-chua2018deep" class="csl-entry" role="listitem">
+    <div class="csl-left-margin">[3] </div><div
+    class="csl-right-inline">K. Chua, R. Calandra, R. McAllister, and S.
+    Levine, <span>“Deep reinforcement learning in a handful of trials
+    using probabilistic dynamics models,”</span> <em>Advances in neural
+    information processing systems</em>, vol. 31, 2018.</div>
+    </div>
+    <div id="ref-shirai2023covariance" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[4] </div><div
+    class="csl-right-inline">Y. Shirai, D. K. Jha, and A. U.
+    Raghunathan, <span>“Covariance steering for uncertain contact-rich
+    systems,”</span> <em>arXiv preprint arXiv:2303.13382</em>,
+    2023.</div>
+    </div>
+    <div id="ref-jin2024complementarity" class="csl-entry"
+    role="listitem">
+    <div class="csl-left-margin">[5] </div><div
+    class="csl-right-inline">W. Jin, <span>“Complementarity-free
+    multi-contact modeling and optimization for dexterous
+    manipulation,”</span> <em>RSS (to appear)</em>, 2026.</div>
+    </div>
+    </div>
+  </body>
+
+</html>
