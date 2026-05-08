@@ -74,7 +74,7 @@ Like the sphere seems to be placed at the right spot initially as the signed dis
 
 My best guess is that the MJX version just behaves significantly different from the CPU version.
 
-## 2.4. Cube Tipping
+### 2.4. Cube Tipping
 
 I am still working on reproducing the results I previously had with the box tipping experiment. However, I do think I will clearly be able to show improvement with the feedback.
 
