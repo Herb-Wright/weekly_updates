@@ -1,6 +1,6 @@
 ---
 title: Herbie's Weekly Update 🗓️
-date: 2026 June 17
+date: 2026 June 24
 bibliography: 2026-06-24/refs.bib
 link-citations: true
 ---
