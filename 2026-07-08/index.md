@@ -30,3 +30,5 @@ Right now I am working on a visualizer that can help me see how the rollouts dif
 ![Closed loop rollouts on whole control stack + drake](./20260708T184625Z_dairlib_trial309_first4_grid.mp4)
 
 Clearly there are multiple bugs right now. Hoping to figure those out. Especially because judging by the previous videos/pngs, it really seems like I should at least get *something* that looks somewhat okay when running these hyperparameters.
+
+Another clear problem: the solving speed is way too slow (~120 ms) I don't know what made that slow down happen, but it was like ~85 ms before.
