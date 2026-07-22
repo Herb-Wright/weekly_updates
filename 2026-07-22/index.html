@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 July 22</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-meeting" id="toc-last-meeting">1. Last
+        Meeting</a></li>
+        <li><a href="#on-numerical-stability"
+        id="toc-on-numerical-stability">2. On Numerical
+        Stability</a></li>
+        <li><a href="#the-ee-weight" id="toc-the-ee-weight">3. The EE
+        Weight</a></li>
+        <li><a href="#is-there-a-bug-in-tuning-the-hyperparameters"
+        id="toc-is-there-a-bug-in-tuning-the-hyperparameters">4. Is
+        There a Bug in Tuning the Hyperparameters?</a></li>
+        <li><a href="#conclusion" id="toc-conclusion">5.
+        Conclusion</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-meeting">1. Last Meeting</h2>
+    <p>Last meeting we talked about how things seem to be kind of
+    spinning in circles the last few weeks, and talked about what the
+    next steps should be.</p>
+    <p>This time, I tried to explore the numerical stability, EE weight,
+    and the tuning in general. Unfortunately, I fear the same things
+    happened this week as in previous weeks—stuff still isn’t working,
+    and there is probably bugs.</p>
+    <p>I did track down some issues I had previously with timing of the
+    x targets for the PD controller.</p>
+    <h2 id="on-numerical-stability">2. On Numerical Stability</h2>
+    <h3
+    id="comparing-speed-and-accuracy-of-different-cholesky-solvers">2.1.
+    Comparing Speed and Accuracy of Different Cholesky Solvers</h3>
+    <p>Here, I have some speed and accuracy plots for different solving
+    methods using the previous matrices I had given you. Here is the
+    speed plot:</p>
+    <figure>
+    <img src="image-4.png"
+    alt="Speed of different precisions/libraries for solving the equality-constrained QPs via Cholesky solves" />
+    <figcaption aria-hidden="true">Speed of different
+    precisions/libraries for solving the equality-constrained QPs via
+    Cholesky solves</figcaption>
+    </figure>
+    <p>As you can see, float32 methods perform about the same and
+    float64 method perform about uniformly slower. Here are accuracy
+    plots:</p>
+    <figure>
+    <img src="image-3.png"
+    alt="primal and dual residuals for the QP’s I sent you a couple weeks ago." />
+    <figcaption aria-hidden="true">primal and dual residuals for the
+    QP’s I sent you a couple weeks ago.</figcaption>
+    </figure>
+    <p>I guess matrix multiplication (the default version) in JAX is
+    slightly less precise, but there is a flag to turn it to the more
+    precise version. When that flag is flipped, you instead get:</p>
+    <figure>
+    <img src="image-6.png"
+    alt="After setting flag (also decreasing ridge)" />
+    <figcaption aria-hidden="true">After setting flag (also decreasing
+    ridge)</figcaption>
+    </figure>
+    <p>Because of this, I didn’t think there was a real reason to switch
+    to cupy; I can just flip the flag as an env variable.</p>
+    <h3 id="hyperparameters-can-have-large-effects-on-kappa-s">2.2.
+    Hyperparameters can have Large Effects On <span
+    class="math inline">\kappa (S)</span></h3>
+    <p>It should be pretty obvious that different hyperparameters can
+    result in different condition numbers. Here is an example where the
+    two sets are somewhat similar:</p>
+    <table>
+    <thead>
+    <tr>
+    <th>Parameter</th>
+    <th style="text-align: right;">Set 1</th>
+    <th style="text-align: right;">Set 2</th>
+    <th>Change</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td><code>q_obj_pos</code></td>
+    <td style="text-align: right;">100000</td>
+    <td style="text-align: right;">10000</td>
+    <td>×0.1</td>
+    </tr>
+    <tr>
+    <td><code>q_obj_ori</code></td>
+    <td style="text-align: right;">10000</td>
+    <td style="text-align: right;">1000</td>
+    <td>×0.1</td>
+    </tr>
+    <tr>
+    <td><code>q_obj_vel</code></td>
+    <td style="text-align: right;">100</td>
+    <td style="text-align: right;">10</td>
+    <td>×0.1</td>
+    </tr>
+    <tr>
+    <td><code>q_ee_pos</code></td>
+    <td style="text-align: right;">1</td>
+    <td style="text-align: right;">0</td>
+    <td>→ 0</td>
+    </tr>
+    <tr>
+    <td><code>q_ee_vel</code></td>
+    <td style="text-align: right;">1</td>
+    <td style="text-align: right;">10</td>
+    <td>×10</td>
+    </tr>
+    <tr>
+    <td><code>rho_mult</code></td>
+    <td style="text-align: right;">3</td>
+    <td style="text-align: right;">5</td>
+    <td>×1.67</td>
+    </tr>
+    <tr>
+    <td><code>rho_lambda</code></td>
+    <td style="text-align: right;">500</td>
+    <td style="text-align: right;">500</td>
+    <td>—</td>
+    </tr>
+    <tr>
+    <td><code>rho_eta</code></td>
+    <td style="text-align: right;">1</td>
+    <td style="text-align: right;">0.1</td>
+    <td>×0.1</td>
+    </tr>
+    <tr>
+    <td><code>rho_EE_last_iter_mult</code></td>
+    <td style="text-align: right;">10</td>
+    <td style="text-align: right;">10</td>
+    <td>—</td>
+    </tr>
+    <tr>
+    <td><code>rho_x</code></td>
+    <td style="text-align: right;">30</td>
+    <td style="text-align: right;">10</td>
+    <td>×0.33</td>
+    </tr>
+    <tr>
+    <td><code>rho_u</code></td>
+    <td style="text-align: right;">20</td>
+    <td style="text-align: right;">10</td>
+    <td>×0.5</td>
+    </tr>
+    <tr>
+    <td><code>R_val</code></td>
+    <td style="text-align: right;">2</td>
+    <td style="text-align: right;">2</td>
+    <td>—</td>
+    </tr>
+    <tr>
+    <td><code>alpha</code></td>
+    <td style="text-align: right;">1000</td>
+    <td style="text-align: right;">100000</td>
+    <td>×100</td>
+    </tr>
+    <tr>
+    <td><code>kp_ee</code></td>
+    <td style="text-align: right;">11.4</td>
+    <td style="text-align: right;">11.4</td>
+    <td>—</td>
+    </tr>
+    <tr>
+    <td><code>kd_ee</code></td>
+    <td style="text-align: right;">1.14</td>
+    <td style="text-align: right;">1.14</td>
+    <td>—</td>
+    </tr>
+    <tr>
+    <td><code>schur_ridge</code></td>
+    <td style="text-align: right;">1e-07</td>
+    <td style="text-align: right;">1e-07</td>
+    <td>—</td>
+    </tr>
+    </tbody>
+    </table>
+    <p>Then, using these two sets, there is about an order of magnitude
+    difference in the condition number of <span
+    class="math inline">S</span> (pay attention to the y axis
+    values):</p>
+    <figure>
+    <img src="image-1.png"
+    alt="Shur complement condition number from hyperparameter set 1 (16 fixed cases)" />
+    <figcaption aria-hidden="true">Shur complement condition number from
+    hyperparameter set 1 (16 fixed cases)</figcaption>
+    </figure>
+    <p>As shown in the plot, the final shur complement <span
+    class="math inline">S</span> is much better conditioned than the
+    first one.</p>
+    <figure>
+    <img src="image.png"
+    alt="Shur complement condition number from hyperparameter set 2 (16 fixed cases)" />
+    <figcaption aria-hidden="true">Shur complement condition number from
+    hyperparameter set 2 (16 fixed cases)</figcaption>
+    </figure>
+    <p>It is notable that one of the cases above seems to consistently
+    result in a higher condition number than the other cases. Here is a
+    visual of what that case looks like:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="Case with unusually high Shur complement condition number." />
+    <figcaption aria-hidden="true">Case with unusually high Shur
+    complement condition number.</figcaption>
+    </figure>
+    <p>I guess the takeaway here is that having better numerical
+    precision doesn’t necessarily mean things will just work, but more
+    that increasing numerical precision broadens/widens the set of
+    hyperparameters where the algorithm can be reasonably run. How do we
+    know what hyperparameters are the right ones that we want the set to
+    encompass? We can only make educated guesses.</p>
+    <h2 id="the-ee-weight">3. The EE Weight</h2>
+    <p>I was using the end effector weight from dairlib / C3, which was
+    0.057 kg:</p>
+    <figure>
+    <img src="./image%20(6).png" alt="EE weight in dairlib" />
+    <figcaption aria-hidden="true">EE weight in dairlib</figcaption>
+    </figure>
+    <p>However, I decided to try to run some optuna trials with an EE
+    weight of 2 kg to see if that would help, but it didn’t seem to that
+    much.</p>
+    <h2 id="is-there-a-bug-in-tuning-the-hyperparameters">4. Is There a
+    Bug in Tuning the Hyperparameters?</h2>
+    <p>One thing that should be true of hyperparameters is that, for the
+    ADMM solve, the method both (a) thinks that a solution has been
+    found and (b) has low dynamics error (constraint satisfaction). I
+    decided to make a plot to see if I could devise a metric to measure
+    this:</p>
+    <figure>
+    <img src="image-5.png" alt="Scatterplot TODO: explain" />
+    <figcaption aria-hidden="true">Scatterplot <em>TODO:
+    explain</em></figcaption>
+    </figure>
+    <p>What you are looking at is 100 different optuna trials from a
+    tuning session, where I measured both success (improvement) and
+    dynamic consistency. Then, I cooked up a function that aimed to
+    measure consistency-weighted improvement that is the color in the
+    plot above. I thought it maybe does a good job at capturing what we
+    want during hyperparameter tuning, but I must’ve been mistaken,
+    because when I ran optuna, it was not able to find very good
+    hyperparameters, even when including this new metric as the dominant
+    cost.</p>
+    <p>Perhaps I have an underlying bug somewhere; I decided to just run
+    a sanity check with what I thought were reasonable
+    hyperparameters:</p>
+    <div class="sourceCode" id="cb1"><pre
+    class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;q_obj_pos&quot;</span><span class="fu">:</span> <span class="dv">100000</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;q_obj_ori&quot;</span><span class="fu">:</span> <span class="dv">10000</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;q_obj_vel&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;q_ee_pos&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;q_ee_vel&quot;</span><span class="fu">:</span> <span class="dv">100</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rho_mult&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rho_lambda&quot;</span><span class="fu">:</span> <span class="dv">1000</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rho_eta&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rho_EE_last_iter_mult&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">,</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rho_x&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;rho_u&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">,</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;R_val&quot;</span><span class="fu">:</span> <span class="dv">10</span><span class="fu">,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;alpha&quot;</span><span class="fu">:</span> <span class="dv">1000</span><span class="fu">,</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;kp_ee&quot;</span><span class="fu">:</span> <span class="fl">11.4</span><span class="fu">,</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;kd_ee&quot;</span><span class="fu">:</span> <span class="fl">1.14</span><span class="fu">,</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;schur_ridge&quot;</span><span class="fu">:</span> <span class="dv">1e-07</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+    <p>The “sanity check” did not actually seem that sane. In fact,
+    there is the closed loop rollouts from these hyperparameters:</p>
+    <figure>
+    <video
+    src="./20260722T042500Z_custom_hparams_f32_ridge1e-7_mass057_beta30_arctic_pd_mujoco_closed_loop_16cases_grid.mp4"
+    controls=""><a
+    href="./20260722T042500Z_custom_hparams_f32_ridge1e-7_mass057_beta30_arctic_pd_mujoco_closed_loop_16cases_grid.mp4">Closed
+    loop rollouts from the heuristic hyperparameters. Seems somewhat
+    normal at the beginning, then large oscillations happen.</a></video>
+    <figcaption aria-hidden="true">Closed loop rollouts from the
+    heuristic hyperparameters. Seems somewhat normal at the beginning,
+    then large oscillations happen.</figcaption>
+    </figure>
+    <p>I think this either suggests a bug or some sort of instability in
+    the method. Specifically, in the video there is this giant
+    oscillation where the predicted MPC trajectories start
+    <em>increasingly</em> further from the EE. Either this is due to a
+    crazy LCS forward simulation at t=0→1 (remember my method does an
+    LCS sim step <em>before</em> ADMM), or there is some bug. I haven’t
+    had much time to really get to the bottom of this.</p>
+    <h2 id="conclusion">5. Conclusion</h2>
+    <p>Overall, I think that there is likely something wrong with the
+    method/implementation—either numerical stability, a bug, or
+    something else. One of the things that makes it hard, is that there
+    is a bit of a chicken-and-the-egg problem: In order to find decent
+    hyperparameters, I kind of need to have the implementation be
+    bug-free and working, but in order to debug effectively, I kind of
+    need decent hyperparameters. Without either, it feels like I am
+    half-way shooting in the dark.</p>
+    <p>That being said, I think I want to take my “reasonable”
+    hyperparameters and see if I can debug as much as possible. Right
+    now they seem to be breaking my Mujoco code and I want to try to
+    understand why. Hopefully it is not just that the hyperparameters
+    are unreasonable, but that it uncovers a critical bug or something
+    that I can fix.</p>
+  </body>
+
+</html>
