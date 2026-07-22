@@ -113,6 +113,10 @@ The "sanity check" did not actually seem that sane. In fact, there is the closed
 
 I think this either suggests a bug or some sort of instability in the method. Specifically, in the video there is this giant oscillation where the predicted MPC trajectories start *increasingly* further from the EE. Either this is due to a crazy LCS forward simulation at t=0→1 (remember my method does an LCS sim step *before* ADMM), or there is some bug. I haven't had much time to really get to the bottom of this.
 
+P.S. Here is those hyperparameters with the ADMM mp4:
+
+![ADMM mp4](./20260722T042500Z_custom_hparams_f32_ridge1e-7_mass057_beta30_admm_iteration_16cases.mp4)
+
 ## 5. Conclusion
 
 Overall, I think that there is likely something wrong with the method/implementation—either numerical stability, a bug, or something else. One of the things that makes it hard, is that there is a bit of a chicken-and-the-egg problem: In order to find decent hyperparameters, I kind of need to have the implementation be bug-free and working, but in order to debug effectively, I kind of need decent hyperparameters. Without either, it feels like I am half-way shooting in the dark.
