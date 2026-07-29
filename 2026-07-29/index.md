@@ -8,6 +8,7 @@ link-citations: true
 
 ## 1. Last Time
 
+Last time was async and I mentioned trying to take reasonable hyperparameters and transfer them over, so that is what I did this week. I also tried to track down and fix bugs.
 
 ## 2. New Hyperparameters
 
