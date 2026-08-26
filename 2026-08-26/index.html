@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 150pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 August 26</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#c3-vs-arctic-in-simulation-i"
+        id="toc-c3-vs-arctic-in-simulation-i">2. C3 vs ARCtIC in
+        Simulation I</a></li>
+        <li><a href="#c3-vs-arctic-in-simulation-ii"
+        id="toc-c3-vs-arctic-in-simulation-ii">3. C3 vs ARCtIC in
+        Simulation II</a></li>
+        <li><a href="#towards-understanding-uncertainty"
+        id="toc-towards-understanding-uncertainty">4. Towards
+        Understanding Uncertainty</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time was a while ago, but I was still struggling to get my
+    method to work well in the push anything stack. In the past few
+    weeks I have made significant progress. I detail the last week and a
+    half or so here.</p>
+    <h2 id="c3-vs-arctic-in-simulation-i">2. C3 vs ARCtIC in Simulation
+    I</h2>
+    <figure>
+    <img src="image.png"
+    alt="ARCtIC vs C3 after some tuning, debugging, etc. in simulation" />
+    <figcaption aria-hidden="true">ARCtIC vs C3 after some tuning,
+    debugging, etc. in simulation</figcaption>
+    </figure>
+    <p>Here are the results from this run:</p>
+    <figure>
+    <img src="image-2.png"
+    alt="The actual final positions of each config" />
+    <figcaption aria-hidden="true">The actual final positions of each
+    config</figcaption>
+    </figure>
+    <p>I was able to identify a few problems from looking at the
+    diagnostics. Overally, ARCtIC tended to leave pushes too early. I
+    changed the hysteresis parameters and also updated the logic for
+    continuing a push past 16 MPC iterations:</p>
+    <figure>
+    <img src="image-10.png" alt="Update to continuation logic" />
+    <figcaption aria-hidden="true">Update to continuation
+    logic</figcaption>
+    </figure>
+    <h2 id="c3-vs-arctic-in-simulation-ii">3. C3 vs ARCtIC in Simulation
+    II</h2>
+    <p>After debugging and making some fixes, I decided to do a larger,
+    50-config experiment between the two of them. These were the 50
+    configs I used, in one big collage:</p>
+    <figure>
+    <img src="image-5.png" alt="50 configs for the experiment" />
+    <figcaption aria-hidden="true">50 configs for the
+    experiment</figcaption>
+    </figure>
+    <p>Then, here are the results:</p>
+    <figure>
+    <img src="image-3.png" alt="Bar plot of second experiment" />
+    <figcaption aria-hidden="true">Bar plot of second
+    experiment</figcaption>
+    </figure>
+    <p>As you can see, my method actually does better than C3 here.
+    That’s good news! You can even plot the average letter pose error
+    over time between the methods and get this:</p>
+    <figure>
+    <img src="image-4.png"
+    alt="Mean pose error over time during trial (C3 vs ARCtIC)" />
+    <figcaption aria-hidden="true">Mean pose error over time during
+    trial (C3 vs ARCtIC)</figcaption>
+    </figure>
+    <p>For completeness sake, I figured I should also show the actual
+    experiments. Here is a video of the first third of the trials; sped
+    up to like 50x speed:</p>
+    <figure>
+    <video
+    src="./20260820T223111Z_c3po_always_pose_admm_optuna_best_ridge1e-7_eevellim_hyst2x_r069_tuned50_rt1_c3_vs_arctic_sidebyside_all50_first10min_5x.mp4"
+    controls=""><a
+    href="./20260820T223111Z_c3po_always_pose_admm_optuna_best_ridge1e-7_eevellim_hyst2x_r069_tuned50_rt1_c3_vs_arctic_sidebyside_all50_first10min_5x.mp4">First
+    third of trials at 50x speed</a></video>
+    <figcaption aria-hidden="true">First third of trials at 50x
+    speed</figcaption>
+    </figure>
+    <p>However, it is not all good news. Despite having a lower success
+    rate compared to ARCtIC at each tolerance, C3 did seem to be faster
+    when it came to time-to-goal among configs where both methods were
+    successful:</p>
+    <figure>
+    <img src="image-6.png"
+    alt="Box-and-whiskers plot for time-to-goal on both-success configs" />
+    <figcaption aria-hidden="true">Box-and-whiskers plot for
+    time-to-goal on both-success configs</figcaption>
+    </figure>
+    <p>Here are some other differences between the runs:</p>
+    <figure>
+    <img src="image-7.png" alt="Differences between C3 and ARCtIC" />
+    <figcaption aria-hidden="true">Differences between C3 and
+    ARCtIC</figcaption>
+    </figure>
+    <p>It did seem like ARCtIC resulted in shorter pushes, but during
+    the seconds of the push, performed better than C3:</p>
+    <figure>
+    <img src="image-8.png"
+    alt="Push improvement over time of the push. lines stop at median push length." />
+    <figcaption aria-hidden="true">Push improvement over time of the
+    push. lines stop at median push length.</figcaption>
+    </figure>
+    <p>The main reason for the shorter pushes is that the sampling C3
+    controller first potentially aborts due to no progress after 16 MPC
+    iterations, not a specific amount of elapsed time. Because C3 runs
+    at a slower rate, it takes longer to get through those 16 MPC
+    iterations. The pushes are actually quite widely distributed; here
+    is a plot of just 100 pushes per method, so you can see the
+    spread:</p>
+    <figure>
+    <img src="image-9.png" alt="100 random pushes per method" />
+    <figcaption aria-hidden="true">100 random pushes per
+    method</figcaption>
+    </figure>
+    <h2 id="towards-understanding-uncertainty">4. Towards Understanding
+    Uncertainty</h2>
+    <p>I wanted to start doing a bit of looking into the effect of
+    uncertainty. I grabbed 200 random pushes from a previous experiment
+    and tracked the improvement on them as a metric. The first thing I
+    did was to try to optimize for the right <span
+    class="math inline">\alpha</span> and uncertainty distribution. Here
+    is a plot of some different values:</p>
+    <figure>
+    <img src="image-11.png" alt="Alpha/uncertainty tuning" />
+    <figcaption aria-hidden="true">Alpha/uncertainty tuning</figcaption>
+    </figure>
+    <p>Once I settled on a value, I tried varying the drake model
+    object-ground friction parameter, and got this:</p>
+    <figure>
+    <img src="image-12.png" alt="Changing the friction model" />
+    <figcaption aria-hidden="true">Changing the friction
+    model</figcaption>
+    </figure>
+    <p>Not that strong of results here, but it is all quite
+    preliminary.</p>
+    <p>I decided to run a quick 20-config experiment using C3, my
+    method, no feedback, and no uncertainty. Here are the results:</p>
+    <figure>
+    <img src="image-13.png" alt="Results from 20 config experiment." />
+    <figcaption aria-hidden="true">Results from 20 config
+    experiment.</figcaption>
+    </figure>
+  </body>
+
+</html>
