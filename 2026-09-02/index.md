@@ -1,6 +1,6 @@
 ---
 title: Herbie's Weekly Update 🗓️
-date: 2026 August 26
+date: 2026 September 2
 link-citations: true
 ---
 
