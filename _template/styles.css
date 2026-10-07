@@ -72,7 +72,7 @@ p {
 }
 
 img {
-    max-height: 350px;
+    max-height: 400px;
     max-width: 100%;
 }
 
@@ -381,7 +381,7 @@ div.csl-indent {
 
     img {
         max-width: 100% !important;
-        max-height: 150pt;
+        max-height: 200pt;
     }
 
     p, h2, h3 {
@@ -396,6 +396,14 @@ div.csl-indent {
     h1, h2, h3, h4, h5, h6 {
         margin-top: 1.25em;
         margin-bottom: 0.5em;
+    }
+    
+    h2 {
+        margin-top: 2.5em;
+    }
+
+    h3 {
+        margin-top: 2em;
     }
 
     p, li, #refs {

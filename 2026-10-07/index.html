@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+            <title>Herbie’s Weekly Update 🗓️</title>
+  <style>
+    /*
+     * I add this to html files generated with pandoc.
+     */
+
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+     html {
+        font-size: 100%;
+        overflow-y: scroll;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 450;
+        font-size: 12px;
+        line-height: 1.7;
+        padding: 1em;
+        margin: auto;
+        max-width: 800px;
+        background: #fefefe;
+        padding-bottom: 10rem;
+        text-align: justify;
+    }
+
+    a {
+        color: #0645ad;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #0b0080;
+    }
+
+    a:hover {
+        color: #06e;
+    }
+
+    a:active {
+        color: #faa700;
+    }
+
+    a:focus {
+        outline: thin dotted;
+    }
+
+    *::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    *::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #000;
+    }
+
+    a::-moz-selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    a::selection {
+        background: rgba(255, 255, 0, 0.3);
+        color: #0645ad;
+    }
+
+    p {
+        margin: 1em 0;
+    }
+
+    img {
+        max-height: 400px;
+        max-width: 100%;
+    }
+
+    video {
+        max-height: 350px;
+        max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #111;
+        line-height: 125%;
+        margin-top: 2em;
+        font-weight: normal;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 250;
+
+    }
+
+    h4, h5, h6 {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 2.25em;
+        text-decoration: dotted underline;
+    }
+
+    h2 {
+        font-size: 1.875em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    h4 {
+        font-size: 1.25em;
+    }
+
+    h5 {
+        font-size: 1em;
+    }
+
+    h6 {
+        font-size: 0.9em;
+    }
+
+    blockquote {
+        color: #666666;
+        margin: 0;
+        padding-left: 3em;
+        border-left: 0.5em #EEE solid;
+    }
+
+    hr {
+        display: block;
+        height: 2px;
+        border: 0;
+        border-top: 1px solid #aaa;
+        border-bottom: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    pre, code, kbd, samp {
+        color: #111;
+        font-family: Consolas, monospace, monospace;
+        _font-family: 'courier new', monospace;
+        font-size: 0.98em;
+        background-color: #f2f1f1;
+        padding: 0.2em;
+        border-radius: 0.25em;
+    }
+
+    pre {
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    b, strong {
+        font-weight: bold;
+    }
+
+    dfn {
+        font-style: italic;
+    }
+
+    ins {
+        background: #ff9;
+        color: #000;
+        text-decoration: none;
+    }
+
+    mark {
+        background: #ff0;
+        color: #000;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    sub, sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul, ol {
+        margin: 1em 0;
+        padding: 0 0 0 2em;
+    }
+
+    li {
+        margin-bottom: 0.25em;
+    }
+
+    li:last-child p:last-child {
+        margin-bottom: 0;
+    }
+
+    ul ul, ol ol {
+        margin: 0;
+    }
+
+    dl {
+        margin-bottom: 1em;
+    }
+
+    dt {
+        font-weight: bold;
+        margin-bottom: .8em;
+    }
+
+    dd {
+        margin: 0 0 .8em 2em;
+    }
+
+    dd:last-child {
+        margin-bottom: 0;
+    }
+
+    img {
+        border: 0;
+        -ms-interpolation-mode: bicubic;
+        vertical-align: middle;
+    }
+
+    figure {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    figure img {
+        border: none;
+        margin: 0 auto;
+    }
+
+    figcaption {
+        font-size: 0.8em;
+        font-style: italic;
+        margin: 0 0 .8em;
+    }
+
+    table {
+        margin-bottom: 2em;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    table th {
+        padding: .2em 1em;
+        background-color: #eee;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+    }
+
+    table td {
+        padding: .2em 1em;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .author {
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    span.display {
+        overflow: auto;
+        max-width: 100%;
+        display: block;
+    }
+
+    #title-block-header {
+        text-align: left;
+        margin-bottom: 4em;
+    }
+
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  
+
+    @media only screen and (min-width: 480px) {
+        body {
+            font-size: 14px;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    @media print {
+        * {
+            background: transparent !important;
+            filter: none !important;
+            -ms-filter: none !important;
+        }
+
+        body {
+            font-size: 9pt;
+            line-height: 1.5;
+            max-width: 100%;
+            padding-bottom: 0pt;
+            color: black;
+        }
+
+        /* a, a:visited {
+            text-decoration: underline;
+        } */
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-bottom: 1px solid black;
+        }
+
+        /* a[href]:after {
+            content: " (" attr(href) ")";
+        } */
+    /* 
+        a {
+            color: var(--sky-800);
+        } */
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        video {
+            display: none;
+        }
+
+        video + figcaption::before {
+            content: "[Video not available in print/pdf] \A";
+            display: block;
+            margin-top: 0.5em;
+            font-size: 9pt;
+            color: #666;
+            font-style: italic;
+        }
+
+        .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+            content: "";
+        }
+
+        pre, blockquote {
+            border: 1px solid #999;
+            padding-right: 1em;
+            page-break-inside: avoid;
+        }
+
+        tr, img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+            max-height: 200pt;
+        }
+
+        p, h2, h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2, h3 {
+            page-break-after: avoid;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-top: 1.25em;
+            margin-bottom: 0.5em;
+        }
+        
+        h2 {
+            margin-top: 2.5em;
+        }
+
+        h3 {
+            margin-top: 2em;
+        }
+
+        p, li, #refs {
+            margin: 0.5em 0;
+            font-size: 11pt;
+        }
+
+        li {
+            margin-top: 0em;
+            margin-bottom: 0.25em;
+        }
+
+        .printIgnore, #TOC  {
+            display: none;
+        }
+
+        table {
+            border: 1pt solid #444;
+            /* border-right: 1pt solid #444; */
+        }
+        
+        table th {
+            /* border-top: 1pt solid #444; */
+            border: 1pt solid #444;
+        }
+        
+        table td {
+            /* border-top: 1pt solid #444;
+            border-left: 1pt solid #444; */
+            border-top: none;
+            /* border-bottom: none; */
+            border-left: 1pt solid #444;
+        }
+
+        span.display {
+            overflow: visible;
+        }
+    }
+
+    @page {
+        /* Set the margin for the physical piece of paper */
+        /* margin: 1in;  */
+        margin: 2cm;
+        
+        /* Optional: Set paper size if you know it's always A4 or Letter */
+        /* size: Letter; */
+    }
+
+
+    pre > code.sourceCode { white-space: pre; position: relative; }
+        pre > code.sourceCode > span { line-height: 1.25; }
+        pre > code.sourceCode > span:empty { height: 1.2em; }
+        .sourceCode { overflow: visible; }
+        code.sourceCode > span { color: inherit; text-decoration: inherit; }
+        div.sourceCode { margin: 1em 0; }
+        pre.sourceCode { margin: 0; }
+        @media screen {
+        div.sourceCode { overflow: auto; }
+        }
+        @media print {
+        pre > code.sourceCode { white-space: pre-wrap; }
+        pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+        }
+        pre.numberSource code
+          { counter-reset: source-line 0; }
+        pre.numberSource code > span
+          { position: relative; left: -4em; counter-increment: source-line; }
+        pre.numberSource code > span > a:first-child::before
+          { content: counter(source-line);
+            position: relative; left: -1em; text-align: right; vertical-align: baseline;
+            border: none; display: inline-block;
+            -webkit-touch-callout: none; -webkit-user-select: none;
+            -khtml-user-select: none; -moz-user-select: none;
+            -ms-user-select: none; user-select: none;
+            padding: 0 4px; width: 4em;
+            background-color: #ffffff;
+            color: #a0a0a0;
+          }
+        pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0;  padding-left: 4px; }
+        div.sourceCode
+          { color: #1f1c1b; background-color: #ffffff; }
+        @media screen {
+        pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        }
+        code span { color: #1f1c1b; } /* Normal */
+        code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+        code span.an { color: #ca60ca; } /* Annotation */
+        code span.at { color: #0057ae; } /* Attribute */
+        code span.bn { color: #b08000; } /* BaseN */
+        code span.bu { color: #644a9b; font-weight: bold; } /* BuiltIn */
+        code span.cf { color: #1f1c1b; font-weight: bold; } /* ControlFlow */
+        code span.ch { color: #924c9d; } /* Char */
+        code span.cn { color: #aa5500; } /* Constant */
+        code span.co { color: #898887; } /* Comment */
+        code span.cv { color: #0095ff; } /* CommentVar */
+        code span.do { color: #607880; } /* Documentation */
+        code span.dt { color: #0057ae; } /* DataType */
+        code span.dv { color: #b08000; } /* DecVal */
+        code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+        code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+        code span.fl { color: #b08000; } /* Float */
+        code span.fu { color: #644a9b; } /* Function */
+        code span.im { color: #ff5500; } /* Import */
+        code span.in { color: #b08000; } /* Information */
+        code span.kw { color: #1f1c1b; font-weight: bold; } /* Keyword */
+        code span.op { color: #1f1c1b; } /* Operator */
+        code span.ot { color: #006e28; } /* Other */
+        code span.pp { color: #006e28; } /* Preprocessor */
+        code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+        code span.sc { color: #3daee9; } /* SpecialChar */
+        code span.ss { color: #ff5500; } /* SpecialString */
+        code span.st { color: #bf0303; } /* String */
+        code span.va { color: #0057ae; } /* Variable */
+        code span.vs { color: #bf0303; } /* VerbatimString */
+        code span.wa { color: #bf0303; } /* Warning */  </style>
+    <link rel="stylesheet" href="_template/styles.css" />
+      <script defer=""
+    src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+    var mathElements = document.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+      katex.render(texText.data, mathElements[i], {
+        displayMode: mathElements[i].classList.contains('display'),
+        throwOnError: false,
+        macros: macros,
+        fleqn: false
+      });
+    }}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+      <header id="title-block-header">
+        <h1 class="title">Herbie’s Weekly Update 🗓️</h1>
+                <p class="date">2026 October 7</p>
+          </header>
+      <nav id="TOC" role="doc-toc">
+        <ul>
+        <li><a href="#last-time" id="toc-last-time">1. Last
+        Time</a></li>
+        <li><a href="#uncertainty-and-ee-cost-scoring"
+        id="toc-uncertainty-and-ee-cost-scoring">2. Uncertainty and EE
+        Cost Scoring</a></li>
+        <li><a href="#the-big-experiment" id="toc-the-big-experiment">3.
+        The Big Experiment</a></li>
+        <li><a href="#push-t" id="toc-push-t">4. Push “T”</a></li>
+        <li><a href="#other-stuff" id="toc-other-stuff">5. Other
+        Stuff</a></li>
+        </ul>
+  </nav>
+    <h2 id="last-time">1. Last Time</h2>
+    <p>Last time was before IROS and we talked about a couple things.
+    Firstly, we talked about investigating how the uncertainty impacts
+    cost scoring. Secondly, we talked about potentially just running a
+    giant experiment and letting it go. Thirdly, we discussed the
+    lecture that I was going to give (which I have since given).</p>
+    <p>The past few weeks, I have been pretty busy with other stuff, so
+    have mostly just had time to run experiments in the background, but
+    the results continue to be undesirable. I also pivoted to testing on
+    push “T”, which I detail as well. Finally, I briefly mention a few
+    of the other things that I have going on.</p>
+    <p><strong>Quick Note:</strong> <em>There was an experiment last
+    time where the ARCtIC-D results were invalid, and I said I would
+    finish it. I did and ARCtIC-D performed comparably with ARCtIC (only
+    perhaps slightly worse), and better than ARCtIC-NF.</em></p>
+    <h2 id="uncertainty-and-ee-cost-scoring">2. Uncertainty and EE Cost
+    Scoring</h2>
+    <p>The first thing I did was investigate how uncertainty affects the
+    EE sample scoring. The first thing I did was run ADMM with both
+    ARCtIC and ARCtIC-D, then, on a handful of EE samples, score how
+    good each one did according to the ensembled cost and nominal cost.
+    Here are the results:</p>
+    <figure>
+    <img src="image.png"
+    alt="Uncertainty and costs; comparing ARCtIC vs ARCtIC-D plans on stochastic vs nominal costs shows that ARCtIC has slightly better performance on both metrics" />
+    <figcaption aria-hidden="true">Uncertainty and costs; comparing
+    ARCtIC vs ARCtIC-D plans on stochastic vs nominal costs shows that
+    ARCtIC has slightly better performance on both metrics</figcaption>
+    </figure>
+    <p>ARCtIC was slightly better than the determinstic version, but it
+    was <em>very</em> slight and I wouldn’t think it would be easy to
+    see this propogate to success rates. Next, I have a plot looking at
+    how that effect changes over alpha:</p>
+    <figure>
+    <img src="image-1.png"
+    alt="Uncertainty and cost again; similar conclusion, but it changes with alpha" />
+    <figcaption aria-hidden="true">Uncertainty and cost again; similar
+    conclusion, but it changes with alpha</figcaption>
+    </figure>
+    <p>We see a similar story here for <span class="math inline">\alpha
+    &gt; 0.1</span>. In this case, high alpha seems to be worse. The
+    other thing to note is that the two costs correlate extremely
+    strongly (99%), meaning that it probably doesn’t matter which cost
+    is used in practice. It is also seen that ARCtIC tends to do more
+    better than ARCtIC-D when evaluated on the randomized cost compared
+    to the deterministic cost. Altogether, if we were relying on the
+    cost with the ensemble to be the one that differentiates the
+    deterministic and uncertainty-aware variants, we may be out of
+    luck—at least with this current setup (and hyperparameters).</p>
+    <p><strong>Takeaway:</strong> <em>While the uncertainty sampling
+    produces a slightly better control plan, it is so slight that it
+    probably won’t show up in success rates.</em></p>
+    <h2 id="the-big-experiment">3. The Big Experiment</h2>
+    <p>Next, I decided to run a big experimental pipeline. It had a few
+    stages, but the idea was (1) do a small experiment to select the
+    right <span class="math inline">\alpha</span>; (2) run a big 0.8x
+    shape size push anything experiment; and (3) run a big <span
+    class="math inline">\mu = 0.9</span> friction experiment. This
+    section goes over the counterintuitive findings, including an effort
+    and potential failure on my part to reproduce findings from the
+    beginning experiments later.</p>
+    <h3 id="alpha-results">3.1 Alpha Results</h3>
+    <p>The first bit of the experiment was to do the small alpha sweep
+    to determine what that parameter should be. Here are the
+    results:</p>
+    <figure>
+    <img src="image-2.png" alt="Alpha results" />
+    <figcaption aria-hidden="true">Alpha results</figcaption>
+    </figure>
+    <p>As you can see, the shape and friction experiments seemed to
+    suggest different things. In this experiment, <strong>0.8x shape
+    seems to prefer low alpha, and 0.9 friction seems to prefer high
+    alpha.</strong> This will turn out to be hard to reproduce.</p>
+    <p>I have since done a failure analysis of these results:</p>
+    <figure>
+    <img src="image-8.png" alt="Failure analysis (conducted today)" />
+    <figcaption aria-hidden="true">Failure analysis (conducted
+    today)</figcaption>
+    </figure>
+    <p>The takeaway from this is that high friction is very susceptible
+    to flips for low alpha, whereas with shape, high alpha tends to get
+    stuck or run out of time more.</p>
+    <h3 id="shape-and-friction-uncertainty">3.2 Shape and Friction
+    Uncertainty</h3>
+    <p>Next I decided to run the shape and friction parts of the
+    pipeline. Because there was a bug in the original launch, I had to
+    change <span class="math inline">N=100</span> to <span
+    class="math inline">N=50</span> so it would finish in time. Here are
+    the results from both of those experiments:</p>
+    <figure>
+    <img src="image-3.png"
+    alt="Full shape and friction results. Note that in the friction experiment, ARCtIC-NF did not finish" />
+    <figcaption aria-hidden="true">Full shape and friction results. Note
+    that in the friction experiment, ARCtIC-NF did not
+    finish</figcaption>
+    </figure>
+    <p>This was not good news, because it seemed to contradict the alpha
+    evidence from the first experiment (remember ARCtIC-NF is just
+    ARCtIC with very high alpha). Specifically, <strong>the shape
+    experiment found that high alpha was better, and the friction
+    experiment found that low alpha was better</strong>, and that the
+    deterministic version was best.</p>
+    <p>I also have since run failure analysis on these results:</p>
+    <figure>
+    <img src="image-7.png"
+    alt="Failure analysis for these results (conducted today)" />
+    <figcaption aria-hidden="true">Failure analysis for these results
+    (conducted today)</figcaption>
+    </figure>
+    <p>In these results, ARCtIC-NF might’ve simply got lucky, but at
+    such a low <span class="math inline">N</span>—even though it still
+    takes hours to complete an experiment—it is hard to get out of
+    statistical noise. It also seemed like, with friction, that alpha
+    created more stuck/time failures, which does not bode well.</p>
+    <p>I do think the failures specifically have some things that could
+    be cleaned up:</p>
+    <p><strong>Note:</strong> <em>I think I should spend time to reduce
+    the “latch” and “flip” failures, as “stuck/time” seems to be the
+    thing we are after here.</em></p>
+    <h3 id="repeatability-run">3.3 Repeatability Run</h3>
+    <p>Because these results seemed to contradict each other, I tried a
+    quick reproducability test. My first trial at this accidentally
+    reverted to the original OSC setting, but I was able to get one run
+    off for <span class="math inline">\alpha=0.1</span>, and it was lack
+    luster. Here are the results:</p>
+    <figure>
+    <img src="image-4.png"
+    alt="I tried to repeat the alpha results, but my first attempt at repeating had a bug. Still, after fixing, I was not able to repeat." />
+    <figcaption aria-hidden="true">I tried to repeat the alpha results,
+    but my first attempt at repeating had a bug. Still, after fixing, I
+    was not able to repeat.</figcaption>
+    </figure>
+    <p>The reproducibility run went from 16/20 tight and 17/20 loose to
+    12/20 tight and 14/20 loose, which is a drop, but also could just be
+    statistical noise. This all made me very frustrated, so I decided to
+    strip things down and focus on just one object pushing.</p>
+    <h2 id="push-t">4. Push “T”</h2>
+    <p>Next I tried to just get some results with single-object pushing
+    to see if I could make sense of what was going on. I decided that
+    since it was much faster, I could kind of do an optuna run, so I did
+    that to come up with a different set of hyperparameters.
+    Interestingly, this predicted a very low <span
+    class="math inline">\alpha \approx 0.003</span>. Then, I ran some
+    trials with a 60 s time limit. Those results looked good, so I
+    decided to do a 100 s time limit (with a lower EE <span
+    class="math inline">z</span> height to mitigate flips), but in my
+    opinion the results were non-conclusive. Here are the success rates
+    for the 1x and 0.9x versions:</p>
+    <figure>
+    <img src="image-5.png"
+    alt="Preliminary nominal shape and 0.9x push “T” results (success rate)" />
+    <figcaption aria-hidden="true">Preliminary nominal shape and 0.9x
+    push “T” results (success rate)</figcaption>
+    </figure>
+    <p><strong>Note:</strong> <em>I think C3 performing poorly has to do
+    with the push continuation logic and the fact it is running at a
+    higher Hz.</em></p>
+    <p>All ARCtIC variants had high success rates. ARCtIC seemed to
+    tentatively do best, but I don’t know if I would expect that to hold
+    as strongly as <span class="math inline">N\to\infty</span>. The
+    time-to-goal (among successes) was less conclusive. Here is a KDE of
+    the first <span class="math inline">N=100</span> and second <span
+    class="math inline">N=100</span> experiments:</p>
+    <figure>
+    <img src="image-6.png" alt="Time to goal results." />
+    <figcaption aria-hidden="true">Time to goal results.</figcaption>
+    </figure>
+    <p>The order of which method is fastest flips. In the first
+    experiment, ARCtIC is the fastest (by mean), while in the second,
+    ARCtIC is the slowest. Why would increasing the time budget from 60
+    to 100 s and making the EE lower enact this change? I don’t
+    know.</p>
+    <p>Overall, I still would like to dig in and try to come up with a
+    <em>mechanistic understanding</em> for how including the
+    uncertainty-awareness can help improve this pushing task. I could
+    just send it and run a big experiment, but I have no confidence that
+    that will work unless there is some sort of understanding for what
+    should happen. I think that high-volume push “T” experiments in sim
+    might be okay, and then the real world can be a proof-of-concept
+    that my method handles 4 object pushing in the real world. I also
+    feel like just a regroup for my brain might be worthwhile.</p>
+    <h2 id="other-stuff">5. Other Stuff</h2>
+    <p>The things that have been keeping me busy:</p>
+    <ol type="1">
+    <li>Lecture last Tuesday — <a
+    href="./stochastic_and_robust_control_presentation.pdf">annotated
+    slides (also on canvas)</a></li>
+    <li>I had my first homework in ESE 618 due last week</li>
+    <li>I had my project proposal for ESE 618 due as well — <a
+    href="./ESE_618_Project_Proposal-2.pdf">PAC-Bayes for IL</a></li>
+    </ol>
+  </body>
+
+</html>
